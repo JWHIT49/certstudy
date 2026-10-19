@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "id": "ab-400",
+  "code": "AB-400",
+  "order": 10,
+  "title": "Extending Microsoft Power Platform Solutions with Code and AI",
+  "short": "Power Platform Developer Associate",
+  "vendor": "Microsoft",
+  "version": "2026.10.19",
+  "updated": "2026-10-19",
+  "accent": "#0f6cbd",
+  "description": "Study guide, 88-skill tracker and a 60-question practice exam for the AB-400 exam that replaced PL-400 on Oct 16, 2026.",
+  "disclaimer": "Original study material and practice questions based on public Microsoft documentation. Not Microsoft exam content; the real exam may differ.",
+  "domains": [
+    {
+      "id": 1,
+      "name": "Build Microsoft Power Platform solutions",
+      "short": "Solutions",
+      "weight": "15-20%"
+    },
+    {
+      "id": 2,
+      "name": "Extend the user experience",
+      "short": "User experience",
+      "weight": "25-30%"
+    },
+    {
+      "id": 3,
+      "name": "Extend Microsoft Power Platform",
+      "short": "Platform",
+      "weight": "35-40%"
+    },
+    {
+      "id": 4,
+      "name": "Develop integrations",
+      "short": "Integrations",
+      "weight": "10-15%"
+    }
+  ],
+  "examInfo": [
+    {
+      "label": "Passing score",
+      "value": "700 on a 1,000-point scaled score"
+    },
+    {
+      "label": "Questions",
+      "value": "Not published per exam; most Microsoft exams have 40-60"
+    },
+    {
+      "label": "Time",
+      "value": "100 minutes exam time (120 with labs) - standard for associate exams"
+    },
+    {
+      "label": "Language",
+      "value": "English only at launch"
+    },
+    {
+      "label": "Delivery",
+      "value": "Pearson VUE: online (OnVUE) or test center"
+    },
+    {
+      "label": "Retakes",
+      "value": "24 h after the first fail, then 14 days; max 5 in 12 months"
+    },
+    {
+      "label": "Renewal",
+      "value": "Free, open-book assessment on Microsoft Learn; window opens 6 months before expiry"
+    },
+    {
+      "label": "Microsoft Learn",
+      "value": "Available in a split screen during the exam; no extra time"
+    }
+  ],
+  "links": [
+    {
+      "title": "Official AB-400 study guide",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-400"
+    },
+    {
+      "title": "AB-400 exam page",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/ab-400/"
+    },
+    {
+      "title": "Course AB-400T00-A",
+      "url": "https://learn.microsoft.com/en-us/training/courses/ab-400t00"
+    },
+    {
+      "title": "Exam sandbox",
+      "url": "https://aka.ms/examdemo"
+    }
+  ],
+  "guides": [
+    {
+      "id": "study-guide",
+      "title": "Study Guide",
+      "file": "guide.json"
+    }
+  ],
+  "skills": {
+    "file": "skills.json"
+  },
+  "exams": [
+    {
+      "id": "practice-1",
+      "title": "Practice Exam 1",
+      "file": "exams/practice-1.json",
+      "minutes": 100,
+      "questions": 60,
+      "description": "60 original questions weighted to the Oct 16, 2026 skills measured, including a case study."
+    }
+  ]
+}

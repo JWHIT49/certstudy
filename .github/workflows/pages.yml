@@ -1,0 +1,57 @@
+name: Deploy to GitHub Pages
+
+# Publishes the app to https://jwhit49.github.io/certstudy/ on every push to main.
+# The job only runs when the repository belongs to the JWHIT49 account, so a fork or a copy under any other
+# account builds nothing and publishes nothing.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.repository_owner == 'JWHIT49'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Test
+        run: npm test
+
+      # Validates every content pack and regenerates catalog.json, precache.js and build.json.
+      - name: Build
+        run: npm run build
+
+      - uses: actions/configure-pages@v6
+
+      # Publish only what the app needs at runtime (tools, tests and docs stay out of the site).
+      - name: Stage site
+        run: |
+          mkdir _site
+          cp index.html manifest.webmanifest sw.js precache.js build.json _site/
+          cp -r css js icons content _site/
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v5

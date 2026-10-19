@@ -1,0 +1,1312 @@
+{
+ "schema": 1,
+ "id": "practice-1",
+ "title": "Practice Exam 1",
+ "description": "60 original questions weighted to the Oct 16, 2026 skills measured, including a case study.",
+ "minutes": 100,
+ "scoring": "Each question is worth 1 point; multi-part questions are all-or-nothing.",
+ "bands": [
+  {
+   "min": 0.8,
+   "label": "Strong",
+   "text": "You know the material and the traps. Review every miss, re-take in a few days, then book the exam."
+  },
+  {
+   "min": 0.7,
+   "label": "Close",
+   "text": "Gaps in specific areas. Re-read the sections listed below and redo the matching labs."
+  },
+  {
+   "min": 0.0,
+   "label": "Not ready yet",
+   "text": "Follow the 6-week plan and focus on your lowest domain scores first."
+  }
+ ],
+ "caseStudies": [
+  {
+   "id": "contoso",
+   "title": "Contoso Field Services",
+   "html": "<h3>Overview</h3>\n<p>Contoso Field Services dispatches technicians to repair industrial equipment. The company runs Microsoft Dataverse with the tables <b>Work Order</b>, <b>Asset</b> and <b>Technician</b>.\nDispatchers use a model-driven app. Customer pricing and invoicing live in an <b>ERP</b> system hosted in Azure that exposes a REST API. Contoso has an Azure subscription with\n<b>Azure Service Bus</b>, <b>Azure Functions</b> and Microsoft Entra ID, and a <b>Git-based CI/CD pipeline</b> that the engineering team already uses.</p>\n\n<h3>Requirements</h3>\n<ol>\n<li><b>Work order validation.</b> When a work order is created, a default priority must be set. If the related asset is not covered by a service contract, the work order must <b>not be created</b> and the user must see a clear message. This must hold no matter how the work order is created.</li>\n<li><b>ERP notification.</b> When a work order is closed, the ERP must be notified. The ERP can be offline for hours, <b>no notification may be lost</b>, and the ERP team wants to <b>pull</b> messages when it is ready.</li>\n<li><b>Meter readings.</b> IoT devices send about <b>2 million meter readings every night</b>. The readings must be stored in Dataverse, <b>removed automatically after 90 days</b>, and do not need relationships to other tables.</li>\n<li><b>Technician app.</b> Technicians need a <b>mobile-friendly React web UI</b> with full control over the design system and routing. It must use Dataverse data, run on Power Platform, and be <b>built and deployed by the existing Git-based CI pipeline</b>.</li>\n<li><b>AI assistant.</b> The data-science team builds a <b>Python agent in Microsoft Foundry</b> that answers dispatcher questions. It must <b>read work orders from Dataverse (read-only)</b> and consult the <b>published Copilot Studio agent</b> maintained by the support team for refund policy.</li>\n</ol>\n\n<h3>Technical constraints</h3>\n<ul>\n<li>Integrations must not use personal accounts.</li>\n<li>Solutions are deployed through managed solutions to Test and Production.</li>\n<li>The security team prefers generally available features.</li>\n</ul>"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "type": "single",
+   "domain": 2,
+   "skill": 38,
+   "section": "d2-codeapps",
+   "stem": "A code app must send a user's question to a <b>published</b> Copilot Studio agent and show the reply from the same call. After adding the Microsoft Copilot Studio connector as a data source, which generated method should the developer call?",
+   "options": [
+    "<code>CopilotStudioService.StartConversation</code>",
+    "<code>CopilotStudioService.ExecuteCopilot</code>",
+    "<code>CopilotStudioService.ExecuteCopilotAsync</code>",
+    "<code>CopilotStudioService.ExecuteCopilotAsyncV2</code>"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<code>ExecuteCopilotAsyncV2</code> returns the agent's response (<code>responses</code>, <code>lastResponse</code>, <code>completed</code>, <code>conversationId</code>). <code>ExecuteCopilot</code> is fire-and-forget (returns only a conversation ID) and <code>ExecuteCopilotAsync</code> can fail with an HTTP 502. The connector ID is <code>shared_microsoftcopilotstudio</code>; the agent name comes from <i>Channels &rarr; Web app</i>.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/connect-to-copilot-studio"
+  },
+  {
+   "id": "q002",
+   "type": "multi",
+   "domain": 3,
+   "skill": 48,
+   "section": "d3-plugins",
+   "stem": "Which <b>TWO</b> plug-in image configurations are valid?",
+   "options": [
+    "A pre-image on the <code>Update</code> message registered at PreOperation.",
+    "A post-image on the <code>Update</code> message registered at PostOperation.",
+    "A post-image on the <code>Delete</code> message.",
+    "A pre-image on the <code>Associate</code> message.",
+    "A pre-image on the <code>Create</code> message."
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "select": 2,
+   "explanation": "<b>No pre-image on Create</b> (the row doesn't exist yet) and <b>no post-image on Delete</b> (it's gone). Post-images are available only in PostOperation; pre-images work in all three stages. Images aren't supported for <code>Associate</code>/<code>Disassociate</code>.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/register-plug-in"
+  },
+  {
+   "id": "q003",
+   "type": "single",
+   "domain": 3,
+   "skill": 56,
+   "section": "d3-apis",
+   "stem": "A script retrieves 12,000 accounts with the Dataverse Web API. Which approach returns all rows?",
+   "options": [
+    "Send a <code>$batch</code> of three GET requests that each use <code>$skip</code>.",
+    "Use the <code>x-ms-dop-hint</code> response header to request more rows per page.",
+    "Request the rows with <code>$skip</code> values of 0, 5000 and 10000.",
+    "Send <code>Prefer: odata.maxpagesize=5000</code> and follow <code>@odata.nextLink</code> until it is no longer returned."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b><code>$skip</code> isn't supported</b> by the Dataverse Web API. Control the page size with <code>Prefer: odata.maxpagesize</code> (maximum 5,000) and follow the <b><code>@odata.nextLink</code></b> (which carries an opaque <code>$skiptoken</code>) until the last page.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/query/page-results"
+  },
+  {
+   "id": "q004",
+   "type": "single",
+   "domain": 4,
+   "skill": 83,
+   "section": "d4-connectors",
+   "stem": "A partner API uses a different base host for each customer region. You must change the host that a connector operation calls at runtime based on a value supplied by the connection, without writing code. Which feature should you use?",
+   "options": [
+    "<code>x-ms-visibility: internal</code> on the host parameter.",
+    "The <b>Convert array to object</b> policy template.",
+    "The <b>Set host URL</b> policy template.",
+    "A custom code script (<code>script.csx</code>)."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Policy templates change connector behavior at runtime without code. <b>Set host URL</b> (<code>dynamichosturl</code>) redirects calls to a host taken from a connection parameter. Custom code would also work but isn't the no-code feature the requirement asks for; <i>Convert array to object</i> reshapes payloads; <code>x-ms-visibility</code> only controls designer visibility.",
+   "ref": "https://learn.microsoft.com/en-us/connectors/custom-connectors/policy-templates/"
+  },
+  {
+   "id": "q005",
+   "type": "single",
+   "domain": 2,
+   "skill": 32,
+   "section": "d2-pcf",
+   "stem": "A code component calls <code>context.device.captureImage</code> when the camera feature exists. It must still load in hosts that don't support the feature. Which manifest declaration should you use?",
+   "options": [
+    "<code>&lt;uses-feature name=\"Device.captureImage\" required=\"false\" /&gt;</code>, and check for null before calling the API.",
+    "No <code>uses-feature</code> element; call the API inside a try/catch.",
+    "<code>&lt;external-service-usage enabled=\"true\"&gt;</code> with the device's domain.",
+    "<code>&lt;uses-feature name=\"Device.captureImage\" required=\"true\" /&gt;</code>"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "With <code>required=\"false\"</code> the component still loads where the feature is unsupported, and <code>context.device.captureImage</code> is simply <b>null</b> so the code can adapt. With <code>required=\"true\"</code> an unsupported host makes the component <b>fail to load</b>. With no <code>uses-feature</code> element the API is null even where the host supports it.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/component-framework/manifest-schema-reference/uses-feature"
+  },
+  {
+   "id": "q006",
+   "type": "single",
+   "domain": 1,
+   "skill": 7,
+   "section": "d1-arch",
+   "stem": "A Copilot Studio agent handles customer emails. It must (1) interpret free-text emails to decide whether the customer is asking for a refund and (2) calculate the refund using fixed policy rules that auditors must be able to reproduce exactly. Which design best meets both requirements?",
+   "options": [
+    "Let the agent's model classify the email and calculate the amount in its generated response.",
+    "Use only topics with keyword triggers for the entire process.",
+    "Use the model to classify the request, then call a deterministic tool &mdash; an agent flow, a custom API backed by a plug-in, or an MCP tool &mdash; that calculates the refund.",
+    "Put the policy rules in the prompt and ask the model to show its work."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Use <b>non-deterministic</b> reasoning for interpretation and <b>deterministic</b> components for anything that must be reproducible. Agent flows, plug-ins/custom APIs and MCP tools produce the same output for the same input; a model asked to calculate may vary and isn't auditable. A single agent usually combines both: the model decides <i>which</i> action; deterministic tools <i>perform</i> it.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/flows-overview"
+  },
+  {
+   "id": "q007",
+   "type": "single",
+   "domain": 3,
+   "skill": 70,
+   "section": "d3-flows",
+   "stem": "A flow owned by one employee stops running when she leaves. The team wants flows to use Dataverse without depending on a person. Which approach should you use?",
+   "options": [
+    "Create a Dataverse connection with <i>Connect with service principal</i> (an application user with a least-privilege security role) and make the service principal the flow owner.",
+    "Share the flow with the whole company as a co-owner.",
+    "Add the application user as a <b>co-owner</b> of the flow.",
+    "Store the former employee's credentials in Azure Key Vault and reuse them."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Create an Entra <b>service principal</b>, a Dataverse <b>application user</b> with a role, and use <i>Connect with service principal</i> on the Dataverse actions. A service principal can be the flow <b>owner</b> but <b>can't be a co-owner</b>. Reusing someone's credentials is neither secure nor supported.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/dataverse/manage-dataverse-connections"
+  },
+  {
+   "id": "q008",
+   "type": "single",
+   "domain": 2,
+   "skill": 26,
+   "section": "d2-client",
+   "stem": "You are migrating a classic ribbon customization to modern commands. Which statement about modern commands is correct?",
+   "options": [
+    "Modern commands require jQuery to reach the form context.",
+    "A modern command can build a flyout menu dynamically from JavaScript at run time.",
+    "Modern commands are built in the command designer, can use Power Fx formulas or JavaScript functions, and existing JavaScript can be reused.",
+    "Modern commands are created with Ribbon Workbench, which is a Microsoft-supported part of Dataverse."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Modern commanding</b> (GA) uses the in-product <b>command designer</b> with Power Fx or JavaScript, standard solution layering and app/table/global scopes. Dynamic flyouts built from code are a <i>classic</i> ribbon capability, and <b>Ribbon Workbench is a community tool</b>, not a Microsoft product. jQuery isn't supported in form scripts or commands.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/use-command-designer"
+  },
+  {
+   "id": "q009",
+   "type": "single",
+   "domain": 3,
+   "skill": 65,
+   "section": "d3-functions",
+   "stem": "An Azure Function app with a system-assigned managed identity calls the Dataverse Web API and receives <b>HTTP 403</b>, although tokens for <code>https://contoso.crm.dynamics.com/.default</code> are issued successfully. What should you do?",
+   "options": [
+    "Create a federated identity credential and run <code>pac managed-identity configure-fic</code>.",
+    "Create a Dataverse application user by using the managed identity's application (client) ID and assign it a security role.",
+    "Add the <code>user_impersonation</code> delegated permission to the Function app.",
+    "Regenerate the function key."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A valid token with a <b>403</b> means Dataverse doesn't recognize the principal or it lacks privileges: create an <b>application user</b> from the managed identity's <b>application (client) ID</b> and give it a security role. Federated credentials and <code>pac managed-identity</code> are for <i>plug-ins calling out</i>; function keys secure inbound calls to the Function.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/manage-application-users"
+  },
+  {
+   "id": "q010",
+   "type": "single",
+   "domain": 1,
+   "skill": 6,
+   "section": "d1-arch",
+   "stem": "After a tenant admin created a data policy, a flow that uses the Microsoft Dataverse connector (Business group) and a custom connector to Contoso's inventory API can no longer be saved. The custom connector has not been classified. What should the admin do to fix the flow with the <b>least</b> loosening of governance?",
+   "options": [
+    "Move the Dataverse connector to the Non-Business group.",
+    "Delete the data policy.",
+    "Move the custom connector to the Blocked group.",
+    "Classify the custom connector in the Business group (by name in the environment policy, or by host URL pattern in the tenant policy)."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "A resource can't combine Business and Non-Business connectors, and custom connectors default to <b>Non-Business</b>. Classifying the specific connector as Business (environment admins by name, tenant admins by <b>host URL pattern</b>) fixes the flow without affecting other connectors. Moving Dataverse to Non-Business would affect every Dataverse-based resource; blocking the connector breaks the flow further.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/dlp-connector-classification"
+  },
+  {
+   "id": "q011",
+   "type": "yesno",
+   "domain": 4,
+   "skill": 81,
+   "section": "d4-sync",
+   "stem": "For each statement about alternate keys and upsert, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "<code>UpsertResponse.RecordCreated</code> is true when the upsert created a new row.",
+     "answer": true
+    },
+    {
+     "text": "<code>UpsertMultiple</code> returns an error when two rows in the same payload have the same alternate key.",
+     "answer": true
+    },
+    {
+     "text": "A Dataverse table can define more than 10 alternate keys.",
+     "answer": false
+    },
+    {
+     "text": "An alternate key can be used in requests immediately, even while its index status is Pending.",
+     "answer": false
+    }
+   ],
+   "explanation": "<code>RecordCreated</code> tells you whether the upsert created or updated. <code>UpsertMultiple</code> <b>errors on duplicate keys</b> in one payload (unlike <code>UpdateMultiple</code>, which keeps only the first). A table is limited to <b>10 alternate keys</b>, and the unique index is built <b>asynchronously</b> (Pending &rarr; In Progress &rarr; Active) &mdash; use the key only when it is <b>Active</b>.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/define-alternate-keys-entity"
+  },
+  {
+   "id": "q012",
+   "type": "single",
+   "domain": 3,
+   "skill": 61,
+   "section": "d3-apis",
+   "stem": "A custom API runs a long calculation. The caller must get an immediate response and be notified when it completes. Which statement describes the Dataverse approach for <b>background operations</b> (Preview)?",
+   "options": [
+    "Mark the custom API as private so it runs asynchronously.",
+    "Register the plug-in asynchronously on MainOperation, which removes the 2-minute limit.",
+    "Wrap the request in <code>ExecuteMultipleRequest</code> so it runs in the background.",
+    "Call the custom API with <code>Prefer: respond-async</code> to receive <b>202 Accepted</b> and a background operation ID; completion can go to a callback URI or the <code>OnBackgroundOperationComplete</code> event."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Background operations run a <b>custom API</b> asynchronously: <code>ExecuteBackgroundOperation</code> in the SDK or the <code>Prefer: respond-async</code> header in the Web API (202 + <code>x-ms-dyn-backgroundoperationid</code>). You monitor or cancel it through the <code>backgroundoperations</code> table. The work is still a plug-in with the <b>2-minute limit</b>; async dispatch doesn't extend it.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/background-operations"
+  },
+  {
+   "id": "q013",
+   "type": "single",
+   "domain": 2,
+   "skill": 40,
+   "section": "d2-deploy",
+   "stem": "After Application Insights telemetry is added to a code app, no events arrive. The browser console shows: <i>Connecting to 'https://westus-0.in.applicationinsights.azure.com' violates the following Content Security Policy directive.</i> What should an administrator do?",
+   "options": [
+    "Reinstall the <code>@microsoft/applicationinsights-web</code> package.",
+    "Add the ingestion endpoint to the <code>connect-src</code> directive in the environment's Content security policy (App tab).",
+    "Disable CSP reporting for the environment.",
+    "Add the endpoint to <code>frame-ancestors</code>."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "CSP for code apps is configured <b>per environment</b> (Power Platform admin center &rarr; Settings &rarr; Product &rarr; Privacy + Security &rarr; Content security policy &rarr; <b>App</b> tab) and is enforced by default. The default <code>connect-src</code> is <code>'none'</code>, so outbound calls such as telemetry are blocked until you add the host (a custom value replaces a default of <code>'none'</code>).",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/content-security-policy"
+  },
+  {
+   "id": "q014",
+   "type": "single",
+   "domain": 3,
+   "skill": 47,
+   "section": "d3-plugins",
+   "stem": "When an Account is created, a plug-in must create a related Welcome Task. If the task can't be created, the account creation must also fail and nothing must be saved. How should you register the step?",
+   "options": [
+    "<code>Create</code>, PostOperation, synchronous.",
+    "<code>Create</code>, PostOperation, asynchronous.",
+    "<code>Create</code>, MainOperation, synchronous.",
+    "<code>Create</code>, PreValidation, synchronous."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A <b>synchronous PostOperation</b> step runs inside the transaction, after the account exists (so its ID is available); throwing an exception rolls back both the task and the account. Async steps can't roll back the operation that queued them, PreValidation runs before the account exists and generally outside the transaction, and MainOperation isn't registerable.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framework"
+  },
+  {
+   "id": "q015",
+   "type": "multi",
+   "domain": 2,
+   "skill": 44,
+   "section": "d2-deploy",
+   "stem": "Which <b>TWO</b> changes improve the data-access performance of a code app that lists accounts?",
+   "options": [
+    "Pass <code>select</code> with only the needed columns to <code>AccountsService.getAll</code>.",
+    "Use FetchXML to batch the query.",
+    "Disable the environment's Content Security Policy.",
+    "Retrieve all accounts and filter and sort them in the browser.",
+    "Push <code>filter</code>, <code>orderBy</code> and <code>top</code> to the server and page results with <code>maxPageSize</code>/<code>skipToken</code>."
+   ],
+   "answer": [
+    0,
+    4
+   ],
+   "select": 2,
+   "explanation": "Microsoft's guidance is to <b>always limit columns with <code>select</code></b> and to use <b>delegation</b> (<code>filter</code>, sort, <code>top</code>) with <b>paging</b>. Client-side filtering transfers everything, FetchXML isn't supported in code apps, and CSP doesn't affect query performance.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/connect-to-dataverse"
+  },
+  {
+   "id": "q016",
+   "type": "single",
+   "domain": 1,
+   "skill": 21,
+   "section": "d1-alm",
+   "stem": "You administer a Power Platform pipeline with Dev, Test and Prod stages. A manager must approve every deployment to Prod before it starts, using a Power Automate approval. What should you configure?",
+   "options": [
+    "Create a personal pipeline in the maker portal and add an approval action to it.",
+    "Add the approval to the solution as a business rule.",
+    "Enable <i>Pre-export step required</i> on the Prod stage.",
+    "Enable <i>Pre-deployment step required</i> on the Prod stage and build a flow on the Dataverse trigger <i>When an action is performed</i> for <code>OnPreDeploymentStarted</code> that reports the result with <code>UpdatePreDeploymentStepStatus</code>."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Pipeline extensions are <b>gated extension settings</b> that raise Dataverse business events. <i>Pre-deployment step required</i> raises <code>OnPreDeploymentStarted</code>; the flow responds with <code>UpdatePreDeploymentStepStatus</code> (20 = complete, 30 = rejected). <i>Pre-export</i> applies to the first stage only, and personal pipelines created by makers <b>can't be extended</b>.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/alm/extend-pipelines"
+  },
+  {
+   "id": "q017",
+   "type": "single",
+   "domain": 4,
+   "skill": 77,
+   "section": "d4-events",
+   "stem": "You register a webhook whose endpoint is an HTTP-triggered Azure Function secured with a function key. In the Plug-in Registration Tool, which authentication type should you choose?",
+   "options": [
+    "<b>HttpHeader</b>",
+    "<b>WebhookKey</b>",
+    "<b>SAS Key</b>",
+    "<b>HttpQueryString</b>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<b>WebhookKey</b> sends the registered key as a <code>code</code> query-string value &mdash; exactly what Azure Functions expects for function-key authorization. <i>HttpHeader</i> and <i>HttpQueryString</i> send arbitrary header or query pairs, and SAS keys are used by Service Bus and Event Hub endpoints, not webhooks.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/register-web-hook"
+  },
+  {
+   "id": "q018",
+   "type": "single",
+   "domain": 2,
+   "skill": 24,
+   "section": "d2-client",
+   "stem": "On the Case form, the <b>Contact</b> lookup must show only contacts that belong to the selected Account, and the filter must be applied every time the user opens the lookup. Which registration approach should you use?",
+   "options": [
+    "A static <code>OnLoad</code> handler that calls <code>Xrm.WebApi.retrieveMultipleRecords</code> and rebuilds the lookup.",
+    "Dynamically register a handler with <code>addPreSearch</code> on the Contact lookup control and call <code>addCustomFilter</code> inside the handler.",
+    "Edit the form XML to add the filter, and republish after each change.",
+    "A static <code>OnChange</code> handler on the Account column that sets the Contact column to null."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Lookup filtering is done in the <b>PreSearch</b> event, which has no form-designer registration surface, so you register it <b>dynamically</b> with <code>addPreSearch</code> and apply the FetchXML filter with <code>addCustomFilter</code> in the callback. Static handlers are for logic that must always run on specific form events (OnLoad, OnSave, OnChange).",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addcustomfilter"
+  },
+  {
+   "id": "q019",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 45,
+   "section": "d3-plugins",
+   "stem": "For each statement about the Dataverse event execution pipeline, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "An ISV can register a step on the MainOperation stage (30) of a standard table message such as <code>Create</code>.",
+     "answer": false
+    },
+    {
+     "text": "Asynchronous execution mode can be selected only for steps registered on PostOperation.",
+     "answer": true
+    },
+    {
+     "text": "Synchronous PostOperation steps run inside the database transaction of the operation.",
+     "answer": true
+    },
+    {
+     "text": "PreValidation steps run after the user's security privilege checks.",
+     "answer": false
+    }
+   ],
+   "explanation": "Registerable stages are <b>PreValidation (10), PreOperation (20) and PostOperation (40)</b>; MainOperation (30) is internal (the exception is the plug-in type linked to a <b>custom API</b>). <b>Async is valid only on PostOperation.</b> Sync PreOperation and PostOperation run <b>inside</b> the transaction. PreValidation runs <b>before</b> the privilege checks.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framework"
+  },
+  {
+   "id": "q020",
+   "type": "order",
+   "domain": 3,
+   "skill": 55,
+   "section": "d3-plugins",
+   "stem": "Arrange the steps to let a Dataverse plug-in call Azure Key Vault by using Power Platform managed identity.",
+   "items": [
+    "Create the user-assigned managed identity (or app registration) in Microsoft Entra ID.",
+    "Build, <b>sign</b> and register the plug-in package or assembly.",
+    "Add a federated identity credential for the plug-in on the identity in Microsoft Entra ID.",
+    "Create the <code>managedidentity</code> record in Dataverse and link it to the plug-in.",
+    "Grant the identity access to the Key Vault."
+   ],
+   "explanation": "The documented setup is: create the identity, build/sign/register the plug-in (signing is mandatory because the certificate feeds the credential subject), add the <b>federated identity credential</b>, create and link the Dataverse <code>managedidentity</code> record, then grant Azure access and test. At run time the plug-in calls <code>IManagedIdentityService.AcquireToken(scopes)</code>.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/set-up-managed-identity"
+  },
+  {
+   "id": "q021",
+   "type": "single",
+   "domain": 1,
+   "skill": 17,
+   "section": "d1-components",
+   "stem": "Operations needs an alert within minutes when production cloud flows fail. The environment is a Managed Environment. The built-in Power Platform admin center Monitor alerts only evaluate once every 24 hours. What should you recommend?",
+   "options": [
+    "Add a Terminate action to every flow.",
+    "Set <code>PluginTraceLogSetting</code> to <i>All</i> for the environment.",
+    "Keep the built-in alerts and lower the threshold.",
+    "Export telemetry to Application Insights and create an Azure Monitor alert rule with an action group on the failures."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Built-in Monitor alerts use <b>24-hour aggregates</b> evaluated once per 24 hours (and only on managed environments). For near-real-time alerting, <b>export telemetry to Application Insights</b> and use <b>Azure Monitor</b> alert rules and action groups. The plug-in trace log only records plug-in activity, and Terminate doesn't notify anyone.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/monitoring/alerts"
+  },
+  {
+   "id": "q022",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 25,
+   "section": "d2-client",
+   "stem": "You call <code>Xrm.WebApi.online.executeMultiple</code> from a model-driven app script. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "One call can contain up to 1,000 requests.",
+     "answer": true
+    },
+    {
+     "text": "Wrapping requests in an inner array makes them a single transactional change set.",
+     "answer": true
+    },
+    {
+     "text": "A retrieve (read) request can be included inside a change set.",
+     "answer": false
+    }
+   ],
+   "explanation": "<code>executeMultiple</code> accepts up to <b>1,000</b> requests per batch. An array inside the outer array forms a transactional <b>change set</b>, but OData v4 doesn't allow <b>read operations inside a change set</b>. Don't confuse the 1,000-request batch cap with the 5,000-row page size of <code>retrieveMultipleRecords</code> (500 for elastic tables).",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/online/executemultiple"
+  },
+  {
+   "id": "q023",
+   "type": "single",
+   "domain": 3,
+   "skill": 49,
+   "section": "d3-plugins",
+   "stem": "Validation logic is registered as a synchronous plug-in step on the <code>Create</code> message of the Account table. A new integration will insert accounts by calling <code>CreateMultiple</code>. What should you expect?",
+   "options": [
+    "The <code>Create</code> step doesn't run; you must register the logic again on <code>CreateMultiple</code>.",
+    "The <code>Create</code> step still runs once for each account in the batch.",
+    "The <code>CreateMultiple</code> call fails because a <code>Create</code> step exists.",
+    "The <code>Create</code> step runs once for the whole batch with an <code>EntityCollection</code> target."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Dataverse merges the pipelines: a step registered on <code>Create</code> <b>still fires once per record</b> when <code>CreateMultiple</code> is used. Register a step on <code>CreateMultiple</code> only to gain batch-level processing performance, and then avoid running the same logic twice.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/write-plugin-multiple-operation"
+  },
+  {
+   "id": "q024",
+   "type": "multi",
+   "domain": 4,
+   "skill": 78,
+   "section": "d4-events",
+   "stem": "A listener must return a processed result string to Dataverse as part of the operation. Which <b>TWO</b> service endpoint contracts support returning data?",
+   "options": [
+    "Topic",
+    "Event Hub",
+    "REST",
+    "Queue",
+    "Two-way"
+   ],
+   "answer": [
+    2,
+    4
+   ],
+   "select": 2,
+   "explanation": "Only the <b>Two-way</b> and <b>REST</b> contracts return data to Dataverse. Queue and Topic buffer messages, One-way posts without a response, and Event Hub is a one-direction streaming ingestion endpoint.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/azure-integration"
+  },
+  {
+   "id": "q025",
+   "type": "single",
+   "domain": 3,
+   "skill": 73,
+   "section": "d3-foundry",
+   "stem": "A Foundry agent must use Microsoft 365 work context (mail, meetings, files) for the signed-in user. Which statement about <b>Work IQ</b> is correct?",
+   "options": [
+    "Work IQ replaces the Dataverse MCP server for reading Dataverse tables.",
+    "Work IQ is available only inside Copilot Studio.",
+    "The Work IQ tool inside Foundry Agent Service is Preview, the Work IQ MCP endpoint is GA, and calls use on-behalf-of access for the signed-in user.",
+    "Work IQ uses application-only permissions and returns tenant-wide data regardless of the user."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Work IQ's status is <b>surface-dependent</b>: the Work IQ <b>MCP endpoint</b> is GA, while the Work IQ <b>tool in Foundry</b> (<code>work_iq_preview</code>), Work IQ in Copilot Studio and Business Applications in Work IQ are Preview. Foundry forwards the call over A2A with <b>on-behalf-of</b> of the signed-in user, so Microsoft 365 permissions and sensitivity labels are honored.",
+   "ref": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/work-iq"
+  },
+  {
+   "id": "q026",
+   "type": "single",
+   "domain": 2,
+   "skill": 39,
+   "section": "d2-codeapps",
+   "stem": "A code app reads a SharePoint list whose site and list differ between Dev, Test and Prod. The solution is deployed with pipelines. How should you add the data source so the app is portable without code changes?",
+   "options": [
+    "Edit <code>power.config.json</code> by hand in each environment.",
+    "Hard-code the site URL and switch it with <code>PA_CLI_ENVIRONMENT_ID</code> in the CI pipeline.",
+    "Reference solution environment variables in the data source arguments, for example <code>--dataset \"@envvar:contoso_SiteUrl\" --table \"@envvar:contoso_ListName\"</code>.",
+    "Create a separate code app for each environment."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Solution <b>environment variables</b> are referenced from data-source arguments with the <b><code>@envvar:&lt;schemaname&gt;</code></b> prefix, so each environment's current value is used. <code>PA_CLI_*</code> variables configure the CLI/CI run (environment ID, solution ID, service principal) &mdash; they are a different concept and don't parameterize a data source.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/use-environment-variables"
+  },
+  {
+   "id": "q027",
+   "type": "multi",
+   "domain": 3,
+   "skill": 50,
+   "section": "d3-plugins",
+   "stem": "Which <b>TWO</b> changes improve the performance and reliability of a plug-in?",
+   "options": [
+    "Cache the previously retrieved record in a static field to avoid repeated queries.",
+    "Start several threads to run independent queries in parallel.",
+    "Wrap bulk updates in <code>ExecuteMultipleRequest</code> inside the plug-in.",
+    "Limit the columns in retrieves and images to those the logic needs.",
+    "Set filtering attributes on the <code>Update</code> step so it runs only when relevant columns change."
+   ],
+   "answer": [
+    3,
+    4
+   ],
+   "select": 2,
+   "explanation": "<b>Filtering attributes</b> prevent unnecessary executions and <b>restricted columns</b> reduce data volume. Plug-ins must be <b>stateless</b> (instances are cached and reused across threads), batch request types shouldn't be used inside plug-ins, and parallel/multi-threaded code is unsupported in the sandbox.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/best-practices/business-logic/"
+  },
+  {
+   "id": "q028",
+   "type": "single",
+   "domain": 1,
+   "skill": 4,
+   "section": "d1-arch",
+   "stem": "Contoso must guarantee that no Opportunity is saved with a discount above 20% unless an approval flag is set &mdash; whether the record is created from the app, an Excel import, a cloud flow or the Web API. The rule must read the credit status stored on a different table. Which implementation should you choose?",
+   "options": [
+    "A synchronous plug-in registered on the Opportunity <code>Create</code> and <code>Update</code> messages.",
+    "A business rule that shows an error message on the form.",
+    "A JavaScript <code>OnSave</code> handler on the Opportunity form.",
+    "A cloud flow that runs when a row is modified and reverts the discount."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A <b>synchronous plug-in</b> is server-trusted, runs for every entry point (app, import, flow, API) and can block the save by throwing <code>InvalidPluginExecutionException</code>. Client script and form business rules only run in the UI and can be bypassed. A flow runs <i>after</i> the save, so it can't prevent invalid data from being committed.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/plug-ins"
+  },
+  {
+   "id": "q029",
+   "type": "single",
+   "domain": 2,
+   "skill": 34,
+   "section": "d2-codeapps",
+   "stem": "A code app initialized with <code>pa app init</code> must read and write Dataverse <b>accounts</b> and <b>contacts</b> and call the Office 365 Users connector. Which approach is correct?",
+   "options": [
+    "Add the tables to <code>power.config.json</code> by hand and run <code>npm run build</code>.",
+    "Run <code>pac code add-data-source</code> for each table and connector.",
+    "Run <code>pa app add data-source --connector dataverse --table account --table contact</code> once, then add the Office 365 Users connector.",
+    "Run <code>pa app add data-source --connector dataverse --table account</code> and again with <code>--table contact</code>; create a connection for Office 365 Users and run <code>pa app add data-source --connector shared_office365users</code>."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Native Dataverse supports <b>one table per <code>add data-source</code> command</b> (repeat <code>--table</code> works only for connector tables that share a connection and dataset). Connector data sources need a connection first (<code>pa connection create</code>). <code>pac code ...</code> is the legacy/Preview CLI. The command generates <code>AccountsService</code>/<code>AccountsModel</code> files under <code>src/generated</code>.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/connect-to-dataverse"
+  },
+  {
+   "id": "q030",
+   "type": "dropdown",
+   "domain": 4,
+   "skill": 75,
+   "section": "d4-events",
+   "stem": "Complete the plug-in code that posts the execution context to a registered Azure Service Bus endpoint.",
+   "format": "code",
+   "template": "var notify = (IServiceEndpointNotificationService)serviceProvider.GetService(typeof({1}));\nstring reply = notify.{2}(new EntityReference(\"serviceendpoint\", endpointId), context);",
+   "language": "csharp",
+   "blanks": [
+    {
+     "options": [
+      "IOrganizationService",
+      "IServiceEndpointFactory",
+      "IServiceEndpointNotificationService",
+      "ITracingService"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "Execute",
+      "Send",
+      "Publish",
+      "Notify"
+     ],
+     "answer": 0
+    }
+   ],
+   "explanation": "<code>IServiceEndpointNotificationService</code> has a single method, <b><code>Execute(EntityReference serviceEndpoint, IExecutionContext context)</code></b>, which posts the current execution context (a serialized <code>RemoteExecutionContext</code>) to the registered <code>ServiceEndpoint</code> and returns the endpoint's response string.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/azure-integration"
+  },
+  {
+   "id": "q031",
+   "type": "single",
+   "domain": 3,
+   "skill": 54,
+   "section": "d3-plugins",
+   "stem": "A custom API with no plug-in was added to the catalog as a Dataverse business event. Which Power Automate trigger starts a flow when the event is raised?",
+   "options": [
+    "When a business event occurs",
+    "When an HTTP request is received",
+    "When an action is performed",
+    "When a row is added, modified or deleted"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The Dataverse connector trigger for business events and custom APIs is <b>When an action is performed</b> (parameters: Catalog, Category, Table name, Action name). <i>When a row is added, modified or deleted</i> handles ordinary row events; &ldquo;When a business event occurs&rdquo; belongs to Finance &amp; Operations.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/business-events"
+  },
+  {
+   "id": "q032",
+   "type": "single",
+   "domain": 2,
+   "skill": 28,
+   "section": "d2-pcf",
+   "stem": "A dataset PCF component reads <code>context.parameters.items.records</code> inside <code>init</code> and always gets an empty collection, although the grid has rows. Where should the component read the dataset values?",
+   "options": [
+    "In the component's constructor.",
+    "In <code>updateView</code>, which runs when the dataset is available and whenever it changes.",
+    "In <code>destroy</code>.",
+    "In <code>getOutputs</code>."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Dataset values <b>can't be initialized in <code>init</code></b>. <code>updateView(context)</code> is called whenever a bound property, dataset, size or state changes, so dataset records are read and rendered there (and the component must tolerate null values while data loads). <code>getOutputs</code> returns changed output values, and <code>destroy</code> only cleans up.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/component-framework/implementing-controls-using-typescript"
+  },
+  {
+   "id": "q033",
+   "type": "single",
+   "domain": 1,
+   "skill": 9,
+   "section": "d1-arch",
+   "stem": "A data-science team needs an agent on a fine-tuned open-source model, orchestrated with LangGraph code they already maintain, hosted with private networking in Azure and callable from other applications through an API. A separate business team wants a Teams-based HR agent that business users can maintain and that follows existing Power Platform data policies. Which pairing is most appropriate?",
+   "options": [
+    "Microsoft Foundry (a hosted agent) for the data-science team; Microsoft Copilot Studio for the HR agent.",
+    "Microsoft Copilot Studio for both teams.",
+    "Microsoft Copilot Studio for the data-science team; Microsoft Foundry for the HR agent.",
+    "A Microsoft Foundry prompt agent for both teams."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Foundry</b> suits pro-code needs: custom/fine-tuned models, your own framework (LangGraph runs as a <i>hosted agent</i>), Azure-native networking and an API surface. <b>Copilot Studio</b> suits business-user-authored, channel-native (Teams) agents governed by Power Platform data policies, environments and ALM. They integrate, so a solution can use both.",
+   "ref": "https://learn.microsoft.com/en-us/azure/foundry/agents/overview"
+  },
+  {
+   "id": "q034",
+   "type": "multi",
+   "domain": 2,
+   "skill": 42,
+   "section": "d2-deploy",
+   "stem": "A CI pipeline runs <code>pa app push --solution-id \"Contoso Orders\"</code> under a service principal and fails. Which <b>TWO</b> changes are required for the pipeline to publish the app into the solution?",
+   "options": [
+    "Pass the solution's <b>GUID</b> (or set <code>PA_CLI_SOLUTION_ID</code>) instead of its display name.",
+    "Convert the solution to a managed solution before pushing.",
+    "Remove the code app from the solution and import it separately.",
+    "Have the app maker share edit access with the service principal by using the <b>Enterprise Application</b> object ID, not the app-registration object ID.",
+    "Switch the pipeline to <code>pac code push</code>."
+   ],
+   "answer": [
+    0,
+    3
+   ],
+   "select": 2,
+   "explanation": "<code>--solution-id</code> must be a <b>GUID</b> (solution names are rejected; in CI use <code>PA_CLI_SOLUTION_ID</code>). For service-principal publishing the maker must <b>first share edit access</b> with the principal, using the <b>Enterprise Application (service principal) object ID</b>. <code>pac code push</code> is legacy, and solution type isn't the cause.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/use-service-principal"
+  },
+  {
+   "id": "q035",
+   "type": "single",
+   "domain": 3,
+   "skill": 52,
+   "section": "d3-plugins",
+   "stem": "A plug-in needs an API key that must <b>not</b> be included when the solution is exported and should be readable only by administrators. Where do you provide the key in the Plug-in Registration Tool?",
+   "options": [
+    "As a column in a plug-in image.",
+    "In the step's <b>Execution Order</b> field.",
+    "In the step's <b>Secure Configuration</b>.",
+    "In the step's <b>Unsecure Configuration</b>."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Secure configuration</b> is stored separately, isn't exported with the solution, is readable only by administrators and reaches the plug-in through the constructor <code>MyPlugin(string unsecure, string secure)</code>. Unsecure configuration is exported with the solution.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/register-plug-in"
+  },
+  {
+   "id": "q036",
+   "type": "single",
+   "domain": 3,
+   "skill": 68,
+   "section": "d3-flows",
+   "stem": "A flow action calls a rate-limited partner API. Transient failures usually clear within a minute, and the default retry policy (four exponential retries) isn't enough. What should you configure?",
+   "options": [
+    "Set the action's retry policy to <b>Fixed interval</b> with a count of 10 and an interval of <code>PT30S</code>.",
+    "Turn on Pagination with a threshold.",
+    "Keep the <i>Default</i> policy and extend the flow's run duration.",
+    "Replace the action with a Filter array action."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Retry policy types are <code>default</code> (exponential, 4 retries), <code>none</code>, <code>fixed</code> and <code>exponential</code>; <b>fixed/exponential allow a count of 1&ndash;90</b> with an ISO-8601 interval. Run duration, Filter array and pagination are unrelated to retries.",
+   "ref": "https://learn.microsoft.com/en-us/azure/logic-apps/error-exception-handling"
+  },
+  {
+   "id": "q037",
+   "type": "single",
+   "domain": 4,
+   "skill": 79,
+   "section": "d4-sync",
+   "stem": "A synchronization service stores the <code>DataToken</code> returned by <code>RetrieveEntityChangesRequest</code>. After a 10-day outage the next request that uses the stored token fails. With default settings, what should the service do?",
+   "options": [
+    "Perform a full initial retrieval (no token) to rebuild the baseline, then resume incremental sync with the new token.",
+    "Increase the page size.",
+    "Disable and re-enable change tracking on the table.",
+    "Retry with the same token after an hour."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Change-tracking tokens expire after <b>7 days by default</b> (<code>Organization.ExpireChangeTrackingInDays</code>). An expired token means you must run a <b>full retrieval</b> (a request without a token) and continue from the new <code>DataToken</code>. Change tracking can't be disabled once enabled.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-change-tracking-synchronize-data-external-systems"
+  },
+  {
+   "id": "q038",
+   "type": "single",
+   "domain": 2,
+   "skill": 37,
+   "section": "d2-codeapps",
+   "stem": "A developer wants a code app to start an existing cloud flow. Which flow can be added with <code>pa app add flow</code>?",
+   "options": [
+    "A solution-aware instant flow that uses the Power Apps trigger.",
+    "An instant flow that isn't in a solution but is owned by the maker.",
+    "A scheduled flow in the default solution.",
+    "An automated flow that triggers when a Dataverse row is created."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Code apps support only <b>solution-aware instant flows that use the Power Apps trigger</b>. Scheduled flows, automated flows and instant flows with other triggers aren't supported, and the flow must belong to a solution. End users also need Dataverse permission to run it (for example the <b>App Opener</b> role or an equivalent).",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/add-flows"
+  },
+  {
+   "id": "q039",
+   "type": "single",
+   "domain": 3,
+   "skill": 62,
+   "section": "d3-apis",
+   "stem": "A data-engineering team wants to upsert thousands of rows into Dataverse from a pandas workflow running in Azure and authenticate with a managed identity. Which option is most appropriate?",
+   "options": [
+    "A canvas app that uses Power Fx <code>Patch</code> in a loop.",
+    "The Dataverse SDK for Python (<code>PowerPlatform-Dataverse-Client</code>, <code>DataverseClient</code>) with an <code>azure.identity</code> credential such as <code>ManagedIdentityCredential</code>.",
+    "A plug-in registered on <code>UpsertMultiple</code>.",
+    "<code>Microsoft.CrmSdk.CoreAssemblies</code> and <code>CrmServiceClient</code> called from Python."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The <b>Dataverse SDK for Python</b> works with any <code>azure.identity</code> credential that supplies <code>get_token()</code> (including managed identity), supports bulk <code>CreateMultiple/UpdateMultiple/UpsertMultiple</code>, DataFrame wrappers, batching and automatic retries. The .NET assemblies aren't a Python option, and canvas apps or plug-ins aren't data-engineering pipelines.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/sdk-python/overview"
+  },
+  {
+   "id": "q040",
+   "type": "dropdown",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-arch",
+   "stem": "Select the best user-experience option for each requirement.",
+   "format": "text",
+   "template": "1. A reusable, data-bound control that must render inline on model-driven forms alongside native controls: {1}<br>2. A custom React application with its own routing that runs inside Power Apps with Microsoft Entra sign-in and connector access: {2}<br>3. An AI-authored React page added to an existing model-driven app: {3}",
+   "blanks": [
+    {
+     "options": [
+      "Canvas component library",
+      "HTML web resource in an IFRAME",
+      "Code app",
+      "PCF code component"
+     ],
+     "answer": 3
+    },
+    {
+     "options": [
+      "Code app",
+      "PCF code component",
+      "Power Pages site",
+      "Generative page"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "Web resource",
+      "Code app",
+      "MCP app widget",
+      "Generative page"
+     ],
+     "answer": 3
+    }
+   ],
+   "explanation": "<b>PCF</b> components render in the same context and load with other form components (a web resource in an IFRAME doesn't). A <b>code app</b> is a whole custom web app in your own framework hosted by Power Apps with Entra authentication and connectors. A <b>generative page</b> is an AI-authored React page inside a model-driven app. MCP app widgets render tool results in agent surfaces such as Microsoft 365 Copilot Chat.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/overview"
+  },
+  {
+   "id": "q041",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 35,
+   "section": "d2-codeapps",
+   "stem": "You evaluate Dataverse support in a code app that uses the generated <code>AccountsService</code>. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "<code>getMetadata</code> can return column display names and relationship metadata for the table.",
+     "answer": true
+    },
+    {
+     "text": "<code>getAll</code> accepts a FetchXML query.",
+     "answer": false
+    },
+    {
+     "text": "The app can create new custom columns on the table through the generated service.",
+     "answer": false
+    },
+    {
+     "text": "<code>getAll</code> supports an OData <code>filter</code> string and a <code>select</code> list to limit columns.",
+     "answer": true
+    }
+   ],
+   "explanation": "Code apps can <b>read</b> table metadata (<code>getMetadata</code>) and query with <code>IGetAllOptions</code> (<code>select, filter, orderBy, top, maxPageSize, skip, skipToken</code>). <b>Not supported yet:</b> FetchXML, alternate keys, polymorphic lookups and <b>schema (metadata) create/update/delete</b>.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/connect-to-dataverse"
+  },
+  {
+   "id": "q042",
+   "type": "single",
+   "domain": 3,
+   "skill": 74,
+   "section": "d3-foundry",
+   "stem": "A custom .NET application must hold a conversation with a <b>published, standard-harness</b> Copilot Studio agent in production. Which approach is supported and generally available?",
+   "options": [
+    "Publish the agent through the Preview A2A client channel and call it from the app.",
+    "Call the Dataverse MCP server and ask it to run the agent.",
+    "Embed the web chat in an iframe and read the page's DOM.",
+    "Use <code>Microsoft.Agents.CopilotStudio.Client</code> (<code>CopilotClient</code> with <code>ConnectionSettings</code>) and an Entra app registration that has the <code>CopilotStudio.Copilots.Invoke</code> permission."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The <b>Copilot Studio client library</b> (direct-to-engine channel) is the documented production path. <code>ConnectionSettings</code> holds the environment ID and schema name (or a <code>DirectConnectUrl</code>); the Entra app registration needs the delegated <code>CopilotStudio.Copilots.Invoke</code> permission. The MCP/A2A client channels are Preview and limited to the GitHub Copilot harness.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-365/agents-sdk/integrate-with-mcs"
+  },
+  {
+   "id": "q043",
+   "type": "yesno",
+   "domain": 4,
+   "skill": 88,
+   "section": "d4-connectors",
+   "stem": "For each statement about custom code in a custom connector, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "The script must finish within 2 minutes and the script file can't exceed 1 MB.",
+     "answer": true
+    },
+    {
+     "text": "A connector can contain several script files, one per operation.",
+     "answer": false
+    },
+    {
+     "text": "The class must be named <code>Script</code> and derive from <code>ScriptBase</code>.",
+     "answer": true
+    },
+    {
+     "text": "Custom code works with connectors that use the on-premises data gateway.",
+     "answer": false
+    }
+   ],
+   "explanation": "Custom code is limited to <b>one script file</b> (&le; <b>1 MB</b>) that must complete in <b>2 minutes</b> (a raised limit that new connectors get automatically). The class is <code>Script : ScriptBase</code> overriding <code>ExecuteAsync</code>; outbound calls should use <code>this.Context.SendAsync</code>. Custom code isn't supported with the on-premises data gateway.",
+   "ref": "https://learn.microsoft.com/en-us/connectors/custom-connectors/write-code"
+  },
+  {
+   "id": "q044",
+   "type": "dropdown",
+   "domain": 3,
+   "skill": 53,
+   "section": "d3-plugins",
+   "stem": "Complete the plug-in that implements a custom API. The API has a request parameter <code>OrderTotal</code> (Money) and a response property <code>Discount</code> (Money).",
+   "format": "code",
+   "template": "var ctx = (IPluginExecutionContext)sp.GetService(typeof(IPluginExecutionContext));\nvar total = (Money)ctx.{1}[\"OrderTotal\"];\nctx.{2}[\"Discount\"] = new Money(total.Value * 0.10m);",
+   "language": "csharp",
+   "blanks": [
+    {
+     "options": [
+      "InputParameters",
+      "PreEntityImages",
+      "SharedVariables",
+      "OutputParameters"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "InputParameters",
+      "SharedVariables",
+      "OutputParameters",
+      "PostEntityImages"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "A custom API's plug-in reads the request parameters from <code>InputParameters</code> (keyed by each parameter's <i>UniqueName</i>) and sets the response properties through <code>OutputParameters</code>. The plug-in type is linked to the API through <code>PluginTypeId</code> and runs at stage 30; you don't register a step for it.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/custom-api"
+  },
+  {
+   "id": "q045",
+   "type": "single",
+   "domain": 1,
+   "skill": 11,
+   "section": "d1-components",
+   "stem": "You are building a <b>new</b> custom Model Context Protocol (MCP) server that Copilot Studio agents will call. Which design is correct?",
+   "options": [
+    "Expose the server with the Server-Sent Events (SSE) transport and register it through a custom connector.",
+    "Expose the server over Streamable HTTP and register it with the MCP onboarding wizard, or in a custom connector whose OpenAPI declares <code>x-ms-agentic-protocol: mcp-streamable-1.0</code>.",
+    "Implement it as a Dataverse custom API and register it with the Plug-in Registration Tool.",
+    "Expose the server over WebSockets and import it as an OpenAPI 3.0 definition."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Copilot Studio supports the <b>Streamable HTTP</b> transport for MCP; SSE was deprecated for MCP after August 2025. You register a server through the <i>Add tool &rarr; Model Context Protocol</i> wizard or through a custom connector whose OpenAPI carries <code>x-ms-agentic-protocol: mcp-streamable-1.0</code>. Custom connector import also requires OpenAPI <b>2.0</b>, and a Dataverse custom API isn't an MCP server.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent"
+  },
+  {
+   "id": "q046",
+   "type": "single",
+   "domain": 2,
+   "skill": 43,
+   "section": "d2-deploy",
+   "stem": "Users report that a published code app sometimes never finishes loading. Application Insights, which the team instrumented in the app, shows no errors for those sessions. Where should you look first?",
+   "options": [
+    "The Azure Functions logs.",
+    "Power Platform Monitor for the code app (admin center &rarr; Monitor &rarr; Power Apps), including the app open success rate.",
+    "The plug-in trace log.",
+    "The solution layers view."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Application Insights telemetry for code apps is <b>manual</b> and only captures events <b>after a successful app load</b>, so <b>startup failures</b> don't appear there. Power Platform <b>Monitor</b> is zero-code and reports code-app metrics such as time to interactive, session count, open success rate and data-request success/latency.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/set-up-azure-app-insights"
+  },
+  {
+   "id": "q047",
+   "type": "single",
+   "domain": 3,
+   "skill": 46,
+   "section": "d3-plugins",
+   "stem": "A plug-in creates a service by calling <code>factory.CreateOrganizationService(null)</code> and then updates a record. Under which user context do the service calls run?",
+   "options": [
+    "The user in <code>context.UserId</code>.",
+    "The SYSTEM user.",
+    "The user in <code>context.InitiatingUserId</code>.",
+    "The user who registered the plug-in step."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "When called in a plug-in, a <b><code>null</code> user ID means the SYSTEM user</b>; <code>Guid.Empty</code> means the same user as <code>context.UserId</code>; any other value is that specific user. <code>UserId</code> is the user the step runs as (impersonated user or caller) and <code>InitiatingUserId</code> is who actually triggered the operation.",
+   "ref": "https://learn.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.iorganizationservicefactory.createorganizationservice"
+  },
+  {
+   "id": "q048",
+   "type": "dropdown",
+   "domain": 2,
+   "skill": 43,
+   "section": "d2-deploy",
+   "stem": "You troubleshoot a code app with browser developer tools and filter the Network tab. Select the filter for each kind of traffic.",
+   "format": "text",
+   "template": "Connector (API hub) calls &mdash; filter by: {1}<br>Dataverse calls &mdash; filter by: {2}",
+   "blanks": [
+    {
+     "options": [
+      "powerapps.com",
+      "azurewebsites.net",
+      "dynamics.com",
+      "apihub.net"
+     ],
+     "answer": 3
+    },
+    {
+     "options": [
+      "dynamics.com",
+      "windows.net",
+      "apihub.net",
+      "microsoft.com"
+     ],
+     "answer": 0
+    }
+   ],
+   "explanation": "In the Network tab, <code>apihub.net</code> shows <b>connector</b> traffic and <code>dynamics.com</code> shows <b>Dataverse</b> traffic. Use the Console's <i>Errors</i> filter to find Content Security Policy violations.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/analyze-data-request-response"
+  },
+  {
+   "id": "q049",
+   "type": "single",
+   "domain": 3,
+   "skill": 67,
+   "section": "d3-flows",
+   "stem": "In a cloud flow, actions inside a scope named <b>Try</b> may fail. A scope named <b>Catch</b> must run only when Try fails, is skipped or times out. Which setting do you configure?",
+   "options": [
+    "Enable concurrency control on Catch.",
+    "Set Try's retry policy to <i>None</i>.",
+    "<i>Configure run after</i> on Catch: select <i>has failed</i>, <i>is skipped</i> and <i>has timed out</i> for Try.",
+    "Add a Terminate action before Try."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The try/catch/finally pattern uses <b>Scope</b> actions and <b>Configure run after</b>: Catch runs after Try <i>has failed / is skipped / has timed out</i>, and Finally runs after all four statuses of Try and Catch. Use <code>result('Try')</code> in Catch to inspect failures.",
+   "ref": "https://learn.microsoft.com/en-us/azure/logic-apps/error-exception-handling"
+  },
+  {
+   "id": "q050",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 27,
+   "section": "d2-client",
+   "stem": "For each statement about the Client API, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "<code>control.setNotification</code> shows a message on a column and blocks the record from being saved until it is cleared.",
+     "answer": true
+    },
+    {
+     "text": "<code>formContext.ui.setFormNotification</code> prevents the user from saving the form.",
+     "answer": false
+    },
+    {
+     "text": "<code>Xrm.Navigation.openForm</code> can open a main form as a modal dialog.",
+     "answer": false
+    }
+   ],
+   "explanation": "Only <b>control-level</b> notifications (<code>setNotification</code>) block saving; form notifications and app notifications don't. A main form can be shown as a dialog only with <code>Xrm.Navigation.<b>navigateTo</b></code> (<code>target: 2</code>); <code>openForm</code> can't do it and its success callback fires only for quick-create saves.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-navigation/navigateto"
+  },
+  {
+   "id": "q051",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 58,
+   "section": "d3-apis",
+   "stem": "For each statement about Dataverse API limits and retries, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "<code>ServiceClient</code> automatically waits for the <code>Retry-After</code> period and resends a throttled request.",
+     "answer": true
+    },
+    {
+     "text": "A client that calls the Web API directly must implement its own retry that honors the <code>Retry-After</code> header.",
+     "answer": true
+    },
+    {
+     "text": "Sending operations in large batches avoids consuming Dataverse request capacity (entitlement) limits.",
+     "answer": false
+    },
+    {
+     "text": "Plug-ins that call the Organization service are subject to the 6,000-requests-per-5-minutes service protection limit like external clients.",
+     "answer": false
+    }
+   ],
+   "explanation": "A throttled call returns <b>429 + <code>Retry-After</code></b>; <code>ServiceClient</code>/<code>CrmServiceClient</code> handle it automatically, raw Web API clients must do it themselves. <b>Batching doesn't bypass entitlement limits</b> &mdash; each operation still counts. <b>Plug-ins are exempt</b> from service protection limits (though their execution time counts toward the triggering request).",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/api-limits"
+  },
+  {
+   "id": "q052",
+   "type": "single",
+   "domain": 1,
+   "skill": 20,
+   "section": "d1-alm",
+   "stem": "You import version 2.0 of a managed solution into production. A form still behaves like version 1.0. The form's <i>Solution layers</i> view shows an <b>Active (unmanaged)</b> layer above the managed layer. What should you do?",
+   "options": [
+    "Import the managed solution again with <i>Overwrite customizations</i> selected.",
+    "Uninstall and reinstall the managed solution.",
+    "Use <i>Remove active customizations</i> on the form to delete the unmanaged layer.",
+    "Create a patch of version 2.0 and import it."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Layers are evaluated top-down and for most components the <b>top layer wins</b>. An unmanaged (Active) layer sits above all managed layers, so it overrides the managed update. <i>Remove active customizations</i> removes that top unmanaged layer (it is irreversible). Re-importing won't touch the unmanaged layer.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/alm/solution-layers-alm"
+  },
+  {
+   "id": "q053",
+   "type": "order",
+   "domain": 2,
+   "skill": 31,
+   "section": "d2-pcf",
+   "stem": "Arrange the steps to package a code component for release through a solution (not the quick <code>pac pcf push</code> development path).",
+   "items": [
+    "Scaffold the project with <code>pac pcf init</code>.",
+    "Implement the component and test it in the harness with <code>npm start watch</code>.",
+    "Create a solution project with <code>pac solution init</code>.",
+    "Add the component project to the solution project with <code>pac solution add-reference</code>.",
+    "Build the solution project in Release configuration (<code>msbuild /restore</code>).",
+    "Import the generated solution into the target environment."
+   ],
+   "explanation": "The release path uses a <b><code>.cdsproj</code> solution project</b> that references one or more <code>.pcfproj</code> component projects; building it in Release produces the solution zip you import (manually or via Build Tools). <code>pac pcf push</code> is the fast development path that deploys to a temporary <code>PowerAppsTools_&lt;prefix&gt;</code> solution.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/component-framework/import-custom-controls"
+  },
+  {
+   "id": "q054",
+   "type": "single",
+   "domain": 3,
+   "skill": 69,
+   "section": "d3-flows",
+   "stem": "A parent flow calls a child flow with <i>Run a Child Flow</i>. The run fails with an error saying only embedded connections are supported. What should you do?",
+   "options": [
+    "Move the child flow out of the solution.",
+    "Convert the child flow to a scheduled flow.",
+    "Pass the parent's connections to the child at run time.",
+    "On the child flow's <i>Run only users</i> settings, set each connection to <i>Use this connection</i> (the child's own connection)."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Parent and child must be in a <b>solution</b>, and every connection on the child's <b>Run only users</b> tile must be switched to <b>Use this connection</b>; passing a parent's connections to a child isn't supported. The child uses the <i>Manually trigger a flow</i> trigger and returns data with <i>Respond to a PowerApp or flow</i>.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/create-child-flows"
+  },
+  {
+   "id": "q055",
+   "type": "single",
+   "domain": 4,
+   "skill": 84,
+   "section": "d4-connectors",
+   "stem": "You expose a REST API implemented as an Azure Function through Azure API Management. API Management currently provides an <b>OpenAPI 3.0</b> definition. What must you do to create a custom connector from it?",
+   "options": [
+    "Import it as a Postman collection.",
+    "Import the OpenAPI 3.0 file directly in the custom connector wizard.",
+    "Export or convert the definition to <b>OpenAPI 2.0 (Swagger)</b> &mdash; for example, download the OpenAPI v2 file from API Management &mdash; and import that.",
+    "Register it as a Dataverse custom API."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The custom connector wizard imports <b>OpenAPI 2.0 (Swagger) only</b>; OpenAPI 3.0 isn't supported, so convert/export a 2.0 definition first (files must also be under 1 MB). The documented path for an Azure Function is to front it with <b>API Management</b> and import the downloaded definition.",
+   "ref": "https://learn.microsoft.com/en-us/connectors/custom-connectors/define-openapi-definition"
+  },
+  {
+   "id": "q056",
+   "type": "single",
+   "domain": 3,
+   "skill": 47,
+   "section": "d3-plugins",
+   "stem": "<b>Requirement 1.</b> You must set a default priority and block creation (with a clear message) when the asset is not under contract. How should you implement this?",
+   "options": [
+    "An asynchronous plug-in on <code>Create</code> registered at PostOperation that sets the priority and deletes invalid work orders.",
+    "A cloud flow that triggers when a work order is created and updates the priority.",
+    "A JavaScript <code>OnSave</code> handler on the dispatcher form.",
+    "A synchronous plug-in on <code>Create</code> registered at PreOperation that sets the priority on <code>Target</code> and throws <code>InvalidPluginExecutionException</code> when the contract check fails."
+   ],
+   "answer": [
+    3
+   ],
+   "caseStudy": "contoso",
+   "explanation": "The rule must hold for <b>every</b> way a work order is created, so it needs <b>server-side, synchronous</b> logic. A <b>PreOperation</b> step can edit the <code>Target</code> (the default is saved with the row) and throw to stop the operation with a user-visible message. Asynchronous plug-ins and flows act after the row is saved, and client script only covers the app UI.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framework"
+  },
+  {
+   "id": "q057",
+   "type": "single",
+   "domain": 4,
+   "skill": 78,
+   "section": "d4-events",
+   "stem": "<b>Requirement 2.</b> Which option should you recommend to notify the ERP when a work order is closed?",
+   "options": [
+    "Register an Azure Service Bus <b>queue</b> service endpoint and an asynchronous PostOperation step that publishes when the work order is closed.",
+    "Register a webhook that posts to the ERP's REST API.",
+    "Register a two-way service endpoint.",
+    "Register an Event Hub endpoint."
+   ],
+   "answer": [
+    0
+   ],
+   "caseStudy": "contoso",
+   "explanation": "A <b>Service Bus queue</b> persists messages while the consumer is offline and lets the ERP team <b>pull</b> them later, so nothing is lost. A webhook (and a two-way/REST contract) needs the listener online at the time of the event; Event Hub is a streaming ingestion endpoint. Service Bus posting from Dataverse is asynchronous and authenticates with SAS.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/azure-integration"
+  },
+  {
+   "id": "q058",
+   "type": "single",
+   "domain": 1,
+   "skill": 5,
+   "section": "d1-arch",
+   "stem": "<b>Requirement 3.</b> Which table type should you use for the nightly meter readings?",
+   "options": [
+    "An <b>elastic</b> table with a time-to-live (TTL) of 90 days.",
+    "A standard table plus a scheduled flow that deletes old rows.",
+    "A standard table with an alternate key on the device ID.",
+    "A virtual table over the IoT platform."
+   ],
+   "answer": [
+    0
+   ],
+   "caseStudy": "contoso",
+   "explanation": "<b>Elastic tables</b> (Azure Cosmos DB behind Dataverse) are designed for very high volume, bursty, non-relational data and support <b>TTL</b> (<code>ttlinseconds</code>) for automatic expiry. They trade away relationships and multi-record transactions, which this scenario doesn't need. A virtual table leaves data in the IoT system; a standard table plus a deletion flow wouldn't scale or expire data natively.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-edit-elastic-tables"
+  },
+  {
+   "id": "q059",
+   "type": "single",
+   "domain": 1,
+   "skill": 15,
+   "section": "d1-components",
+   "stem": "<b>Requirement 4.</b> Which approach should you recommend for the technician UI?",
+   "options": [
+    "A Power Apps <b>code app</b>, published by the CI pipeline with the Power Apps CLI (<code>pa app push</code>) under a service principal.",
+    "An HTML web resource that embeds a React bundle.",
+    "A generative page in the dispatcher's model-driven app.",
+    "A PCF field component on the work order form."
+   ],
+   "answer": [
+    0
+   ],
+   "caseStudy": "contoso",
+   "explanation": "A <b>code app</b> is a whole custom web app in your own framework (React), hosted by Power Apps with Entra authentication, Dataverse/connector access and platform governance. Your pipeline can build it and publish with <code>pa app push</code> (Power Platform's own Git integration isn't supported for code apps, but the team keeps source in its own Git repo, so it isn't needed). A PCF is a control, a generative page is an AI-authored page inside a model-driven app, and a web resource lacks connections and platform integration.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/overview"
+  },
+  {
+   "id": "q060",
+   "type": "multi",
+   "domain": 3,
+   "skill": 71,
+   "section": "d3-foundry",
+   "stem": "<b>Requirement 5.</b> Which <b>TWO</b> actions should you take so the Python Foundry agent can read work orders (read-only) and consult the Copilot Studio agent?",
+   "options": [
+    "Add the <b>Dataverse MCP server</b> as an MCP tool of the Foundry agent and restrict the allowed tools to read-only operations (for example <code>search_data</code> and <code>read_query</code>).",
+    "Call the published Copilot Studio agent from the agent's code by using the <b>Copilot Studio client library</b> with an Entra app registration that has <code>CopilotStudio.Copilots.Invoke</code>.",
+    "Publish the Copilot Studio agent through the Preview MCP client channel and add the Work IQ tool to query Dataverse tables.",
+    "Create an application user with the System Administrator role and store its client secret in the agent's instructions.",
+    "Use <code>ExecuteCopilotAsyncV2</code> from a Power Apps code app that the agent calls."
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "select": 2,
+   "caseStudy": "contoso",
+   "explanation": "The <b>Dataverse MCP server</b> (<code>https://&lt;org&gt;.crm.dynamics.com/api/mcp</code>) is the supported way to give an agent governed Dataverse access; limiting the tool list (for example to <code>search_data</code> and <code>read_query</code>, which is SELECT-only) keeps it read-only. The <b>Copilot Studio client library</b> is the GA, production way for custom code to converse with a published agent. Secrets in instructions, Preview channels, Work IQ (Microsoft 365 data, not Dataverse tables) and a code-app connector method don't meet the requirements or the GA preference.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-mcp"
+  }
+ ]
+}

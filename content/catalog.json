@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "packs": [
+    {
+      "id": "ab-400",
+      "order": 10,
+      "code": "AB-400",
+      "title": "Extending Microsoft Power Platform Solutions with Code and AI",
+      "short": "Power Platform Developer Associate",
+      "vendor": "Microsoft",
+      "version": "2026.10.19",
+      "updated": "2026-10-19",
+      "accent": "#0f6cbd",
+      "description": "Study guide, 88-skill tracker and a 60-question practice exam for the AB-400 exam that replaced PL-400 on Oct 16, 2026.",
+      "counts": {
+        "guides": 1,
+        "sections": 46,
+        "skills": 88,
+        "exams": 1,
+        "questions": 60
+      },
+      "path": "ab-400/pack.json"
+    }
+  ]
+}

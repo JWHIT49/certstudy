@@ -1,0 +1,831 @@
+{
+ "schema": 1,
+ "groups": [
+  {
+   "id": "g1",
+   "domain": 1,
+   "title": "Design the technical architecture",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 1,
+     "text": "Analyze the technical architecture to identify solution components and their implementation approach",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 2,
+     "text": "Design authentication and authorization for solution components",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 3,
+     "text": "Determine whether requirements can be met with out-of-the-box functionality",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 4,
+     "text": "Determine where to implement business logic including cloud services, client-side processing, business rules, plug-ins, and automation",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 5,
+     "text": "Determine when to use standard tables, virtual tables, elastic tables, or connectors",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 6,
+     "text": "Assess the impact of Microsoft Power Platform security features on solution components, including managed environments, data policies, security roles, teams, business units, and row sharing",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 7,
+     "text": "Determine when to use deterministic or non-deterministic methods to implement business logic",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 8,
+     "text": "Determine when to use code apps, generative pages, Power Apps component frameworks (PCFs), web resources, interactive agents, and Model Context Protocol (MCP) app widgets to implement the user experience",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 9,
+     "text": "Determine when to use Microsoft Foundry or Microsoft Copilot Studio to build agents",
+     "refs": [
+      "d1-arch"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g2",
+   "domain": 1,
+   "title": "Design solution components",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 10,
+     "text": "Design Power Apps reusable components including generative pages, code components (PCF), and client scripting",
+     "refs": [
+      "d1-components"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 11,
+     "text": "Design custom connectors and MCP servers for use with Microsoft Power Platform solutions",
+     "refs": [
+      "d1-components"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 12,
+     "text": "Design Dataverse code components, including plug-ins and custom APIs",
+     "refs": [
+      "d1-components"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 13,
+     "text": "Design automations, including Power Automate cloud flows and Copilot Studio workflows",
+     "refs": [
+      "d1-components"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 14,
+     "text": "Design inbound and outbound integrations using Dataverse and Microsoft Azure",
+     "refs": [
+      "d1-components"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 15,
+     "text": "Design custom interfaces by using Power Apps code apps",
+     "refs": [
+      "d1-components",
+      "d2-codeapps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 16,
+     "text": "Design custom agents that integrate with Microsoft Power Platform",
+     "refs": [
+      "d1-components",
+      "d3-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 17,
+     "text": "Design monitoring and alerting, including Azure Monitor Application Insights and Microsoft Power Platform monitor alerts",
+     "refs": [
+      "d1-components"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g3",
+   "domain": 1,
+   "title": "Implement application lifecycle management (ALM)",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 18,
+     "text": "Manage solution dependencies",
+     "refs": [
+      "d1-alm"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 19,
+     "text": "Create and use environment variables",
+     "refs": [
+      "d1-alm"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 20,
+     "text": "Manage solution layers",
+     "refs": [
+      "d1-alm"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 21,
+     "text": "Implement and extend Microsoft Power Platform Pipelines",
+     "refs": [
+      "d1-alm"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 22,
+     "text": "Create Continuous Integration/Continuous Deployment (CI/CD) automations using Microsoft Power Platform Build Tools",
+     "refs": [
+      "d1-alm"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g4",
+   "domain": 2,
+   "title": "Apply business logic in model-driven apps by using client scripting",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 23,
+     "text": "Build code that targets the Client API object model",
+     "refs": [
+      "d2-client"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 24,
+     "text": "Determine an event handler registration approach",
+     "refs": [
+      "d2-client"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 25,
+     "text": "Create client scripting that targets the Dataverse Web API",
+     "refs": [
+      "d2-client"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 26,
+     "text": "Configure commands and buttons by using Power Fx and JavaScript",
+     "refs": [
+      "d2-client"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 27,
+     "text": "Implement navigation, dialogs, and notifications by using the Client API",
+     "refs": [
+      "d2-client"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g5",
+   "domain": 2,
+   "title": "Create PCF code components",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 28,
+     "text": "Demonstrate the use of the different lifecycle events",
+     "refs": [
+      "d2-pcf"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 29,
+     "text": "Configure a code component manifest",
+     "refs": [
+      "d2-pcf"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 30,
+     "text": "Implement component interfaces",
+     "refs": [
+      "d2-pcf"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 31,
+     "text": "Package, deploy, and consume a component",
+     "refs": [
+      "d2-pcf"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 32,
+     "text": "Configure and use Device, Utility, and Web API features in component logic",
+     "refs": [
+      "d2-pcf"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g6",
+   "domain": 2,
+   "title": "Build Power Apps code apps",
+   "isNew": true,
+   "skills": [
+    {
+     "n": 33,
+     "text": "Configure code apps to use Microsoft Power Platform connections",
+     "refs": [
+      "d2-codeapps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 34,
+     "text": "Configure code apps to use Dataverse tables",
+     "refs": [
+      "d2-codeapps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 35,
+     "text": "Perform table and metadata operations on Dataverse data",
+     "refs": [
+      "d2-codeapps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 36,
+     "text": "Perform Dataverse actions and functions",
+     "refs": [
+      "d2-codeapps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 37,
+     "text": "Configure code apps to use Power Automate cloud flows",
+     "refs": [
+      "d2-codeapps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 38,
+     "text": "Configure code apps to use agents built in Copilot Studio",
+     "refs": [
+      "d2-codeapps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 39,
+     "text": "Configure code apps to use environment variables",
+     "refs": [
+      "d2-codeapps"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g7",
+   "domain": 2,
+   "title": "Deploy and manage Power Apps code apps",
+   "isNew": true,
+   "skills": [
+    {
+     "n": 40,
+     "text": "Configure Content Security Policy (CSP) settings",
+     "refs": [
+      "d2-deploy"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 41,
+     "text": "Implement monitoring by using Azure Application Insights",
+     "refs": [
+      "d2-deploy"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 42,
+     "text": "Package, deploy, and share code apps",
+     "refs": [
+      "d2-deploy"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 43,
+     "text": "Troubleshoot code apps by using Monitor and other browser-based debugging tools",
+     "refs": [
+      "d2-deploy"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 44,
+     "text": "Optimize code app performance and resource usage",
+     "refs": [
+      "d2-deploy"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g8",
+   "domain": 3,
+   "title": "Create a Dataverse plug-in",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 45,
+     "text": "Demonstrate the use of the different event execution pipeline stages",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 46,
+     "text": "Develop a plug-in that uses the execution context",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 47,
+     "text": "Develop a plug-in that implements business logic",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 48,
+     "text": "Implement images to support plug-in logic",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 49,
+     "text": "Perform operations in plug-ins by using the Organization service",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 50,
+     "text": "Optimize plug-in performance",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 51,
+     "text": "Configure a Dataverse custom API message",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 52,
+     "text": "Register plug-in components by using the Plug-in Registration Tool",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 53,
+     "text": "Develop a plug-in that implements a custom API",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 54,
+     "text": "Configure Dataverse business events",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 55,
+     "text": "Configure Microsoft Power Platform managed identity for plug-ins",
+     "refs": [
+      "d3-plugins"
+     ],
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "id": "g9",
+   "domain": 3,
+   "title": "Perform operations by using platform APIs",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 56,
+     "text": "Perform operations by using the Dataverse Web API",
+     "refs": [
+      "d3-apis"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 57,
+     "text": "Perform operations by using the Organization service",
+     "refs": [
+      "d3-apis"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 58,
+     "text": "Implement API limit retry policies",
+     "refs": [
+      "d3-apis"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 59,
+     "text": "Optimize solution components for performance, concurrency, transactions, and bulk operations",
+     "refs": [
+      "d3-apis"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 60,
+     "text": "Implement and troubleshoot authentication by using OAuth",
+     "refs": [
+      "d3-apis"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 61,
+     "text": "Perform asynchronous logic by using background operations",
+     "refs": [
+      "d3-apis"
+     ],
+     "isNew": true
+    },
+    {
+     "n": 62,
+     "text": "Perform operations by using Dataverse SDKs for .NET and Python",
+     "refs": [
+      "d3-apis"
+     ],
+     "isNew": true
+    }
+   ]
+  },
+  {
+   "id": "g10",
+   "domain": 3,
+   "title": "Process workloads by using Microsoft Azure Functions",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 63,
+     "text": "Process long-running operations by using Azure Functions for Microsoft Power Platform solutions",
+     "refs": [
+      "d3-functions"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 64,
+     "text": "Implement scheduled and event-driven triggers in Azure Functions for Microsoft Power Platform solutions",
+     "refs": [
+      "d3-functions"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 65,
+     "text": "Authenticate to Microsoft Power Platform by using managed identities",
+     "refs": [
+      "d3-functions"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g11",
+   "domain": 3,
+   "title": "Configure Power Automate cloud flows and Copilot Studio workflows",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 66,
+     "text": "Implement complex expressions in flow steps",
+     "refs": [
+      "d3-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 67,
+     "text": "Implement flow control actions including error handling",
+     "refs": [
+      "d3-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 68,
+     "text": "Configure trigger filter and retry policies",
+     "refs": [
+      "d3-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 69,
+     "text": "Develop reuseable logic by using child flows",
+     "refs": [
+      "d3-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 70,
+     "text": "Implement authentication for the Dataverse connector by using service principals",
+     "refs": [
+      "d3-flows"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g12",
+   "domain": 3,
+   "title": "Build Microsoft Foundry agents by using code that integrates with the Microsoft Power Platform",
+   "isNew": true,
+   "skills": [
+    {
+     "n": 71,
+     "text": "Integrate custom agents by using Microsoft Power Platform MCP servers",
+     "refs": [
+      "d3-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 72,
+     "text": "Connect custom agents to Copilot Studio agents",
+     "refs": [
+      "d3-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 73,
+     "text": "Integrate custom agents with Dataverse data by using Work IQ",
+     "refs": [
+      "d3-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 74,
+     "text": "Consume Copilot Studio agents by using the Copilot Studio client library",
+     "refs": [
+      "d3-foundry"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g13",
+   "domain": 4,
+   "title": "Publish and consume Dataverse events",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 75,
+     "text": "Publish a Dataverse event by using the IServiceEndpointNotificationService",
+     "refs": [
+      "d4-events"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 76,
+     "text": "Publish a Dataverse event by using the Plug-in Registration Tool",
+     "refs": [
+      "d4-events"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 77,
+     "text": "Register service endpoints including webhooks, Azure Service Bus, and Azure Event Hub",
+     "refs": [
+      "d4-events"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 78,
+     "text": "Recommend options for listening to Dataverse events",
+     "refs": [
+      "d4-events"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g14",
+   "domain": 4,
+   "title": "Implement synchronization for Dataverse data",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 79,
+     "text": "Perform data synchronization by using change tracking",
+     "refs": [
+      "d4-sync"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 80,
+     "text": "Develop code that uses alternate keys",
+     "refs": [
+      "d4-sync"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 81,
+     "text": "Synchronize data by using the UpsertRequest message",
+     "refs": [
+      "d4-sync"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g15",
+   "domain": 4,
+   "title": "Create custom connectors",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 82,
+     "text": "Implement authentication for custom connectors",
+     "refs": [
+      "d4-connectors"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 83,
+     "text": "Configure policy templates to modify connector behavior at runtime",
+     "refs": [
+      "d4-connectors"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 84,
+     "text": "Import definitions from existing APIs including Open API definitions, Azure services, and GitHub",
+     "refs": [
+      "d4-connectors"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 85,
+     "text": "Create a custom connector for an Azure service",
+     "refs": [
+      "d4-connectors"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 86,
+     "text": "Develop an Azure Function to be used in a custom connector",
+     "refs": [
+      "d4-connectors"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 87,
+     "text": "Extend the Open API definition for a custom connector",
+     "refs": [
+      "d4-connectors"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 88,
+     "text": "Develop code for a custom connector to transform data",
+     "refs": [
+      "d4-connectors"
+     ],
+     "isNew": false
+    }
+   ]
+  }
+ ]
+}

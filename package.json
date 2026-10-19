@@ -1,0 +1,16 @@
+{
+  "name": "certstudy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline-first PWA with study guides and interactive practice exams for certification prep.",
+  "repository": { "type": "git", "url": "git+https://github.com/JWHIT49/certstudy.git" },
+  "homepage": "https://jwhit49.github.io/certstudy/",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check",
+    "start": "node tools/serve.mjs",
+    "test": "node --test \"tests/*.test.mjs\""
+  }
+}
