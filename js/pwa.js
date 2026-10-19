@@ -26,7 +26,11 @@ function whenSettled(worker, timeoutMs = 20000) {
 
 export async function clearOfflineCache({ reload = true } = {}) {
   if ('serviceWorker' in navigator) {
-    for (const reg of await navigator.serviceWorker.getRegistrations()) await reg.unregister();
+    // GitHub Pages serves every project site of an account from one origin, so only touch this app's own registration.
+    const ours = new URL('./', document.baseURI).href;
+    for (const reg of await navigator.serviceWorker.getRegistrations()) {
+      if (reg.scope === ours) await reg.unregister();
+    }
   }
   if (globalThis.caches) {
     for (const key of await caches.keys()) if (key.startsWith('certstudy-')) await caches.delete(key);
