@@ -2,7 +2,7 @@
 
 An offline-first study app for certification exams. It runs in the browser, installs to the iPhone Home Screen like a native app, and keeps working without a connection. Everything it shows comes from plain JSON "content packs", so adding another certification means adding a folder, not changing code.
 
-The first pack is **AB-400** (Extending Microsoft Power Platform Solutions with Code and AI): a 46-section study guide, an 88-skill confidence tracker and a 60-question practice exam with a case study.
+Packs so far: **AB-400** (Extending Microsoft Power Platform Solutions with Code and AI: a 46-section study guide, an 88-skill confidence tracker and a 60-question practice exam with a case study) and **AB-410** (Building Intelligent Applications: a 36-section guide with a PL-200 to AB-410 comparison, a 48-skill tracker and a 60-question practice exam with a case study). The library groups packs by their `family` (for example "Power Platform").
 
 ## What it does
 
@@ -79,7 +79,7 @@ CertStudy is published from one place: the GitHub account **JWHIT49**.
 
 ## Add another certification
 
-1. Copy `content/ab-400` to `content/<new-id>` and edit `pack.json`, `guide.json`, `skills.json` and the exam file(s).
+1. Copy `content/ab-400` to `content/<new-id>` and edit `pack.json` (set a unique `id` that matches the folder, an `order`, and a `family` to group it with related certifications), `guide.json`, `skills.json` and the exam file(s).
 2. Run `npm run build`. It validates everything and prints exact, path-qualified errors (for example `[exam practice-1] exam.questions[7] (q008).answer: invalid index`), then registers the pack in `content/catalog.json`.
 3. Run `npm start` to try it, then publish as above. The library screen lists every pack automatically.
 
@@ -106,4 +106,4 @@ Security notes: the page ships a strict Content-Security-Policy (no inline scrip
 
 ## Content and licensing
 
-The AB-400 pack is original study material and original practice questions written from public Microsoft documentation. It is **not** Microsoft exam content, is not affiliated with or endorsed by Microsoft, and the real exam may differ. Verify details against the official study guide linked in the app.
+The packs are original study material and original practice questions written from public Microsoft documentation. They are **not** Microsoft exam content, are not affiliated with or endorsed by Microsoft, and the real exam may differ. Verify details against the official study guide linked in each pack.

@@ -8,6 +8,7 @@
       "title": "Extending Microsoft Power Platform Solutions with Code and AI",
       "short": "Power Platform Developer Associate",
       "vendor": "Microsoft",
+      "family": "Power Platform",
       "version": "2026.10.19",
       "updated": "2026-10-19",
       "accent": "#0f6cbd",
@@ -20,6 +21,27 @@
         "questions": 60
       },
       "path": "ab-400/pack.json"
+    },
+    {
+      "id": "ab-410",
+      "order": 20,
+      "code": "AB-410",
+      "title": "Building Intelligent Applications",
+      "short": "Intelligent applications builder",
+      "vendor": "Microsoft",
+      "family": "Power Platform",
+      "version": "2026.10.20",
+      "updated": "2026-10-20",
+      "accent": "#742774",
+      "description": "Study guide, 48-skill tracker and a 60-question practice exam for the AB-410 exam, the successor to PL-200.",
+      "counts": {
+        "guides": 1,
+        "sections": 36,
+        "skills": 48,
+        "exams": 1,
+        "questions": 60
+      },
+      "path": "ab-410/pack.json"
     }
   ]
 }

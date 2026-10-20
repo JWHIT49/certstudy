@@ -1,0 +1,1338 @@
+{
+ "schema": 1,
+ "id": "practice-1",
+ "title": "Practice Exam 1",
+ "description": "60 original questions weighted to the current AB-410 skills measured (study guide updated 2026-10-16), including a case study.",
+ "minutes": 120,
+ "scoring": "Each question is worth 1 point; multi-part questions are all-or-nothing.",
+ "bands": [
+  {
+   "min": 0.8,
+   "label": "Strong",
+   "text": "You know the material and the traps. Review every miss, re-take in a few days, then book the exam."
+  },
+  {
+   "min": 0.7,
+   "label": "Close",
+   "text": "Gaps in specific areas. Re-read the sections listed below and redo the matching hands-on tasks."
+  },
+  {
+   "min": 0,
+   "label": "Not ready yet",
+   "text": "Follow the study plan and focus on your lowest domain scores first."
+  }
+ ],
+ "caseStudies": [
+  {
+   "id": "tailwind-warranty",
+   "title": "Tailwind Traders: warranty claims service desk",
+   "html": "<h3>Overview</h3>\n<p>Tailwind Traders sells power tools and home appliances through 140 stores in North America, Europe and Asia-Pacific. Customers who think a product is defective file a warranty claim by phone, by email or in a store. A central service desk of about 60 claims agents checks each claim against the product warranty, and regional claims managers oversee the agents in their region. Field technicians repair products at customers' homes, and a small Fraud Review team investigates suspicious claims.</p>\n<p>Claims are tracked today in shared Excel workbooks and email threads, so agents lose time reading long, scattered notes. Leadership wants a Dataverse solution that uses AI to cut that reading time.</p>\n\n<h3>Current environment</h3>\n<ul>\n<li>A production Dataverse environment is ready, and the Copilot and AI prompts features are turned on for it.</li>\n<li>Business units mirror the organization. The root unit Tailwind Traders has the child units North America, Europe and Asia-Pacific, and Europe has the child units Germany and France. Agents belong to the unit of their office, and each regional manager belongs to their region's unit.</li>\n<li>The security roles Claims Agent, Regional Claims Manager and Fraud Reviewer exist but have no table privileges yet.</li>\n<li>Customers are rows in the standard Contact table. Agents will work in a model-driven app. Technicians update claims from tablets in a canvas app, and a nightly cloud flow imports open claims from the old workbooks.</li>\n</ul>\n\n<h3>Exhibit: planned Warranty Claim table</h3>\n<table>\n<thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead>\n<tbody>\n<tr><td>Customer</td><td>Lookup (Contact)</td><td>The person who filed the claim</td></tr>\n<tr><td>Defect description</td><td>Multiline text</td><td>Typed by agents, often long</td></tr>\n<tr><td>Technician notes</td><td>Multiline text</td><td>Updated from the canvas app</td></tr>\n<tr><td>Claim status</td><td>Choice</td><td>New, In review, Approved, Rejected, Closed</td></tr>\n<tr><td>Approver</td><td>Lookup (User)</td><td>Supervisor who signs off the claim</td></tr>\n</tbody>\n</table>\n\n<h3>Requirements</h3>\n<ol>\n<li>Agents must see a short AI-written summary of the Defect description and Technician notes on every claim. The summary must be <b>stored on the claim row</b> so that views and flows can use it, and it must refresh when either column changes. The team will not build or maintain a flow or code for it.</li>\n<li>Agents must see only the claims they own or that are shared with them. Regional managers must see <b>every claim in their own region, including its country units</b>, and no claim from another region.</li>\n<li>Members of the Fraud Reviewer role need an Investigation tab on the claim form. <b>Only Fraud Reviewers may open a form that contains that tab</b>; every other user keeps the standard claim form.</li>\n<li>When a claim is approved, the customer receives an email drafted by AI. A supervisor must review the draft in Power Automate approvals and may edit it, and the customer must receive <b>exactly the wording that the supervisor accepts</b>.</li>\n<li>A claim must never be saved with Claim status set to Approved while Approver is empty, <b>whether the change comes from the model-driven app, the canvas app or the nightly import flow</b>.</li>\n</ol>"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "type": "single",
+   "domain": 1,
+   "skill": 7,
+   "section": "d1-build-data-models",
+   "stem": "A Contoso maker added one custom column and changed one form on the out-of-box <code>Account</code> table in an unmanaged solution. <code>Account</code> already exists, with other customizations, in the downstream test environment. When she adds the existing table to her solution, which option ships only her two changes?",
+   "options": [
+    "No objects selected, the default, and let the import detect the changes.",
+    "Include all objects, so that every Account component is exported.",
+    "Include table metadata, which adds the column and the form without other components.",
+    "Edit objects, then select only the new column and the changed form."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Table segmentation lets you add an existing table with <b>Edit objects</b> and tick only the components you added or changed, here the column and the form. <b>Include all objects</b> adds every component and all metadata, can't be undone and is meant only for an unmanaged table that doesn't exist in the target. <b>Include table metadata</b> adds table properties such as auditing and change tracking but no columns or forms, and <b>No objects selected</b> adds just the friendly name.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/alm/segmented-solutions-alm"
+  },
+  {
+   "id": "q002",
+   "type": "single",
+   "domain": 3,
+   "skill": 43,
+   "section": "d3-create-prompts-models",
+   "stem": "A Proseware canvas app must show the language code of a customer review that the user types into txtReview when the user selects a button. The maker already added the prebuilt Language detection model with <b>Data &gt; Add data &gt; AI models</b>. Which formula in the button's <b>OnSelect</b> property does this?",
+   "options": [
+    "<code>Set( lang, 'Language detection'.Predict( txtReview.Text ).TopClass.Name )</code>",
+    "<code>Set( lang, 'Language detection'.Predict( txtReview.Text ).Language )</code>",
+    "<code>Set( lang, Environment.AITranslate( { Text: txtReview.Text, TargetLanguage: \"en\" } ).TranslatedText )</code>",
+    "<code>Set( lang, LanguageDetection( txtReview.Text ).Language )</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Models added through <b>Add data &gt; AI models</b> are called with <code>.Predict</code> on the model name, and language detection returns a record with <code>Language</code> and <code>Confidence</code>. <code>TopClass.Name</code> belongs to the category classification result. <code>AITranslate</code> returns <code>TranslatedText</code>, a translation rather than a language code. There is no <code>LanguageDetection()</code> function in canvas apps. Run the call from OnSelect, not OnChange, so it is not repeated and billed on every change.",
+   "ref": "https://learn.microsoft.com/en-us/ai-builder/powerfx-in-powerapps"
+  },
+  {
+   "id": "q003",
+   "type": "dropdown",
+   "domain": 2,
+   "skill": 18,
+   "section": "d2-create-model-driven",
+   "stem": "A Fabrikam developer must open an existing generative page from a command-bar script on the Account form. It should appear in a centered dialog that is 70% wide. The variables <code>pageGuid</code> and <code>recordGuid</code> already hold the page ID and the account row ID. Complete the script.",
+   "format": "code",
+   "language": "javascript",
+   "template": "var pageInput = {\n    pageType: \"{1}\",\n    {2}: pageGuid,\n    entityName: \"account\",\n    recordId: recordGuid\n};\nvar navigationOptions = {\n    target: 2,\n    position: 1,\n    width: { value: 70, unit: \"%\" },\n    title: \"Account insights\"\n};\nXrm.Navigation.{3}(pageInput, navigationOptions);",
+   "blanks": [
+    {
+     "options": [
+      "webresource",
+      "entityrecord",
+      "generative",
+      "custom"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "entityId",
+      "name",
+      "pageId",
+      "webresourceName"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "openForm",
+      "openUrl",
+      "openAlertDialog",
+      "navigateTo"
+     ],
+     "answer": 3
+    }
+   ],
+   "explanation": "A generative page is opened with <code>Xrm.Navigation.navigateTo</code> by using <code>pageType: \"generative\"</code> and its <b><code>pageId</code></b>, the GUID shown in the Generative page field of the app designer's properties pane. Custom pages use <code>pageType: \"custom\"</code> with <code>name</code>, and <code>entityrecord</code> with <code>entityId</code> opens a form. <code>target: 2</code> with <code>position: 1</code> gives a centered dialog (<code>position: 2</code> is a side dialog). The other methods open a form, open a URL or show an alert dialog.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/navigate-to-generative-page-examples"
+  },
+  {
+   "id": "q004",
+   "type": "single",
+   "domain": 3,
+   "skill": 44,
+   "section": "d3-create-prompts-models",
+   "stem": "A Fabrikam cloud flow uses an AI Builder action to read text from scanned PDFs. The action's output is JSON that starts with <code>statusCode: 202</code>, and the next action fails with \"Unable to process template language expressions\". Which action setting should the maker check first?",
+   "options": [
+    "Make sure <b>Asynchronous Pattern</b> is turned on for the action.",
+    "Raise the <b>Timeout</b> value so that the action can run longer.",
+    "Set the <b>Pages</b> parameter to a range such as <code>1-2</code>.",
+    "Change the <b>Retry policy</b> to an exponential interval."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "AI Builder actions rely on the <b>Asynchronous Pattern</b> setting, which is on by default, to wait for the long-running result. When it is disabled the action returns the immediate 202 response, so the output shows <code>statusCode: 202</code> and later steps that read fields fail with \"Unable to process template language expressions\". The documented fix is to enable the setting and run the flow again. Timeout and Retry policy are not the documented cause, and Pages only selects which document pages are processed.",
+   "ref": "https://learn.microsoft.com/en-us/troubleshoot/power-platform/ai-builder/power-automate/the-output-of-an-ai-builder-action-is-empty-in-power-automate-or-the-next-action-returns-an-error"
+  },
+  {
+   "id": "q005",
+   "type": "single",
+   "domain": 1,
+   "skill": 13,
+   "section": "d1-build-data-models",
+   "stem": "Fabrikam's <code>Service Request</code> table has a public view named Escalated Requests, which is currently the <b>default</b> public view. An admin wants only users who hold the Escalation Manager security role to see it in the list-view selector. The <code>EnableRoleBasedSystemViews</code> setting is already true. What must the admin do?",
+   "options": [
+    "Add a condition for the Escalation Manager role to the view with Edit filters, then save and publish.",
+    "Remove the Read privilege on the Service Request table from every role except Escalation Manager.",
+    "Make another public view the default, then use View settings &gt; Specific security roles on Escalated Requests.",
+    "Use View settings &gt; Specific security roles on Escalated Requests; default views accept role assignments too."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Default public views can't be assigned security roles, so another public view must become the default first (Views &gt; More commands &gt; Set as default view). Then <b>View settings &gt; Specific security roles</b> on the non-default view limits who sees it in the view selector. <b>Edit filters</b> controls which rows a view returns, not who sees the view, and removing Read privileges would block the data for everyone else instead of hiding one view. Role-based views filter only the selector; privileges still control data access.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/manage-view-access"
+  },
+  {
+   "id": "q006",
+   "type": "single",
+   "domain": 2,
+   "skill": 27,
+   "section": "d2-create-canvas-apps",
+   "stem": "On Tailwind Traders' <code>BrowseScreen</code>, a gallery lists orders. When a user selects a row's arrow icon, the app must open <code>EditScreen</code> and expose the selected order there as a variable named <code>varOrder</code> that exists <b>only on EditScreen</b>. Which <b>OnSelect</b> formula should the icon use?",
+   "options": [
+    "<code>UpdateContext({varOrder: ThisItem}); Navigate(EditScreen, ScreenTransition.Fade)</code>",
+    "<code>ClearCollect(varOrder, ThisItem); Navigate(EditScreen, ScreenTransition.Fade)</code>",
+    "<code>Set(varOrder, ThisItem); Navigate(EditScreen, ScreenTransition.Fade)</code>",
+    "<code>Navigate(EditScreen, ScreenTransition.Fade, {varOrder: ThisItem})</code>"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The optional third argument of <code>Navigate</code> is a record that sets context variables on the <b>target</b> screen, and it is the only way to set a context variable from outside that screen. <code>Set</code> creates a global variable that every screen can see. <code>UpdateContext</code> sets the variable on the screen where the formula runs (BrowseScreen), so EditScreen wouldn't have it. <code>ClearCollect</code> builds an app-wide collection, which is a table rather than a screen-scoped variable.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-navigate"
+  },
+  {
+   "id": "q007",
+   "type": "single",
+   "domain": 2,
+   "skill": 19,
+   "section": "d2-create-model-driven",
+   "stem": "Contoso's Sales model-driven app has one navigation area. The maker wants a second area, Marketing, so that users can switch areas from the lower-left of the navigation pane, but the area switcher is missing under Pages in the app designer. What should the maker do?",
+   "options": [
+    "Open Settings &gt; Navigation, turn on <b>Enable collapsible groups</b>, then use the area switcher to select <b>New area</b>.",
+    "Select the ellipsis next to <b>Navigation</b> and choose <b>New group</b>; each group is displayed as its own area.",
+    "Open Settings &gt; Navigation, turn on <b>Enable Areas</b>, then use the area switcher to select <b>New area</b>.",
+    "Select <b>Add page</b> &gt; <b>Navigation link</b> and enter the URL of the Marketing site as a new area."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Creating additional areas is disabled by default: <b>Enable Areas</b> (Settings &gt; Navigation) must be on before the area switcher under Pages offers <b>New area</b>. It is on automatically only for apps that already have several areas. <b>Enable collapsible groups</b> only lets users expand or collapse the subareas under a group, a group sits inside an area rather than being one, and a Navigation link page simply opens a URL in a new browser tab.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/app-navigation"
+  },
+  {
+   "id": "q008",
+   "type": "single",
+   "domain": 3,
+   "skill": 41,
+   "section": "d3-create-prompts-models",
+   "stem": "A Tailwind Traders hospital team uses a prompt on GPT-4.1 to summarize clinical notes that describe medical procedures. Some summaries are not returned because the default content filtering restricts them. The team accepts the risk and wants the prompt to return more answers. What should the maker change?",
+   "options": [
+    "Switch to Claude Sonnet 4.6 and lower its content moderation level.",
+    "Set <b>Content moderation level</b> to Low in the prompt settings.",
+    "Set <b>Content moderation level</b> to High in the prompt settings.",
+    "Raise the <b>Temperature</b> to 1 so the model words the summaries differently."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<b>Content moderation level</b> has three values: Low, Moderate (the default) and High. Low is documented for prompts that process data that could be considered harmful, such as descriptions of violence or medical procedures, and it lets the prompt return more answers. High filters more strictly and returns fewer answers. The setting exists only for managed models, so the slider is unavailable for Claude (Anthropic) and Azure AI Foundry models. Temperature controls randomness, not filtering.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/prompt-model-settings"
+  },
+  {
+   "id": "q009",
+   "type": "dropdown",
+   "domain": 1,
+   "skill": 15,
+   "section": "d1-build-data-models",
+   "stem": "Woodgrove Bank's business-unit hierarchy has Retail as the parent of Retail North and Retail South. The user-owned <code>Loan Application</code> table needs three security roles. Choose the Read access level that gives each role the least access that still meets its need.",
+   "format": "text",
+   "template": "The regional director must read rows owned by users in Retail and in both child business units, but not rows owned elsewhere, so her role sets Read to {1}. A Retail North branch manager must read only rows owned by users in Retail North, so that role sets Read to {2}. A loan officer must read only the rows they own or that are shared with them, so that role sets Read to {3}.",
+   "blanks": [
+    {
+     "options": [
+      "Business Unit",
+      "Organization",
+      "Parent: Child Business Unit",
+      "None",
+      "User"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "User",
+      "None",
+      "Business Unit",
+      "Organization",
+      "Parent: Child Business Unit"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "Organization",
+      "Parent: Child Business Unit",
+      "Business Unit",
+      "User",
+      "None"
+     ],
+     "answer": 3
+    }
+   ],
+   "explanation": "Access levels widen from <b>User</b> (rows the user owns, plus rows shared with the user or the user's teams) to <b>Business Unit</b> (rows in the user's own business unit), <b>Parent: Child Business Unit</b> (the user's business unit and every business unit below it) and <b>Organization</b> (all rows). Organization would expose rows outside the Retail branch, and None grants no access.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/security-roles-privileges"
+  },
+  {
+   "id": "q010",
+   "type": "single",
+   "domain": 1,
+   "skill": 5,
+   "section": "d1-design-microsoft-power",
+   "stem": "Wide World Importers built a Copilot Studio agent with a cloud flow in its development environment. The maker added the agent and its required objects to a custom unmanaged solution, exported the solution and imported it into the test environment. The agent appears in the imported solution, but the test lead cannot share it with testers. What must be done in the test environment?",
+   "options": [
+    "Configure user authentication again, then publish the agent",
+    "Run Add required objects on the agent in the imported solution",
+    "Import the same package again by using the Update action",
+    "Turn on the Block unmanaged customizations setting for the test environment"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Not everything travels with the solution: after the import you open the agent in Copilot Studio, <b>configure user authentication for it again</b> and <b>publish</b> it, because an imported agent must be published before it can be shared. <b>Add required objects</b> is an export-side step done in the development environment, the Update action only changes how a solution is imported and publishes nothing, and Block unmanaged customizations is an environment setting that restricts edits rather than enabling sharing.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-solutions-import-export"
+  },
+  {
+   "id": "q011",
+   "type": "multi",
+   "domain": 3,
+   "skill": 33,
+   "section": "d3-create-cloud-flows",
+   "stem": "A Northwind Traders flow sends an approval to a department manager, creates a Dataverse row to log the request while the manager decides, and then branches on the decision. Which <b>TWO</b> design choices follow the documented guidance for approval flows?",
+   "options": [
+    "Use Create an approval, add the logging step, and call Wait for an approval straight afterwards so the two actions stay close together.",
+    "Assign the approval to a guest whose B2B invitation is still pending, so the request waits until the guest accepts.",
+    "Branch on the approval outcome with a Condition or Switch action and handle every possible outcome.",
+    "Add a Delay of several hours between Create an approval and Wait for an approval to give the manager time to respond.",
+    "Wrap Wait for an approval in a Do until loop that checks the approval status every minute."
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "select": 2,
+   "explanation": "If an approver answers before the flow reaches <b>Wait for an approval</b>, a flow that uses separate Create and Wait actions can get stuck, so call them close together (or change the approval status in Dataverse before the wait). Evaluate the result with a <b>Condition or Switch</b> and cover every outcome rather than a <b>Do until</b> loop, which can loop forever. A long delay between the two actions is the opposite of the guidance, and guests with pending invitations are removed from the approval (creation fails if every approver is pending).",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/approvals-known-issues"
+  },
+  {
+   "id": "q012",
+   "type": "single",
+   "domain": 2,
+   "skill": 26,
+   "section": "d2-create-canvas-apps",
+   "stem": "Adventure Works wants one reusable calculation named <code>LineTotal</code> that returns quantity times unit price times one minus the discount, and that any control in a canvas app can call. The maker opens the <b>Formulas</b> property of the <b>App</b> object. Which definition is valid?",
+   "options": [
+    "<code>LineTotal(Qty: Number, Price: Number, Discount: Number): Number = Qty * Price * (1 - Discount);</code>",
+    "<code>LineTotal(Qty, Price, Discount): Number = Qty * Price * (1 - Discount);</code>",
+    "<code>LineTotal = Qty * Price * (1 - Discount);</code>",
+    "<code>LineTotal(Qty: Number, Price: Number, Discount: Number) = Qty * Price * (1 - Discount);</code>"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A user-defined function is written <code>Name(Param: Type, ...): ReturnType = Formula;</code> in the App object's <b>Formulas</b> property, and <b>every parameter and the return value must be typed</b>; leaving out the return type or the parameter types makes the definition invalid. <code>LineTotal = ...</code> defines a <b>named formula</b>, which takes no parameters, so <code>Qty</code>, <code>Price</code> and <code>Discount</code> would be undefined names.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/object-app"
+  },
+  {
+   "id": "q013",
+   "type": "single",
+   "domain": 2,
+   "skill": 16,
+   "section": "d2-create-model-driven",
+   "stem": "Woodgrove Bank's Case table has two main forms: <b>Case Information</b>, which every user opens today, and <b>Agent Case</b>, a compact layout built for contact-centre agents. Only members of the Agent security role should be able to use Agent Case; everyone else keeps Case Information. Which configuration meets the requirement?",
+   "options": [
+    "Set Agent Case to Inactive so that only members of the Agent role can still open it.",
+    "Put Agent Case at the top of the form order and Case Information below it, so only agents are shown the first form.",
+    "Rebuild Agent Case as a quick create form, then assign the Agent security role to it in Form settings.",
+    "Open Form settings for Agent Case, choose Security role, select <b>Specific security roles</b> and pick the Agent role."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Form settings &gt; Security role</b> scopes a <b>main form</b> to <b>Specific security roles</b> (the alternative is Everyone). The form order only decides which form is the default or ranks first, so it doesn't stop other users from opening a form. Quick create, quick view and card forms can't be assigned to security roles at all, and setting a main form to <b>Inactive</b> takes it away from every user, including the agents.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/control-access-forms"
+  },
+  {
+   "id": "q014",
+   "type": "single",
+   "domain": 3,
+   "skill": 47,
+   "section": "d3-implement-business-process",
+   "stem": "A maker at Fabrikam creates a Dataverse formula column on the <b>Order Line</b> table. The whole number column <b>Quantity</b> must appear in the new text column as, for example, \"12 units\". Which formula works?",
+   "options": [
+    "<code>Concatenate(Quantity, \" units\")</code>",
+    "<code>Quantity &amp; \" units\"</code>",
+    "<code>Text(Quantity, \"#\") &amp; \" units\"</code>",
+    "<code>Text(Quantity) &amp; \" units\"</code>"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Formula columns have no implicit number-to-text conversion, so a number cannot be joined to text with <code>&amp;</code> or passed to a string function such as <code>Concatenate</code>, and <code>Text()</code> with a single numeric argument is not supported either. Convert the number with <code>Text(Number, Format)</code>; for a whole number the format <code>\"#\"</code> works, as in the documented sample <code>Text(123,\"#\") &amp; \"foo\"</code>.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/formula-columns"
+  },
+  {
+   "id": "q015",
+   "type": "single",
+   "domain": 3,
+   "skill": 45,
+   "section": "d3-implement-business-process",
+   "stem": "Proseware has an active business rule on the <b>Case</b> main form that hides the <b>Escalation Notes</b> column unless Priority is High. The rule works for users who have the Basic User role but not for users who have a custom <b>Contractor Reader</b> role, although the column is on the form. What must the administrator add to the custom role?",
+   "options": [
+    "Write on the Field Security Profile table.",
+    "At least user-level Read on the Process table.",
+    "The Act on Behalf of Another User privilege.",
+    "Create, Read, Write and Delete on the Callback Registration table."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A business rule fires only for users whose role includes at minimum user-scope <b>Read</b> on the <b>Process</b> table, which the Basic User role has by default. Write on the Field Security Profile table is what creating a <b>calculated column</b> needs, Create, Read, Write and Delete on the Callback Registration table is for creating a cloud flow with a Dataverse row trigger, and Act on Behalf of Another User is for Run As impersonation in flows. None of them affects whether a business rule fires.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/create-business-rules-recommendations-apply-logic-form"
+  },
+  {
+   "id": "q016",
+   "type": "single",
+   "domain": 1,
+   "skill": 10,
+   "section": "d1-build-data-models",
+   "stem": "Woodgrove Bank stores customers and loan applications in a one-to-many relationship, with the lookup on the <code>Loan Application</code> table. Compliance requires that a customer row can't be deleted while loan applications exist for it, and that assigning or sharing a customer must not affect its loan applications. Which relationship behavior should the maker choose?",
+   "options": [
+    "Referential, Remove Link",
+    "Parental",
+    "Custom, with Delete set to Cascade All and every other action set to Cascade None",
+    "Referential, Restrict Delete"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Referential, Restrict Delete</b> sets Delete to Restrict, so a customer can't be deleted while loan applications exist, and sets Assign, Share, Unshare and Reparent to Cascade None. <b>Parental</b> cascades delete, assign and share to the children. <b>Referential, Remove Link</b> lets the delete succeed and clears the lookup on the children. A <b>Custom</b> relationship with Delete set to Cascade All would delete the loan applications.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-edit-1n-relationships-solution-explorer"
+  },
+  {
+   "id": "q017",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 41,
+   "section": "d3-create-prompts-models",
+   "stem": "For each statement about prompt settings and models, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Grok 4.1 Fast (Non-reasoning) is an Experimental model that is not recommended for production use.",
+     "answer": true
+    },
+    {
+     "text": "The Temperature slider is disabled when the GPT-5 reasoning model is selected.",
+     "answer": true
+    },
+    {
+     "text": "The Content moderation level slider stays available when a model connected from Azure AI Foundry is selected.",
+     "answer": false
+    },
+    {
+     "text": "The Temperature slider ranges from 0 to 1, and its default value is 0.",
+     "answer": true
+    },
+    {
+     "text": "Claude Sonnet 4.6 is generally available, because no Experimental tag is shown beside it.",
+     "answer": false
+    }
+   ],
+   "explanation": "Temperature runs from 0 (deterministic) to 1 (creative), defaults to 0 and is disabled for GPT-5 reasoning. Grok 4.1 Fast is Experimental, and the page warns against production use. Anthropic Claude models are experimental even though they show no tag, so the absence of a tag does not mean GA for them. The moderation slider is available only for managed models, so it is unavailable for Anthropic and Azure AI Foundry models.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/prompt-model-settings"
+  },
+  {
+   "id": "q018",
+   "type": "single",
+   "domain": 1,
+   "skill": 4,
+   "section": "d1-design-microsoft-power",
+   "stem": "Litware runs development and production environments and must add a pre-production environment that several testers use together to validate each managed solution release. Compliance requires the team to wipe the test data and return the environment to a clean state at the end of every test cycle, and the environment must not be the shared default environment. Which environment type should the admin create?",
+   "options": [
+    "A production environment with Managed Environments turned on",
+    "A sandbox environment created in the admin center",
+    "A standard trial environment created by the admin",
+    "A managed developer environment owned by the test lead"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A <b>sandbox</b> is a non-production Dataverse environment for development and testing that offers copy and reset; a reset deletes and reprovisions the environment to factory settings, which gives the clean state compliance requires, and an admin can create one in the Power Platform admin center. A production environment is for permanent work and can't be reset, even with Managed Environments on, and a trial environment can't be reset either: it expires after 30 days and is limited to one per user. A developer environment can be reset, but it is intended only for its owner and can't have security groups assigned, so it doesn't suit a pre-production stage that several testers use together.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/reset-environment"
+  },
+  {
+   "id": "q019",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 22,
+   "section": "d2-create-model-driven",
+   "stem": "A maker at Northwind Traders is planning charts and dashboards for a customer-service model-driven app. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Any user with access to the app can create an interactive experience dashboard.",
+     "answer": false
+    },
+    {
+     "text": "When a user shares a personal dashboard, the personal charts and views it contains are shared automatically.",
+     "answer": false
+    },
+    {
+     "text": "The dashboard designer allows up to six components, such as charts and lists, on a standard dashboard.",
+     "answer": true
+    },
+    {
+     "text": "A system chart is organization-owned, so it can't be assigned or shared with specific users.",
+     "answer": true
+    }
+   ],
+   "explanation": "System charts (<code>SavedQueryVisualization</code>) are organization-owned and can't be assigned or shared; user charts (<code>UserQueryVisualization</code>, listed under My Charts) can. The dashboard designer accepts up to six components. Interactive experience dashboards are system dashboards that an administrator or customizer builds in a solution; an ordinary app user can create only personal dashboards. When a personal dashboard is shared, its owner must also share each personal chart and view it contains, because they have separate permissions.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/create-edit-dashboards"
+  },
+  {
+   "id": "q020",
+   "type": "single",
+   "domain": 2,
+   "skill": 21,
+   "section": "d2-create-model-driven",
+   "stem": "Litware shared its custom-table model-driven app with the Dispatch security role by using <b>Apps</b> &gt; <b>Share</b>. Dispatchers can open the app and see the navigation, but every grid for the app's custom tables is empty and they get access-denied errors on rows. What is the most likely cause?",
+   "options": [
+    "The Dispatch role has no privileges on the app's custom tables, so an administrator must add them to the role.",
+    "The Dispatch role lacks create and write privileges on the Model-driven App table.",
+    "The app has been turned off, so users who open it by a direct link receive no data.",
+    "Dispatchers also need the Environment Maker role, which grants access to custom table rows."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Sharing assigns security roles to the <b>app</b>, which controls who can see and open it; the role must also carry privileges on the tables the app uses. For an app with custom tables an administrator has to configure those table privileges in the security role, otherwise users can't work with the rows. Turning an app off doesn't affect data (direct links keep working), privileges on the Model-driven App table decide which apps a user can see rather than what data they read, and Environment Maker on its own has no access to the core or custom tables.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/share-model-driven-app"
+  },
+  {
+   "id": "q021",
+   "type": "single",
+   "domain": 2,
+   "skill": 28,
+   "section": "d2-create-canvas-apps",
+   "stem": "Woodgrove Bank's expense app has a <b>Submit</b> button. If the <code>Patch</code> to the Dataverse table fails, the user must see an error banner and stay on the screen. If it succeeds, the app must open <code>ConfirmationScreen</code>. Which <b>OnSelect</b> formula behaves this way?",
+   "options": [
+    "<code>Patch(Expenses, Defaults(Expenses), {Title: txtTitle.Text}); Navigate(ConfirmationScreen)</code>",
+    "<code>IfError(Patch(Expenses, Defaults(Expenses), {Title: txtTitle.Text}), Navigate(ConfirmationScreen), Notify(\"Not saved\", NotificationType.Error))</code>",
+    "<code>IfError(Patch(Expenses, Defaults(Expenses), {Title: txtTitle.Text}), Notify(\"Not saved\", NotificationType.Error), Navigate(ConfirmationScreen))</code>",
+    "Keep the chained <code>Patch(...); Navigate(ConfirmationScreen)</code> and set <code>App.OnError</code> to <code>Notify(FirstError.Message, NotificationType.Error)</code>."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "In <code>IfError(Value, Replacement, DefaultResult)</code> the replacement (the <code>Notify</code>) runs only when the <code>Patch</code> errors, and the default result (the <code>Navigate</code>) is evaluated only when nothing failed. A <code>;</code> chain keeps going after an error, so the plain chain navigates even though the save failed. Swapping the last two arguments navigates on failure and notifies on success. <code>App.OnError</code> only reports unhandled errors and can't stop the chained <code>Navigate</code>.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-iferror"
+  },
+  {
+   "id": "q022",
+   "type": "single",
+   "domain": 2,
+   "skill": 24,
+   "section": "d2-create-canvas-apps",
+   "stem": "Northwind Traders' tablet-layout canvas app runs on laptops, tablets and wall-mounted displays of different sizes. Today the screens scale uniformly and leave unused bars on wide displays. The maker wants screen content to follow the real window size so container-based layouts can adapt. Which change in <b>Settings &gt; Display</b> is required?",
+   "options": [
+    "Turn <b>Scale to fit</b> off; <b>Lock aspect ratio</b> then turns off automatically.",
+    "Keep <b>Scale to fit</b> on and turn only <b>Lock aspect ratio</b> off.",
+    "Set <b>Orientation</b> to <b>Landscape</b> and select the aspect ratio of the largest display.",
+    "Turn <b>Lock orientation</b> off and leave <b>Scale to fit</b> on."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Responsiveness is activated by turning <b>Scale to fit</b> off: the app then takes the available space, <b>Lock aspect ratio</b> is switched off and disabled automatically, and each screen's width and height follow the window, so containers and <code>Parent.Width</code> formulas can adapt. With Scale to fit on, screens keep their design size and are scaled to the window. Unlocking orientation only controls device rotation, and choosing a fixed orientation or aspect ratio does the opposite of what is needed.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/set-aspect-ratio-portrait-landscape"
+  },
+  {
+   "id": "q023",
+   "type": "single",
+   "domain": 1,
+   "skill": 1,
+   "section": "d1-design-microsoft-power",
+   "stem": "Fabrikam Logistics' accounts-payable team receives supplier invoices by email as PDFs and scanned images. Staff retype the fields into a spreadsheet and forward emails for approval, and nobody can see where an invoice is stuck. Fabrikam wants the fields extracted automatically, approvals routed by invoice amount, and reviewers to track every invoice in an internal app on Dataverse. Which combination of components should the consultant recommend?",
+   "options": [
+    "A canvas app for manual data entry and a Power BI report of approval times",
+    "A Copilot Studio conversational agent and a desktop flow that keys values into the spreadsheet",
+    "A Power Pages portal for suppliers and a Power BI report of invoice totals",
+    "AI Builder document processing, a Power Automate approval flow and a model-driven app"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Unstructured invoices point to <b>AI Builder</b> (document processing extracts fields from PDFs and scans), routing by amount and approvals are <b>Power Automate</b> work, and reviewers who manage related invoice rows in Dataverse suit a <b>model-driven app</b>. Power Pages serves external users and Power BI only reports, so neither extracts data nor routes approvals. A canvas app with manual entry keeps the retyping problem, and a desktop flow automates apps that have no API rather than extracting fields.",
+   "ref": "https://learn.microsoft.com/en-us/training/modules/design-ai-powered-solutions-power-platform/3-recommend-power-platform-components"
+  },
+  {
+   "id": "q024",
+   "type": "single",
+   "domain": 1,
+   "skill": 3,
+   "section": "d1-design-microsoft-power",
+   "stem": "Woodgrove Bank's risk team hosts an internal REST API that has an OpenAPI definition and is not in the prebuilt connector catalog. Canvas apps, cloud flows and Copilot Studio agents owned by several teams must all call it, and the makers cannot write code. What should the solution architect recommend?",
+   "options": [
+    "Build a Power Apps component framework (PCF) code component",
+    "Register a Dataverse plug-in that calls the API each time a row is saved",
+    "Have a developer build a custom connector from the OpenAPI file",
+    "Add the API as a REST API tool in one Copilot Studio agent"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "A <b>custom connector</b> wraps a REST API through its OpenAPI definition; once a developer builds it, Power Apps, Power Automate, Copilot Studio and Logic Apps can all use it, so low-code makers reuse it without code. The REST API tool lets a single agent call an API directly, which Learn positions for one-off integrations (and documents as preview), but it gives apps and flows nothing to reuse. A plug-in is server-side C# that runs on Dataverse events, and a PCF component is a user-interface control; neither exposes an external API to apps, flows and agents.",
+   "ref": "https://learn.microsoft.com/en-us/training/modules/design-ai-powered-solutions-power-platform/5-explore-extensibility-options"
+  },
+  {
+   "id": "q025",
+   "type": "single",
+   "domain": 3,
+   "skill": 32,
+   "section": "d3-create-cloud-flows",
+   "stem": "Tailwind Traders has 400 store managers who hold only Microsoft 365 licenses. A maker built an instant cloud flow that each manager starts on demand from a button in a SharePoint list. The flow writes stock counts to the company's inventory API through a custom connector. Finance will not buy Power Automate Premium for all 400 managers. What should you recommend?",
+   "options": [
+    "Assign the Power Automate Free plan to the 400 managers, which includes custom connectors.",
+    "Convert the flow to a scheduled flow so that the owner's license context applies to every run.",
+    "Share the flow as run-only and let the owner's connection supply the credentials for the custom connector.",
+    "Assign Power Automate Premium to the flow owner only, because the owner's license covers every run of the flow.",
+    "Add the flow to a solution and assign a Power Automate Process license to the flow."
+   ],
+   "answer": [
+    4
+   ],
+   "explanation": "Instant flows run in the <b>invoking user's</b> license context, whatever connections the flow uses, so each manager would need Premium to run a custom (or premium) connector. A <b>Process license</b> assigned to a solution-aware flow lets the flow use premium and custom connectors regardless of who runs it. Premium for the owner only covers automated and scheduled flows, sharing the owner's connection does not change the license check, the Free plan gives standard connectors only, and a scheduled flow cannot be started on demand by the managers.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/power-automate-licensing/faqs"
+  },
+  {
+   "id": "q026",
+   "type": "single",
+   "domain": 3,
+   "skill": 42,
+   "section": "d3-create-prompts-models",
+   "stem": "A Litware flow passes a text value named Date Format (for example dd MMM yyyy) to a prompt. The prompt must print today's date in that layout, and the flow must not calculate the date. How should the maker configure the prompt?",
+   "options": [
+    "Add a Power Fx input with the formula <code>Text( Now(), \"dd MMM yyyy\" )</code> and no other input.",
+    "Add a Text input named Date Format and a Power Fx input with the formula <code>Text( Now(), Input.'Date Format' )</code>.",
+    "Add a Text input named Date Format and a Dataverse knowledge object that returns the current date.",
+    "Add a Text input named Date Format and a second Text input whose sample data is <code>Text( Now(), Input.'Date Format' )</code>."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A <b>Power Fx</b> input evaluates a formula each time the prompt runs and can read other inputs through <code>Input.'Input name'</code>; it may use any function that is not related to connectors, so <code>Text( Now(), Input.'Date Format' )</code> works. A Text input only carries a value, so a formula typed into its sample data is never evaluated. A fixed format string ignores the caller's layout, and knowledge retrieves Dataverse rows (30 by default) rather than computing a date.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-inputs-prompt"
+  },
+  {
+   "id": "q027",
+   "type": "single",
+   "domain": 1,
+   "skill": 11,
+   "section": "d1-build-data-models",
+   "stem": "Contoso Insurance wants Copilot to classify the free-text <code>Description</code> of each new claim into a category such as Auto, Home or Liability. The result must be stored on the claim row so that apps, flows and reports can use it. It should be generated when a claim is created and again only when the description changes. What should the maker add to the <code>Claim</code> table?",
+   "options": [
+    "A prompt column whose prompt references the Description column.",
+    "A rollup column that summarizes the Description of related child rows.",
+    "A row summary whose prompt references the Description column.",
+    "A formula column with a Power Fx expression over the Description column."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A <b>prompt column</b> is an AI-powered data type whose generated result is <b>stored</b> in the table, and it runs when a row is created or when a column referenced by the prompt is updated. A <b>row summary</b> is an AI-generated overview that Copilot shows in the summary bar or per row in views (with a Refresh button); it is a display feature rather than a column that apps, flows and reports can use. Formula columns evaluate deterministic Power Fx and rollup columns aggregate related rows; neither does Copilot classification.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/prompt-column"
+  },
+  {
+   "id": "q028",
+   "type": "single",
+   "domain": 3,
+   "skill": 37,
+   "section": "d3-create-prompts-models",
+   "stem": "Fabrikam Insurance employs an Environment Maker who must build a prompt that assigns each claim email to one of five categories. She wants an editable starting point supplied by Microsoft and does not want to train a model. What should she do?",
+   "options": [
+    "Add a <b>Run a prompt</b> action to a flow and select the library template from its <b>Prompt</b> list, then map the email text.",
+    "Add the <b>Environment</b> data source to a canvas app and edit the instructions of the <code>AIClassify</code> function.",
+    "In <b>AI hub &gt; Prompts</b>, select <b>Build your own prompt &gt; Start from a prompt template</b>, filter by Classify and edit the template.",
+    "Open <b>AI hub &gt; AI models</b>, create a custom category classification model and train it with labeled claim emails."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Prompt templates are editable Microsoft starter prompts: open <b>AI hub &gt; Prompts &gt; Build your own prompt &gt; Start from a prompt template</b>, filter by job type or task (here Classify), edit the text and save it under your own name. A custom category classification model is a model, not a prompt, and must be trained on labeled data. <code>AIClassify</code> is a prebuilt prompt with fixed instructions; you only pass the categories. The prompt library cannot be shown in a flow or a canvas app, which only offer saved prompts.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/prompt-library"
+  },
+  {
+   "id": "q029",
+   "type": "single",
+   "domain": 3,
+   "skill": 38,
+   "section": "d3-create-prompts-models",
+   "stem": "A Woodgrove Bank canvas app has a text input named txtTicket and a button. The maker saved a custom prompt named Ticket summarizer in the AI hub (it has one text input) and added it to the app with <b>Data &gt; + Add data</b>. Which formula in the button's <b>OnSelect</b> property runs that saved prompt and stores the response?",
+   "options": [
+    "<code>Set( result, AISummarize( txtTicket.Text ) )</code>",
+    "<code>Set( result, 'Ticket summarizer'.Predict( txtTicket.Text ) )</code>",
+    "<code>Set( result, Environment.AISummarize( { Text: txtTicket.Text } ) )</code>",
+    "<code>Set( result, 'Ticket summarizer'.Run( txtTicket.Text ) )</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Once a saved prompt is added from <b>Add data</b> it behaves as a Power Fx data source, and you call <code>.Predict</code> on its name with the input values. The two formulas that call <code>AISummarize</code> run the prebuilt Microsoft prompt, so your custom instructions are never used; canvas apps reach the AI functions through the <b>Environment</b> data source. <code>.Run</code> is how a canvas app calls a Power Automate flow, not a prompt.",
+   "ref": "https://learn.microsoft.com/en-us/ai-builder/use-a-custom-prompt-in-app"
+  },
+  {
+   "id": "q030",
+   "type": "dropdown",
+   "domain": 3,
+   "skill": 38,
+   "section": "d3-create-prompts-models",
+   "stem": "Complete the formula so that a button in a canvas app summarizes the text in txtNotes with the prebuilt AI function and stores only the summary text in a variable.",
+   "format": "code",
+   "language": "powerfx",
+   "template": "Set( Summary, {1}.AISummarize( { {2}: txtNotes.Text } ).{3} )",
+   "blanks": [
+    {
+     "options": [
+      "Environment",
+      "AIBuilder",
+      "Copilot",
+      "Dataverse"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "Input",
+      "Source",
+      "Text",
+      "Prompt"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "Response",
+      "Summary",
+      "SummarizedText",
+      "Result"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "The prebuilt AI functions are reached through the <b>Environment</b> data source. They take one record of named columns (<code>Text</code> for <code>AISummarize</code>) and return a one-column record whose column is named after the task: <code>SummarizedText</code> here, <code>Classification</code> for <code>AIClassify</code> and <code>PreparedResponse</code> for <code>AIReply</code>. They are behavior functions, so the formula belongs in a property such as <b>OnSelect</b>, with <code>Set</code> storing the result.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/power-fx/reference/function-ai"
+  },
+  {
+   "id": "q031",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 14,
+   "section": "d1-build-data-models",
+   "stem": "Contoso Field Service keeps several forms for the <code>Work Order</code> table in a model-driven app. For each statement about controlling access to those forms, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Form order controls which users are allowed to open each form.",
+     "answer": false
+    },
+    {
+     "text": "A Quick Create form can be limited to specific security roles in Form settings.",
+     "answer": false
+    },
+    {
+     "text": "When main forms are assigned to different security roles, at least one form must be designated as a fallback form.",
+     "answer": true
+    },
+    {
+     "text": "A fallback form can be designated only for main forms.",
+     "answer": true
+    }
+   ],
+   "explanation": "Form settings has four areas: Security role, Form order, Fallback forms and Form access checker. Quick Create, Quick View and Card forms <b>can't be assigned to security roles</b>, and fallback forms apply only to main forms. Form order picks the form that is shown by default; it doesn't decide who may open a form. When roles map to different forms, at least one fallback form must cover users whose roles have no form assigned.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/control-access-forms"
+  },
+  {
+   "id": "q032",
+   "type": "order",
+   "domain": 1,
+   "skill": 12,
+   "section": "d1-build-data-models",
+   "stem": "A maker at Tailwind Traders wants Copilot to show a short summary of each <code>Project</code> row on the table's main forms in model-driven apps. The admin has already enabled the <b>Row summaries</b> setting for the environment (the same control that is also listed as <b>AI insight cards</b> in the environment feature settings). Arrange the maker's steps in the documented order.",
+   "items": [
+    "Open the table in Power Apps (Tables); it must contain at least one row.",
+    "Under <b>Customizations</b>, select <b>Row summary</b>.",
+    "In the <b>Prompt</b> box, add the columns (<b>Add</b> or <code>/</code>) and the format and language instructions.",
+    "Select <b>Test prompt</b> to preview a summary built from the most recently edited row.",
+    "Select <b>Apply to main forms</b>."
+   ],
+   "explanation": "The documented sequence is: open the table (the Row summary command stays disabled until the table has at least one row), choose <b>Customizations &gt; Row summary</b>, write the prompt by inserting columns with <b>Add</b> or <code>/</code> plus format and language instructions, run <b>Test prompt</b> (it uses the most recently edited row) and finish with <b>Apply to main forms</b>. The summary then applies to all main forms and views of the table.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/configure-form-row-summary"
+  },
+  {
+   "id": "q033",
+   "type": "order",
+   "domain": 3,
+   "skill": 39,
+   "section": "d3-create-prompts-models",
+   "stem": "A Contoso support manager wants a cloud flow that drafts a customer reply with a saved prompt, lets a reviewer edit and approve the draft, and then posts only approved text to a Teams channel. Put the steps in the order in which the flow is built.",
+   "items": [
+    "Create an instant cloud flow that uses the <b>Manually trigger a flow</b> trigger.",
+    "Add <b>Run a prompt</b>, select the saved prompt and map its inputs.",
+    "Add <b>Start and wait for an approval of text</b> and set <b>Suggested Text</b> to the <b>Text</b> output.",
+    "Add a <b>Condition</b> that checks whether <b>Outcome</b> is equal to <b>Approve</b>.",
+    "In the True branch, add <b>Post message in a chat or channel</b> to send the reviewed text."
+   ],
+   "explanation": "The prompt output must exist before the approval can use it, so <b>Run a prompt</b> comes first and its <b>Text</b> output becomes the <b>Suggested Text</b> that the reviewer can edit. The <b>Condition</b> tests the approval <b>Outcome</b>, so it has to follow the approval action, and the posting action sits in the True branch so that a rejected draft is never posted.",
+   "ref": "https://learn.microsoft.com/en-us/ai-builder/use-a-custom-prompt-in-flow"
+  },
+  {
+   "id": "q034",
+   "type": "single",
+   "domain": 1,
+   "skill": 2,
+   "section": "d1-design-microsoft-power",
+   "stem": "Adventure Works' service managers open long records for a custom Service Contract table in a model-driven app and lose time scanning dozens of columns. They want an AI-generated overview of the key columns at the top of the main form. All users hold Power Apps premium licenses, the company has no Copilot Studio license, and the team will not build or install a separate agent. Which built-in capability should the architect include?",
+   "options": [
+    "A managed agent installed from the Agents page in Copilot Studio",
+    "The data entry skill, which suggests values for blank form fields",
+    "The data exploration skill, which filters views from typed questions",
+    "The Document Processing Agent in Copilot Studio",
+    "A row summary configured on the table in the built-in summary skills"
+   ],
+   "answer": [
+    4
+   ],
+   "explanation": "Power Apps groups its built-in skills into data entry, data exploration and summary. A <b>row summary</b> is configured per table with a prompt that lists the columns to include and appears in the insights bar of the main form (or from the Summary action in a view); it needs the <b>AI insight cards</b> environment setting on and a Power Apps premium license. Data exploration finds and filters rows, and data entry suggests values for blank fields, so neither summarizes a record. Managed agents and the Document Processing Agent are Copilot Studio agents, which the stem rules out.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/configure-form-row-summary"
+  },
+  {
+   "id": "q035",
+   "type": "single",
+   "domain": 3,
+   "skill": 33,
+   "section": "d3-create-cloud-flows",
+   "stem": "Fabrikam's contract flow sends one request to a Legal reviewer and one to a Finance reviewer. Both must approve, and each reviewer sees only the standard Approve and Reject options. As soon as either reviewer rejects, the flow must continue immediately and notify the requester instead of waiting for the other reviewer. Which approval type should you select in the <b>Start and wait for an approval</b> action?",
+   "options": [
+    "Custom Responses - Wait for one response",
+    "Custom Responses - Wait for all responses",
+    "Approve/Reject - First to respond",
+    "Approve/Reject - Everyone must approve"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Everyone must approve</b> continues after all approvers respond <b>or when a single rejection occurs</b>, which meets both requirements. <b>First to respond</b> finishes after the first answer, so one approval from either team would be enough. The <b>Custom Responses</b> types are for options you define; Wait for all keeps waiting for every approver even after a rejection, and Wait for one completes on any single response.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/get-started-approvals"
+  },
+  {
+   "id": "q036",
+   "type": "single",
+   "domain": 1,
+   "skill": 6,
+   "section": "d1-build-data-models",
+   "stem": "A maker at Fabrikam opens the data workspace in Power Apps to design a project-tracking model. <code>Account</code> is an <b>existing</b> Dataverse table and <code>Project</code> is a table that the maker is creating in the same workspace. Which relationship can the maker create directly on the workspace canvas?",
+   "options": [
+    "A many-to-one relationship from <code>Account</code> to <code>Project</code>.",
+    "A one-to-many relationship from <code>Account</code> to <code>Project</code>.",
+    "A many-to-many relationship between <code>Account</code> and <code>Project</code>.",
+    "A one-to-many relationship from <code>Account</code> to the existing <code>Contact</code> table."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "From an <b>existing</b> table to a <b>new</b> table the data workspace supports only <b>one-to-many</b>. Many-to-one from an existing table, any relationship between two existing tables and every many-to-many relationship aren't supported on the canvas; create those from the table's <b>Relationships</b> area. Only new-to-new relationships support both one-to-many and many-to-one.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-edit-entities-portal"
+  },
+  {
+   "id": "q037",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 29,
+   "section": "d2-create-canvas-apps",
+   "stem": "Fabrikam is validating a published canvas app by using Live monitor and Test Studio. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "To trace the published app, select the app on the <b>Apps</b> page, open the drop-down next to <b>Details</b>, choose <b>Live monitor</b>, and then select <b>Play published app</b>.",
+     "answer": true
+    },
+    {
+     "text": "You must be the creator or a co-owner of a canvas app to test it with Test Studio.",
+     "answer": true
+    },
+    {
+     "text": "In a Test Studio test suite, the app is reloaded before each test case, so every case automatically starts on the app's start screen.",
+     "answer": false
+    },
+    {
+     "text": "Turning on <b>Debug published app</b> lets Live monitor map events from the published app to formulas, but it can reduce performance for all users of the app.",
+     "answer": true
+    },
+    {
+     "text": "Live monitor slows the app down whenever it is attached, so it should be used only in test environments and never in production.",
+     "answer": false
+    }
+   ],
+   "explanation": "Live monitor can attach to the published app from the Apps list, and it has no impact on the app itself, so it can be used in production too. Showing source formulas requires <b>Debug published app</b>, which has a detrimental effect on performance for everyone, so switch it off afterwards. Test Studio requires creator or co-owner rights and runs the cases of a suite one after another with the app state <b>persisted</b>: the app isn't reloaded, so a case that must start on the first screen has to navigate there itself.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/monitor-canvasapps"
+  },
+  {
+   "id": "q038",
+   "type": "order",
+   "domain": 2,
+   "skill": 18,
+   "section": "d2-create-model-driven",
+   "stem": "A Contoso maker wants an Account card gallery in an existing model-driven app and plans to build it by prompting the app agent in the browser. Arrange the steps in the order the maker performs them.",
+   "items": [
+    "Open the model-driven app for editing in Power Apps.",
+    "Select <b>Add page</b> &gt; <b>Generative page</b>, then choose <b>Describe a page</b>.",
+    "Enter the prompt and add the Account table with <b>Add data</b> &gt; <b>Add table</b>.",
+    "Select <b>Generate page</b> and review the result on the Preview and Code tabs.",
+    "Refine the page by chatting with the app agent or editing the code.",
+    "Select <b>Save and Publish</b> so that users can see the page."
+   ],
+   "explanation": "The documented flow starts in the app designer: <b>Add page &gt; Generative page &gt; Describe a page</b> opens the full-page experience, where the prompt and data (up to six Dataverse tables) are supplied before <b>Generate page</b> runs the agent. Review and iteration only make sense once code exists. <b>Save and Publish</b> comes last because it publishes every pending app change, including the generative page, and users don't see the page until then.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/generative-pages"
+  },
+  {
+   "id": "q039",
+   "type": "single",
+   "domain": 1,
+   "skill": 9,
+   "section": "d1-build-data-models",
+   "stem": "Northwind Traders has a custom <code>Shipment</code> table with a single-line Text column named <code>Reference</code> that already holds 20,000 manually typed values. From now on Dataverse must generate the value for each new row as a prefixed number such as <code>SHP-1000</code>. The maker wants to keep the same column rather than create a new one. What is supported?",
+   "options": [
+    "Set the existing column's requirement level to Business Required so that Dataverse fills in the value.",
+    "Create a new Autonumber column in the data workspace and hide the old Text column.",
+    "Change the existing column's data type to Autonumber and set the prefix and seed value.",
+    "Change the existing column's data type to Formula and enter a Power Fx expression that builds the number."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "After a column is saved its name and data type can't be changed, with one exception: a <b>Text column can be converted to Autonumber</b> (choose the type, prefix and seed; the default seed is 1000). Formula isn't an allowed target type, a requirement level only forces users to enter a value, and the data workspace doesn't support Autonumber columns (and a new column wouldn't keep the existing one).",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/autonumber-fields"
+  },
+  {
+   "id": "q040",
+   "type": "multi",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-build-data-models",
+   "stem": "Northwind Traders turned on several options for a custom <code>Warranty Claim</code> table during a pilot. After the pilot the maker wants to switch some of them off again. Which <b>TWO</b> options can still be disabled?",
+   "options": [
+    "Auditing",
+    "Queues",
+    "Notes (attachments)",
+    "Business process flows",
+    "Connections",
+    "Change tracking"
+   ],
+   "answer": [
+    0,
+    5
+   ],
+   "select": 2,
+   "explanation": "Notes, Queues, Connections and Business process flows (together with Activities, Feedback and Sending email) are <b>enable-only</b>: once they are turned on they can't be turned off. <b>Auditing</b> and <b>Change tracking</b>, like quick create, duplicate detection and mail merge, can be enabled or disabled at any time.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/edit-entities"
+  },
+  {
+   "id": "q041",
+   "type": "single",
+   "domain": 2,
+   "skill": 23,
+   "section": "d2-create-canvas-apps",
+   "stem": "Contoso Logistics stores 90,000 shipment rows in a Dataverse table named <code>Shipments</code>. A canvas app gallery must list <b>every</b> shipment whose <code>Reference</code> (Text) column <b>begins with</b> the text typed in <code>txtRef</code>, and the formula must not raise a delegation warning. Which approach meets the requirement?",
+   "options": [
+    "Run <code>ClearCollect(colShipments, Shipments)</code> in <code>App.OnStart</code> and filter <code>colShipments</code> with <code>StartsWith</code> in <code>Items</code>",
+    "<code>FirstN(Filter(Shipments, StartsWith(Reference, txtRef.Text)), 100)</code> as the gallery's <code>Items</code>",
+    "<code>Search(Shipments, txtRef.Text, \"Reference\")</code> as the gallery's <code>Items</code>",
+    "<code>Filter(Shipments, StartsWith(Reference, txtRef.Text))</code> as the gallery's <code>Items</code>"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<code>Filter</code> with <code>StartsWith</code> is delegable to Dataverse for Text columns, so the server returns every match. <code>Search</code> is delegable too, but it matches the text <b>anywhere</b> in the column, so it returns more than the rows that begin with it. <code>FirstN</code> isn't delegable and caps the list at 100 rows. <code>ClearCollect</code> is nondelegable: only the first rows up to the data row limit (500 by default) are copied, and the filter on the in-memory collection shows no warning while silently missing rows.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/connections/connection-common-data-service"
+  },
+  {
+   "id": "q042",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 32,
+   "section": "d3-create-cloud-flows",
+   "stem": "A tenant administrator at Litware is creating a new data policy for the Production environment. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "A maker cannot build one flow that uses a Business-group connector together with a Non-Business-group connector.",
+     "answer": true
+    },
+    {
+     "text": "The Approvals connector can be moved to the Blocked group to stop makers from creating approval flows.",
+     "answer": false
+    },
+    {
+     "text": "Connectors in the Non-Business group cannot be used in any flow.",
+     "answer": false
+    },
+    {
+     "text": "In a newly created data policy, every connector starts in the Non-Business group.",
+     "answer": true
+    }
+   ],
+   "explanation": "A new policy places every connector in <b>Non-Business</b>, and connectors in different groups cannot share data in one flow or app. <b>Approvals</b>, Dataverse and Notifications are core connectors that can be classified as Business or Non-Business but <b>cannot be blocked</b>. Only the <b>Blocked</b> group makes a connector unusable; Non-Business connectors can still be used together with other Non-Business connectors.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/dlp-connector-classification"
+  },
+  {
+   "id": "q043",
+   "type": "single",
+   "domain": 3,
+   "skill": 34,
+   "section": "d3-create-cloud-flows",
+   "stem": "A nightly Northwind Traders flow must process every active account in a Dataverse table, about 8,000 rows. It needs only each account's name and email address. Which <b>List rows</b> configuration returns all the matching rows and only those columns?",
+   "options": [
+    "Filter rows: <code>statecode eq 0</code>; Select columns: <code>name,emailaddress1</code>; Pagination: On, Threshold: <code>10000</code>.",
+    "Filter rows: <code>$filter=statecode eq 0</code>; Select columns: <code>name,emailaddress1</code>; Pagination: On, Threshold: <code>10000</code>.",
+    "Filter rows: <code>statecode eq 0</code>; Select columns: <code>name,emailaddress1</code>; leave Pagination off.",
+    "Fetch Xml Query that returns the active accounts with the name and emailaddress1 attributes; Pagination: On, Threshold: <code>10000</code>."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Without pagination List rows returns at most <b>5,000</b> rows (the default page limit), so 8,000 rows need <b>Pagination</b> on and a <b>Threshold</b> of at least 8,000 (maximum 100,000; it is rounded to a multiple of the page size, for example 7,000 becomes 10,000). <b>Filter rows</b> takes a bare OData expression, and the string <code>$filter=</code> is not allowed. The pagination setting is not supported for <b>FetchXML</b> queries, where you manage paging inside the query.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/dataverse/list-rows"
+  },
+  {
+   "id": "q044",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 47,
+   "section": "d3-implement-business-process",
+   "stem": "Fabrikam Ltd. is reviewing the Dataverse columns on its <b>Account</b> table. For each statement about calculated, rollup and formula columns, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "You can trigger a plug-in or a classic workflow on a formula column.",
+     "answer": false
+    },
+    {
+     "text": "A calculated column can use a column of its parent row, for example <code>ParentAccountId.AccountNumber</code>.",
+     "answer": true
+    },
+    {
+     "text": "The formula <code>DateAdd(UTCNow(), -1, TimeUnit.Years)</code> is valid in a DateTime formula column.",
+     "answer": true
+    },
+    {
+     "text": "A rollup column can aggregate rows across an N:N relationship.",
+     "answer": false
+    },
+    {
+     "text": "A rollup column is calculated by scheduled system jobs, and the incremental <b>Calculate Rollup Field</b> job has a default minimum recurrence of one hour.",
+     "answer": true
+    }
+   ],
+   "explanation": "Rollups are computed by scheduled <b>system jobs</b> (Mass Calculate Rollup Field, then the incremental Calculate Rollup Field job with a one-hour default minimum recurrence) and work only over <b>1:N</b> relationships, never N:N. A calculated column can read its parent row through the lookup, as in <code>ParentAccountId.AccountNumber</code>. Formula columns <b>cannot trigger</b> workflows or plug-ins, and <code>DateAdd(UTCNow(),-1,TimeUnit.Years)</code> is the documented sample for a DateTime formula column.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/define-rollup-fields"
+  },
+  {
+   "id": "q045",
+   "type": "single",
+   "domain": 3,
+   "skill": 45,
+   "section": "d3-implement-business-process",
+   "stem": "Woodgrove Bank keeps loan requests in a Dataverse <b>Loan Application</b> table that is used by a model-driven app, a canvas app and a cloud flow. A row must never be saved when <b>Risk Rating</b> is High and <b>Reviewer</b> is empty, and nobody is allowed to write code. Which business rule should the maker create?",
+   "options": [
+    "A rule scoped to the main form that uses the <b>Show Error Message</b> action.",
+    "A rule with All Forms scope that uses the <b>Show Error Message</b> action.",
+    "A rule with Table scope that uses the <b>Set Business Required</b> action.",
+    "A rule with Table scope that uses the <b>Show Error Message</b> action."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Only <b>Table scope</b> (labelled Entity in the designer) also runs on the server, so <b>Show Error Message</b> prevents the save, rolls the database transaction back and passes the error message back to the calling process, whether that is a model-driven form, a canvas app (the docs say to use Table scope for canvas apps) or a cloud flow. <b>All Forms</b> applies only to the model-driven main and quick create forms and a single-form scope only to that form, so the canvas app and the flow would bypass them. <b>Set Business Required</b> only sets a column's requirement level on a form, and Dataverse itself does not return an error when a Business Required column is empty, so even at Table scope it cannot reject a save made by the cloud flow.",
+   "ref": "https://learn.microsoft.com/en-us/training/modules/define-create-business-rules/1-rules"
+  },
+  {
+   "id": "q046",
+   "type": "multi",
+   "domain": 3,
+   "skill": 46,
+   "section": "d3-implement-business-process",
+   "stem": "Contoso Ltd. is building a business process flow on the <b>Case</b> table for its support team. Which <b>TWO</b> statements about configuring business process flows are true?",
+   "options": [
+    "A branching condition combines its rules with AND or with OR, but a single condition cannot use both operators.",
+    "A required Yes/No step is complete as soon as the user chooses either value, so the stage can be finished.",
+    "A table can have up to 30 active business process flows at the same time, each with its own security roles.",
+    "A new process flow is visible only to the System Administrator and System Customizer roles until other roles are granted privileges.",
+    "One business process flow can span up to six tables when each change of table uses a 1:N relationship."
+   ],
+   "answer": [
+    0,
+    3
+   ],
+   "select": 2,
+   "explanation": "A new BPF can be used only by System Administrator and System Customizer until you grant other roles privileges on the <b>Business Process Flows</b> tab, and a branching rule uses AND or OR but never both. A table can have at most <b>10</b> active BPFs (not 30), a process can span at most <b>5</b> tables (not six), and a required Two Options (Yes/No) step must be <b>Yes</b>; choosing No leaves it empty and blocks the move to the next stage.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/create-business-process-flow"
+  },
+  {
+   "id": "q047",
+   "type": "single",
+   "domain": 3,
+   "skill": 35,
+   "section": "d3-create-cloud-flows",
+   "stem": "A Wide World Importers flow submits a customs declaration to a partner service, then runs a <b>Do until</b> loop that waits one minute and calls the status API until the status equals <code>Cleared</code>. Clearance can take up to two hours, but the loop still has Count <code>60</code> and Timeout <code>PT1H</code>, so the flow moves on early. Which Do until settings keep the loop checking for the full two hours?",
+   "options": [
+    "Count: <code>60</code>; Timeout: <code>PT3H</code>",
+    "Count: <code>150</code>; Timeout: <code>180</code>",
+    "Count: <code>150</code>; Timeout: <code>PT1H</code>",
+    "Count: <code>6000</code>; Timeout: <code>PT3H</code>",
+    "Count: <code>150</code>; Timeout: <code>PT3H</code>"
+   ],
+   "answer": [
+    4
+   ],
+   "explanation": "A Do until loop stops at whichever limit is reached first: <b>Count</b> (default 60, maximum 5,000 in Power Automate) or <b>Timeout</b> (default PT1H, an ISO 8601 duration). With a one-minute wait, two hours needs about 120 iterations and a timeout longer than two hours, so both limits must be raised. Raising only Count leaves the one-hour timeout, raising only Timeout leaves the 60-iteration count, a Count above 5,000 is not allowed, and <code>180</code> is not an ISO 8601 duration.",
+   "ref": "https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-control-flow-loops"
+  },
+  {
+   "id": "q048",
+   "type": "single",
+   "domain": 3,
+   "skill": 48,
+   "section": "d3-implement-business-process",
+   "stem": "Contoso Electronics tracks work in a Dataverse <b>Service Request</b> table used by a model-driven app, a canvas app and flows. The first requirement: a High priority request cannot be saved without an assigned technician, in every app. The second: the number of days a request has been open must show on the row whenever it is read. The third: the regional manager must be emailed when a request has had no update for 48 hours. Which combination of tools meets all three requirements without custom code?",
+   "options": [
+    "A Table-scope business rule for the first, a rollup column for the second and a formula column for the third.",
+    "A Table-scope business rule for the first, a formula column for the second and a cloud flow for the third.",
+    "An All Forms business rule for the first, a formula column for the second and a cloud flow for the third.",
+    "A cloud flow for the first, a rollup column for the second and a cloud flow for the third."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Blocking a save everywhere needs a business rule with <b>Table</b> scope and Show Error Message, because only that scope runs on the server for the canvas app and flows; All Forms scope is client-side and a cloud flow runs after the save. A value that must be current whenever the row is read is a <b>formula column</b> (evaluated on retrieve), whereas a rollup aggregates child rows on a schedule. Emailing a manager after a delay is asynchronous work across services, which is what a <b>cloud flow</b> does; a formula column cannot send email.",
+   "ref": "https://learn.microsoft.com/en-us/training/modules/describe-microsoft-dataverse/describe-power-fx"
+  },
+  {
+   "id": "q049",
+   "type": "multi",
+   "domain": 3,
+   "skill": 40,
+   "section": "d3-create-prompts-models",
+   "stem": "A Northwind Traders maker is adding Dataverse knowledge to a prompt that summarizes an account together with its related records. Which <b>TWO</b> statements about the knowledge configuration are true?",
+   "options": [
+    "An agent that allows anonymous users can use the prompt's Dataverse knowledge.",
+    "A virtual table can be added as a knowledge source in the same way as a standard table.",
+    "The prompt retrieves 30 records by default, and the <b>Record retrieval</b> setting allows up to 1,000.",
+    "Salesforce or Oracle tables can be added as knowledge when a canvas app calls the prompt.",
+    "Filter attributes are limited to text columns; choice and currency columns cannot be filtered.",
+    "Related tables can be reached only through one-to-many or many-to-one relationships, up to two levels."
+   ],
+   "answer": [
+    2,
+    5
+   ],
+   "select": 2,
+   "explanation": "Dataverse knowledge returns <b>30 records by default</b> (up to <b>1,000</b> with Record retrieval) and follows only <b>one-to-many or many-to-one</b> relationships, up to <b>two levels</b>. Virtual tables are not supported. Filter attributes can be text, number, date and time, choice, currency or unique identifier. Connector tables such as Salesforce and Oracle work only for prompts used in Power Automate, and agents that allow anonymous users cannot use Dataverse tables as knowledge.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/use-your-own-prompt-data"
+  },
+  {
+   "id": "q050",
+   "type": "single",
+   "domain": 3,
+   "skill": 31,
+   "section": "d3-create-cloud-flows",
+   "stem": "Woodgrove Bank stores loan applications in a custom Dataverse table. An overnight job updates the numeric column <code>wgb_riskscore</code>. A cloud flow uses the Dataverse trigger <b>When a row is added, modified or deleted</b> with Change type set to Modified. The flow must start only when <code>wgb_riskscore</code> is part of an update and the saved value is greater than 80. It must not start for any other change. Which trigger configuration should you use?",
+   "options": [
+    "Leave Select columns empty; Filter rows: <code>wgb_riskscore gt 80</code>.",
+    "Select columns: <code>wgb_riskscore</code>; Filter rows: <code>$filter=wgb_riskscore gt 80</code>.",
+    "Select columns: <code>wgb_riskscore</code>; add a Condition action as the first step that tests the score.",
+    "Select columns: <code>wgb_loanid,wgb_riskscore</code> (<code>wgb_loanid</code> is the table's primary key); Filter rows: <code>wgb_riskscore gt 80</code>.",
+    "Select columns: <code>wgb_riskscore</code>; Filter rows: <code>wgb_riskscore gt 80</code>."
+   ],
+   "answer": [
+    4
+   ],
+   "explanation": "<b>Select columns</b> makes the flow start only when a listed column is part of the update, and <b>Filter rows</b> (an OData expression evaluated after the change is saved) adds the value test, so both are needed. Filter rows alone fires for any update to a row whose score is already above 80. A primary key column such as <code>wgb_loanid</code> is present in every update, so listing it in Select columns makes every update match the column test, which Microsoft specifically warns against. A Condition action runs after the flow has started, so the run is still created. Filter rows must <b>not</b> contain <code>$filter=</code>.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/dataverse/create-update-delete-trigger"
+  },
+  {
+   "id": "q051",
+   "type": "single",
+   "domain": 3,
+   "skill": 36,
+   "section": "d3-create-cloud-flows",
+   "stem": "Last night's run of a Proseware flow that is triggered when a SharePoint item is created failed at the <b>Add a new row</b> action with <code>401 Unauthorized</code>. The flow owner reset their password yesterday, and the failed item must still be processed. What should you do?",
+   "options": [
+    "Set the retry policy of the Add a new row action to exponential, so that the failed run retries until it succeeds.",
+    "Correct the table name in the Add a new row action, save the flow, and then select Resubmit on the failed run.",
+    "On the failed run, select View Connections, select Fix connection for the broken connection, then select Resubmit.",
+    "Select Resubmit on the failed run without changing anything, because a 401 error is a temporary failure."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "A <code>401</code> or <code>403</code> (Unauthorized) error is an authentication problem: on the failed run's <b>How to fix</b> pane select <b>View Connections</b>, use <b>Fix connection</b> on the broken connection, then <b>Resubmit</b> the run so the same item is processed. Correcting an action setting is the fix for <code>400</code> and <code>404</code>, only <code>500</code> and <code>502</code> are temporary, and a retry policy resends only on 408, 429 and 5xx responses.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/fix-flow-failures"
+  },
+  {
+   "id": "q052",
+   "type": "single",
+   "domain": 2,
+   "skill": 17,
+   "section": "d2-create-model-driven",
+   "stem": "Tailwind Traders' Field Service app should show only the <b>My Active Accounts</b> and <b>All Accounts</b> views for the Account table. The other Account views must stay available to other apps in the same environment. What should the maker do?",
+   "options": [
+    "In the app designer, select the Accounts page under Pages, remove the extra views on its Views tab, then Save and Publish the app.",
+    "Set View settings &gt; Specific security roles on each unwanted view so that only an unused role can see it.",
+    "Delete the unwanted views from the Account table, including the Quick Find and Lookup system views.",
+    "Turn off every other public Account view in the environment, then publish the app so the change is picked up."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "By default every view of a table is included in an app. The app designer's <b>Pages &gt; table page &gt; Views</b> tab removes views from <b>this app only</b>; Save and Publish applies the change. Turning off or deleting a view changes the table for every app in the environment, and system views such as Quick Find and Lookup can't be deleted or deactivated anyway. Role-based view settings are an admin feature that filters the view selector by security role; they are not a per-app list.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/create-add-remove-forms-views-dashboards"
+  },
+  {
+   "id": "q053",
+   "type": "multi",
+   "domain": 2,
+   "skill": 30,
+   "section": "d2-create-canvas-apps",
+   "stem": "Litware wants to use <b>Create an agent from an app</b> in Power Apps for a canvas app that automates vacation-request approvals. Which <b>TWO</b> conditions must be met before the feature can be used?",
+   "options": [
+    "The app reads its Excel data through the deprecated Excel connector.",
+    "The app is a model-driven app that uses a Dataverse table.",
+    "The environment includes a Microsoft Dataverse database.",
+    "The environment has <b>Block unmanaged customizations</b> turned on.",
+    "The tenant administrator has turned on the <b>Publish Copilots with AI features</b> setting in the Power Platform admin center."
+   ],
+   "answer": [
+    2,
+    4
+   ],
+   "select": 2,
+   "explanation": "The documented prerequisites are the tenant setting <b>Publish Copilots with AI features</b>, a Dataverse database in the environment, <b>Block unmanaged customizations</b> disabled, and the Microsoft Copilot Studio solution at version 2.0.0.649.1 or higher. The feature is available only for <b>canvas</b> apps, and the deprecated Excel connectors aren't supported (Excel Online (Business) and Excel Online are).",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/agent-builder"
+  },
+  {
+   "id": "q054",
+   "type": "single",
+   "domain": 2,
+   "skill": 25,
+   "section": "d2-create-canvas-apps",
+   "stem": "Proseware's canvas app calls an instant flow that has a <b>Power Apps</b> trigger. The flow creates a Dataverse record and then waits up to 10 minutes for a manager's approval. The app must show the new record's ID to the user immediately, but the call currently times out. How should the flow be changed?",
+   "options": [
+    "Add <b>Respond to a Power App or flow</b> right after the record is created, before the approval step.",
+    "Move <b>Respond to a Power App or flow</b> to the last action so the app receives the ID together with the approval result.",
+    "Call the flow from the app inside <code>Concurrent()</code> so the app isn't blocked while it waits.",
+    "Replace the Power Apps trigger with an <b>HTTP Request</b> trigger so that the request limit no longer applies."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Instant-flow triggers and the HTTP Request trigger share a <b>120-second inbound request limit</b>, but actions placed after a response action keep running beyond it. Responding right after the record exists returns the ID quickly while the approval continues. Responding last makes the app wait past 120 seconds, an HTTP Request trigger has the same limit, and <code>Concurrent()</code> only runs app formulas in parallel &mdash; it doesn't shorten a single flow call.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/limits-and-config"
+  },
+  {
+   "id": "q055",
+   "type": "multi",
+   "domain": 2,
+   "skill": 20,
+   "section": "d2-create-model-driven",
+   "stem": "Adventure Works wants the public view <b>My Open Leads</b> on the Lead table to appear in the view selector only for users in the Sales role. The view is not the table's default public view, and the environment has never used role-based views. Which <b>TWO</b> actions are required?",
+   "options": [
+    "Re-create My Open Leads as a personal view and share it with the Sales role.",
+    "Set the <code>EnableRoleBasedSystemViews</code> property to <code>true</code> by using the OrganizationSettingsEditor tool.",
+    "Open the view's <b>View settings</b>, select <b>Specific security roles</b>, choose the Sales role and select <b>Save and Publish</b>.",
+    "Make My Open Leads the default public view for the Lead table so that it is managed as a system view.",
+    "Select the Sales role under <b>Form settings</b> &gt; <b>Security role</b> on the Lead main form."
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "select": 2,
+   "explanation": "Role-based public views need two things: the orgdbsettings property <code>EnableRoleBasedSystemViews</code> set to true (through the OrganizationSettingsEditor tool, by a System Administrator) and, on a non-default public view, <b>View settings &gt; Specific security roles</b> followed by Save and Publish. Form settings control main forms, not views. A default public view can't be assigned roles, and a personal view belongs to one user instead of being managed by role. The filter also applies only to the table's list view selector; subgrids still show all views.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/manage-view-access"
+  },
+  {
+   "id": "q056",
+   "type": "single",
+   "domain": 1,
+   "skill": 11,
+   "section": "d1-build-data-models",
+   "caseStudy": "tailwind-warranty",
+   "stem": "Based on requirement 1, which approach should the maker use to produce the claim summary?",
+   "options": [
+    "Configure a row summary for the Warranty Claim table and apply it to the main forms.",
+    "Add a formula column that uses Power Fx text functions to combine and shorten the two notes columns.",
+    "Add a prompt column to the Warranty Claim table that uses <code>Defect description</code> and <code>Technician notes</code> as inputs.",
+    "Create a cloud flow that runs when either notes column changes, calls <b>Run a prompt</b> and writes the result to a text column."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Requirement 1 needs an AI result that is <b>stored on the claim row</b>, refreshes when the notes change, and needs no flow or code. A <b>prompt column</b> holds generative AI text persistently in the table and runs when a row is created or when a column that the prompt references is updated. A <b>row summary</b> is generated on demand when someone views the row (Insights bar on main forms, pop-up from views) and isn't stored as a column value, so views and flows have nothing to read. A <b>cloud flow</b> with Run a prompt could write the text, but the requirement rules out building and maintaining a flow. A <b>formula column</b> evaluates Power Fx on the row's values; text functions can combine or truncate the notes but can't write a summary.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/prompt-column"
+  },
+  {
+   "id": "q057",
+   "type": "multi",
+   "domain": 1,
+   "skill": 15,
+   "section": "d1-build-data-models",
+   "caseStudy": "tailwind-warranty",
+   "stem": "Which <b>TWO</b> decisions should the maker make so that the Warranty Claim table meets requirement 2?",
+   "options": [
+    "Give the Regional Claims Manager role the Organization access level and hide other regions' claims with a column security profile.",
+    "Create the table as user- or team-owned and give the Claims Agent role the User access level for Read and Write.",
+    "Create the table as organization-owned and filter each user's claim views by region.",
+    "Give the Regional Claims Manager role the Business Unit access level for Read.",
+    "Give the Regional Claims Manager role the Parent: Child Business Unit access level for Read."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "Requirement 2 has two parts. Agents must be limited to rows they own or that are shared with them, which needs a <b>user- or team-owned</b> table (the ownership type is fixed when the table is created) and the <b>User</b> access level. Regional managers must see their own unit <b>and the country units below it</b>, which is the <b>Parent: Child Business Unit</b> level; the Business Unit level stops at the manager's own unit, so Germany and France would be missed. An organization-owned table applies a privilege to all rows or none, and a view filter only changes what a list shows because security role privileges still decide data access. The Organization level exposes every region, and column security protects column values, not rows.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/security-roles-privileges"
+  },
+  {
+   "id": "q058",
+   "type": "single",
+   "domain": 2,
+   "skill": 20,
+   "section": "d2-create-model-driven",
+   "caseStudy": "tailwind-warranty",
+   "stem": "Based on requirement 3, how should the maker deliver the Investigation tab in the model-driven app?",
+   "options": [
+    "Create a quick create form that has the Investigation tab and assign it to the Fraud Reviewer role in Form settings.",
+    "Create a second main form that has the Investigation tab and use the form order to make it appear only for Fraud Reviewers.",
+    "Create a second main form that has the Investigation tab, assign it to the Fraud Reviewer role in Form settings, and set the standard main form to Inactive.",
+    "Create a second main form with the Investigation tab and assign it to the Fraud Reviewer role in Form settings; the standard form stays for everyone else."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Requirement 3 says <b>only Fraud Reviewers may open a form that contains the tab</b>, while every other user keeps the standard form. Main forms can be assigned to security roles in Form settings, and the standard form stays available to everyone else because users whose roles have no form assigned fall back to a main form. Quick create forms can't be assigned to security roles. The form order only decides which of the available forms is shown by default; it doesn't control who may open a form. Setting the standard main form to Inactive removes it for every user, including the agents and managers who must keep using it.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/control-access-forms"
+  },
+  {
+   "id": "q059",
+   "type": "single",
+   "domain": 3,
+   "skill": 39,
+   "section": "d3-create-prompts-models",
+   "caseStudy": "tailwind-warranty",
+   "stem": "The flow for requirement 4 starts when a claim's status changes to Approved. Which actions should it run next?",
+   "options": [
+    "Run a prompt to draft the email, then Start and wait for an approval of type Approve/Reject with the draft in Details. If Outcome is Approve, send the email with the prompt's Text output.",
+    "Run a prompt to draft the email, then Start and wait for an approval of text with the draft as Suggested text. If Outcome is Approve, send the email with the Accepted text.",
+    "Run a prompt to draft the email, then Start and wait for an approval of text with the draft as Suggested text. If Outcome is Approve, send the email with the prompt's Text output.",
+    "Run a prompt to draft the email, then Create an approval of type Approve/Reject with the draft in Details. Send the email with the prompt's Text output."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Requirement 4 needs a supervisor who can <b>edit the AI draft</b> and a customer who receives <b>exactly what the supervisor accepts</b>. Start and wait for an approval of text takes the prompt's Text output as Suggested text, lets the approver approve or modify it, and holds the flow until the answer arrives. After the Condition on Outcome, the email must use the approval's <b>Accepted text</b>; the prompt's Text output is still the original draft, so any edit would be lost. An Approve/Reject approval gives the approver only those two options, and Create an approval doesn't wait, so the email would go out without a decision.",
+   "ref": "https://learn.microsoft.com/en-us/ai-builder/use-a-custom-prompt-in-flow"
+  },
+  {
+   "id": "q060",
+   "type": "single",
+   "domain": 3,
+   "skill": 45,
+   "section": "d3-implement-business-process",
+   "caseStudy": "tailwind-warranty",
+   "stem": "Which configuration should the maker use to enforce requirement 5?",
+   "options": [
+    "A business rule with the Table scope that sets Approver to Business Required when Claim status is Approved.",
+    "A business rule with the Table scope that shows an error message when Claim status is Approved and Approver is empty.",
+    "A business rule with the All Forms scope that shows an error message when Claim status is Approved and Approver is empty.",
+    "A cloud flow that runs when a claim is updated and puts the previous Claim status back when Approver is empty."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Requirement 5 must hold for <b>the model-driven app, the canvas app and the nightly import flow</b>. Only a rule with the <b>Table</b> (Entity) scope also runs on the server, so <b>Show Error Message</b> cancels the save and returns the message to whichever app or flow made the change; canvas apps must use this scope. The All Forms scope applies only to model-driven app forms, so canvas and flow writes would bypass it. Set Business Required is a model-driven form action that is ignored when a rule runs server-side. A cloud flow starts after the row is saved, so it can only react and can't stop the save.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-create-business-rule"
+  }
+ ]
+}

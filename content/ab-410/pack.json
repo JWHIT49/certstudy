@@ -1,0 +1,111 @@
+{
+ "schema": 1,
+ "id": "ab-410",
+ "code": "AB-410",
+ "order": 20,
+ "family": "Power Platform",
+ "title": "Building Intelligent Applications",
+ "short": "Intelligent applications builder",
+ "vendor": "Microsoft",
+ "version": "2026.10.20",
+ "updated": "2026-10-20",
+ "accent": "#742774",
+ "description": "Study guide, 48-skill tracker and a 60-question practice exam for the AB-410 exam, the successor to PL-200.",
+ "disclaimer": "Original study material and practice questions based on public Microsoft documentation. Not Microsoft exam content; the real exam may differ.",
+ "domains": [
+  {
+   "id": 1,
+   "name": "Create a foundation for intelligent applications",
+   "short": "Foundation & data",
+   "weight": "25-30%"
+  },
+  {
+   "id": 2,
+   "name": "Create intelligent applications",
+   "short": "Intelligent apps",
+   "weight": "25-30%"
+  },
+  {
+   "id": 3,
+   "name": "Build business application logic and automation",
+   "short": "Flows, AI & logic",
+   "weight": "40-45%"
+  }
+ ],
+ "examInfo": [
+  {
+   "label": "Passing score",
+   "value": "700 on a scale of 1 to 1,000 (a scaled score, not a percentage)"
+  },
+  {
+   "label": "Questions",
+   "value": "Not published for this exam; Microsoft says most exams have 40-60"
+  },
+  {
+   "label": "Time",
+   "value": "120 minutes of exam time (seat time is longer)"
+  },
+  {
+   "label": "Languages",
+   "value": "English, Arabic (Saudi Arabia), Chinese (Simplified), Chinese (Traditional), French, German, Indonesian (Indonesia), Italian, Japanese, Korean, Spanish, Portuguese (Brazil), Russian"
+  },
+  {
+   "label": "Delivery",
+   "value": "Pearson VUE: online proctored or test center"
+  },
+  {
+   "label": "Retakes",
+   "value": "24 hours after the first fail, then 14 days; at most 5 attempts in 12 months"
+  },
+  {
+   "label": "Renewal",
+   "value": "Free, open-book assessment on Microsoft Learn; the window opens 6 months before expiry"
+  },
+  {
+   "label": "Microsoft Learn",
+   "value": "Opens in a split screen on associate and expert exams (per Microsoft policy); no extra time"
+  }
+ ],
+ "links": [
+  {
+   "title": "Official AB-410 study guide",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-410"
+  },
+  {
+   "title": "Certification page",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/intelligent-applications-builder-associate/"
+  },
+  {
+   "title": "Course AB-410T00-A: Build intelligent applications",
+   "url": "https://learn.microsoft.com/en-us/training/courses/ab-410t00"
+  },
+  {
+   "title": "Official practice assessment",
+   "url": "https://aiskillsnavigator.microsoft.com/credentials/cert-5098c91b4878b505ac66f8840d07c1105e8ad172e3bf8f76ce0a8ccb1234e85f"
+  },
+  {
+   "title": "Exam sandbox",
+   "url": "https://aka.ms/examdemo"
+  }
+ ],
+ "guides": [
+  {
+   "id": "study-guide",
+   "title": "Study Guide",
+   "file": "guide.json"
+  }
+ ],
+ "skills": {
+  "file": "skills.json"
+ },
+ "exams": [
+  {
+   "id": "practice-1",
+   "title": "Practice Exam 1",
+   "file": "exams/practice-1.json",
+   "minutes": 120,
+   "questions": 60,
+   "description": "60 original questions weighted to the AB-410 skills measured, including a case study."
+  }
+ ]
+}

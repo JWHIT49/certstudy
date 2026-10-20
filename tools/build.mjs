@@ -69,7 +69,7 @@ function catalogEntry({ pack, guides, skills, exams, dir }) {
   const skillCount = skills ? skills.groups.reduce((n, g) => n + g.skills.length, 0) : 0;
   const questions = Object.values(exams).reduce((n, x) => n + x.questions.length, 0);
   return {
-    id: pack.id, order: pack.order ?? 100, code: pack.code, title: pack.title, short: pack.short ?? '', vendor: pack.vendor ?? '',
+    id: pack.id, order: pack.order ?? 100, code: pack.code, title: pack.title, short: pack.short ?? '', vendor: pack.vendor ?? '', family: pack.family ?? '',
     version: pack.version, updated: pack.updated ?? '', accent: pack.accent ?? '#0f6cbd', description: pack.description ?? '',
     counts: { guides: pack.guides.length, sections, skills: skillCount, exams: pack.exams.length, questions },
     path: `${dir}/pack.json`,

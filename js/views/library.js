@@ -24,14 +24,32 @@ function packCard(p) {
     h('div', { class: 'pack-foot' }, `${p.counts.questions} practice questions · v${p.version}`));
 }
 
+/** Groups packs by their optional `family` (keeps catalog order inside a family and between families). */
+function packsByFamily(packs) {
+  const map = new Map();
+  for (const p of packs) {
+    const key = p.family || '';
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(p);
+  }
+  return [...map.entries()];
+}
+
 export async function libraryView() {
   const catalog = await loadCatalog();
+  const families = packsByFamily(catalog.packs);
+  const grouped = families.some(([name]) => name);
+  const body = grouped
+    ? families.map(([name, list]) => h('section', { class: 'family' },
+      name ? h('h2', { class: 'family-title' }, name) : null,
+      h('div', { class: 'stack' }, ...list.map(packCard))))
+    : [h('div', { class: 'stack' }, ...catalog.packs.map(packCard))];
   const el = h('div', { class: 'page' },
     installHint(),
     h('div', { class: 'page-head' },
       h('h1', null, 'Your certifications'),
       h('p', { class: 'muted' }, 'Study guides, skill tracking and practice exams. Works offline once installed.')),
-    h('div', { class: 'stack' }, ...catalog.packs.map(packCard)),
+    ...body,
     h('p', { class: 'muted small center footnote' }, 'Add more certifications by dropping a content pack into the content folder (see the README).'));
   return { el, title: 'CertStudy', actions: [{ icon: 'sliders', label: 'Settings', href: '#/settings' }] };
 }

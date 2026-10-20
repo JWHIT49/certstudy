@@ -3,6 +3,7 @@
   "id": "ab-400",
   "code": "AB-400",
   "order": 10,
+ "family": "Power Platform",
   "title": "Extending Microsoft Power Platform Solutions with Code and AI",
   "short": "Power Platform Developer Associate",
   "vendor": "Microsoft",

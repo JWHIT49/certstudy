@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import {
   emptyAnswer, normalizeAnswer, answerState, isCorrect, correctAnswer, permutation, optionOrder, blankOrder, itemOrder,
   gradeSession, bandFor, selectCount, hashString,
@@ -9,6 +9,17 @@ import {
 const exam = JSON.parse(await readFile(new URL('../content/ab-400/exams/practice-1.json', import.meta.url), 'utf8'));
 const questions = exam.questions.map((q) => ({ ...q, key: `${exam.id}/${q.id}` }));
 const byType = (t) => questions.filter((q) => q.type === t);
+
+// every exam of every shipped pack, for the generic answer-key checks
+const allExams = [];
+for (const d of await readdir(new URL('../content/', import.meta.url), { withFileTypes: true })) {
+  if (!d.isDirectory()) continue;
+  const pack = JSON.parse(await readFile(new URL(`../content/${d.name}/pack.json`, import.meta.url), 'utf8'));
+  for (const x of pack.exams) {
+    const e = JSON.parse(await readFile(new URL(`../content/${d.name}/${x.file}`, import.meta.url), 'utf8'));
+    allExams.push({ label: `${d.name}/${x.id}`, questions: e.questions.map((q) => ({ ...q, key: `${e.id}/${q.id}` })) });
+  }
+}
 
 const single = { type: 'single', key: 's', options: ['a', 'b', 'c', 'd'], answer: [2] };
 const multi = { type: 'multi', key: 'm', options: ['a', 'b', 'c', 'd', 'e'], answer: [3, 1], select: 2 };
@@ -104,8 +115,9 @@ test('bandFor picks the highest band reached', () => {
   assert.equal(bandFor(50, []), null);
 });
 
-test('real exam: the keyed answer is correct and every wrong alternative is rejected', () => {
-  assert.equal(questions.length, 60);
+function checkExam(label, questions) {
+  const byType = (t) => questions.filter((q) => q.type === t);
+  assert.ok(questions.length > 0, label);
   for (const q of questions) {
     const good = correctAnswer(q);
     assert.equal(answerState(q, good), 'complete', q.id);
@@ -125,6 +137,11 @@ test('real exam: the keyed answer is correct and every wrong alternative is reje
     assert.ok(!isCorrect(q, reversed), q.id);
   }
   for (const q of byType('dropdown')) assert.ok(!isCorrect(q, q.blanks.map((b) => (b.answer + 1) % b.options.length)), q.id);
+}
+
+test('every shipped exam: the keyed answer is correct and every wrong alternative is rejected', () => {
+  assert.ok(allExams.some((e) => e.label === 'ab-400/practice-1'));
+  for (const e of allExams) checkExam(e.label, e.questions);
 });
 
 test('real exam: question mix matches the study guide (domains and formats)', () => {

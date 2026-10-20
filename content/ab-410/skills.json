@@ -1,0 +1,445 @@
+{
+ "schema": 1,
+ "groups": [
+  {
+   "id": "g1",
+   "domain": 1,
+   "title": "Design Microsoft Power Platform solutions by using AI-enabled tools",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 1,
+     "text": "Analyze requirements to identify components and options for implementation",
+     "refs": [
+      "d1-design-microsoft-power"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 2,
+     "text": "Evaluate built-in agents to include in the business solution",
+     "refs": [
+      "d1-design-microsoft-power"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 3,
+     "text": "Recommend extensibility options",
+     "refs": [
+      "d1-design-microsoft-power"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 4,
+     "text": "Recommend environment types",
+     "refs": [
+      "d1-design-microsoft-power"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 5,
+     "text": "Apply a Microsoft Power Platform solution and ALM strategy",
+     "refs": [
+      "d1-design-microsoft-power"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g2",
+   "domain": 1,
+   "title": "Build data models",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 6,
+     "text": "Create and edit tables in the data workspace",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 7,
+     "text": "Create and modify standard tables",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 8,
+     "text": "Configure table properties",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 9,
+     "text": "Create and modify columns",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 10,
+     "text": "Configure table relationships",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 11,
+     "text": "Configure prompt columns",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 12,
+     "text": "Configure row summaries",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 13,
+     "text": "Configure public views",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 14,
+     "text": "Configure main forms",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 15,
+     "text": "Configure security",
+     "refs": [
+      "d1-build-data-models"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g3",
+   "domain": 2,
+   "title": "Create model-driven apps",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 16,
+     "text": "Create and configure forms for model-driven apps",
+     "refs": [
+      "d2-create-model-driven"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 17,
+     "text": "Create and configure views for model-driven apps",
+     "refs": [
+      "d2-create-model-driven"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 18,
+     "text": "Create generative pages by using natural language",
+     "refs": [
+      "d2-create-model-driven"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 19,
+     "text": "Compose a model-driven app",
+     "refs": [
+      "d2-create-model-driven"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 20,
+     "text": "Configure access to forms and views for model-driven apps",
+     "refs": [
+      "d2-create-model-driven"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 21,
+     "text": "Configure access to model-driven apps",
+     "refs": [
+      "d2-create-model-driven"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 22,
+     "text": "Create and configure model-driven app charts and dashboards",
+     "refs": [
+      "d2-create-model-driven"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g4",
+   "domain": 2,
+   "title": "Create canvas apps",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 23,
+     "text": "Create a canvas app using data",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 24,
+     "text": "Design apps for accessibility, performance, responsiveness, and usability",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 25,
+     "text": "Automate business processes from canvas apps",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 26,
+     "text": "Create reuseable components, including named formulas, user-defined functions, and component libraries",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 27,
+     "text": "Manage variables and collections",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 28,
+     "text": "Implement error handling",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 29,
+     "text": "Test canvas apps, including using Monitor",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 30,
+     "text": "Create a Copilot Studio agent from a canvas app",
+     "refs": [
+      "d2-create-canvas-apps"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g5",
+   "domain": 3,
+   "title": "Create cloud flows",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 31,
+     "text": "Recommend cloud flow triggers",
+     "refs": [
+      "d3-create-cloud-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 32,
+     "text": "Evaluate and recommend connectors",
+     "refs": [
+      "d3-create-cloud-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 33,
+     "text": "Manage approvals by using cloud flows",
+     "refs": [
+      "d3-create-cloud-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 34,
+     "text": "Configure cloud flow actions",
+     "refs": [
+      "d3-create-cloud-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 35,
+     "text": "Implement flow control with conditions and loops",
+     "refs": [
+      "d3-create-cloud-flows"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 36,
+     "text": "Test and troubleshoot cloud flows",
+     "refs": [
+      "d3-create-cloud-flows"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g6",
+   "domain": 3,
+   "title": "Create prompts and models in AI Hub",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 37,
+     "text": "Build prompts from templates or from blank",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 38,
+     "text": "Consume a prompt in apps",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 39,
+     "text": "Consume a prompt in cloud flows",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 40,
+     "text": "Add knowledge to a prompt",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 41,
+     "text": "Customize prompt settings, including models",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 42,
+     "text": "Add inputs to a prompt",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 43,
+     "text": "Consume an AI model in apps",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 44,
+     "text": "Consume an AI model in cloud flows",
+     "refs": [
+      "d3-create-prompts-models"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g7",
+   "domain": 3,
+   "title": "Implement business and process logic",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 45,
+     "text": "Configure business rules",
+     "refs": [
+      "d3-implement-business-process"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 46,
+     "text": "Configure business process flows",
+     "refs": [
+      "d3-implement-business-process"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 47,
+     "text": "Configure calculated, rollup, and formula columns",
+     "refs": [
+      "d3-implement-business-process"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 48,
+     "text": "Evaluate use cases for business logic",
+     "refs": [
+      "d3-implement-business-process"
+     ],
+     "isNew": false
+    }
+   ]
+  }
+ ]
+}

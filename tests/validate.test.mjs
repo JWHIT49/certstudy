@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { validateLoadedPack, validateQuestion, validateExam, validatePack } from '../js/validate.js';
 
 const read = async (p) => JSON.parse(await readFile(new URL(`../content/ab-400/${p}`, import.meta.url), 'utf8'));
@@ -9,7 +9,36 @@ const load = async () => {
   return { pack, guides: { 'study-guide': await read('guide.json') }, skills: await read('skills.json'), exams: { 'practice-1': await read('exams/practice-1.json') } };
 };
 
-test('the shipped AB-400 pack is valid', async () => {
+const contentDir = new URL('../content/', import.meta.url);
+async function loadPackDir(dir) {
+  const rd = async (p) => JSON.parse(await readFile(new URL(`${dir}/${p}`, contentDir), 'utf8'));
+  const pack = await rd('pack.json');
+  const loaded = { pack, guides: {}, skills: null, exams: {} };
+  for (const g of pack.guides) loaded.guides[g.id] = await rd(g.file);
+  if (pack.skills) loaded.skills = await rd(pack.skills.file);
+  for (const x of pack.exams) loaded.exams[x.id] = await rd(x.file);
+  return loaded;
+}
+
+test('every shipped pack is valid, consistent and free of encoding damage', async () => {
+  const dirs = (await readdir(contentDir, { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name);
+  assert.ok(dirs.includes('ab-400'));
+  for (const dir of dirs) {
+    const loaded = await loadPackDir(dir);
+    assert.deepEqual(validateLoadedPack(loaded), [], dir);
+    assert.equal(loaded.pack.id, dir, `${dir}: pack id must match its folder`);
+    for (const x of loaded.pack.exams) assert.equal(loaded.exams[x.id].questions.length, x.questions, `${dir}/${x.id}: question count in pack.json`);
+    const sectionIds = Object.values(loaded.guides).flatMap((g) => g.parts.flatMap((p) => p.sections.map((s) => s.id)));
+    assert.ok(sectionIds.length > 0, `${dir}: has guide sections`);
+    assert.ok(!/â€|Ã[\u0080-\u00bf]|Â[\u00a0-\u00bf]/.test(JSON.stringify(loaded)), `${dir}: contains mojibake (wrong file encoding)`);
+    for (const exam of Object.values(loaded.exams)) {
+      for (const cs of exam.caseStudies ?? []) assert.ok(exam.questions.some((q) => q.caseStudy === cs.id), `${dir}: case study ${cs.id} has questions`);
+      for (const q of exam.questions) if (q.caseStudy) assert.ok((exam.caseStudies ?? []).some((c) => c.id === q.caseStudy), `${dir}/${q.id}: unknown case study`);
+    }
+  }
+});
+
+test('the AB-400 pack stays valid', async () => {
   assert.deepEqual(validateLoadedPack(await load()), []);
 });
 

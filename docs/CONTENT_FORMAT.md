@@ -36,6 +36,7 @@ Add new questions and sections with new ids instead of renumbering. When content
 | `code`, `title`, `version` | required text. `code` is the badge, for example `AB-400` |
 | `short`, `vendor`, `description`, `updated` | optional text (`updated` as `YYYY-MM-DD`) |
 | `order` | library sort order, default 100 |
+| `family` | optional group heading in the library (for example `Power Platform`); packs with the same family are listed together under it, in `order` |
 | `accent` | `#rrggbb` colour for the pack's card and header |
 | `disclaimer` | small print shown at the bottom of the pack home |
 | `domains` | at least one: `{ "id": 1, "name": "...", "short": "...", "weight": "15-20%" }`. `id` is an integer that questions and skill groups refer to |
