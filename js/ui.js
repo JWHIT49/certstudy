@@ -69,7 +69,7 @@ export function openSheet({ title, content, actions = null, tall = false, onClos
   return ref;
 }
 
-export function confirmSheet({ title, message, confirmLabel = 'Confirm', cancelLabel = 'Cancel', danger = false }) {
+export function confirmSheet({ title, message, confirmLabel = 'Confirm', cancelLabel = 'Cancel', danger = false, extra = null }) {
   return new Promise((resolve) => {
     let decided = false;
     const finish = (value) => {
@@ -80,7 +80,7 @@ export function confirmSheet({ title, message, confirmLabel = 'Confirm', cancelL
     };
     const ref = openSheet({
       title,
-      content: h('p', { class: 'sheet-text' }, message),
+      content: [h('p', { class: 'sheet-text' }, message), extra],
       actions: [
         h('button', { type: 'button', class: 'btn ghost', onclick: () => finish(false) }, cancelLabel),
         h('button', { type: 'button', class: ['btn', danger ? 'danger' : 'primary'], onclick: () => finish(true) }, confirmLabel),

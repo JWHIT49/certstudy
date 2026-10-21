@@ -15,7 +15,7 @@ Packs so far: **AB-400** (Extending Microsoft Power Platform Solutions with Code
 - **Skills tracker**: rate every skill measured from 1 to 5 and see what still needs work.
 - **Search** across the guide and every question.
 - **Backup and restore** of all progress as a JSON file, plus light/dark/system theme and four text sizes.
-- **Private**: no accounts, no analytics, no network calls after the first load. Progress lives on the device.
+- **Private by default**: no analytics and no tracking. Progress lives on the device. You can optionally sign in (Microsoft, Google or GitHub) to keep it in your own private cloud account and use it on several devices; see [Cloud sync](#cloud-sync-optional).
 
 ## Run it on your computer
 
@@ -24,7 +24,7 @@ Needs [Node.js](https://nodejs.org) 20 or newer. There is nothing to install.
 ```powershell
 npm run build   # validates the content and regenerates the offline file list
 npm start       # http://localhost:8080  (add  -- --lan  to reach it from a phone on your Wi-Fi)
-npm test        # grading, content validation, storage/backup and progress tests
+npm test        # grading, content validation, storage/backup, progress, merge and sync tests
 ```
 
 Open `http://localhost:8080/?nosw` if you want to bypass the service worker while developing (it also clears any cached copy).
@@ -66,6 +66,12 @@ A PWA does not need App Review and updates instantly, which is why this project 
 2. Stage the site (the workflow's "Stage site" step shows which files), `npx cap add ios`, `npx cap sync`, open the project in Xcode, set your Team and bundle identifier, then archive and upload to TestFlight.
 3. Expect App Review to look closely at wrapped websites (guideline 4.2, minimum functionality). The offline content and practice tooling help, but acceptance is not guaranteed. Without a Mac, a macOS CI runner or a cloud build service can do the Xcode steps.
 
+## Cloud sync (optional)
+
+Sign in with Microsoft, Google or GitHub to keep progress in your own cloud account, so a new phone or a second device picks up where you left off. It is **off until you set it up**, local-first (the app always works offline and reads the device first), private per person, and never shares anything between people. It uses a free Supabase project that you own; the app talks to it directly and no other server is involved.
+
+[docs/CLOUD_SYNC.md](docs/CLOUD_SYNC.md) has the 20-minute setup (project, SQL, sign-in providers, `cloud.json`), how merging works, the privacy and security notes, and troubleshooting. Until `cloud.json` is switched on, the app is exactly as described above: no accounts, no requests beyond its own files.
+
 ## Where this lives
 
 CertStudy is published from one place: the GitHub account **JWHIT49**.
@@ -73,7 +79,7 @@ CertStudy is published from one place: the GitHub account **JWHIT49**.
 - The only git remote is `origin`, which points to `https://github.com/JWHIT49/certstudy`. Commits are authored as `JWHIT49` with GitHub's no-reply address, so no work or personal e-mail address is stored in the history.
 - The deploy workflow runs only when the repository owner is `JWHIT49` (`if: github.repository_owner == 'JWHIT49'`). A fork or copy under another account builds and publishes nothing.
 - `package.json` is marked `"private": true`, so it cannot be published to npm by accident.
-- The app loads nothing from other websites and sends nothing anywhere (the Content-Security-Policy allows only its own origin). Your answers and progress stay on the device; they are never in the repository.
+- The app loads nothing from other websites and sends nothing anywhere unless you turn on cloud sync (the Content-Security-Policy allows only its own origin, plus your Supabase project address when `cloud.json` is enabled). Your answers and progress stay on the device, or in your own cloud account if you sign in; they are never in the repository.
 - The repository is **public**, which is what free GitHub Pages hosting requires. Anyone can read or fork the code, and anyone who has the address can open the site. It holds no personal data. A private repository can also host a Pages site on a paid GitHub plan, but the site itself would still be reachable by anyone with its address.
 - To keep the app itself private, serve the same static files from somewhere with access control instead: a private network with HTTPS (for example Tailscale), Cloudflare Pages with Cloudflare Access, or Azure Static Web Apps with sign-in.
 
@@ -95,14 +101,20 @@ js/                                       ES modules, no framework and no build 
   grade.js validate.js                    pure, unit-tested logic
   sanitize.js                             allowlist HTML sanitizer for content
   store.js data.js session.js             local storage, progress, sessions
-  views/                                  library, cert home, guide, practice, runner, results, skills, search, settings
+  merge.js sync.js                        cloud sync: merge rules and the sync engine (pure, unit-tested)
+  cloud.js cloud-config.js                optional cloud sign-in: controller and cloud.json validation
+  cloud-supabase.js cloud-mock.js         the Supabase backend, and a development-only simulated one
+  vendor/auth-js.js                       bundled Supabase sign-in client (generated by tools/vendor.mjs)
+  views/                                  library, cert home, guide, practice, runner, results, skills, search, settings, account
 content/<pack>/                           pack.json, guide.json, skills.json, exams/*.json
+supabase/migrations/                      database table, security policies and functions for cloud sync
 tools/build.mjs                           validate packs, write catalog, offline list and build id
-tools/serve.mjs                           zero-dependency static server for local use
+tools/serve.mjs                           zero-dependency static server for local use (and the mock cloud)
+tools/vendor.mjs test-sql.mjs keepalive.mjs   rebuild the vendored library; test the database; keep the cloud project awake
 tests/                                    node --test suites
 ```
 
-Security notes: the page ships a strict Content-Security-Policy (no inline scripts or styles, no third-party origins). Content HTML never reaches the page directly; `sanitize.js` rebuilds it from an allowlist of tags, classes and link schemes.
+Security notes: the page ships a strict Content-Security-Policy (no inline scripts or styles, no third-party origins; with cloud sync enabled, exactly one more: your own Supabase project). Content HTML never reaches the page directly; `sanitize.js` rebuilds it from an allowlist of tags, classes and link schemes.
 
 ## Content and licensing
 

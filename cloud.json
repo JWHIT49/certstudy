@@ -1,0 +1,7 @@
+{
+  "_comment": "Optional cloud sign-in and sync (see docs/CLOUD_SYNC.md). To turn it on, fill in url and publishableKey from your Supabase project (Project Settings > API) and set enabled to true. Both values are PUBLIC by design. Never put a secret key or service_role key here: the build refuses it.",
+  "enabled": false,
+  "url": "https://YOUR-PROJECT-REF.supabase.co",
+  "publishableKey": "sb_publishable_PASTE_YOUR_PUBLISHABLE_KEY",
+  "methods": ["microsoft", "google", "github"]
+}

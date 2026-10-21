@@ -122,6 +122,18 @@ p { margin: 0 0 .6rem; }
 .badge { margin-left: auto; padding: 2px 9px; border-radius: 999px; background: var(--warn-bg); color: var(--warn); font-size: .72rem; font-weight: 700; }
 .field { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
 .field-label { font-size: .8rem; font-weight: 650; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.input { width: 100%; min-height: var(--tap); padding: 0 14px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); font-size: max(16px, 1rem); -webkit-appearance: none; appearance: none; }
+.input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.notice { border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); padding: 10px 12px; margin: 10px 0; font-size: .9rem; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.notice p { margin: 0 0 6px; }
+.notice.warn { background: var(--warn-bg); border-color: var(--warn); }
+.notice.bad { background: var(--bad-bg); border-color: var(--bad); }
+.notice .btn-row { align-self: stretch; }
+.account .row.sync-status.good .row-lead { color: var(--good); }
+.account .row.sync-status.warn .row-lead { color: var(--warn); }
+.account .row.sync-status.bad .row-lead { color: var(--bad); }
+.account .sync-actions { margin: 6px 0 4px; }
+.account .email-form { margin-top: 4px; }
 
 .seg { display: flex; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 3px; gap: 3px; }
 .seg-btn { flex: 1; min-height: 40px; border: 0; border-radius: 9px; background: transparent; font-weight: 650; font-size: .88rem; color: var(--muted); padding: 0 6px; }

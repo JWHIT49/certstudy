@@ -45,6 +45,12 @@ export function get(key, fallback = null) {
   }
 }
 
+/** True when a value is stored under this key (a stored JSON null counts). */
+export function has(key) {
+  const raw = readRaw(key);
+  return raw !== null && raw !== undefined;
+}
+
 export function set(key, value) {
   if (value === undefined) { remove(key); return; }
   const raw = JSON.stringify(value);
@@ -174,20 +180,24 @@ export function parseBackup(backup) {
   }
   const entries = [];
   for (const [key, value] of Object.entries(backup.data)) {
-    for (const [re, clean] of CLEANERS) {
-      const m = re.exec(key);
-      if (!m) continue;
-      const cleaned = clean(value, m);
-      if (cleaned !== undefined) entries.push([key, cleaned]);
-      break;
-    }
+    const cleaned = cleanValue(key, value);
+    if (cleaned !== undefined) entries.push([key, cleaned]);
   }
   if (!entries.length) throw new Error('This backup does not contain any progress this version can read.');
   return entries;
 }
 
-// An in-progress session and one-time UI hints belong to this device, so a restore leaves them alone.
-const deviceKey = (k) => k.startsWith('active.') || k.startsWith('ui.');
+/** Rebuilds one stored value from untrusted input (a backup file or a cloud document), or returns undefined if it is not acceptable. */
+export function cleanValue(key, value) {
+  for (const [re, clean] of CLEANERS) {
+    const m = re.exec(key);
+    if (m) return clean(value, m);
+  }
+  return undefined;
+}
+
+// An in-progress session, one-time UI hints and sync bookkeeping belong to this device, so a restore leaves them alone.
+const deviceKey = (k) => k.startsWith('active.') || k.startsWith('ui.') || k.startsWith('sync.');
 
 function writeStrict(key, value) {
   const raw = JSON.stringify(value);
@@ -216,6 +226,7 @@ export function importAll(backup, { replace = true } = {}) {
   for (const [k] of entries) emit(k);
 }
 
-export function clearAll() {
-  for (const k of keys()) remove(k);
+/** Removes progress and settings from this device. Sync bookkeeping is kept (so the cloud copy is cleared too) unless `includeSync`. */
+export function clearAll({ includeSync = false } = {}) {
+  for (const k of keys()) if (includeSync || !k.startsWith('sync.')) remove(k);
 }

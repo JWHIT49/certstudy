@@ -58,3 +58,6 @@ export function start(renderFn) {
   window.addEventListener('hashchange', run);
   run();
 }
+
+/** Builds the current page again (for example after cloud data changed what it shows). */
+export const refresh = () => run();
