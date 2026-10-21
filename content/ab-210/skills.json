@@ -1,0 +1,469 @@
+{
+ "schema": 1,
+ "groups": [
+  {
+   "id": "g1",
+   "domain": 1,
+   "title": "Configure Sales",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 1,
+     "text": "Evaluate prerequisites for deploying Sales",
+     "refs": [
+      "d1-configure-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 2,
+     "text": "Configure mailboxes",
+     "refs": [
+      "d1-configure-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 3,
+     "text": "Set up and configure business process flows",
+     "refs": [
+      "d1-configure-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 4,
+     "text": "Configure the timeline",
+     "refs": [
+      "d1-configure-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 5,
+     "text": "Evaluate options for importing and exporting data",
+     "refs": [
+      "d1-configure-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 6,
+     "text": "Examine the Sales security model",
+     "refs": [
+      "d1-configure-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 7,
+     "text": "Configure Microsoft 365 functionality, including Microsoft Teams, SharePoint, Outlook, and OneDrive",
+     "refs": [
+      "d1-configure-sales"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g2",
+   "domain": 1,
+   "title": "Create and manage the product catalog",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 8,
+     "text": "Configure products and product families",
+     "refs": [
+      "d1-create-manage-product"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 9,
+     "text": "Create and manage price lists, including currencies",
+     "refs": [
+      "d1-create-manage-product"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g3",
+   "domain": 2,
+   "title": "Design an AI-first sales strategy",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 10,
+     "text": "Augment seller workflows by using Copilot and agents",
+     "refs": [
+      "d2-design-ai-first"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 11,
+     "text": "Design the sales data model in Dataverse",
+     "refs": [
+      "d2-design-ai-first"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 12,
+     "text": "Evaluate options for reporting and visualization",
+     "refs": [
+      "d2-design-ai-first"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 13,
+     "text": "Differentiate features in Sales plans",
+     "refs": [
+      "d2-design-ai-first"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g4",
+   "domain": 2,
+   "title": "Prepare to deploy agents",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 14,
+     "text": "Configure prerequisites for deploying agents",
+     "refs": [
+      "d2-prepare-deploy-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 15,
+     "text": "Configure capacity, billing, and credits",
+     "refs": [
+      "d2-prepare-deploy-agents"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g5",
+   "domain": 2,
+   "title": "Configure AI-powered intelligence and insights features",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 16,
+     "text": "Configure the Sales accelerator",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 17,
+     "text": "Configure work assignment and distribution",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 18,
+     "text": "Set up conversational intelligence",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 19,
+     "text": "Configure predictive scoring",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 20,
+     "text": "Set up relationship intelligence",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 21,
+     "text": "Configure Copilot features, including record summarization",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 22,
+     "text": "Configure and use forecasts to help improve sales performance",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 23,
+     "text": "Set up goals and goal metrics",
+     "refs": [
+      "d2-configure-ai-powered"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g6",
+   "domain": 3,
+   "title": "Generate and nurture leads",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 24,
+     "text": "Configure the lead and opportunity experience",
+     "refs": [
+      "d3-generate-nurture-leads"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 25,
+     "text": "Fine-tune the predictive scoring model",
+     "refs": [
+      "d3-generate-nurture-leads"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g7",
+   "domain": 3,
+   "title": "Automate lead qualification by using the Sales Qualification Agent",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 26,
+     "text": "Evaluate use cases for Research-only mode configuration versus Research and engage mode configuration",
+     "refs": [
+      "d3-automate-lead-qualification"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 27,
+     "text": "Configure the Sales Qualification Agent",
+     "refs": [
+      "d3-automate-lead-qualification"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 28,
+     "text": "Interpret the actions of the Sales Qualification Agent",
+     "refs": [
+      "d3-automate-lead-qualification"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 29,
+     "text": "Monitor the Sales Qualification Agent",
+     "refs": [
+      "d3-automate-lead-qualification"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g8",
+   "domain": 4,
+   "title": "Optimize opportunity management",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 30,
+     "text": "Coordinate opportunity management with the Sales Close Agent",
+     "refs": [
+      "d4-optimize-opportunity-managemen"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 31,
+     "text": "Add Opportunity Products, and configure pricing",
+     "refs": [
+      "d4-optimize-opportunity-managemen"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 32,
+     "text": "Configure the opportunity pipeline view",
+     "refs": [
+      "d4-optimize-opportunity-managemen"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 33,
+     "text": "Set up and configure the Sales Opportunity Agent",
+     "refs": [
+      "d4-optimize-opportunity-managemen"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g9",
+   "domain": 4,
+   "title": "Automate deal closing by using the Sales Close Agent",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 34,
+     "text": "Set up and configure the Sales Close Agent",
+     "refs": [
+      "d4-automate-deal-closing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 35,
+     "text": "Interpret the actions of the Sales Close Agent",
+     "refs": [
+      "d4-automate-deal-closing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 36,
+     "text": "Monitor the Sales Close Agent",
+     "refs": [
+      "d4-automate-deal-closing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 37,
+     "text": "Collaborate with the Sales Close Agent",
+     "refs": [
+      "d4-automate-deal-closing"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g10",
+   "domain": 4,
+   "title": "Gather intelligence on sales deals by using the Sales Research Agent",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 38,
+     "text": "Evaluate use cases for the Sales Research Agent",
+     "refs": [
+      "d4-gather-intelligence-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 39,
+     "text": "Configure the Sales Research Agent",
+     "refs": [
+      "d4-gather-intelligence-sales"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 40,
+     "text": "Analyze sales performance by using research canvas",
+     "refs": [
+      "d4-gather-intelligence-sales"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g11",
+   "domain": 5,
+   "title": "Configure supporting apps and services",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 41,
+     "text": "Deploy and configure the Sales mobile app",
+     "refs": [
+      "d5-configure-supporting-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 42,
+     "text": "Set up Teams calling",
+     "refs": [
+      "d5-configure-supporting-apps"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 43,
+     "text": "Configure an SMS channel",
+     "refs": [
+      "d5-configure-supporting-apps"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g12",
+   "domain": 5,
+   "title": "Expand the sales footprint by using Microsoft Power Platform",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 44,
+     "text": "Create Power Automate flows",
+     "refs": [
+      "d5-expand-sales-footprint"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 45,
+     "text": "Embed Power Apps components and controls",
+     "refs": [
+      "d5-expand-sales-footprint"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 46,
+     "text": "Embed Power BI reports",
+     "refs": [
+      "d5-expand-sales-footprint"
+     ],
+     "isNew": false
+    }
+   ]
+  }
+ ]
+}

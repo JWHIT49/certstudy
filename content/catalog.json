@@ -42,6 +42,27 @@
         "questions": 60
       },
       "path": "ab-410/pack.json"
+    },
+    {
+      "id": "ab-210",
+      "order": 50,
+      "code": "AB-210",
+      "title": "Accelerating Sales Pipelines with AI in Dynamics 365",
+      "short": "Dynamics 365 Sales AI consultant",
+      "vendor": "Microsoft",
+      "family": "Dynamics 365: customer experience",
+      "version": "2026.10.20",
+      "updated": "2026-10-20",
+      "accent": "#c4561a",
+      "description": "Study guide, 46-skill tracker and a 60-question practice exam for the AB-210 exam, the successor to MB-280.",
+      "counts": {
+        "guides": 1,
+        "sections": 41,
+        "skills": 46,
+        "exams": 1,
+        "questions": 60
+      },
+      "path": "ab-210/pack.json"
     }
   ]
 }

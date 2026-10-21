@@ -1,0 +1,1323 @@
+{
+ "schema": 1,
+ "id": "practice-1",
+ "title": "Practice Exam 1",
+ "description": "60 original questions weighted to the current AB-210 skills measured (study guide updated 2026-10-16), including a case study.",
+ "minutes": 120,
+ "scoring": "Each question is worth 1 point; multi-part questions are all-or-nothing.",
+ "bands": [
+  {
+   "min": 0.8,
+   "label": "Strong",
+   "text": "You know the material and the traps. Review every miss, re-take in a few days, then book the exam."
+  },
+  {
+   "min": 0.7,
+   "label": "Close",
+   "text": "Gaps in specific areas. Re-read the sections listed below and redo the matching hands-on tasks."
+  },
+  {
+   "min": 0,
+   "label": "Not ready yet",
+   "text": "Follow the study plan and focus on your lowest domain scores first."
+  }
+ ],
+ "caseStudies": [
+  {
+   "id": "northwind-ai-selling",
+   "title": "Northwind Traders: AI-assisted selling for a food distributor",
+   "html": "<h3>Overview</h3>\n<p>Northwind Traders distributes specialty foods and beverages to grocers, restaurants and hotel groups in the United States, Canada and the United Kingdom. About 90 sellers work in three regions, and each region is led by a regional director. Leadership licensed Dynamics 365 Sales Premium for every seller and wants AI-assisted selling to improve lead prioritization, forecast accuracy and pipeline visibility. You are the functional consultant for the Sales operations team. Sales agents are planned for a later phase.</p>\n\n<h3>Current environment</h3>\n<ul>\n<li>One production environment runs the Sales Hub app. Each region has its own business unit (Northwind US, Northwind Canada and Northwind UK). Regional directors hold the Sales Manager security role with Business Unit level Read access to opportunities.</li>\n<li>Leads arrive from web forms and trade-show badge scans, about 2,500 a month. A predictive lead scoring model is published. Badge-scan leads often have personal email addresses and mistyped names, yet they score about the same as well-formed web leads.</li>\n<li>Opportunities follow the opportunity business process flow with the stages Qualify, Develop, Propose and Close.</li>\n<li>Finance keeps quotas in spreadsheets, not in Dynamics 365. One forecast uses the Forecast category option set, as shown in the exhibit.</li>\n<li>Field account managers open Opportunities each morning and land on the read-only grid.</li>\n<li>The BI team maintains a Power BI semantic model that holds pipeline data for all three regions.</li>\n</ul>\n\n<h4>Exhibit: forecast columns today</h4>\n<table class=\"tight\">\n<thead><tr><th>Column</th><th>Type</th><th>Source</th></tr></thead>\n<tbody>\n<tr><td>Won</td><td>Rollup</td><td>Opportunities with forecast category Won</td></tr>\n<tr><td>Committed</td><td>Rollup</td><td>Opportunities with forecast category Committed</td></tr>\n<tr><td>Best Case</td><td>Rollup</td><td>Opportunities with forecast category Best Case</td></tr>\n<tr><td>Pipeline</td><td>Rollup</td><td>Opportunities with forecast category Pipeline</td></tr>\n<tr><td>Forecast</td><td>Calculated</td><td>Won + Committed</td></tr>\n</tbody>\n</table>\n\n<h3>Requirements</h3>\n<ol>\n<li>Before an opportunity leaves the Qualify stage, the seller must record whether a competing distributor already supplies the customer. Yes and No are both acceptable, but <b>the step can't be left unanswered</b>.</li>\n<li>Finance sends each seller's quarterly quota as an Excel workbook, and the forecast must show quota beside the pipeline. Regional directors must be able to <b>adjust the Committed amount</b> directly in the forecast grid.</li>\n<li>The lead score must reflect <b>whether the email address belongs to a business domain and whether the first and last names are well formed</b>.</li>\n<li>Field account managers must open Opportunities in <b>the pipeline view by default</b>, with grouping and aggregation, so that they no longer choose Show As each morning.</li>\n<li>The BI team will embed one interactive Power BI pipeline report on the Account main form in Sales Hub. Each director must see <b>only their own region's opportunities</b> in that report.</li>\n</ol>\n\n<h3>Technical constraints</h3>\n<ul>\n<li>Use only generally available features and configuration, with no custom code.</li>\n<li>The Sales operations team makes all changes in the production environment with the System Administrator role.</li>\n</ul>"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "type": "single",
+   "domain": 1,
+   "skill": 7,
+   "section": "d1-configure-sales",
+   "stem": "Fabrikam wants sellers to keep private documents in OneDrive for Business from within Sales records. The environment has no SharePoint integration yet. What must the administrator do first?",
+   "options": [
+    "Turn on Microsoft Teams chats inside Dynamics 365 for all apps.",
+    "Configure server-side synchronization for every seller mailbox.",
+    "Enable server-based SharePoint integration against an active SharePoint site in the same tenant.",
+    "Deploy the Dynamics 365 App for Outlook to all sellers."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "OneDrive for Business <b>relies on server-based SharePoint integration</b>: the organization needs at least one active SharePoint site and an admin must enable the integration (Settings &gt; Integration &gt; Document management settings) before <b>Enable OneDrive for Business</b> works. Mailbox sync, App for Outlook and Teams chat are separate integrations and don't enable OneDrive.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/enable-onedrive-for-business"
+  },
+  {
+   "id": "q002",
+   "type": "single",
+   "domain": 2,
+   "skill": 16,
+   "section": "d2-configure-ai-powered",
+   "stem": "Northwind Traders built a lead sequence that sends an introduction email and then branches: if the lead opens the email a call is scheduled, otherwise a reminder email is sent. Managers report that the branches do not work as designed. What should the administrator verify first?",
+   "options": [
+    "The Power Automate flow <b>Sales Insights Adaptive sequence timeout flow</b> is turned on.",
+    "The <b>Up next</b> widget is present on the default Main form of the lead table.",
+    "<b>Phone number priority</b> is set to Default, Fallback1 and Fallback2.",
+    "The sequence is assigned to the owner team rather than to the record owner."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Conditions in adaptive sequences work as defined only when the <b>Sales Insights Adaptive sequence timeout flow</b> process is enabled (Power Automate, Default Solution, <b>Turn on</b>); the flow handles the wait time and then advances the sequence, so also check that its connection references show a green check mark. Who the sequence is assigned to, the Up next widget and phone number priority don't control Yes/No branching. Email conditions additionally need email engagement and sequence activities to be enabled.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/adaptive-sequence"
+  },
+  {
+   "id": "q003",
+   "type": "single",
+   "domain": 3,
+   "skill": 27,
+   "section": "d3-automate-lead-qualification",
+   "stem": "Contoso configures the Sales Qualification Agent to process Cold web leads. After the agent starts, an older work assignment segment that matches the same leads keeps routing them to sellers and the agent never receives them. What explains this behavior?",
+   "options": [
+    "A Research-only agent never takes leads automatically until a seller selects Draft email on each lead and sends it.",
+    "The agent's selection-criteria segment has a low priority, so the overlapping work assignment segment wins; remove the overlap.",
+    "Leads are eligible only when the agent's application user owns them, so the lead owner must be changed to that user.",
+    "The agent processes only leads created before it was started, unless an admin clears the Consider leads created in the last N days option."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The segment the agent creates from its selection criteria always has <b>low priority, one above the default segment</b>. If a work assignment segment used for sellers overlaps with it, leads are assigned to sellers instead of the agent, so adjust the criteria or the segments. By default the agent considers only leads created after it starts (the look-back option adds older ones), and the owner of new leads must <b>not</b> be the agent's app user.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/sales-qualification-agent-selection-criteria"
+  },
+  {
+   "id": "q004",
+   "type": "single",
+   "domain": 2,
+   "skill": 11,
+   "section": "d2-design-ai-first",
+   "stem": "At Adventure Works, a sales manager reassigns a departing rep's accounts to a new owner. Open tasks related to those accounts must move to the new owner too, but completed tasks must stay with the previous owner. Which Assign behavior should the relationship use?",
+   "options": [
+    "Cascade All",
+    "Cascade None",
+    "Cascade User-Owned",
+    "Cascade Active"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Cascade Active</b> performs the action on all <b>active</b> related rows, so open tasks follow the account while closed tasks stay behind. Cascade All would also reassign completed tasks, Cascade User-Owned moves every related task owned by the same user as the account regardless of status, and Cascade None leaves all tasks with the previous owner.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-edit-entity-relationships"
+  },
+  {
+   "id": "q005",
+   "type": "single",
+   "domain": 5,
+   "skill": 45,
+   "section": "d5-expand-sales-footprint",
+   "stem": "Fabrikam Insurance embedded a canvas app on the Account main form by using the form designer and published the form. The sellers' security role already includes Read on the Canvas App table, yet sellers who open an account see \"It looks like you don't have access to this app\". What should the maker do?",
+   "options": [
+    "Grant the sellers' role Write on the Canvas App table.",
+    "Share the canvas app with the sellers' security group.",
+    "Publish the Account main form again from the form designer.",
+    "Share the canvas app with Everyone in the organization."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Access to an embedded canvas app comes from <b>sharing the app</b> itself: share it with a security group or named users. The <b>Canvas App</b> privilege in a security role doesn't share an embedded or standalone app, so granting more table privileges won't clear the message. Sharing with <b>Everyone</b> isn't supported in Dataverse environments and can break rendering, and republishing the form neither shares nor publishes the canvas app.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/share-embedded-canvas-app"
+  },
+  {
+   "id": "q006",
+   "type": "single",
+   "domain": 2,
+   "skill": 15,
+   "section": "d2-prepare-deploy-agents",
+   "stem": "Fabrikam wants Sales agent usage billed per use to the Marketing department's Azure subscription, with no upfront purchase. Which setup meets this?",
+   "options": [
+    "Buy a prepaid Copilot Studio capacity pack in the Microsoft 365 admin center and assign it.",
+    "Set Capacity overages to Draw from the available capacity in my tenant.",
+    "Buy a Copilot Credits prepurchase plan in the Azure portal instead of creating a billing plan.",
+    "Create a pay-as-you-go billing plan on that Azure subscription, then link the Sales environment."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Pay-as-you-go</b> bills the credits actually consumed to an Azure subscription with no license commitment or upfront purchase: you create a billing plan on the subscription (choosing the Power Platform environments it covers) and then link the Sales environment. The Copilot Credits prepurchase plan is a one-year prepaid pool, a capacity pack is also prepaid, and the \"draw from the available capacity in my tenant\" overage option uses the tenant's available prepaid capacity instead of billing an Azure subscription.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/copilot-consumption-based-billing"
+  },
+  {
+   "id": "q007",
+   "type": "multi",
+   "domain": 4,
+   "skill": 33,
+   "section": "d4-optimize-opportunity-managemen",
+   "stem": "Adventure Works is preparing the <b>Prerequisites</b> section on the Sales Opportunity Agent settings page for the first time. Which <b>TWO</b> items must the admin configure there?",
+   "options": [
+    "Accept the terms for <b>Bing search</b> in the Power Platform admin center.",
+    "Register an application in Microsoft Entra ID for the agent's application user.",
+    "Turn on the search-indexing options for <b>Dataverse Search</b> in the Power Platform admin center.",
+    "Create a shared mailbox that the agent uses to send outreach emails.",
+    "Create a Dataverse application user that has the <b>AIsalesperson</b> security role."
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "select": 2,
+   "explanation": "The Opportunity Agent's Prerequisites section has <b>Bing search</b> (<b>Accept terms</b>) and <b>Dataverse Search</b> (<b>Set up</b>, enable the search-indexing options, then <b>Refresh</b>), plus the optional but recommended <b>Microsoft 365 Services</b>. The Entra app registration, the AIsalesperson application user and the shared mailbox are requirements of the agents that send email under an agent identity, such as the Sales Close Agent, not of the Opportunity Agent.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-opportunity-agent-requirements"
+  },
+  {
+   "id": "q008",
+   "type": "multi",
+   "domain": 1,
+   "skill": 3,
+   "section": "d1-configure-sales",
+   "stem": "Adventure Works is designing a business process flow that branches after its Qualify stage. Which <b>TWO</b> statements about designing the branch are correct?",
+   "options": [
+    "The branching rule must be based on steps in the stage that immediately precedes the condition.",
+    "A condition can combine its rules with AND or with OR, but not with both operators.",
+    "A client-side script that changes a column value re-evaluates the branching condition.",
+    "A single branch can be nested up to ten levels deep.",
+    "A condition can test any column on the primary table, even if it isn't a step in an earlier stage.",
+    "One process can span up to ten different tables."
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "select": 2,
+   "explanation": "The documented rules are: a condition uses <b>AND or OR but not both</b>, and the rule must use the <b>steps of the immediately preceding stage</b>. A branch can be at most <b>five</b> levels deep, a process can span at most <b>five</b> unique tables, and Client API changes can't trigger evaluation because branching relies on business rules.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/enhance-business-process-flows-branching"
+  },
+  {
+   "id": "q009",
+   "type": "single",
+   "domain": 1,
+   "skill": 1,
+   "section": "d1-configure-sales",
+   "stem": "Woodgrove Bank's administrator must choose an environment to host Dynamics 365 Sales Enterprise. Which environment can host the Sales Hub app?",
+   "options": [
+    "A new environment created without a Dataverse database, because Sales can use another data store.",
+    "A new environment created with a database and Enable Dynamics 365 apps set to Yes, in a tenant with only 500 MB of available database capacity.",
+    "A new production environment created with a Dataverse database and Enable Dynamics 365 apps set to Yes.",
+    "An existing production environment whose database was created with Enable Dynamics 365 apps set to No; the admin switches it to Yes later."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Dynamics 365 apps can be installed only in an environment <b>created with a database and with Enable Dynamics 365 apps set to Yes</b> (a Dynamics 365 license is needed to choose Yes); if you skip it you <b>can't change it later</b> or install the apps. Sales runs on Dataverse, so an environment without a database can't host it, and creating an environment with a database needs <b>at least 1 GB of available database capacity</b>.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/create-environment"
+  },
+  {
+   "id": "q010",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 13,
+   "section": "d2-design-ai-first",
+   "stem": "Fabrikam is comparing Dynamics 365 Sales plans before a purchase. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Product families can be created in the Sales Professional app.",
+     "answer": false
+    },
+    {
+     "text": "Sales Premium generates advanced relationship insights from Dynamics 365 data and Exchange data.",
+     "answer": true
+    },
+    {
+     "text": "On Sales Enterprise, the sales accelerator is limited to 1,500 sequence-connected records per month.",
+     "answer": true
+    },
+    {
+     "text": "A Sales Enterprise license includes Sales Premium features such as the sales accelerator and predictive scoring, with a limited monthly capacity.",
+     "answer": true
+    },
+    {
+     "text": "Microsoft Relationship Sales can be purchased directly from the Dynamics 365 Sales pricing page by selecting Buy now.",
+     "answer": false
+    }
+   ],
+   "explanation": "Sales Enterprise can use the Premium digital-selling features with limits: <b>1,500</b> sequence-connected records per month for the sales accelerator and 1,500 records per month for predictive scoring; Premium removes the limits and adds advanced relationship insights from Dynamics 365 and Exchange data. <b>Relationship Sales isn't available for direct purchase</b>, and <b>product families exist only in the Sales Hub app</b>.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/digital-selling"
+  },
+  {
+   "id": "q011",
+   "type": "single",
+   "domain": 5,
+   "skill": 46,
+   "section": "d5-expand-sales-footprint",
+   "stem": "Tailwind Traders' sales operations team must give every seller the same interactive Power BI report in the Dashboards list of the sales app. The maker builds it once in a solution, but the report sits in a different Power BI workspace in each environment (development, test and production). What should the maker create?",
+   "options": [
+    "A Power BI embedded system dashboard that uses an environment variable for the workspace and report.",
+    "A Visualize this view command bar button that generates a Power BI report from each seller's view.",
+    "A personal dashboard that each seller creates with a Power BI Tile and then shares with colleagues.",
+    "A Power BI control on the Opportunity main form, added by editing customizations.xml in the solution."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A <b>Power BI embedded system dashboard</b> (Solutions &rarr; New &rarr; Dashboard &rarr; Power BI embedded) is a maker-built dashboard that shows in the app's Dashboards list once it is added as a Dashboard page, and <b>Use environment variable</b> lets each environment point at its own workspace and report when the solution moves. Personal dashboards are built and shared by individual users, a form control lives on one form instead of the Dashboards list, and <b>Visualize this view</b> generates an on-demand report from a single view.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/create-edit-powerbi-embedded-page"
+  },
+  {
+   "id": "q012",
+   "type": "multi",
+   "domain": 2,
+   "skill": 14,
+   "section": "d2-prepare-deploy-agents",
+   "stem": "Fabrikam's Power Platform administrator opens the Dynamics 365 AI hub and selects Create and manage agents for the first time. The common Prerequisites page opens and Create is disabled. Which <b>THREE</b> items on that page must show Done?",
+   "options": [
+    "Server-side synchronization for the agent mailbox",
+    "AI prompts",
+    "Shared mailbox for the agent",
+    "Microsoft Copilot Studio capacity",
+    "Azure app registration for the agent",
+    "Move data across regions"
+   ],
+   "answer": [
+    1,
+    3,
+    5
+   ],
+   "select": 3,
+   "explanation": "The common Prerequisites page lists <b>Copilot Studio capacity, Move data across regions and AI prompts</b>; afterwards the admin also turns on AI insight cards and AI Agents in the Power Platform admin center. The app registration, Dataverse app user, shared mailbox and server-side synchronization are agent-specific requirements covered in each agent's own setup article, not on this common page.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/prerequisites-for-all-agents"
+  },
+  {
+   "id": "q013",
+   "type": "dropdown",
+   "domain": 3,
+   "skill": 25,
+   "section": "d3-generate-nurture-leads",
+   "stem": "A sales operations manager at Woodgrove Bank turns on Retrain automatically for a published lead scoring model. Complete the statement that describes how automatic retraining behaves.",
+   "format": "text",
+   "template": "The model is retrained every {1} days. The retrained model is published automatically only if its accuracy is at least {2} of the active model's accuracy, or if the active model is more than {3} old.",
+   "blanks": [
+    {
+     "options": [
+      "15",
+      "7",
+      "30",
+      "90"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "95 percent",
+      "100 percent",
+      "99 percent",
+      "90 percent"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "six months",
+      "one month",
+      "one year",
+      "three months"
+     ],
+     "answer": 3
+    }
+   ],
+   "explanation": "Automatic retraining runs every <b>15 days</b> and is on by default after a model is published. The application publishes the retrained model automatically when its accuracy is at least <b>95 percent</b> of the active model's accuracy or when the current model is more than <b>three months</b> old; otherwise it keeps the current model. To change attributes you must switch automatic retraining off and retrain manually by editing the model.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/pls-edit-and-retrain-model"
+  },
+  {
+   "id": "q014",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 26,
+   "section": "d3-automate-lead-qualification",
+   "stem": "Proseware is evaluating the two modes of the Sales Qualification Agent. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "In Research-only mode the agent generates an initial outreach email that a seller reviews and sends.",
+     "answer": true
+    },
+    {
+     "text": "An agent deployed in Research-only mode can later be upgraded to Research and engage mode.",
+     "answer": true
+    },
+    {
+     "text": "BANT criteria are evaluated in both Research-only mode and Research and engage mode.",
+     "answer": false
+    },
+    {
+     "text": "An organization can deploy a Research-only agent and a Research and engage agent at the same time.",
+     "answer": false
+    }
+   ],
+   "explanation": "Research-only mode drafts the outreach email but doesn't send it; sending, follow-ups, intent detection and BANT checks belong to Research and engage mode. <b>Only one mode can be deployed in an organization</b>; you can upgrade from Research-only to Research and engage (research settings are kept), but downgrading isn't supported.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-qualification-agent"
+  },
+  {
+   "id": "q015",
+   "type": "single",
+   "domain": 2,
+   "skill": 12,
+   "section": "d2-design-ai-first",
+   "stem": "Northwind Traders' BI developer builds a Power BI report on Dataverse sales data with the Dataverse connector in Power BI Desktop. Pipeline managers need figures that reflect the latest rows and honor Dataverse security as strictly as possible. Which connectivity mode should the developer choose?",
+   "options": [
+    "DirectQuery",
+    "Import, with a scheduled refresh in the Power BI service",
+    "Import through the Dataverse (Legacy) connector with paging",
+    "A static worksheet exported from the app and loaded into Power BI"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>DirectQuery</b> connects directly to Dataverse for real-time retrieval and can more strictly enforce the Dataverse security model. Import is the general recommendation, but it caches data in the Power BI service and refreshes on a schedule. The Legacy connector is for results over 80 MB, and a static worksheet is only a snapshot. The Dataverse connector also needs the <b>Enable TDS endpoint</b> setting.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-powerbi-connector"
+  },
+  {
+   "id": "q016",
+   "type": "single",
+   "domain": 5,
+   "skill": 44,
+   "section": "d5-expand-sales-footprint",
+   "stem": "Adventure Works Cycles' sales operations lead wants sellers to select several leads in the Active Leads view of a model-driven sales app and run a follow-up flow from the command bar, with a separate flow run for each selected lead. Which trigger should the cloud flow use?",
+   "options": [
+    "Dataverse: When an action is performed, with the Leads table chosen",
+    "Dataverse: When a row is added, modified or deleted, with Scope set to User",
+    "Recurrence, with a List rows action that reads the leads every hour",
+    "Dataverse: When a row is selected, with the Leads table chosen"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>When a row is selected</b> is the Dataverse trigger for flows that users start on one or more rows chosen in a model-driven app view, from the <b>Flow</b> menu. <b>Split on</b> is required (it is on by default), so each selected row gets its own run; share the flow as <b>Run only users</b> so sellers see it. <b>When a row is added, modified or deleted</b> fires automatically on data changes, <b>When an action is performed</b> fires when a Dataverse custom action runs, and a Recurrence flow runs on a schedule with no knowledge of the sellers' selection.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/dataverse/row-selected"
+  },
+  {
+   "id": "q017",
+   "type": "single",
+   "domain": 4,
+   "skill": 39,
+   "section": "d4-gather-intelligence-sales",
+   "stem": "Sales managers at Wide World Importers have Dynamics 365 Sales licenses and use the Sales Hub app, but the <b>Sales Research Agent</b> item doesn't appear in their site map. The admin must give them access without granting administrator or customization privileges. What should the admin do?",
+   "options": [
+    "Assign the AISalesPerson security role to each manager in the Power Platform admin center.",
+    "Assign the Sales Research Agent Reader role to the managers, directly or through a group team.",
+    "Assign the System Customizer security role to each manager in the Power Platform admin center.",
+    "Turn on the Bing search consent setting for the tenant in the Power Platform admin center."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "By default the menu is visible only to <b>System Administrator</b> and <b>System Customizer</b>; other users need the <b>Sales Research Agent Reader</b> role, assigned to each user or to a group team that contains them (plus a Dynamics 365 Sales license). System Customizer would reveal the menu but also grants customization rights, which the admin must avoid. AISalesPerson is the role given to an agent's application user, and Bing search consent only controls whether the agent may query the web.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-research-agent"
+  },
+  {
+   "id": "q018",
+   "type": "multi",
+   "domain": 4,
+   "skill": 39,
+   "section": "d4-gather-intelligence-sales",
+   "stem": "A sales operations analyst at Northwind Traders wants to add regional quota data as uploaded files to a Sales Research Agent session that already uses Dynamics 365 Sales data. Which <b>TWO</b> files can the agent process?",
+   "options": [
+    "A 12-MB CSV file exported from the finance system",
+    "A 100-page, 8-MB PDF exported from a word processor, with selectable text",
+    "A 9-MB Excel workbook that is protected with a password",
+    "A 60-page PDF created by scanning printed budget sheets",
+    "A 6-MB CSV file in which the values are separated by commas",
+    "An Excel workbook whose header row contains merged cells"
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "Each uploaded file can be up to <b>10 MB</b> (maximum 5 files and 30 MB in total), and encrypted, password-protected or copyright-managed files aren't supported. CSV values must be comma-separated. A PDF can have up to 150 pages but must contain selectable text, so a scanned PDF fails. An Excel file needs its header in the first row only and can't contain merged cells.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/sales-research-agent-connect-data"
+  },
+  {
+   "id": "q019",
+   "type": "single",
+   "domain": 3,
+   "skill": 25,
+   "section": "d3-generate-nurture-leads",
+   "stem": "A newly trained lead scoring model at Adventure Works shows Not ready to publish. Attribute Insights shows that many closed leads have a blank Budget value and the model treats those blanks as a negative signal that causes false positives. The admin wants to keep the Budget attribute. What should the admin do?",
+   "options": [
+    "Select the Email domain validation intelligent field so the model excludes blank attributes.",
+    "Change the grade ranges so that leads with a blank Budget fall into a lower grade.",
+    "Turn off Retrain automatically, edit the model, turn on <b>Ignore empty values</b> for Budget and retrain.",
+    "Add a second model with per-stage modelling so Budget applies only to selected business process stages."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Ignore empty values</b> excludes blank values of the selected attribute from training, which is the documented remedy when blanks act as detractors or produce false positives; Retrain automatically must be off before you edit, and you check the Performance tab after retraining. Per-stage modelling exists only for opportunity scoring (and is chosen when the model is added), intelligent fields add email and name validation rather than handling blanks, and grade ranges only map existing scores to A through D.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/pls-edit-and-retrain-model"
+  },
+  {
+   "id": "q020",
+   "type": "single",
+   "domain": 5,
+   "skill": 43,
+   "section": "d5-configure-supporting-apps",
+   "stem": "Adventure Works connected Twilio as the SMS provider in Dynamics 365 Sales and added a phone number for its sellers, who have Salesperson privileges and in-app notifications turned on. Sellers can send text messages and customers receive them, but customer replies never reach Dynamics 365. What should the admin do?",
+   "options": [
+    "Add the incoming callback URL to the received subscription webhook of an Azure Communication Services resource.",
+    "Replace the Account SID and Auth token on the Set up provider page with new values from Twilio.",
+    "Paste the incoming callback URL into the <code>A MESSAGE COMES IN</code> field for the number in Twilio.",
+    "Send the incoming callback URL to Twilio customer support so that they can enable replies."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "For Twilio the admin pastes the organization-specific <b>Incoming callback URL</b> into the <b>A MESSAGE COMES IN</b> field on the number's configuration page so that Twilio forwards replies. Sending already works, so the Account SID and Auth token are valid. Sending the URL to support is how Infobip, LINK Mobility and Telesign receive it, and the received subscription webhook is the Azure Communication Services method.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sms-provider"
+  },
+  {
+   "id": "q021",
+   "type": "single",
+   "domain": 2,
+   "skill": 18,
+   "section": "d2-configure-ai-powered",
+   "stem": "Contoso Pharma enables conversation intelligence for Teams calls. Legal requires recordings and transcripts to be kept for 12 months and then purged, and IT does not want to create or manage an Azure storage account. What should the admin do?",
+   "options": [
+    "Select <b>Microsoft Dataverse storage</b> and schedule recurring Bulk Record Deletion jobs for data older than 365 days.",
+    "Select <b>Microsoft provided storage</b> and set the retention policy to 12 months.",
+    "Select <b>Microsoft Dataverse storage</b> and set the retention policy to 12 months in the conversation intelligence settings.",
+    "Select <b>Your own Azure storage</b> and enter the storage name and container name."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Microsoft-provided storage offers only 30-day or 90-day retention, and your own Azure storage needs an Azure storage account and container. With Dataverse storage no Azure account is needed, and retention is not set on the settings page: a Power Platform admin schedules <b>Bulk Record Deletion</b> jobs (Created On older than N days, for example 365), one for each parent table (Conversation Aggregated Insights, SCI Conversation, Recording and Transcript).",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/ci-dataverse-data-retention-deletion"
+  },
+  {
+   "id": "q022",
+   "type": "single",
+   "domain": 2,
+   "skill": 10,
+   "section": "d2-design-ai-first",
+   "stem": "Proseware's sellers work mostly in Outlook and Teams. They want CRM-grounded email drafts and meeting takeaways, a chat that remembers earlier conversations across sessions, and one team still tracks its pipeline in Salesforce. Which capability meets these needs?",
+   "options": [
+    "Copilot in Dynamics 365 Sales, opened from Copilot &gt; App Skills",
+    "Sales agent in Microsoft 365 Copilot",
+    "Sales Opportunity Agent configured for each product line",
+    "Sales Research Agent with its research canvas"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The <b>Sales agent in Microsoft 365 Copilot</b> works across Teams, Outlook, Word, Excel and Dynamics 365 Sales, keeps chat history across sessions and apps, drafts emails grounded in Sales data, captures meeting takeaways, and works with Dynamics 365 Sales <b>and Salesforce</b>. Copilot in Dynamics 365 Sales is built into the Sales app, keeps no history across sessions and supports Dynamics 365 Sales only. The Opportunity and Research agents analyze deals and data; they aren't an Outlook and Teams chat assistant.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/sales-copilot-faq"
+  },
+  {
+   "id": "q023",
+   "type": "single",
+   "domain": 4,
+   "skill": 38,
+   "section": "d4-gather-intelligence-sales",
+   "stem": "The VP of Sales Operations at Fabrikam wants to type open questions such as \"Why did pipeline coverage drop in the West region?\" and get charts and suggested next steps. The answer must combine Dynamics 365 Sales opportunities with quota targets stored in a Microsoft Fabric Lakehouse, and the VP wants to refine the findings with follow-up questions. Which Dynamics 365 Sales AI agent fits this need?",
+   "options": [
+    "Sales Qualification Agent, which researches leads and engages those that are a good fit.",
+    "Sales Opportunity Agent, which researches individual opportunities and highlights emerging risks.",
+    "Recommended Actions Agent, which ranks the next tasks a seller should do on an opportunity.",
+    "Sales Research Agent, which answers complex business questions in a dialog with your data."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The <b>Sales Research Agent</b> is the research canvas for sales leaders: it takes open or specific questions, can combine Dynamics 365 Sales data with a <b>Fabric Lakehouse</b> and uploaded files, and returns a blueprint of findings, charts and next steps that you refine with the AI cursor. The Sales Opportunity Agent works on individual opportunities (risks and promising deals), the Sales Qualification Agent works on leads, and the Recommended Actions Agent prioritizes seller tasks, so none of them offers an ad hoc analytics dialog across data sources.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/ai-agent-overview"
+  },
+  {
+   "id": "q024",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 5,
+   "section": "d1-configure-sales",
+   "stem": "A sales operations analyst at Northwind Traders moves data in and out of Dynamics 365 Sales. For each statement about the model-driven app import and export tools, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "The import wizard processes one source file per run; to bring in more files you run it again.",
+     "answer": true
+    },
+    {
+     "text": "A .csv file can be up to 32 MB, while only .zip files are limited to 8 MB.",
+     "answer": false
+    },
+    {
+     "text": "The import wizard accepts .xlsx, .csv and .xml (XML Spreadsheet 2003) source files.",
+     "answer": true
+    },
+    {
+     "text": "Calculated, rollup and secured columns exported to Excel can be edited there but can't be imported back.",
+     "answer": true
+    },
+    {
+     "text": "The Export data command in the Power Apps Tables area produces an Excel workbook.",
+     "answer": false
+    }
+   ],
+   "explanation": "The wizard supports Excel, CSV and XML files, takes <b>one file at a time</b>, and limits files to <b>8 MB, or 32 MB for .zip</b> (the second statement reverses them). Calculated, rollup and secured columns can be edited in the exported workbook but can't be imported back. The maker <b>Export data</b> command exports one table as <b>CSV</b>, not as an Excel workbook.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/user/import-data"
+  },
+  {
+   "id": "q025",
+   "type": "single",
+   "domain": 4,
+   "skill": 32,
+   "section": "d4-optimize-opportunity-managemen",
+   "stem": "Sales managers at Tailwind Traders want every seller to see the same metric above the opportunity pipeline view: the sum of Est. Revenue for opportunities created this year that are in the Develop stage. Sellers must not need to build it, and it must still be there after they sign out. What should the admin do?",
+   "options": [
+    "Set the <b>Sales funnel</b> chart <b>Values</b> field to Est. Revenue with the Sum aggregation.",
+    "Add the metric in the properties of the <b>Pipeline view</b> control on the Opportunity main form.",
+    "Ask each seller to select <b>Combo</b> &rarr; <b>Edit Metrics</b> and create the metric in the pipeline view.",
+    "Add it under <b>Set default metrics for sellers</b> on the <b>Opportunity pipeline view</b> settings page."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Default metrics are an admin setting: Sales Hub &rarr; Change area &rarr; App Settings &rarr; <b>Opportunity pipeline view</b> &rarr; <b>Set default metrics for sellers</b> &rarr; <b>Edit metrics</b> &rarr; <b>Create a Metric</b>, with the field Est. Revenue, the Sum function and the filters Created On = This year and Sales Stage = Develop. Metrics that sellers personalize last only until they log out. The control's properties only choose the table, view, grouping and aggregation, and the funnel is a chart rather than a metric.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/opportunity-pipeline-view-for-admins"
+  },
+  {
+   "id": "q026",
+   "type": "single",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-create-manage-product",
+   "stem": "Proseware has an Active product bundle that sellers use on open quotes. Product management wants one more product inside the bundle, and the bundle must stay available to sellers the whole time. What should the administrator do?",
+   "options": [
+    "Add a new product association directly on the Bundle Products tab of the Active bundle.",
+    "Revise the bundle, add the product while it is Under Revision, and publish it again.",
+    "Clone the bundle, add the product to the new Draft bundle, and publish it.",
+    "Extend the bundle's Valid To date so the platform unlocks its product list."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Product associations can be added or deleted only while a bundle is <b>Draft or Retired</b>. For a bundle that is <b>Active or Under Revision</b>, clone it: the clone gets a new ID in Draft state, you edit its products, and then publish it. Revise doesn't unlock the product list, and Valid From/To carry no business logic.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/create-product-bundles-sell-multiple-items-together"
+  },
+  {
+   "id": "q027",
+   "type": "single",
+   "domain": 1,
+   "skill": 2,
+   "section": "d1-configure-sales",
+   "stem": "At Litware, a Global administrator wants a Dynamics 365 System Administrator to approve sales reps' mailboxes without receiving the Global or Exchange admin role. Mailbox approval must stay required for the environment. What should the Global administrator do?",
+   "options": [
+    "Assign the Delegated Mailbox Approver security role to that user, who keeps the System Administrator role.",
+    "Turn off Process emails only for approved users and Process emails only for approved queues in Email settings.",
+    "Assign the Delegated Mailbox Approver security role to a team that contains the System Administrators.",
+    "Add the Approve Email Addresses for Users or Queues privilege to the System Administrator role and change nothing else."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Only a Global or Exchange admin can assign <b>Delegated Mailbox Approver</b>, and a user who holds it <b>plus System Administrator</b> can approve mailboxes without being a Global or Exchange admin. The role <b>can't be assigned to a team</b>. Turning off the two \"approved\" settings removes the requirement the scenario wants to keep, and the approve privilege alone doesn't satisfy the permissions model.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/connect-exchange-online"
+  },
+  {
+   "id": "q028",
+   "type": "yesno",
+   "domain": 4,
+   "skill": 30,
+   "section": "d4-optimize-opportunity-managemen",
+   "stem": "Contoso Logistics is planning agents for its opportunity pipeline. For each statement about the Sales Close Agent and the Sales Opportunity Agent, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "In the Sales Close Agent's Target customer settings you can choose Account, Contact, Lead or Opportunity as the record type, and Opportunity is selected by default.",
+     "answer": true
+    },
+    {
+     "text": "The Sales Opportunity Agent is the current name of the Sales Close Agent.",
+     "answer": false
+    },
+    {
+     "text": "A seller can open the <b>Opportunities from Sales Close Agent</b> view in Sales Hub to find opportunities that the agent escalated for human intervention.",
+     "answer": true
+    },
+    {
+     "text": "An opportunity that matches the Sales Close Agent's target conditions is still processed when it is already assigned to another segment.",
+     "answer": false
+    }
+   ],
+   "explanation": "Target customer offers the record types <b>Contact, Account, Lead and Opportunity</b> and selects Opportunity by default. The agent <b>only considers records that aren't assigned to any other segment</b>, so its conditions must not overlap those of other segments. The docs call the Sales Close Agent a <b>separate, distinct product</b> from the Sales Opportunity Agent, which was previously named Opportunity Research Agent. Escalated records appear in the <i>entity</i> <b>from Sales Close Agent</b> views, limited to the records the user may access.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-close-agent-target-customers"
+  },
+  {
+   "id": "q029",
+   "type": "order",
+   "domain": 4,
+   "skill": 35,
+   "section": "d4-automate-deal-closing",
+   "stem": "Arrange the stages that the Sales Close Agent goes through when it processes a record, in the order the documentation describes.",
+   "items": [
+    "<b>Record selection</b>: the agent picks records that match the target customer criteria.",
+    "<b>Personalized outreach</b>: the agent crafts messages from the templates in the Email content settings.",
+    "<b>Initial customer engagement</b>: the agent sends the outreach email and monitors the customer's replies.",
+    "<b>Follow-up automation</b>: the agent follows up on triggers such as customer responses or deal-status changes.",
+    "<b>Transaction closure</b>: the agent guides the customer to self-service checkout and closes the record as complete."
+   ],
+   "explanation": "The documented flow is record selection, personalized outreach, initial customer engagement, follow-up automation and transaction closure. At any point the agent can escalate to a human seller. A customer who doesn't reply gets up to four follow-ups over three weeks, and customers who aren't interested or stay silent are closed as lost instead of reaching transaction closure.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/how-sales-close-agent-engage-mode-works"
+  },
+  {
+   "id": "q030",
+   "type": "single",
+   "domain": 4,
+   "skill": 35,
+   "section": "d4-automate-deal-closing",
+   "stem": "A seller reports that one contact has not heard from the Sales Close Agent for several days. How can the admin see whether the agent's engagement with that contact is Active, Failure or Completed?",
+   "options": [
+    "Open the contact's <b>Timeline</b> and read the Status value on the agent's most recent activity.",
+    "Open <b>All Sales Agent Runs</b> in the Sales Agent Run table and filter <b>Regarding</b> by the contact.",
+    "Open the <b>Contacts from Sales Close Agent</b> view, where records still being processed are listed first.",
+    "Open the <b>Sales Close Agent</b> tab of the insights dashboard and filter the funnel by contact."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Each engagement is a Sales Agent Run record. Open <code>&lt;crm_org_url&gt;/main.aspx?pagetype=entitylist&amp;etn=msdyn_salesagentrun</code>, use the <b>All Sales Agent Runs</b> view and filter <b>Regarding</b>; <b>Status</b> is Active (pending), Failure or Completed. The dashboard shows aggregated rates for a time period, the Timeline shows the history of interactions and actions rather than the run Status, and records that are still being processed don't appear in the <i>entity</i> from Sales Close Agent views until processing completes.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/how-sales-close-agent-engage-mode-works"
+  },
+  {
+   "id": "q031",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 19,
+   "section": "d2-configure-ai-powered",
+   "stem": "Woodgrove Bank is planning its first predictive lead scoring model. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Leads that abandoned the selected business process flow still count toward the minimum number of training leads.",
+     "answer": false
+    },
+    {
+     "text": "The training period can be set as short as one month.",
+     "answer": false
+    },
+    {
+     "text": "The organization needs at least 40 qualified and 40 disqualified leads that were created and closed within the chosen training period.",
+     "answer": true
+    },
+    {
+     "text": "Up to 10 lead scoring models can exist at the same time, counting published and unpublished models together.",
+     "answer": true
+    }
+   ],
+   "explanation": "A model needs 40 qualified and 40 disqualified leads created and closed in the training period, which ranges from <b>three months to two years</b> (default two years), so one month isn't available. An organization can have up to <b>10</b> models, published and unpublished together. Leads that abandoned the selected business process flow are <b>excluded</b> from training, scoring and the minimum count.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-predictive-lead-scoring"
+  },
+  {
+   "id": "q032",
+   "type": "dropdown",
+   "domain": 1,
+   "skill": 9,
+   "section": "d1-create-manage-product",
+   "stem": "Contoso wants every EUR price list item to be 85 percent of the product's list price, rounded up so the final price always ends in 0.99. Rounding Option is already set to Ends in with a Rounding Amount of 0.99. Complete the remaining pricing settings.",
+   "format": "text",
+   "template": "Set <b>Pricing Method</b> to {1} and <b>Rounding Policy</b> to {2}.",
+   "blanks": [
+    {
+     "options": [
+      "Percent of List",
+      "Currency Amount",
+      "Percent Margin - Standard Cost",
+      "Percent Markup - Current Cost"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "Up",
+      "To Nearest",
+      "None",
+      "Down"
+     ],
+     "answer": 0
+    }
+   ],
+   "explanation": "<b>Percent of List</b> prices the item as a percentage of the product's list price. Currency Amount ignores the list price, and the markup and margin methods start from current or standard cost. <b>Up</b> rounds to the nearest rounding amount upward, which with Ends in 0.99 gives prices ending in 99 cents; Down and To Nearest can round lower, and None doesn't round at all.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/create-price-lists-price-list-items-define-pricing-products"
+  },
+  {
+   "id": "q033",
+   "type": "single",
+   "domain": 4,
+   "skill": 33,
+   "section": "d4-optimize-opportunity-managemen",
+   "stem": "Litware's admin sets Rating equals Hot and Est. revenue of at least $100,000 as the selection criteria for the Sales Opportunity Agent. Hundreds of open opportunities match, but they were all created before the agent was turned on, and <b>Preview</b> shows an empty list. What should the admin do?",
+   "options": [
+    "Raise the <b>Daily refresh limit</b> in the Selection criteria section.",
+    "Set the refresh frequency to <b>High</b> so that the agent reaches the older opportunities sooner.",
+    "Select <b>Consider opportunities created in the last</b> and enter a look-back period in days.",
+    "Change the <b>Segment name</b> to match an existing segment in Dynamics 365 Sales."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Without a look-back period the agent only considers opportunities created <b>after it is turned on</b>, so Preview is empty. Selecting <b>Consider opportunities created in the last</b> and entering a number of days brings older open opportunities into scope. Refresh frequency only controls how often researched opportunities are refreshed, the <b>Daily refresh limit</b> just shows the processing capacity for your refresh frequency, and the <b>Segment name</b> is only a label because the agent doesn't use the segmentation feature.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-opportunity-agent-selection-criteria"
+  },
+  {
+   "id": "q034",
+   "type": "single",
+   "domain": 4,
+   "skill": 31,
+   "section": "d4-optimize-opportunity-managemen",
+   "stem": "A seller at Fabrikam added three products to an open opportunity. Est. Revenue is calculated from the product lines, but the seller must enter the amount negotiated with the buyer instead. What should the seller do?",
+   "options": [
+    "Set <b>Revenue</b> to <b>User Provided</b> and edit <b>Est. Revenue</b> while the opportunity is open.",
+    "Ask an admin to turn off <b>System pricing calculation</b> in Product Catalog Settings.",
+    "Set <b>Revenue</b> to <b>System Calculated</b> and select <b>Override Price</b> on each opportunity product.",
+    "Delete the three products and add one <b>Write-In</b> product with a quantity of 1."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Est. Revenue is editable only when Revenue is set to User Provided and the opportunity is Open.</b> With System Calculated, Est. Revenue and Total Amount follow the product lines (and update automatically only when system pricing calculation is on). Override Price changes a line's price per unit, a write-in line is still a product line, and system pricing calculation is an organization-wide switch to custom pricing, not the documented way for a seller to type a revenue estimate.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/faq-opportunity"
+  },
+  {
+   "id": "q035",
+   "type": "single",
+   "domain": 3,
+   "skill": 29,
+   "section": "d3-automate-lead-qualification",
+   "stem": "A VP of Sales at Tailwind Traders runs the Sales Qualification Agent in Research and engage mode. The VP wants to see the percentage of leads the agent handled on its own and the pipeline from leads it handed over, for a chosen time period. Where should the VP look?",
+   "options": [
+    "In Sales Hub, open Performance, then Forecasts, and read the Prediction column for the sales hierarchy.",
+    "In the Dynamics 365 AI hub, open the AI optimization hub, select <b>See insights</b> and choose the Sales Qualification Agent.",
+    "In Sales Insights settings, open Sales accelerator, then Sequences, and view the sequence stats page.",
+    "In the Power Platform admin center, open the Copilot Studio messages and capacity summary for the environment."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The supervisor dashboard is in the <b>AI optimization hub</b> (App Settings, General settings, Dynamics 365 AI hub, <b>See insights</b>, then the Sales Qualification Agent). It has a Time period filter (default last 7 days) and shows metrics such as the lead handling rate and the AI agent generated pipeline. Sequence stats describe sequences, the capacity summary shows message consumption, and the forecast Prediction column predicts opportunity revenue.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/monitor-leads-by-sales-qualification-agent"
+  },
+  {
+   "id": "q036",
+   "type": "single",
+   "domain": 4,
+   "skill": 34,
+   "section": "d4-automate-deal-closing",
+   "stem": "Northwind Traders added discount rules to the Sales Close Agent's playbook Excel file, but in customer conversations the agent behaves as if the playbook doesn't exist. The file in SharePoint carries the sensitivity label <b>Confidential</b>. What should the admin do?",
+   "options": [
+    "Edit the uploaded playbook in place, then publish the agent again.",
+    "Add the playbook's intent groups to the Dataverse <b>Product catalog</b> knowledge source.",
+    "Move the playbook to the SharePoint folder that is synced as <b>Product documentation</b>.",
+    "Change the sensitivity label of the playbook file to <b>General</b> or <b>Public</b>."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "If the playbook's sensitivity label is <b>Confidential</b> or higher, the agent might not access it, so the label must be <b>General</b> or <b>Public</b>. An uploaded playbook can't be modified in place (download it, update it, upload the new file, delete the old one and wait for <b>Ready</b> before publishing). Product documentation is a different knowledge source that syncs a SharePoint folder every four hours, and the product catalog source is the Dataverse Product table used for purchase URLs.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-close-agent-knowledge-sources"
+  },
+  {
+   "id": "q037",
+   "type": "single",
+   "domain": 3,
+   "skill": 26,
+   "section": "d3-automate-lead-qualification",
+   "stem": "Litware's webinars generate thousands of new leads each week. Sales leaders want the Sales Qualification Agent to email every lead, follow up on replies, judge budget, authority, need and timeline, and pass only interested leads to sellers. How should the admin deploy the agent?",
+   "options": [
+    "Deploy the agent in Research-only mode and have sellers send the drafted outreach emails after reviewing them.",
+    "Deploy the agent in Research and engage mode and define BANT criteria in its handoff criteria.",
+    "Configure the Sales Opportunity Agent to research and email the new leads on the sellers' behalf.",
+    "Deploy the agent in Research-only mode and add BANT criteria to its handoff criteria so it can qualify the leads."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Only <b>Research and engage</b> mode sends outreach emails, follows up, detects positive purchase intent and checks BANT before handing a lead over. Research-only mode generates a draft email for a seller to send and doesn't use BANT, so adding BANT criteria there doesn't meet the requirement. The Sales Opportunity Agent works on opportunities, not on new leads.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/sales-qualification-agent"
+  },
+  {
+   "id": "q038",
+   "type": "single",
+   "domain": 3,
+   "skill": 27,
+   "section": "d3-automate-lead-qualification",
+   "stem": "Fabrikam configured a Research and engage Sales Qualification Agent. Every section of the settings page shows a green check mark, but the Start agent button is still disabled. What is missing?",
+   "options": [
+    "The Move data across regions terms haven't been accepted in the Power Platform admin center.",
+    "The agent-specific lead views haven't been added to the Sales Hub app.",
+    "The optional test with sample leads hasn't been run in the sandbox.",
+    "The outreach email simulation has not been completed successfully."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Start agent</b> is enabled only when every configuration section is complete and, in Research and engage mode only, the <b>outreach email simulation</b> has finished. The optional test and the lead views come after the agent is started, and the Move data across regions terms are a common prerequisite that must be completed before an agent can be created at all.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/start-sales-qualification-agent"
+  },
+  {
+   "id": "q039",
+   "type": "single",
+   "domain": 2,
+   "skill": 17,
+   "section": "d2-configure-ai-powered",
+   "stem": "Adventure Works routes inbound leads to five sellers whose workloads differ widely. The sales director wants each new lead to go to the seller who currently holds the fewest active records, and sellers who have reached their maximum capacity must be skipped. How should the assignment rule distribute the leads?",
+   "options": [
+    "Load balancing, with <b>Assign leads based on seller capacity</b> selected.",
+    "Round robin, with <b>Assign if seller is available within</b> 24 hours selected.",
+    "Round robin, with <b>Assign leads based on seller capacity</b> selected.",
+    "Load balancing, with <b>Assign if seller is available within</b> 24 hours selected."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Load balancing gives the record to the seller with the most available capacity (maximum capacity minus consumed capacity), and the capacity option skips sellers whose available capacity is zero or negative. Round robin gives the record to whoever waited longest, so it ignores workload even when the capacity option filters out full sellers. The availability option only checks work schedules (1 to 120 hours); with load balancing alone, sellers at or over capacity can still be chosen.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/understand-lead-distributions-assignment-rules"
+  },
+  {
+   "id": "q040",
+   "type": "single",
+   "domain": 1,
+   "skill": 4,
+   "section": "d1-configure-sales",
+   "stem": "Tailwind Traders is creating a custom table named Site Visit in Power Apps. Field reps' visits must appear in the timeline of account records. Which setting must be chosen when the table is created?",
+   "options": [
+    "Select Enable attachments and leave the table Type as Standard.",
+    "Set the table's record ownership to Organization.",
+    "Set the table Type to Activity.",
+    "Turn on Business process flows (fields will be created)."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "To show a custom table in a timeline you create it with <b>Type = Activity</b>; <b>Enable attachments</b> is optional and only lets users add notes and files. Activity tables can be owned only by a user or team, so Organization ownership isn't possible, and the business process flow option has no effect on the timeline.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/set-up-timeline-control"
+  },
+  {
+   "id": "q041",
+   "type": "single",
+   "domain": 2,
+   "skill": 20,
+   "section": "d2-configure-ai-powered",
+   "stem": "Tailwind Traders wants the relationship health score to treat emails as the most influential activity, then phone calls, then appointments. Which <b>Activity influence</b> values under Relationship insights, Analytics and health achieve this?",
+   "options": [
+    "Email 5, Phone call 4, Appointment 3.",
+    "Email 9, Phone call 8, Appointment 7.",
+    "Email 4, Phone call 3, Appointment 5.",
+    "Email 3, Phone call 4, Appointment 5."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Activity influence accepts values from 3 to 9, and <b>the lower the value, the higher the importance</b> of the activity type; the documentation's own example ranks email, phone call and appointment as 3, 4 and 5. Using high numbers for email makes it the least influential activity, and any other ordering of the numbers changes the ranking that was requested.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/enable-ri"
+  },
+  {
+   "id": "q042",
+   "type": "single",
+   "domain": 5,
+   "skill": 42,
+   "section": "d5-configure-supporting-apps",
+   "stem": "Litware turned on <b>Teams calls</b> in the Sales Hub app (App settings &gt; General settings, with Sales Hub as the selected app) and chose <b>Specific security roles</b> for a pilot group. The pilot sellers have Teams licenses, Phone System with PSTN connectivity, assigned phone numbers, and roles with Read on <b>Note</b> and <b>Teams Dialer Admin settings</b>. After the admin saved and published and the sellers refreshed their browsers, the dialer icon still doesn't appear. What is the most likely cause?",
+   "options": [
+    "The security roles chosen for the pilot are not associated with the root business unit.",
+    "The Answer incoming calls in Dynamics 365 option is turned off, so the dialer stays hidden.",
+    "The Call from views option is turned off, so the dialer stays hidden in every app.",
+    "The Document call attempts option is turned off, so the dialer cannot be displayed."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Roles selected under <b>Specific security roles</b> must be associated with the <b>root business unit</b> (the top of the business unit hierarchy); otherwise users won't see the Teams dialer in Sales Hub. <b>Answer incoming calls</b> only decides whether sellers can receive calls (off means outgoing only), <b>Call from views</b> only controls phone links in list views, and <b>Document call attempts</b> only logs unanswered calls in the activity history, so none of them hides the dialer.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-microsoft-teams-dialer"
+  },
+  {
+   "id": "q043",
+   "type": "single",
+   "domain": 1,
+   "skill": 6,
+   "section": "d1-configure-sales",
+   "stem": "Woodgrove Bank's sales reps and regional directors sit in sibling business units, and directors aren't the reps' line managers. Each director must read opportunities owned by the reps below them in a job-position chain, and nobody may receive Organization-level access. Which feature should the administrator configure?",
+   "options": [
+    "An access team template on the Opportunity table",
+    "The Parent: Child Business Unit access level on the Opportunity table",
+    "Position hierarchy security",
+    "Manager hierarchy security"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The <b>position hierarchy</b> isn't based on direct reporting, so a user needn't be a real manager, and it allows data access <b>across business units</b> along the position chain. The manager hierarchy depends on the Manager field and by default needs the manager in the same or parent business unit. Parent: Child access covers only a user's own and subordinate units, not siblings, and access teams only share individual records.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/hierarchy-security"
+  },
+  {
+   "id": "q044",
+   "type": "single",
+   "domain": 3,
+   "skill": 24,
+   "section": "d3-generate-nurture-leads",
+   "stem": "Contoso Marketing wants account and contact records created automatically when a lead is qualified. Sellers should decide whether to create opportunities and be able to create up to five from one high-value lead. Which configuration under App Settings, Lead + Opportunity management, Lead Qualification meets the requirement?",
+   "options": [
+    "Turn off the new experience and turn on <b>Automatically create records for newly qualified leads</b>; sellers then add the extra opportunities.",
+    "Keep the new experience on; set Account and Contact to Automatic, Opportunity to Seller, and allow up to 5 opportunities.",
+    "Keep the new experience on; set Account, Contact and Opportunity to Automatic and allow up to 5 opportunities.",
+    "Turn off the new experience and the legacy setting so sellers choose every record, and add the Opportunity qualify lead Form component to the app."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The new qualification experience lets you choose <b>Seller</b> or <b>Automatic</b> for each record type. The setting that lets sellers create up to five opportunities, and the opportunity form editor, appear only when Opportunity is set to <b>Seller</b>, so setting all three to Automatic can't meet the requirement. The legacy option creates account, contact and opportunity together with no multiple-opportunity choice, and turning both options off makes sellers choose every record.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/define-lead-qualification-experience"
+  },
+  {
+   "id": "q045",
+   "type": "single",
+   "domain": 4,
+   "skill": 37,
+   "section": "d4-automate-deal-closing",
+   "stem": "Woodgrove Bank uses custom security roles for its sellers. Only the six sellers on the retail-lending team should work on contacts that the Sales Close Agent hands over; other users who share their custom role must not get access to those contacts. What does the documentation recommend?",
+   "options": [
+    "Turn on in-app notifications for those six sellers so that only they are told about handovers.",
+    "Assign the out-of-the-box <b>Salesperson</b> or <b>Sales Manager</b> role only to those six sellers.",
+    "Grant the agent-related table permissions to the custom role that all of the sellers share.",
+    "Assign the <b>AIsalesperson</b> role, which the agent's application user holds, to those six sellers."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "For custom roles the docs give two options. Granting the listed permissions (Email Activity, Contact, the Sales Agent Profile, Run and Configuration v2 tables, and SCA Engage Agent Result) to the custom role suits cases where <b>all users with that role</b> should work agent-handed-over contacts. Assigning the out-of-the-box <b>Salesperson</b> or <b>Sales Manager</b> role only to the users who should suits a <b>subset</b>. AIsalesperson belongs to the agent's application user, and in-app notifications only announce handovers; they grant no access.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-close-agent"
+  },
+  {
+   "id": "q046",
+   "type": "order",
+   "domain": 2,
+   "skill": 22,
+   "section": "d2-configure-ai-powered",
+   "stem": "A sales operations analyst at Fabrikam builds a new revenue forecast from scratch in Sales Hub (App Settings, Performance management, Forecast configuration). Arrange the configuration steps in the order the wizard follows.",
+   "items": [
+    "Select a template, such as Org chart, Product or Territory.",
+    "Define the forecast model and schedule its forecast periods.",
+    "Provide access permissions for the forecast.",
+    "Configure the columns and layout.",
+    "Configure advanced settings, such as multi-currency selection.",
+    "Activate the forecast and upload the quota data."
+   ],
+   "explanation": "The Forecast configuration page lists seven steps: select a template, define and schedule the model, provide access permissions, configure columns and layouts, configure drill-down entities, configure advanced settings, then activate the forecast and upload data (the drill-down step sits between layout and advanced settings). Activation comes last because the simple-column Excel template for quota data can be downloaded only after the forecast is active.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast"
+  },
+  {
+   "id": "q047",
+   "type": "order",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-create-manage-product",
+   "stem": "Contoso Wholesale is building a product catalog in the Sales Hub app from scratch. Arrange the setup tasks in the order the documentation requires.",
+   "items": [
+    "Create the discount lists.",
+    "Create a unit group and add its units.",
+    "Create the products, families or bundles, each with a unit group and a default unit.",
+    "Create the price lists.",
+    "Add the products to the price lists as price list items.",
+    "Select a default price list for each product."
+   ],
+   "explanation": "The Sales walkthrough says units, discounts and prices are connected, so you <b>must create the components in sequence</b>: discount lists, units, products, price lists, price list items, then the default price list. The default price list matters last because the pricing engine falls back to it when the price list on an opportunity or order has no price for the product.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/set-up-product-catalog-walkthrough"
+  },
+  {
+   "id": "q048",
+   "type": "multi",
+   "domain": 3,
+   "skill": 24,
+   "section": "d3-generate-nurture-leads",
+   "stem": "Fabrikam enabled duplicate lead detection under App Settings, Data improvement, but sellers never see potential duplicates. The admin turns the feature off to troubleshoot. Which <b>TWO</b> requirements should be confirmed before turning it on again?",
+   "options": [
+    "Email validation is turned on for leads and contacts so invalid addresses are excluded.",
+    "The CheckForDuplicatesAction, DuplicateDetectionTriggerAction and GetDuplicatesAction processes are active.",
+    "A predictive lead scoring model is published and the Lead score widget is on the form.",
+    "Power Platform duplicate detection rules are published and active for the lead table.",
+    "Dataverse search is enabled for the environment, because the AI model uses it."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "The documented checks are: turn the feature off, confirm <b>Dataverse search</b> is enabled, the lead fields (<code>firstname</code>, <code>lastname</code>, <code>emailaddress1</code>, <code>telephone1</code>, <code>companyname</code>) are in the Quick Find All Leads view, the three duplicate-detection <b>processes are active</b> and roles can read Process, then turn it on again. Microsoft recommends disabling Power Platform duplicate detection for leads, and scoring models and email validation are separate features.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/enable-duplicate-lead-detection"
+  },
+  {
+   "id": "q049",
+   "type": "multi",
+   "domain": 2,
+   "skill": 21,
+   "section": "d2-configure-ai-powered",
+   "stem": "Contoso Pharma turned on Copilot in Sales Hub. Sellers open a lead and see the Copilot summary, but the list of recent changes is empty. Which <b>TWO</b> actions are needed for sellers to see recent changes?",
+   "options": [
+    "Turn on audit history for the lead, opportunity and account tables.",
+    "Add fields from related tables to the <b>Summary</b> tab for leads.",
+    "Add the <b>Record summary</b> component to the lead form.",
+    "Select <b>Show opportunity summary as a widget in the form</b> on the Opportunities settings page.",
+    "Give the sellers' security role the View Audit History and View Audit Summary privileges at organization level."
+   ],
+   "answer": [
+    0,
+    4
+   ],
+   "select": 2,
+   "explanation": "Copilot builds the recent-changes list from <b>audit history</b>, so auditing must be on for the lead, opportunity and account tables (the <b>Turn audit on</b> button does this), and sellers need <b>View Audit History</b> and <b>View Audit Summary</b> at organization level. The opportunity summary widget and the Record summary component only display the AI summary, and the fields on the Summary tab feed summaries rather than the recent-changes list.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/copilot-configure-summary-fields"
+  },
+  {
+   "id": "q050",
+   "type": "yesno",
+   "domain": 5,
+   "skill": 41,
+   "section": "d5-configure-supporting-apps",
+   "stem": "A Contoso administrator is comparing the Dynamics 365 Sales mobile app with the legacy Dynamics 365 for phones and tablets app for a field-sales rollout. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "The Dynamics 365 Sales mobile app supports push notifications.",
+     "answer": true
+    },
+    {
+     "text": "The Dynamics 365 for phones and tablets app supports offline use.",
+     "answer": true
+    },
+    {
+     "text": "The Dynamics 365 Sales mobile app is recommended for model-driven apps outside Sales, such as Customer Service apps.",
+     "answer": false
+    },
+    {
+     "text": "The Dynamics 365 for phones and tablets app lets sellers join Microsoft Teams meetings.",
+     "answer": false
+    },
+    {
+     "text": "On a tablet, the Dynamics 365 Sales mobile app displays its interface as the Unified Interface.",
+     "answer": true
+    }
+   ],
+   "explanation": "Only the Sales mobile app supports push notifications, Teams meeting join, Exchange Online calendar integration, server-side sync and lightweight record forms. The legacy phones and tablets app offers offline use (the Sales app's offline support is partial), while the Sales app supports all model-driven apps but isn't recommended for non-Sales app modules. On tablets the Sales mobile app uses the Unified Interface.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/sales-mobile/mobile-apps-difference"
+  },
+  {
+   "id": "q051",
+   "type": "single",
+   "domain": 4,
+   "skill": 40,
+   "section": "d4-gather-intelligence-sales",
+   "stem": "A sales manager at Tailwind Traders is reviewing a Sales Research Agent blueprint. She activates the AI cursor on the revenue chart, types \"show this as a stacked column chart grouped by product line\" and presses Enter, but the agent creates a new blueprint instead of changing the chart. How should she change only that chart on the current blueprint?",
+   "options": [
+    "Select the Refresh icon at the top right of the blueprint after typing the prompt.",
+    "Add the chart preference to Your general context under Manage your context.",
+    "Type the prompt in the AI cursor, select Generate, and then choose Update block.",
+    "Select a different business function on the Sales Research Agent start page."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Pressing <b>Enter</b> after a prompt in the AI cursor generates a <b>new blueprint</b>. To change one block, select <b>Generate</b> and then <b>Update block</b>; <b>Generate new blueprint</b> would add a journey line instead. The Refresh icon refreshes the blueprint with the latest data or regenerates it, general context holds role, industry, fiscal year, currency and acronyms, and a business function is chosen before generating, so none of those edits one existing block.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/use-sales-research-agent"
+  },
+  {
+   "id": "q052",
+   "type": "single",
+   "domain": 4,
+   "skill": 34,
+   "section": "d4-automate-deal-closing",
+   "stem": "Proseware's admin completed every section of the Sales Close Agent settings, each shows a green check mark, and the agent is started. Days later no outreach emails have been generated and no customers have been engaged. Which missing prerequisite explains this?",
+   "options": [
+    "Server-side synchronization between Dynamics 365 and Exchange has not been configured.",
+    "In-app notifications have not been enabled to alert sellers and supervisors about handovers.",
+    "Copilot in Dynamics 365 Sales has not been turned on for the sellers' 360-degree view.",
+    "Sellers do not hold the Salesperson or Sales Manager role needed to work handed-over contacts."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The setup page states that if <b>server-side synchronization</b> isn't set up, the agent doesn't generate outreach emails or engage with customers, so mail can't flow even when every section is green. In-app notifications only alert sellers and supervisors to handovers, Copilot in Dynamics 365 Sales is optional (recommended for a 360-degree view), and the seller roles matter only for working the contacts that the agent hands over.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-sales-close-agent"
+  },
+  {
+   "id": "q053",
+   "type": "single",
+   "domain": 4,
+   "skill": 31,
+   "section": "d4-optimize-opportunity-managemen",
+   "stem": "Wide World Importers sells Product 2 at 100 per unit. A seller adds 11 units with a manual discount of 10, and finance wants the discount applied to the price per unit before the quantity is multiplied. Which <b>Discount calculation method</b> should the admin select in Product Catalog Settings, and what line amount results?",
+   "options": [
+    "Line item, giving 990",
+    "Per unit, giving 1,090",
+    "Line item, giving 1,090",
+    "Per unit, giving 990"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Per unit</b> subtracts the discount from the price per unit first: (100 &minus; 10) &times; 11 = 990. The default <b>Line item</b> method multiplies first and subtracts the discount once: (100 &times; 11) &minus; 10 = 1,090. The setting is <b>Discount calculation method</b> under Sales Hub &rarr; App Settings &rarr; Product Catalog &rarr; Product Catalog Settings, so the pairings of Per unit with 1,090 and of Line item with 990 can't occur.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-product-catalog-settings"
+  },
+  {
+   "id": "q054",
+   "type": "single",
+   "domain": 3,
+   "skill": 28,
+   "section": "d3-automate-lead-qualification",
+   "stem": "Wide World Importers runs the Sales Qualification Agent in Research-only mode. The agent researches a lead that meets the selection criteria and finds that it matches 60 percent of the target customer profile attributes. What does the agent do?",
+   "options": [
+    "It rates the fit as low, disqualifies the lead, and notifies the supervisor without involving a seller.",
+    "It rates the fit as moderate and hands the lead to a seller according to the agent's assignment rule.",
+    "It holds the lead until the BANT criteria return a medium score and purchase interest turns positive.",
+    "It sends the generated outreach email to the lead and waits for a reply before deciding what to do."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Fit is <b>high</b> above 70 percent, <b>moderate</b> from 50 to 70 percent and <b>low</b> below 50 percent. In Research-only mode the agent hands high- and moderate-fit leads to a seller using the assignment rule and disqualifies only low-fit leads, notifying the supervisor. Sending emails, waiting for replies and BANT scoring are Research and engage behaviors.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/use-sales-qualification-agent"
+  },
+  {
+   "id": "q055",
+   "type": "dropdown",
+   "domain": 4,
+   "skill": 36,
+   "section": "d4-automate-deal-closing",
+   "stem": "A sales operations manager opens the <b>Sales Close Agent</b> tab of the agent insights dashboard. Complete each statement.",
+   "format": "text",
+   "template": "The {1} is the percentage of records that the agent completed without human involvement, and the {2} is the percentage of records that the agent handed over to a supervisor for follow-up. Unless the <b>Time period</b> filter is changed, the dashboard shows data for {3}.",
+   "blanks": [
+    {
+     "options": [
+      "Customers pitched by agent",
+      "Autonomous resolution rate",
+      "Engagements rate",
+      "Average attempts to achieve engagement"
+     ],
+     "answer": 1
+    },
+    {
+     "options": [
+      "Escalation rate",
+      "Engagements rate",
+      "Autonomous resolution rate",
+      "Total number of records"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "the last 30 days",
+      "the current calendar month",
+      "the last 24 hours",
+      "the last 7 days"
+     ],
+     "answer": 3
+    }
+   ],
+   "explanation": "<b>Autonomous resolution rate</b> is the share of records completed without human involvement, and <b>Escalation rate</b> is the share handed over to a supervisor. <b>Engagements rate</b> is different: it counts records where the agent engaged the customer <i>or</i> handed the record to a seller. The dashboard refreshes when you open it and defaults to the <b>last 7 days</b>.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/view-sales-close-agent-engage-insights-metrics"
+  },
+  {
+   "id": "q056",
+   "type": "single",
+   "domain": 1,
+   "skill": 3,
+   "section": "d1-configure-sales",
+   "caseStudy": "northwind-ai-selling",
+   "stem": "Based on the competitor-check requirement, how should the admin configure the new step in the opportunity business process flow?",
+   "options": [
+    "Add a step that uses a Choice column with the choices Yes and No and select <b>Required</b>.",
+    "Add a step that uses a Two Options column and select <b>Required</b>.",
+    "Add a step that uses a Two Options column that defaults to No and leave <b>Required</b> cleared.",
+    "Add a <b>Condition</b> after the Qualify stage that checks a Two Options column for Yes or No."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Competitor-check requirement:</b> the step must be required, yet either Yes or No must let the seller continue. The documentation warns that a required Two Options (boolean) column blocks the next stage <b>unless the value is Yes</b>, and says to use a <b>Choice</b> column when either answer is acceptable. A Two Options column that isn't required lets sellers advance without answering, and a Condition only branches the flow based on a value; it doesn't force anyone to enter it.",
+   "ref": "https://learn.microsoft.com/en-us/power-automate/create-business-process-flow"
+  },
+  {
+   "id": "q057",
+   "type": "multi",
+   "domain": 2,
+   "skill": 22,
+   "section": "d2-configure-ai-powered",
+   "caseStudy": "northwind-ai-selling",
+   "stem": "Based on the quota and adjustment requirements, which <b>TWO</b> changes to the forecast columns should Sales operations make?",
+   "options": [
+    "Make Quota a <b>Rollup</b> column that aggregates Est. Revenue from the opportunities.",
+    "Use a <b>Simple</b> column for Quota and upload Finance's Excel workbook of quota values.",
+    "Make Quota a <b>Calculated</b> column with a formula based on the Won and Committed columns.",
+    "Turn on <b>Allow adjustments</b> for the Committed rollup column and leave it off for the Forecast column.",
+    "Turn on <b>Allow adjustments</b> for both the Committed rollup column and the calculated Forecast column."
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "select": 2,
+   "explanation": "<b>Quota:</b> the numbers come from Finance's spreadsheet, so they belong in a <b>Simple</b> column that is filled by uploading the Excel workbook; a Rollup column aggregates opportunity data and a Calculated column evaluates a formula over other columns, so neither can hold external quota values. <b>Adjusting Committed:</b> Committed is a rollup column, so select <b>Allow adjustments</b> on it. You can make either the rollup values or the calculated value they feed adjustable, but not both, so also enabling adjustments on the Forecast column (Won + Committed) raises an error.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/choose-layout-and-columns-forecast"
+  },
+  {
+   "id": "q058",
+   "type": "single",
+   "domain": 3,
+   "skill": 25,
+   "section": "d3-generate-nurture-leads",
+   "caseStudy": "northwind-ai-selling",
+   "stem": "Based on the lead scoring requirement, what should Sales operations do to the published predictive lead scoring model?",
+   "options": [
+    "Create a custom table that classifies each email domain as business or personal, and add that table's column to the model before retraining.",
+    "Create an opportunity scoring model that includes the same email and name attributes.",
+    "Turn on <b>Ignore empty values</b> for the email, first name and last name attributes, and retrain the model.",
+    "Edit the model, add the <b>intelligent fields</b> for email domain and first and last name validation, and retrain it."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Lead scoring requirement:</b> the score must separate business email domains from personal ones and reward well-formed names. That is the purpose of the <b>intelligent fields</b> (Email domain validation, First name validation and Last name validation), which you add when you edit the model before you retrain it. <b>Ignore empty values</b> only changes how blank values are treated, opportunity scoring is trained on won and lost opportunities and doesn't change lead scores, and the scoring model doesn't support attributes on custom tables.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/pls-edit-and-retrain-model"
+  },
+  {
+   "id": "q059",
+   "type": "single",
+   "domain": 4,
+   "skill": 32,
+   "section": "d4-optimize-opportunity-managemen",
+   "caseStudy": "northwind-ai-selling",
+   "stem": "Based on the requirement for the field account managers, which configuration should the admin make?",
+   "options": [
+    "Open the Opportunity pipeline view settings in App Settings and choose the Main form as the default form for the side panel.",
+    "Add the <b>Kanban</b> control to the My Open Opportunities public view and show it by default.",
+    "Add the <b>Pipeline view</b> control to the Opportunity Main form with grouping and aggregation turned on, then publish.",
+    "Set My Open Opportunities as the default public view of the Opportunity table."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Pipeline experience requirement:</b> the read-only grid is the default opportunities view, so the pipeline view becomes the default only when you add the <b>Pipeline view</b> control to the Opportunity Main form (Table = Opportunities, View = My Open Opportunities) with <b>Enable grouping</b> and <b>Enable aggregation</b> set to Yes, then save and publish. The pipeline view settings page configures the side-panel form, metrics and charts, not the default view. Kanban is a different control, and a default public view doesn't replace the read-only grid with the pipeline view.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/sales/opportunity-pipeline-view-for-admins"
+  },
+  {
+   "id": "q060",
+   "type": "single",
+   "domain": 5,
+   "skill": 46,
+   "section": "d5-expand-sales-footprint",
+   "caseStudy": "northwind-ai-selling",
+   "stem": "Based on the regional reporting requirement, which approach should the BI team use?",
+   "options": [
+    "Define <b>row-level security</b> roles in the Power BI semantic model that filter by region and assign each director to the matching role.",
+    "Create an owner team for each region and add each director to the matching team.",
+    "Embed the report as a Power BI tile on the form and filter the tile by the director's region.",
+    "Keep the directors' Sales Manager role at Business Unit level Read so that the embedded report shows only the rows of their own business unit."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Regional reporting requirement:</b> the data in an embedded Power BI report is the same as in Power BI, and Dynamics 365 security roles and teams don't affect it, so the directors' business-unit-level Read access and owner teams won't filter any rows. Use <b>row-level security (RLS)</b> in Power BI to restrict the data by region. A Power BI tile on a form is supported only without contextual filtering, so it can't be filtered for each director either.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/embed-powerbi-report-in-system-form"
+  }
+ ]
+}
