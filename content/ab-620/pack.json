@@ -1,0 +1,111 @@
+{
+ "schema": 1,
+ "id": "ab-620",
+ "code": "AB-620",
+ "order": 30,
+ "family": "AI and agents",
+ "title": "Designing and Building Integrated AI Solutions in Copilot Studio",
+ "short": "Copilot Studio AI agent builder",
+ "vendor": "Microsoft",
+ "version": "2026.10.20",
+ "updated": "2026-10-20",
+ "accent": "#0e7c86",
+ "description": "Study guide, 44-skill tracker and a 60-question practice exam for the AB-620 exam.",
+ "disclaimer": "Original study material and practice questions based on public Microsoft documentation. Not Microsoft exam content; the real exam may differ.",
+ "domains": [
+  {
+   "id": 1,
+   "name": "Plan and configure agent solutions",
+   "short": "Plan & configure",
+   "weight": "30-35%"
+  },
+  {
+   "id": 2,
+   "name": "Integrate and extend agents in Copilot Studio",
+   "short": "Integrate & extend",
+   "weight": "40-45%"
+  },
+  {
+   "id": 3,
+   "name": "Test and manage agents",
+   "short": "Test & manage",
+   "weight": "20-25%"
+  }
+ ],
+ "examInfo": [
+  {
+   "label": "Passing score",
+   "value": "700 on a scale of 1 to 1,000 (a scaled score, not a percentage)"
+  },
+  {
+   "label": "Questions",
+   "value": "Not published for this exam; Microsoft says most exams have 40-60"
+  },
+  {
+   "label": "Time",
+   "value": "120 minutes of exam time (seat time is longer)"
+  },
+  {
+   "label": "Languages",
+   "value": "English, Arabic (Saudi Arabia), Chinese (Simplified), Chinese (Traditional), French, German, Indonesian (Indonesia), Italian, Japanese, Korean, Portuguese (Brazil), Russian, Spanish"
+  },
+  {
+   "label": "Delivery",
+   "value": "Pearson VUE: online proctored or test center"
+  },
+  {
+   "label": "Retakes",
+   "value": "24 hours after the first fail, then 14 days; at most 5 attempts in 12 months"
+  },
+  {
+   "label": "Renewal",
+   "value": "Free, open-book assessment on Microsoft Learn; the window opens 6 months before expiry"
+  },
+  {
+   "label": "Microsoft Learn",
+   "value": "Opens in a split screen on associate and expert exams (per Microsoft policy); no extra time"
+  }
+ ],
+ "links": [
+  {
+   "title": "Official AB-620 study guide",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-620"
+  },
+  {
+   "title": "Certification page",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/ai-agent-builder-associate/"
+  },
+  {
+   "title": "Course AB-620T00-A: Design and build integrated AI agent solutions in Copilot Studio",
+   "url": "https://learn.microsoft.com/en-us/training/courses/ab-620t00"
+  },
+  {
+   "title": "Official practice assessment",
+   "url": "https://aiskillsnavigator.microsoft.com/credentials/cert-d4ad80449fa6ef556a1d727c8285f120e1257880f61de9d48c9e09609f6650f0"
+  },
+  {
+   "title": "Exam sandbox",
+   "url": "https://aka.ms/examdemo"
+  }
+ ],
+ "guides": [
+  {
+   "id": "study-guide",
+   "title": "Study Guide",
+   "file": "guide.json"
+  }
+ ],
+ "skills": {
+  "file": "skills.json"
+ },
+ "exams": [
+  {
+   "id": "practice-1",
+   "title": "Practice Exam 1",
+   "file": "exams/practice-1.json",
+   "minutes": 120,
+   "questions": 60,
+   "description": "60 original questions weighted to the AB-620 skills measured, including a case study."
+  }
+ ]
+}

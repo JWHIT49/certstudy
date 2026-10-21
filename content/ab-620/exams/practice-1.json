@@ -1,0 +1,1319 @@
+{
+ "schema": 1,
+ "id": "practice-1",
+ "title": "Practice Exam 1",
+ "description": "60 original questions weighted to the current AB-620 skills measured (study guide updated 2026-10-16), including a case study.",
+ "minutes": 120,
+ "scoring": "Each question is worth 1 point; multi-part questions are all-or-nothing.",
+ "bands": [
+  {
+   "min": 0.8,
+   "label": "Strong",
+   "text": "You know the material and the traps. Review every miss, re-take in a few days, then book the exam."
+  },
+  {
+   "min": 0.7,
+   "label": "Close",
+   "text": "Gaps in specific areas. Re-read the sections listed below and redo the matching hands-on tasks."
+  },
+  {
+   "min": 0,
+   "label": "Not ready yet",
+   "text": "Follow the study plan and focus on your lowest domain scores first."
+  }
+ ],
+ "caseStudies": [
+  {
+   "id": "margies-travel",
+   "title": "Margie's Travel: customer and consultant agents",
+   "html": "<h3>Overview</h3>\n<p>Margie's Travel sells leisure and corporate trips to about 900,000 customers and employs 600 travel consultants. A platform team is building two agents in Microsoft Copilot Studio, both with generative orchestration. Margie's Assist answers fare and refund questions, looks up bookings in Margie's booking API and creates refund cases for customers. Consultant Desk helps consultants check fare rules. A third agent, Margie's Rewards, already exists: the Loyalty team owns it and publishes it in the Production environment.</p>\n\n<h3>Current environment</h3>\n<table>\n<thead><tr><th>Agent</th><th>Audience and channel</th><th>Accounts</th></tr></thead>\n<tbody>\n<tr><td>Margie's Assist</td><td>Customers on the public website and mobile app</td><td>Margie's own identity provider, which supports OAuth 2.0 and is not Microsoft Entra ID</td></tr>\n<tr><td>Consultant Desk</td><td>600 consultants in Microsoft Teams</td><td>Microsoft Entra ID work accounts</td></tr>\n</tbody>\n</table>\n<p>Fare rules exist only in FareDesk, a Windows desktop application with no API. Consultant Desk operates it on a dedicated Windows machine registered to the Production environment, which has these computer use settings:</p>\n<table>\n<thead><tr><th>Production setting</th><th>Value</th></tr></thead>\n<tbody>\n<tr><td>Store logs in Dataverse</td><td>On</td></tr>\n<tr><td>Computer use logs verbosity</td><td>Data without screenshots</td></tr>\n<tr><td>Log retention time</td><td>7 days</td></tr>\n<tr><td>Send audit logs to Microsoft Purview</td><td>Off</td></tr>\n</tbody>\n</table>\n<p>The team deploys the agents from Development to Test and Production with a personal pipeline created in Power Apps. Test and Production are managed environments.</p>\n\n<h3>Requirements</h3>\n<ol>\n<li>Customers sign in to Assist with their existing Margie's accounts, which <b>must stay in the current identity provider</b>. Assist must send each customer's own access token to the booking API, which already accepts tokens from that provider.</li>\n<li>Assist creates refund cases by calling an agent flow. Refunds above $1,000 need a supervisor's approval, which can take up to two business days, but Assist must <b>give the customer a case reference in the chat within seconds</b>.</li>\n<li>Consultant Desk uses FareDesk unattended. Auditors must be able to <b>use session replay, screenshots included, on every FareDesk run for 12 months</b>.</li>\n<li>Consultant Desk must hand loyalty questions to Rewards, and the Loyalty team keeps publishing Rewards on its own schedule. Rewards <b>must receive only the specific request, not the earlier conversation</b>, which can contain passport and payment details.</li>\n<li>Every Production deployment needs <b>the Head of Digital's approval before it starts</b>, must use the same managed artifact that passed Test, and must not require makers to have any access to Production.</li>\n</ol>"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "type": "single",
+   "domain": 1,
+   "skill": 16,
+   "section": "d1-configure-topics",
+   "stem": "Litware's agent uses classic orchestration. A maker added the Outlook tool <b>Send an email (V2)</b> on the agent's <b>Tools</b> page. The \"Return request\" topic collects the order number with a Question node and should then email the returns desk, but no email is ever sent. What should the maker do?",
+   "options": [
+    "Rewrite the tool's description so that it names the \"Return request\" topic and the returns desk.",
+    "Add the tool to the topic with <b>Add node &gt; Add a tool</b> after the Question node and map its inputs.",
+    "Turn on <b>Allow agent to decide dynamically when to use the tool</b> in the tool's Details.",
+    "Add the returns desk mailbox as a knowledge source so that the topic can send the order number."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "With classic orchestration a tool on the Tools page never runs by itself; it runs only when a topic calls it. <b>Add node &gt; Add a tool</b> puts an Action node in the topic after the Question node, and its inputs can be mapped to the topic's variables. The dynamic-use setting and the tool description steer the orchestrator, which exists only under generative orchestration, and a knowledge source grounds answers; it can't send mail.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-tools-custom-agent"
+  },
+  {
+   "id": "q002",
+   "type": "single",
+   "domain": 3,
+   "skill": 39,
+   "section": "d3-evaluate-agent-performance",
+   "stem": "Contoso's legal team requires the agent to reproduce an approved disclaimer almost word for word. Every test case has an expected answer, and you want a pass score that tolerates a few differing words but not a rewrite that only keeps the meaning. Which evaluation method fits?",
+   "options": [
+    "Text similarity, which scores how closely the response's wording matches the expected answer.",
+    "Exact match, which passes only when the response equals the expected answer character for character.",
+    "Keyword match, which passes when the listed keywords appear in the response.",
+    "Compare meaning, which passes when the response expresses the same meaning in any wording."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Text similarity</b> scores how close the wording is and passes at a pass score you set, so near-identical text passes while a paraphrase doesn't. <b>Compare meaning</b> deliberately accepts different wording, <b>Exact match</b> allows no difference at all and has no pass score, and <b>Keyword match</b> only checks that terms appear (any or all). Text similarity, Compare meaning and Exact match all need an expected answer and work in single-response test sets.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-overview"
+  },
+  {
+   "id": "q003",
+   "type": "single",
+   "domain": 2,
+   "skill": 33,
+   "section": "d2-configure-multi-agent",
+   "stem": "Contoso connects a published Fabric data agent (Preview) to a Copilot Studio agent in the same tenant, with generative orchestration on and user authentication configured. The team plans to deploy the main agent to Microsoft Copilot. What should Contoso expect?",
+   "options": [
+    "It works, because a published data agent in the same tenant works with every channel.",
+    "It works only after the main agent is switched to classic orchestration.",
+    "It works only if the connection uses agent author authentication instead of user authentication.",
+    "The data agent doesn't currently function when the main agent is deployed to Microsoft Copilot."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The documented limitations say Fabric data agents <b>don't currently function when the main agent is deployed to Microsoft Copilot</b>, so the plan hits a product limit however well the prerequisites are met. Publishing the data agent, a single tenant and account, F2 or P1 capacity and generative orchestration are all necessary but not sufficient, and the choice between <b>User authentication</b> and <b>Agent author authentication</b> doesn't change this. Other limits: no Redirect node, no reference in instructions, and no agent evaluation.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-add-other-agents"
+  },
+  {
+   "id": "q004",
+   "type": "multi",
+   "domain": 2,
+   "skill": 25,
+   "section": "d2-connect-enterprise-knowledge",
+   "stem": "Litware creates a connection for an Azure AI Search knowledge source by using <b>Access Key</b> authentication. Which <b>TWO</b> values does the connection dialog ask for?",
+   "options": [
+    "The semantic configuration name",
+    "The Azure AI Search endpoint URL",
+    "The embedding model deployment name",
+    "The Azure AI Search admin key",
+    "A query key for the search service",
+    "The name of the vector index to search"
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "select": 2,
+   "explanation": "Key-based authentication needs the <b>endpoint URL</b> and an <b>admin key</b>. The <b>vector index</b> isn't part of the connection: it is entered on the next step, and only one can be added. Integrated vectorization and the semantic ranker are configured in Azure AI Search, not in the connection dialog, so the embedding deployment and the semantic configuration aren't asked for there. The connector asks for the admin key rather than a query key.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-azure-ai-search"
+  },
+  {
+   "id": "q005",
+   "type": "single",
+   "domain": 1,
+   "skill": 13,
+   "section": "d1-create-monitor-agent",
+   "stem": "A maker puts risky actions in a scope named <code>Try</code> and adds a scope named <code>Catch</code> that logs the problem and notifies the owner. Catch must run only when Try fails or times out. Which <b>Run after</b> configuration, shown as the <code>runAfter</code> property in the flow definition, should the Catch scope use?",
+   "options": [
+    "<code>\"runAfter\": { \"Try\": [\"Succeeded\", \"Failed\", \"Skipped\", \"TimedOut\"] }</code>",
+    "<code>\"runAfter\": { \"Try\": [\"Succeeded\"] }</code>",
+    "<code>\"runAfter\": { \"Try\": [\"Failed\", \"TimedOut\"] }</code>",
+    "<code>\"runAfter\": { \"Try\": [\"Skipped\"] }</code>"
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Run after lists the predecessor statuses that allow an action to run: <b>Succeeded</b>, <b>Failed</b>, <b>Skipped</b> and <b>TimedOut</b>. By default an action runs only after <b>Succeeded</b>, so a Catch scope would never run after a failure. Selecting Failed and TimedOut makes Catch run only on those outcomes; Skipped alone matches only a Try that never ran, and listing all four statuses makes Catch run every time, including after success.",
+   "ref": "https://learn.microsoft.com/en-us/azure/logic-apps/error-exception-handling"
+  },
+  {
+   "id": "q006",
+   "type": "single",
+   "domain": 1,
+   "skill": 10,
+   "section": "d1-create-monitor-agent",
+   "stem": "Northwind Traders' HR agent calls an agent flow tool that updates a SharePoint list. After the Power Platform administrator turned off maker-provided credentials for the environment, tests of the tool fail with the error code <code>FlowMakerConnectionBlocked</code>. What should the maker do?",
+   "options": [
+    "Remove the flow from the agent and add it again so Copilot Studio refreshes its inputs and outputs.",
+    "Open the flow in Power Automate and share it with run-only permissions.",
+    "Move the long-running actions after the <b>Respond to the agent</b> action.",
+    "Set the tool's authentication to <b>Maker-provided credentials</b> and publish the agent again."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<code>FlowMakerConnectionBlocked</code> means the administrator prevents maker credentials from being used in a connection invoked from the agent flow, so the documented fix is to open the flow in Power Automate and share it with <b>run-only permissions</b>. Maker-provided credentials are exactly what the admin disabled; removing and re-adding the flow resolves <code>BindingKeyNotFoundError</code>; and moving actions after Respond to the agent resolves <code>FlowActionTimedOut</code>.",
+   "ref": "https://learn.microsoft.com/en-us/troubleshoot/power-platform/copilot-studio/authoring/error-codes"
+  },
+  {
+   "id": "q007",
+   "type": "single",
+   "domain": 2,
+   "skill": 28,
+   "section": "d2-add-tools-agents",
+   "stem": "Woodgrove Bank added an existing custom connector as a tool. Every employee should call it through one shared service account instead of signing in to the service. Which setup meets the requirement?",
+   "options": [
+    "Enable <b>on-behalf-of login</b> on the connector's Security tab so that calls run under one shared identity.",
+    "Set <b>Ask the end user before running</b> to Yes so that each user confirms the shared service account.",
+    "Leave <b>Credentials to use</b> unchanged; the default already runs the tool with the maker's credentials for every user.",
+    "Use an authenticated channel and set <b>Credentials to use</b> to <b>Maker-provided credentials</b> in the tool's additional details."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Maker-provided credentials</b> make the tool run with its author's identity for every user, which is what a shared service account needs. The agent has to use an <b>authenticated channel</b>, and the setting is under the tool's <b>Details &gt; Additional details &gt; Credentials to use</b>. By default the tool asks each user to sign in, <b>Ask the end user before running</b> is only a confirmation prompt, and <b>on-behalf-of login</b> does the opposite: calls run as the signed-in user.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-connectors"
+  },
+  {
+   "id": "q008",
+   "type": "single",
+   "domain": 2,
+   "skill": 26,
+   "section": "d2-add-tools-agents",
+   "stem": "Tailwind Traders must keep the advanced computer use logs, including the session screenshots, for 30 days and must see the run activity in Microsoft Purview. Computer use is enabled in the environment with all log settings at their defaults. Which configuration meets the requirement?",
+   "options": [
+    "Keep <b>Store logs in Dataverse</b> and <b>All data</b> verbosity, raise <b>Log retention time</b> to 30 days and turn on <b>Send audit logs to Microsoft Purview</b>.",
+    "Keep the default log settings and turn on <b>Send audit logs to Microsoft Purview</b>; the default retention already covers 30 days.",
+    "Set verbosity to <b>Data without screenshots</b>, raise <b>Log retention time</b> to 30 days and turn on <b>Send audit logs to Microsoft Purview</b>.",
+    "Keep the default log settings and export the session logs from the side panel of every run."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Advanced logs with screenshots need <b>Store logs in Dataverse</b> (on by default) with <b>All data</b> verbosity (also the default), because <b>Data without screenshots</b> stores everything except the screenshots. The default <b>Log retention time</b> is only 7 days (10,080 minutes), so it must be raised to 30 days. Purview receives the run activity (activity term <code>CUAOperation</code>) only when <b>Send audit logs to Microsoft Purview</b> is turned on, and exporting logs by hand doesn't put that activity in Purview.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/monitor-computer-use"
+  },
+  {
+   "id": "q009",
+   "type": "dropdown",
+   "domain": 2,
+   "skill": 27,
+   "section": "d2-add-tools-agents",
+   "stem": "Complete the OpenAPI definition that registers an MCP server as a custom connector for Copilot Studio.",
+   "format": "code",
+   "language": "yaml",
+   "template": "swagger: '{1}'\ninfo:\n  title: Northwind Leads\n  description: MCP Test Specification\n  version: 1.0.0\nhost: leads.northwind.example\nbasePath: /\nschemes:\n  - https\npaths:\n  /mcp:\n    post:\n      summary: Northwind Lead Management Server\n      x-ms-agentic-protocol: {2}\n      operationId: InvokeMCP\n      responses:\n        '200':\n          description: Success",
+   "blanks": [
+    {
+     "options": [
+      "2.0",
+      "3.1.0",
+      "3.0.1",
+      "1.2"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "mcp-websocket-1.0",
+      "mcp-streamable-1.0",
+      "mcp-sse-1.0",
+      "mcp-stdio-1.0"
+     ],
+     "answer": 1
+    }
+   ],
+   "explanation": "Custom connectors import an <b>OpenAPI 2.0 (Swagger)</b> file, so the first value is <code>2.0</code>. The <code>x-ms-agentic-protocol</code> extension tells Copilot Studio which MCP transport the operation speaks, and only the <b>Streamable</b> transport is supported: <code>mcp-streamable-1.0</code>. SSE servers stopped being supported after August 2025, so the SSE, stdio and WebSocket values are all wrong. The <code>operationId</code> stays <code>InvokeMCP</code>.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent"
+  },
+  {
+   "id": "q010",
+   "type": "single",
+   "domain": 1,
+   "skill": 14,
+   "section": "d1-configure-topics",
+   "stem": "Fabrikam has a cloud flow in a solution in the same environment as its agent. The flow starts with the SharePoint trigger <b>When an item is created</b> and ends with a Compose action. A maker wants a topic node to run the flow and use its result in later nodes, but the flow isn't offered under <b>Add a tool</b>. What should the maker change?",
+   "options": [
+    "Keep the SharePoint trigger and add only a <b>Respond to the agent</b> action at the end of the flow.",
+    "Replace the trigger with <b>When an HTTP request is received</b> and end the flow with a <b>Response</b> action.",
+    "Replace the trigger with <b>When an agent calls the flow</b>, add <b>Respond to the agent</b> to return the result, and publish the flow.",
+    "Take the flow out of its solution so that it becomes a standalone flow that the agent can list as a tool."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "A flow can be run from a topic only when it starts with the <b>When an agent calls the flow</b> trigger and returns its outputs with <b>Respond to the agent</b>; it must also be <b>published</b>. Adding only the response action leaves the SharePoint trigger in place, and the generic HTTP trigger with a Response action doesn't make the flow selectable either. Taking the flow out of its solution would break another requirement: to be available to agents, a flow has to be stored in a solution in the agent's environment.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/flow-modify-use-with-agent"
+  },
+  {
+   "id": "q011",
+   "type": "order",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-create-monitor-agent",
+   "stem": "Arrange the steps to create a new agent flow that an agent can call as a tool, starting from the Flows page in Copilot Studio.",
+   "items": [
+    "Select <b>New flow</b> &gt; <b>Agent flow</b> to open the designer with the starter template.",
+    "Add the input parameters to the <b>When an agent calls the flow</b> trigger.",
+    "Add the actions that the flow performs between the trigger and the response.",
+    "Add the output parameters to the <b>Respond to the agent</b> action.",
+    "Select <b>Publish</b> to save and publish the flow.",
+    "Add the published flow to the agent as a tool."
+   ],
+   "explanation": "The documented procedure starts from <b>New flow &gt; Agent flow</b>, which opens the designer with the required <b>When an agent calls the flow</b> trigger and <b>Respond to the agent</b> action already in place. You then add inputs to the trigger, the actions between them, and the outputs on the response, so the actions can use the inputs and the outputs can return their results. The flow is published before it can be added to an agent as a tool, and it must respond in real time (Asynchronous response Off) within 100 seconds.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-flow-create"
+  },
+  {
+   "id": "q012",
+   "type": "single",
+   "domain": 2,
+   "skill": 30,
+   "section": "d2-configure-multi-agent",
+   "stem": "A parent agent delegates policy questions to a Policy subagent, and users receive the answer twice. The parent's instructions already say \"You're the only agent that talks to the user.\" The subagent's instructions are:\n<pre>You are the Policy agent.\nAnswer the user's policy question from the Policy knowledge source.</pre>\nWhich change fixes the duplicate messages?",
+   "options": [
+    "Add MUST and NEVER wording to the parent's instruction so that it never repeats the subagent's text.",
+    "Clear <b>Pass conversation history to this agent</b> so that the subagent can't see the user's question.",
+    "Tell the subagent to stay silent and return its result in <code>findings</code>, set <code>answered</code>, and have the parent check <code>answered</code> before it replies.",
+    "Set <b>After running</b> to <b>Don't respond</b> so that the subagent's own message is suppressed."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "A parent can't stop a subagent that is already running, so the fix belongs in the <b>subagent's instructions</b>: stay silent, return the result as <code>findings</code> (or <code>interactionSummary</code> when it did speak) and set <code>answered</code>, plus one top-level check of <code>answered</code> in the parent. <b>After running</b> only controls what the parent does afterwards, and <b>Don't respond</b> is already its default. The history checkbox exists only for connected agents and doesn't decide who speaks.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-orchestration-subagents"
+  },
+  {
+   "id": "q013",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 24,
+   "section": "d2-connect-enterprise-knowledge",
+   "stem": "Fabrikam adds a Salesforce connector as <b>real-time knowledge</b> (Preview) to an agent. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Each question runs against Salesforce at runtime by using the signed-in user's token.",
+     "answer": true
+    },
+    {
+     "text": "The Salesforce rows are copied into Dataverse so that answers can be ranked semantically.",
+     "answer": false
+    },
+    {
+     "text": "Copilot Studio indexes only metadata, such as table and column names, not the rows.",
+     "answer": true
+    },
+    {
+     "text": "Synonyms and glossary definitions can be added for every supported connector.",
+     "answer": false
+    }
+   ],
+   "explanation": "Real-time connector knowledge indexes <b>metadata only</b> and moves <b>no data</b>: each question is run against Salesforce at runtime with the <b>signed-in user's token</b>, so source permissions still apply. Nothing is copied into Dataverse; that is how the separate unstructured \"Your connections\" sources work. Synonyms and glossary definitions are available only for ServiceNow and Zendesk.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-real-time-connectors"
+  },
+  {
+   "id": "q014",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 6,
+   "section": "d1-plan-agent-solution",
+   "stem": "For each statement about Copilot Studio component collections, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Any agent author whose agent is connected to a collection can edit the components inside it.",
+     "answer": false
+    },
+    {
+     "text": "A primary agent can be set for a collection only when a single agent is connected to it.",
+     "answer": true
+    },
+    {
+     "text": "An exported collection can be imported into the same environment it came from to create a copy.",
+     "answer": false
+    },
+    {
+     "text": "Exporting a component collection produces a managed solution.",
+     "answer": true
+    }
+   ],
+   "explanation": "Exporting a collection makes it <b>managed</b>. To <b>edit</b> a collection or add one to an agent you must be its creator or hold the system customizer or system admin role; other agent authors can use the components but can't change them. A <b>primary agent</b> can be set only when exactly one agent is connected (disconnect the others first), and importing into the source environment returns an error, so import into a different environment.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-export-import-copilot-components"
+  },
+  {
+   "id": "q015",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 19,
+   "section": "d1-configure-topics",
+   "stem": "A Tailwind Traders topic uses the <b>Send HTTP request</b> node to call an inventory API. For each statement about the node, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "The error response body is stored as a record, so its fields can be read without parsing.",
+     "answer": false
+    },
+    {
+     "text": "The request timeout is entered in seconds.",
+     "answer": false
+    },
+    {
+     "text": "With <b>Continue on error</b>, the topic keeps running and can read the status code and the error response body.",
+     "answer": true
+    },
+    {
+     "text": "With the default error handling, a failed request raises an error and runs the <b>On Error</b> system topic.",
+     "answer": true
+    }
+   ],
+   "explanation": "The default is <b>Raise an error</b>: the topic stops and the <b>On Error</b> system topic runs. <b>Continue on error</b> stores the status code and the error response body and lets the topic go on. The error body is type <b>Any</b>, so a <b>Parse value</b> node is needed before its fields can be read. The timeout is set in <b>milliseconds</b> (the default is 30 seconds), not in seconds.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-http-node"
+  },
+  {
+   "id": "q016",
+   "type": "single",
+   "domain": 2,
+   "skill": 25,
+   "section": "d2-connect-enterprise-knowledge",
+   "stem": "A Contoso index is used as an Azure AI Search knowledge source. A document in the index looks like this (abridged):<pre>{\n  \"chunk_id\": \"c-0042\",\n  \"chunk\": \"Remote work needs manager approval...\",\n  \"title\": \"Remote work policy\",\n  \"metadata_storage_path\": \"https://contoso.blob.core.windows.net/hr/remote-work.pdf\",\n  \"source_url\": \"https://intranet.contoso.com/hr/remote-work\"\n}</pre>Which value does Copilot Studio use as the citation link for an answer built from this chunk?",
+   "options": [
+    "The <code>source_url</code> value, because it is the field that is named for a URL.",
+    "The <code>metadata_storage_path</code> value, because it is used whenever the field exists.",
+    "The <code>chunk_id</code> value, because it is the key field of the index.",
+    "No link, because citations need a field that is named exactly <code>url</code>."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Copilot Studio builds the citation link from <code>metadata_storage_path</code> when the index has that field, even if another field such as <code>source_url</code> also holds a full URL. Only when <code>metadata_storage_path</code> is missing does it fall back to any field that contains a complete URL. The key field <code>chunk_id</code> isn't a link, and no field has to be named <code>url</code>. Users still need access to the target that the link opens.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-azure-ai-search"
+  },
+  {
+   "id": "q017",
+   "type": "single",
+   "domain": 2,
+   "skill": 29,
+   "section": "d2-add-tools-agents",
+   "stem": "Adventure Works has an OpenAPI 3.0 description of its ticketing API in a JSON file that begins like this:<pre>{\n  \"openapi\": \"3.0.1\",\n  \"info\": { \"title\": \"Tickets\", \"version\": \"1.0\" },\n  \"servers\": [ { \"url\": \"https://api.adventure-works.example\" } ]\n}</pre>The team wants the agent to call the API through a REST API tool (Preview) without building a custom connector first. What should the maker do with the file?",
+   "options": [
+    "Import it as a custom connector in Power Apps first, and then add that connector as a tool.",
+    "Convert it to YAML first, because the wizard accepts only YAML files.",
+    "Convert it to OpenAPI 2.0 (Swagger) by hand before uploading it.",
+    "Upload it as it is; Copilot Studio translates OpenAPI 3.0 to 2.0 automatically."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The REST API tool wizard (Preview) works from an OpenAPI <b>v2 (Swagger) JSON</b> file, and an <b>OpenAPI v3</b> file is <b>translated to v2 automatically</b> when you upload it, so the file can be uploaded unchanged. A hand conversion is unnecessary, and the wizard expects JSON rather than YAML. Importing the file as a custom connector in Power Apps first isn't required either: the REST API tool is created directly from the uploaded specification in Copilot Studio, and the custom connector import doesn't accept OpenAPI 3.0 files anyway.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-rest-api"
+  },
+  {
+   "id": "q018",
+   "type": "single",
+   "domain": 2,
+   "skill": 36,
+   "section": "d2-integrate-agents-azure",
+   "stem": "You deployed the GPT-4.1 chat model as <code>gpt41</code> in a Microsoft Foundry resource named <code>contoso</code>. In a Copilot Studio prompt you select <b>Connect a model from Azure AI Foundry</b> and type the deployment and base model names. Which endpoint URL do you provide?",
+   "options": [
+    "<code>https://contoso.services.ai.azure.com/openai/deployments/gpt41/chat/completions</code>",
+    "<code>https://contoso.services.ai.azure.com/openai/v1/responses</code>",
+    "<code>https://contoso.services.ai.azure.com/api/projects/support</code>",
+    "<code>https://ai.azure.com/catalog/models/gpt-4.1</code>"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Prompts use <b>chat completions</b>: the endpoint must end with <code>/chat/completions</code> and include the deployment, as in <code>/openai/deployments/{deployment}/chat/completions</code>. A Responses URL such as <code>/openai/v1/responses</code> returns <b>Resource not found</b>, a project endpoint is what the Foundry <i>agent</i> connection uses, and the catalog page is a website rather than an inference endpoint. The deployment and base model names must match Foundry exactly, and GPT-5 family models aren't supported.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/bring-your-own-model-prompts"
+  },
+  {
+   "id": "q019",
+   "type": "single",
+   "domain": 1,
+   "skill": 4,
+   "section": "d1-plan-agent-solution",
+   "stem": "Woodgrove Bank is planning an HR assistant. Compliance requires that answers come only from the approved policy library configured as knowledge, and that the agent asks the employee to confirm before it runs the connector tool that submits a payroll change. Which configuration meets both requirements?",
+   "options": [
+    "Turn on <b>Allow ungrounded responses</b> and set <b>Ask the end user before running</b> to Yes on the payroll tool.",
+    "Turn off <b>Allow ungrounded responses</b> and set <b>Ask the end user before running</b> to Yes on the payroll tool.",
+    "Set the agent's content moderation level to Highest and set the payroll tool's authentication to Maker-provided.",
+    "Turn off <b>Allow ungrounded responses</b> and keep <b>Allow agent to decide dynamically when to use the tool</b> selected."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "With <b>Allow ungrounded responses</b> off, the agent can't fall back on the model's general knowledge when it has no cited source, so answers stay tied to the configured knowledge. The tool setting <b>Ask the end user before running</b> (default No) asks for confirmation before the tool runs. Leaving ungrounded responses on defeats the first requirement; <b>Allow agent to decide dynamically</b> only lets the orchestrator choose when to call the tool; and content moderation filters harmful content while Maker-provided credentials choose whose identity is used, so neither gives grounding or confirmation.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-copilot-studio"
+  },
+  {
+   "id": "q020",
+   "type": "single",
+   "domain": 3,
+   "skill": 38,
+   "section": "d3-evaluate-agent-performance",
+   "stem": "Tailwind wants to verify that its agent keeps context during a troubleshooting dialog in which the user asks five questions in a row and each depends on the earlier answers. Which test set meets the evaluation limits?",
+   "options": [
+    "A single-response test set with one test case that joins the five questions into one long message.",
+    "A conversation test set with one test case of 16 messages (eight question and answer pairs) that adds clarifying turns.",
+    "A single-response test set with one test case for each of the five questions.",
+    "A conversation test set with one test case of 10 messages (five question and answer pairs)."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Context across turns can be tested only with a <b>conversation</b> test set; single-response test cases are evaluated in isolation. A conversation test case holds up to <b>12 messages</b> (six question and answer pairs) and a conversation set holds up to <b>20</b> test cases (single-response sets allow 100). Five exchanges are 10 messages and fit; a 16-message case doesn't, and a longer dialog has to be split into several test cases.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-multi-turn"
+  },
+  {
+   "id": "q021",
+   "type": "single",
+   "domain": 1,
+   "skill": 5,
+   "section": "d1-plan-agent-solution",
+   "stem": "Litware's Power Platform administrator must stop makers across the tenant from publishing agents that use public websites as knowledge sources. Agents that use SharePoint knowledge must keep working. What should the administrator configure in the data policy?",
+   "options": [
+    "Block the <b>Knowledge source with public websites and data in Copilot Studio</b> connector.",
+    "Block the <b>Knowledge source with documents in Copilot Studio</b> connector.",
+    "Block the <b>Chat without Microsoft Entra ID authentication in Copilot Studio</b> connector.",
+    "Block the <b>Knowledge source with SharePoint and OneDrive in Copilot Studio</b> connector."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Each knowledge source type maps to its own data-policy connector. Public websites use <b>Knowledge source with public websites and data in Copilot Studio</b>, so blocking it stops that source type while SharePoint keeps working. Blocking the <b>documents</b> connector only prevents local file uploads, blocking the SharePoint and OneDrive connector would break the SharePoint agents, and <b>Chat without Microsoft Entra ID authentication</b> enforces sign-in rather than limiting knowledge.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-data-loss-prevention"
+  },
+  {
+   "id": "q022",
+   "type": "multi",
+   "domain": 2,
+   "skill": 31,
+   "section": "d2-configure-multi-agent",
+   "stem": "Which <b>TWO</b> statements about connecting a Microsoft Foundry agent (Preview) to a Copilot Studio agent are correct?",
+   "options": [
+    "You enter the Foundry agent's A2A agent card URL when you create the connection.",
+    "The Foundry agent must have been created in the new Microsoft Foundry portal.",
+    "Agents created in the previous Foundry portal work if they expose the Responses endpoint.",
+    "The connection is created with an API key for the Foundry project.",
+    "The Foundry agent's Activity protocol endpoint must be enabled."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "Copilot Studio calls the Foundry agent through the <b>Activity protocol</b>, which a new agent doesn't expose by default, and it works only with agents created in the <b>new</b> Microsoft Foundry portal; previous-portal agents fail with <code>404 - Version not found</code>. The connection needs the Foundry <b>project endpoint URL</b>, not an agent card URL, and Foundry agent endpoints don't support API keys (they use Entra, BotServiceRbac or BotServiceTenant authorization).",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-agent-foundry-agent"
+  },
+  {
+   "id": "q023",
+   "type": "order",
+   "domain": 1,
+   "skill": 20,
+   "section": "d1-configure-topics",
+   "stem": "A Northwind Traders topic must show the generated answer inside an Adaptive Card instead of as plain text. Arrange the documented steps in the correct order.",
+   "items": [
+    "Add a <b>Create generative answers</b> node and set its <b>Input</b> to <code>Activity.Text</code>.",
+    "In the node's <b>Advanced</b> properties, save the response to a global variable and clear <b>Send a message</b>.",
+    "Add a <b>Message</b> or <b>Question</b> node after it and add an <b>Adaptive Card</b> to that node.",
+    "Switch the card's properties to <b>Formula</b>.",
+    "Build the card from the variable that holds the generated answer."
+   ],
+   "explanation": "The answer has to exist in a variable before a card can display it. So the generative answers node comes first (input <code>Activity.Text</code>). Next its answer is saved to a global variable with <b>Send a message</b> cleared, so the plain-text answer isn't also posted. Then a Message or Question node receives the Adaptive Card, the card is switched to <b>Formula</b> mode, and finally the card formula references the variable.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-boost-node"
+  },
+  {
+   "id": "q024",
+   "type": "single",
+   "domain": 1,
+   "skill": 9,
+   "section": "d1-create-monitor-agent",
+   "stem": "Proseware's insurance claims flow detects missing documentation. The flow must pause, ask a field adjuster to enter a repair estimate, an inspection date and whether photos were taken, and then use those values in later actions. Which action should the maker add?",
+   "options": [
+    "<b>Run an agent</b> with <b>Request human assistance when unsure</b> turned on.",
+    "<b>Run a multistage approval</b> with a manual stage assigned to the field adjuster.",
+    "<b>Request for information</b> from the Human review actions, with a Number, a Date and a Yes/No input.",
+    "<b>Start and wait for an approval</b> from the Approvals connector, using custom responses for each value."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Request for information</b> pauses the flow, emails the assigned people through Outlook and returns typed values (Text, Yes/No, Email, Number or Date), each of which becomes a parameter for later actions. Approvals return a decision or one of a few predefined responses, not free-form values; multistage approvals are Preview and exist for approval decisions; and the agent node's human assistance emails the <b>connection owner</b> when the agent is unsure rather than a named adjuster.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/flows-request-for-information"
+  },
+  {
+   "id": "q025",
+   "type": "single",
+   "domain": 1,
+   "skill": 18,
+   "section": "d1-configure-topics",
+   "stem": "A Wide World Importers topic builds a table in Power Fx and gives it to a generative answers node under <b>Classic data &gt; Custom data</b>. Each answer must be able to cite a page URL and a title. Which table does the node accept?",
+   "options": [
+    "<code>[{ Snippet: \"Returns take 30 days\", Link: \"https://contoso.example/returns\", Label: \"Returns\" }]</code>",
+    "<code>[{ Content: \"Returns take 30 days\", ContentLocation: \"https://contoso.example/returns\", Title: \"Returns\" }]</code>",
+    "<code>[{ Text: \"Returns take 30 days\", Url: \"https://contoso.example/returns\", Name: \"Returns\" }]</code>",
+    "<code>[{ Body: \"Returns take 30 days\", Source: \"https://contoso.example/returns\", Heading: \"Returns\" }]</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Custom data expects a <b>Table</b> whose columns are named <code>Content</code> (required: the text used to answer), <code>ContentLocation</code> (optional: the citation URL) and <code>Title</code> (optional: the citation title). The other column names aren't part of that schema, so the node would have nothing to answer from. Only the <b>first three rows</b> of the table are used, so filter or rank the data before passing it in.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-generative-answers-custom-data"
+  },
+  {
+   "id": "q026",
+   "type": "single",
+   "domain": 3,
+   "skill": 40,
+   "section": "d3-evaluate-agent-performance",
+   "stem": "After rewording the agent's instructions, the QA lead must show that more test cases now pass than before, and must keep the evidence for a full year. Which approach meets both needs?",
+   "options": [
+    "Run the same test set again and give a thumbs up to each improved result to record the improvement.",
+    "Compare the <b>Response time</b> of the two runs, because a faster response proves higher quality.",
+    "Create a new test set from the updated agent, run it, and rely on the 89-day result history for the evidence.",
+    "Run the same test set again, use <b>Compare with</b> on the two runs, and export the results to a CSV file."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Compare with</b> works on runs of the <b>same test set</b> (at least two) and marks improved and declined cases. Copilot Studio keeps results for only <b>89 days</b>, so a year of evidence needs the <b>CSV export</b>. A new test set isn't comparable, the thumbs rating judges the <i>evaluation method's</i> verdict rather than the agent, and response time is only a measurement, never a pass or fail result.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-results"
+  },
+  {
+   "id": "q027",
+   "type": "single",
+   "domain": 3,
+   "skill": 40,
+   "section": "d3-evaluate-agent-performance",
+   "stem": "A release pipeline must start an evaluation of an existing test set after every agent update by using the Power Platform API. You already have the environment ID, the bot ID, the test set ID and a Microsoft Entra user access token. Which call starts the run?",
+   "options": [
+    "<code>POST https://api.powerplatform.com/copilotstudio/environments/{EnvironmentId}/bots/{BotId}/api/makerevaluation/testsets/{TestSetId}/run?api-version=2024-10-01</code>",
+    "<code>GET https://api.powerplatform.com/copilotstudio/environments/{EnvironmentId}/bots/{BotId}/api/makerevaluation/testruns/{TestRunId}?api-version=2024-10-01</code>",
+    "<code>GET https://api.powerplatform.com/copilotstudio/environments/{EnvironmentId}/bots/{BotId}/api/makerevaluation/testsets/{TestSetId}?api-version=2024-10-01</code>",
+    "<code>POST https://api.powerplatform.com/copilotstudio/environments/{EnvironmentId}/bots/{BotId}/api/makerevaluation/testruns?api-version=2024-10-01</code>"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Starting a run is a <b>POST</b> to the test set's <code>/run</code> endpoint. The run is asynchronous and returns a <code>runId</code>, which you pass to <code>GET .../testruns/{TestRunId}</code> to read the results. A GET on <code>testsets/{TestSetId}</code> only returns the test set's details, and the <code>testruns</code> path is used to list earlier runs and read their details. Add <code>mcsConnectionId</code> to run with a user profile; without it the run is unauthenticated.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-rest-api"
+  },
+  {
+   "id": "q028",
+   "type": "order",
+   "domain": 3,
+   "skill": 42,
+   "section": "d3-implement-application-lifecycl",
+   "stem": "Arrange the steps to move an agent from a development environment to a test environment by exporting and importing a solution.",
+   "items": [
+    "Create a custom solution in the development environment.",
+    "Add the agent by selecting <b>Add existing</b> &gt; <b>Agent</b> &gt; <b>Agent</b>.",
+    "On the agent's <b>Advanced</b> menu, select <b>Add required objects</b>.",
+    "Export the solution.",
+    "Import the solution file into the test environment.",
+    "Configure user authentication again and publish the agent."
+   ],
+   "explanation": "The documented flow is: create a custom solution, add the agent (<b>Add existing &gt; Agent &gt; Agent</b>), run <b>Add required objects</b> so flows, connection references and environment variables come along, export, import into the target (custom connectors first), and finally <b>configure user authentication again and publish</b> before sharing, because those settings don't carry over with the solution.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-solutions-import-export"
+  },
+  {
+   "id": "q029",
+   "type": "single",
+   "domain": 2,
+   "skill": 30,
+   "section": "d2-configure-multi-agent",
+   "stem": "Woodgrove Bank's support agent has grown to 48 tools and topics maintained by the HR, IT and Facilities teams, and the orchestrator often picks the wrong one. Each team must publish and version its own part separately, and other agents must be able to reuse it. What should you do?",
+   "options": [
+    "Create one child agent per team inside the main agent and move each team's tools into it.",
+    "Keep all 48 items on the main agent, because the orchestrator supports up to 128 tools.",
+    "Create one connected agent per team, publish each one, and let the main agent route to them by description.",
+    "Switch the main agent to classic orchestration so that topics decide which tool runs."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Routing precision degrades past roughly <b>30-40 choices of action</b> (tools, topics and other agents), so the 48 items should be split. Separate publishing, versioning and reuse by other agents are what <b>connected agents</b> provide; a child agent lives inside the main agent and can't be published or reused on its own. The 128-tool ceiling is a maximum, not a quality target (guidance is 25-30 tools), and classic orchestration doesn't route to agents at all.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-add-other-agents"
+  },
+  {
+   "id": "q030",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 43,
+   "section": "d3-implement-application-lifecycl",
+   "stem": "For each statement about environment variables used by a Copilot Studio agent, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "For an agent to read a Key Vault secret, the <b>Microsoft Copilot Studio Service</b> application needs the <b>Key Vault Secrets User</b> role.",
+     "answer": true
+    },
+    {
+     "text": "In Power Fx, an environment variable is referenced with the <code>Environment.</code> prefix.",
+     "answer": true
+    },
+    {
+     "text": "After you change the value of a <b>Text</b> environment variable, you must republish the agent for the new value to be used.",
+     "answer": true
+    },
+    {
+     "text": "You can change an environment variable's value from the Variables panel in Copilot Studio.",
+     "answer": false
+    },
+    {
+     "text": "After you change the value of a <b>Secret</b> environment variable, you must republish the agent.",
+     "answer": false
+    }
+   ],
+   "explanation": "In Copilot Studio environment variables are <b>read-only</b>; an admin changes values in Power Apps, and Power Fx reads them through <code>Environment.</code>. A changed value takes effect only after you <b>republish</b>, except for <b>Secret</b> variables, which are read from Azure Key Vault at run time (and cached for five minutes). The <b>Microsoft Copilot Studio Service</b> application needs <b>Key Vault Secrets User</b>, and the secret needs an <code>AllowedEnvironments</code> or <code>AllowedAgents</code> tag.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-variables-about"
+  },
+  {
+   "id": "q031",
+   "type": "multi",
+   "domain": 3,
+   "skill": 39,
+   "section": "d3-evaluate-agent-performance",
+   "stem": "Which <b>THREE</b> of these evaluation methods can you add to a <b>conversation</b> test set?",
+   "options": [
+    "Custom",
+    "Keyword match",
+    "Compare meaning",
+    "Exact match",
+    "General quality",
+    "Text similarity"
+   ],
+   "answer": [
+    0,
+    1,
+    4
+   ],
+   "select": 3,
+   "explanation": "Conversation test sets support <b>General quality</b>, <b>Keyword match</b> and <b>Custom</b>; the docs also mention Content safety and tool use for them, but their own tables and text disagree on those two, so don't rely on them. <b>Compare meaning</b>, <b>Text similarity</b> and <b>Exact match</b> compare one response with an expected answer and are available only for single-response test sets.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-multi-turn"
+  },
+  {
+   "id": "q032",
+   "type": "single",
+   "domain": 1,
+   "skill": 22,
+   "section": "d1-configure-topics",
+   "stem": "A Proseware topic uses a <b>Set a variable value</b> node to build a greeting for the signed-in user from the agent's built-in user information. Which Power Fx formula is valid for the <b>To value</b> field?",
+   "options": [
+    "<code>\"Welcome, \" &amp; System.User.DisplayName</code>",
+    "<code>\"Welcome, \" &amp; Global.User.DisplayName</code>",
+    "<code>\"Welcome, \" &amp; User.DisplayName</code>",
+    "<code>\"Welcome, \" &amp; Environment.User.DisplayName</code>"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "System variables such as <code>User.DisplayName</code> are addressed with the <code>System.</code> prefix in Power Fx, so the greeting is <code>\"Welcome, \" &amp; System.User.DisplayName</code>. Without the prefix the name isn't resolved. <code>Global.</code> reaches variables that you created and marked as global, and <code>Environment.</code> reaches Power Platform environment variables; neither holds the signed-in user's display name.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-variables-about"
+  },
+  {
+   "id": "q033",
+   "type": "single",
+   "domain": 3,
+   "skill": 38,
+   "section": "d3-evaluate-agent-performance",
+   "stem": "Contoso exported 60 customer questions and their approved answers from its support system and wants to import them as a single-response test set on the Evaluation page. Each question is under 300 characters. Which file does the import accept?",
+   "options": [
+    "An <code>.xlsx</code> workbook with the questions in column A and the answers in column B.",
+    "A <code>.csv</code> file whose first row is <code>Expected response,Question</code>.",
+    "A <code>.csv</code> file whose first row is <code>Question,Expected response</code>.",
+    "A <code>.json</code> file with an array of objects that have <code>utterance</code> and <code>intent</code> properties."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The import takes a <b><code>.csv</code> or <code>.txt</code></b> file whose first-row headings are <code>Question</code> and then <code>Expected response</code>, in that order, with at most <b>100 questions</b> of up to <b>1,000 characters</b> each; a CSV template is under <b>New evaluation &gt; Import</b>. Excel workbooks and JSON files aren't accepted formats, and the headings must appear in the documented order. Expected responses are optional at import but needed for match, similarity and compare-meaning methods.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-create"
+  },
+  {
+   "id": "q034",
+   "type": "single",
+   "domain": 2,
+   "skill": 34,
+   "section": "d2-configure-multi-agent",
+   "stem": "Fabrikam's inventory agent runs on a server in its own datacenter and speaks the A2A protocol. Its communication endpoint is <code>https://agents.fabrikam.example/a2a/inventory/v1/message:stream</code>, and callers authenticate with an API key sent in an <code>x-api-key</code> header. How do you add it to your Copilot Studio agent?",
+   "options": [
+    "Create a custom connector from an OpenAPI file, because A2A can't reach servers outside Azure.",
+    "Add agent &gt; A2A agent, enter the agent card URL as the endpoint and choose <b>None</b> for authentication.",
+    "Add an agent &gt; Connect to an external agent &gt; Microsoft Foundry, and enter the endpoint URL as the project endpoint.",
+    "Add agent &gt; A2A agent, enter the communication endpoint URL, choose <b>API key</b> and set the header name to <code>x-api-key</code>."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "You add the agent with <b>Add agent &gt; A2A agent</b> and enter the agent's <b>communication endpoint URL</b>, not the agent card URL. The authentication choices are <b>None</b>, <b>API key</b> (you name the header or query parameter) and <b>OAuth 2.0</b>. A2A connections are built on the custom connector infrastructure, so agents hosted on-premises or in a virtual network can be reached. The Foundry option is for Foundry-hosted agents that use the Activity protocol.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-agent-agent-to-agent"
+  },
+  {
+   "id": "q035",
+   "type": "single",
+   "domain": 2,
+   "skill": 37,
+   "section": "d2-integrate-agents-azure",
+   "stem": "A platform team wants centralized telemetry of agent invocations and tool execution across every Copilot Studio agent in an environment, sent to Application Insights without each maker configuring anything. What should they set up?",
+   "options": [
+    "Agent-level logging on every agent, by pasting the Application Insights connection string into <b>Settings &gt; Advanced</b>.",
+    "An environment-level data export to Application Insights (Preview) in the Power Platform admin center, in a managed environment.",
+    "The <b>Copilot Studio Dashboard</b> workbook, shared with the platform team by granting Reader access.",
+    "A data policy that blocks the <b>Application Insights in Copilot Studio</b> connector so makers can't change it."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<b>Environment-level telemetry</b> is configured once by an admin (<b>Manage &gt; Data export &gt; App Insights</b>), needs a <b>managed environment</b>, is in <b>Preview</b>, and emits span-based, OpenTelemetry-aligned data (<code>InvokeAgent</code>, <code>ExecuteTool</code>, <code>OutputMessages</code>) into the <code>dependencies</code> table. Agent-level telemetry is configured per agent by the maker and is event-based (<code>customEvents</code>), the dashboard only views data that is already being sent, and blocking the connector would prevent agent-level telemetry rather than centralize anything.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/telemetry-overview"
+  },
+  {
+   "id": "q036",
+   "type": "dropdown",
+   "domain": 2,
+   "skill": 37,
+   "section": "d2-integrate-agents-azure",
+   "stem": "Complete the Kusto query that returns only <b>production</b> conversations from agent-level telemetry and excludes the traffic that comes from the Copilot Studio test canvas.",
+   "format": "code",
+   "language": "kusto",
+   "template": "{1}\n| extend isDesignMode = customDimensions['{2}']\n| where isDesignMode == \"{3}\"",
+   "blanks": [
+    {
+     "options": [
+      "dependencies",
+      "customEvents",
+      "traces",
+      "requests"
+     ],
+     "answer": 1
+    },
+    {
+     "options": [
+      "designMode",
+      "locale",
+      "fromName",
+      "channelId"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "0",
+      "True",
+      "False",
+      "1"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "Agent-level telemetry writes events to the <code>customEvents</code> table (the environment-level export uses <code>dependencies</code>). Every event carries a <code>designMode</code> custom dimension that is <code>True</code> when the conversation happened in the test canvas and <code>False</code> for real users, so filtering on <code>\"False\"</code> keeps production traffic. <code>channelId</code>, <code>locale</code> and <code>fromName</code> exist but don't identify design-time conversations.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry"
+  },
+  {
+   "id": "q037",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 32,
+   "section": "d2-configure-multi-agent",
+   "stem": "For each statement about adding another Copilot Studio agent as a connected agent, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Clearing <b>Pass conversation history to this agent</b> passes only the explicit task to the connected agent.",
+     "answer": true
+    },
+    {
+     "text": "The description the main agent holds for the connected agent updates automatically when you change it in the other agent.",
+     "answer": false
+    },
+    {
+     "text": "The other agent must be in the same environment as the main agent.",
+     "answer": true
+    },
+    {
+     "text": "The other agent must be published, and its <b>Let other agents connect to and use this one</b> setting must not be turned off.",
+     "answer": true
+    },
+    {
+     "text": "A main agent that already has connected agents can also be added as a connected agent of another main agent.",
+     "answer": false
+    }
+   ],
+   "explanation": "A connected agent must live in the <b>same environment</b>, be <b>published</b> and allow connections (by default any agent in the environment can connect). Its description is controlled locally in the main agent and never syncs, so update it by hand. The history checkbox is on by default; clearing it limits the call to the explicit task. A main agent that has connected agents can't itself be a connected agent elsewhere.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-agent-copilot-studio-agent"
+  },
+  {
+   "id": "q038",
+   "type": "single",
+   "domain": 3,
+   "skill": 44,
+   "section": "d3-implement-application-lifecycl",
+   "stem": "A custom-host pipeline has stages named \"Contoso QA\" and \"Contoso Prod\". A cloud flow that runs on the Dataverse <b>When an action is performed</b> trigger must start only for deployments to stages whose name contains QA. Which trigger condition do you add?",
+   "options": [
+    "<code>@contains(triggerOutputs()?['body/OutputParameters/DeploymentPipelineName'], 'QA')</code>",
+    "<code>@equals(triggerOutputs()?['body/OutputParameters/DeploymentStageName'], 'Contoso Prod')</code>",
+    "<code>@equals(triggerOutputs()?['body/OutputParameters/DeploymentStageName'], 'QA')</code>",
+    "<code>@contains(triggerOutputs()?['body/OutputParameters/DeploymentStageName'], 'QA')</code>"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Pipeline triggers expose the target stage and the pipeline as output parameters: <code>DeploymentStageName</code> holds the stage and <code>DeploymentPipelineName</code> the pipeline. A <code>contains</code> test on the stage name matches \"Contoso QA\" and any other stage with QA in its name. Testing the pipeline name filters on the wrong value, <code>equals</code> with 'QA' misses \"Contoso QA\", and the Prod condition selects a different stage.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/alm/extend-pipelines"
+  },
+  {
+   "id": "q039",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 35,
+   "section": "d2-integrate-agents-azure",
+   "stem": "For each statement about Azure AI Search and Azure OpenAI on your data (a preview feature in Copilot Studio), select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Azure OpenAI on your data is the recommended choice for new projects, because the Azure service remains supported.",
+     "answer": false
+    },
+    {
+     "text": "In a generative answers node, <b>Search only selected sources</b> falls back to the agent-level sources when nothing relevant is found.",
+     "answer": false
+    },
+    {
+     "text": "An Azure OpenAI connection is added to a generative answers node through the <b>Classic data</b> option.",
+     "answer": true
+    },
+    {
+     "text": "An Azure AI Search knowledge source can point to only one vector index.",
+     "answer": true
+    },
+    {
+     "text": "Microsoft Entra ID Integrated is one of the authentication types for the Azure AI Search connection.",
+     "answer": true
+    }
+   ],
+   "explanation": "A knowledge source uses <b>one vector index</b>, and the connection supports Access Key, Client Certificate Auth, Service principal and Microsoft Entra ID Integrated authentication. <b>Search only selected sources</b> replaces the agent-level sources and never falls back to them. Azure OpenAI on your data is reachable only through <b>Classic data</b>, and the Azure service was <b>retired on October 14, 2026</b> (the Copilot Studio page is still labeled preview), so don't build new work on it; Azure's retirement guidance points to Foundry IQ as the migration target.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-azure-ai-search"
+  },
+  {
+   "id": "q040",
+   "type": "single",
+   "domain": 2,
+   "skill": 31,
+   "section": "d2-configure-multi-agent",
+   "stem": "You add a Microsoft Foundry agent (Preview) that was created in the new Foundry portal to a Copilot Studio agent through <b>Add an agent</b> &gt; <b>Connect to an external agent</b> &gt; <b>Microsoft Foundry</b>. The first test call fails:\n<pre>The connector 'Azure AI Foundry Agent Service' returned an HTTP error with code 400.\nInner Error: Agent 'orders-agent' endpoint does not support activity.\nPlease update the agent endpoint to support this protocol.</pre>\nWhat should you do?",
+   "options": [
+    "Create a new connection to the Foundry project that uses an API key instead of Microsoft Entra ID.",
+    "Turn on the Activity protocol in the Endpoints section of the agent in the Foundry portal.",
+    "Enable the Activity protocol endpoint on the Foundry agent by using the REST API or the Python SDK.",
+    "Re-create the agent in the previous Foundry portal, where the Activity endpoint is enabled by default."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The 400 error means the Foundry agent doesn't expose the <b>Activity protocol</b> endpoint; a new agent exposes only Responses and A2A by default. Today you can enable Activity <b>only programmatically</b> (REST API or Python SDK) &mdash; the portal has no toggle, and its Endpoints list keeps showing only Responses and A2A afterwards. An API key isn't the cause (Foundry agent endpoints don't support API keys), and an agent from the previous portal fails with <code>404 - Version not found</code> instead.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-agent-foundry-agent"
+  },
+  {
+   "id": "q041",
+   "type": "dropdown",
+   "domain": 1,
+   "skill": 12,
+   "section": "d1-create-monitor-agent",
+   "stem": "Fabrikam's expense agent exposes a flow as a tool. On the Tools page the maker sets the flow's file input to <b>Custom value</b> so that the receipt the user attaches in chat is passed to the flow with its content and file name. Complete the Power Fx formula.",
+   "format": "code",
+   "language": "powerfx",
+   "template": "If(\n    IsEmpty({1}),\n    [],\n    [{ {2}: First(System.Activity.Attachments).Content, name: First(System.Activity.Attachments).Name }])",
+   "blanks": [
+    {
+     "options": [
+      "User.AccessToken",
+      "System.Conversation.Id",
+      "User.DisplayName",
+      "System.Activity.Attachments"
+     ],
+     "answer": 3
+    },
+    {
+     "options": [
+      "fileBytes",
+      "bytes",
+      "contentBytes",
+      "content"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "The documented formula for a file input set with <b>Custom value</b> tests whether <code>System.Activity.Attachments</code> (the table of files the user sent) is empty, returns an empty table if so, and otherwise returns a one-row table whose record has the keys <b>contentBytes</b> and <b>name</b>, filled from <code>First(...).Content</code> and <code>First(...).Name</code>. The other variables are a conversation ID, a display name and a token, not a table of attachments. A file input only works this way: <b>Dynamically fill with AI</b> can't pass files.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/pass-files-to-connectors"
+  },
+  {
+   "id": "q042",
+   "type": "single",
+   "domain": 2,
+   "skill": 35,
+   "section": "d2-integrate-agents-azure",
+   "stem": "Contoso's agent answers from an Azure AI Search knowledge source, but its responses show no clickable citations. The index was built with integrated vectorization and has these fields:\n<pre>{ \"name\": \"policies-index\",\n  \"fields\": [\n    { \"name\": \"chunk_id\", \"type\": \"Edm.String\", \"key\": true },\n    { \"name\": \"chunk\", \"type\": \"Edm.String\" },\n    { \"name\": \"title\", \"type\": \"Edm.String\" },\n    { \"name\": \"text_vector\", \"type\": \"Collection(Edm.Single)\" } ] }</pre>\nWhat should you change?",
+   "options": [
+    "Add a second vector index so that Copilot Studio can pick the one that has links.",
+    "Add a string field that holds each source's full URL, such as <code>metadata_storage_path</code>, and re-index.",
+    "Switch the connection's authentication type to <b>Access Key</b>.",
+    "Turn on <b>Allow ungrounded responses</b> so that the agent adds links itself."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Citations need a <b>URL field</b> in the index: Copilot Studio uses <code>metadata_storage_path</code> when it exists, otherwise any field that holds a full URL, and the sample index has none. The authentication type doesn't affect citations, a knowledge source supports <b>only one vector index</b>, and <b>Allow ungrounded responses</b> controls whether the agent may answer from model knowledge, not whether citations appear.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-azure-ai-search"
+  },
+  {
+   "id": "q043",
+   "type": "single",
+   "domain": 3,
+   "skill": 44,
+   "section": "d3-implement-application-lifecycl",
+   "stem": "A build script must deploy the solution <code>TailwindAgents</code> (current version 1.0.0.4, new version 1.0.0.5) to the pipeline stage whose ID is <code>5b0f6e3a-2c41-4d8e-9a7b-1f3c8d2e6a90</code> by using Power Platform CLI, and wait for the result. Which command is valid?",
+   "options": [
+    "<code>pac pipeline deploy --solutionName TailwindAgents --currentVersion 1.0.0.4 --newVersion 1.0.0.5 --stageId 5b0f6e3a-2c41-4d8e-9a7b-1f3c8d2e6a90 --wait</code>",
+    "<code>pac solution import --path TailwindAgents_1_0_0_5.zip --stageId 5b0f6e3a-2c41-4d8e-9a7b-1f3c8d2e6a90</code>",
+    "<code>pac pipeline list --environment TailwindDev --pipeline TailwindAgents --stageId 5b0f6e3a-2c41-4d8e-9a7b-1f3c8d2e6a90</code>",
+    "<code>pac pipeline deploy --solutionName TailwindAgents --stageId 5b0f6e3a-2c41-4d8e-9a7b-1f3c8d2e6a90 --wait</code>"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<code>pac pipeline deploy</code> requires four parameters: <code>--solutionName</code>, <code>--currentVersion</code>, <code>--newVersion</code> and <code>--stageId</code>. <code>--environment</code> is optional and the <code>--wait</code> switch makes the command wait for completion. <code>pac pipeline list</code> only lists pipelines (it takes <code>--environment</code> and <code>--pipeline</code>), and importing a solution file directly bypasses the pipeline's stages, approvals and managed-artifact flow.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/developer/cli/reference/pipeline"
+  },
+  {
+   "id": "q044",
+   "type": "single",
+   "domain": 2,
+   "skill": 23,
+   "section": "d2-connect-enterprise-knowledge",
+   "stem": "Woodgrove Bank keeps its support knowledge base in ServiceNow. Every agent in the tenant should answer from it with semantic ranking and citations, and the same content must also be searchable in Microsoft Search. The tenant admin can do one central setup. Which approach fits?",
+   "options": [
+    "Add the Power Platform ServiceNow connector to each agent as real-time knowledge (Preview), which indexes only metadata.",
+    "Export the articles to files and upload them to every agent as knowledge, refreshing the files each week.",
+    "The admin deploys a ServiceNow Copilot connector in the Microsoft 365 admin center, and makers pick it with <b>Add knowledge</b>.",
+    "Call the ServiceNow API from a Send HTTP request node and pass the articles to a generative answers node as <b>Custom data</b>."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Copilot connectors</b> index the external content into Microsoft Graph, which gives it a semantic index, citations and permission trimming and makes it reusable in Microsoft Search and Copilot. The admin deploys the connector once in the Microsoft 365 admin center and makers pick it with Add knowledge. Power Platform connector knowledge is real-time with metadata only and is still Preview, uploaded files are separate copies per agent, and an HTTP node feeding Custom data supplies only a few static rows.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-graph-vs-power-platform-connectors"
+  },
+  {
+   "id": "q045",
+   "type": "single",
+   "domain": 1,
+   "skill": 2,
+   "section": "d1-plan-agent-solution",
+   "stem": "A topic in Fabrikam's benefits agent builds an HTTP header with the Power Fx formula <code>Concatenate(\"Bearer \", User.AccessToken)</code>. After the maker switches the agent to <b>Authenticate with Microsoft</b>, the formula shows an unknown variable. What should the maker do to keep using the access token?",
+   "options": [
+    "Turn on <b>Require users to sign in</b> so that Authenticate with Microsoft exposes the token variable.",
+    "Replace <code>User.AccessToken</code> with <code>User.ID</code>, which returns the access token for the signed-in user.",
+    "Select <b>No authentication</b> so that the channel supplies the access token to the topic.",
+    "Change the authentication to <b>Authenticate manually</b> with a Microsoft Entra ID provider, then publish the agent."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Authenticate with Microsoft</b> exposes only <code>User.ID</code> and <code>User.DisplayName</code>; <code>User.AccessToken</code> and <code>User.IsLoggedIn</code> aren't available, and topics that use them show Unknown variables after the switch. The docs say to use <b>Authenticate manually</b> when you need a token (for example Microsoft Entra ID V2 with federated credentials), and the change takes effect only after publishing. Require users to sign in is already always on with Authenticate with Microsoft, <code>User.ID</code> is an identifier rather than a token, and No authentication doesn't sign users in at all.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-end-user-authentication"
+  },
+  {
+   "id": "q046",
+   "type": "multi",
+   "domain": 3,
+   "skill": 42,
+   "section": "d3-implement-application-lifecycl",
+   "stem": "Which <b>TWO</b> statements about exporting and importing agents in solutions are correct?",
+   "options": [
+    "A period in a topic name blocks the export.",
+    "Custom connectors must be imported before the connection reference and the agent solution.",
+    "Topic and node comments are exported with the agent.",
+    "The conversation ID and the CDS Bot ID are preserved in the target environment.",
+    "After the import, the agent can be shared immediately because publishing isn't required."
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "select": 2,
+   "explanation": "A <b>period in a topic name</b> prevents the export, and <b>custom connectors must be imported first</b>, before the connection reference and the agent solution. Comments aren't exported, the conversation ID, CDS Bot ID and environment ID don't transfer, and an imported agent needs its user authentication configured again and must be <b>published</b> before you can share it.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-solutions-import-export"
+  },
+  {
+   "id": "q047",
+   "type": "single",
+   "domain": 3,
+   "skill": 43,
+   "section": "d3-implement-application-lifecycl",
+   "stem": "An agent builds a ticket link from an environment variable named <code>PortalBaseUrl</code> (data type Text) and a global variable named <code>TicketId</code>. Which Power Fx expression returns the link?",
+   "options": [
+    "<code>Environment.PortalBaseUrl &amp; \"/tickets/\" &amp; Global.TicketId</code>",
+    "<code>Global.PortalBaseUrl &amp; \"/tickets/\" &amp; Global.TicketId</code>",
+    "<code>Topic.PortalBaseUrl &amp; \"/tickets/\" &amp; Global.TicketId</code>",
+    "<code>System.PortalBaseUrl &amp; \"/tickets/\" &amp; Global.TicketId</code>"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Power Fx reads environment variables through the <b><code>Environment.</code></b> scope prefix, just as it uses <code>Global.</code> for global variables, <code>Topic.</code> for topic variables and <code>System.</code> for system variables. A variable defined as an environment variable doesn't exist in the Global, System or Topic scope. Remember that environment variables are read-only in Copilot Studio and need a republish after a value change (except Secret).",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-power-fx"
+  },
+  {
+   "id": "q048",
+   "type": "multi",
+   "domain": 2,
+   "skill": 26,
+   "section": "d2-add-tools-agents",
+   "stem": "Wide World Importers wants an agent to enter invoices into a legacy Windows application that has no API, by using <b>computer use</b> on a machine the company already owns. Which <b>TWO</b> actions prepare that machine? (The hosted browser and Cloud PC pool targets are Preview.)",
+   "options": [
+    "Join the machine to Microsoft Entra ID and enroll it in Intune.",
+    "In Power Automate, open the machine's settings and turn on <b>Enable for computer use</b>.",
+    "Create a hosted machine group in Power Automate and add the machine to it.",
+    "Store the machine's administrator password in Azure Key Vault.",
+    "Install Power Automate for desktop 2.61.132.25266 or later and register the machine to the environment.",
+    "Create a Cloud PC pool in Windows 365 for Agents (Preview) and assign it to the agent."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "For your own machine you install <b>Power Automate for desktop 2.61.132.25266 or later</b>, register the machine to the environment, and then turn on <b>Enable for computer use</b> in the machine's settings. Entra join plus Intune enrollment is the requirement for the Cloud PC pool, which is a Preview target. Hosted machine groups aren't supported for computer use, and Key Vault is only an option for stored credentials, not a machine prerequisite.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-where-computer-use-runs"
+  },
+  {
+   "id": "q049",
+   "type": "single",
+   "domain": 2,
+   "skill": 23,
+   "section": "d2-connect-enterprise-knowledge",
+   "stem": "Adventure Works added a Copilot connector for its internal wiki as knowledge. The agent will be published to a channel that uses <b>manual authentication</b>, and the maker is reviewing the Microsoft Graph scopes to include. Which scope is needed so that the wiki content can be returned?",
+   "options": [
+    "<code>User.Read.All</code>",
+    "<code>ExternalItem.Read.All</code>",
+    "<code>Files.Read.All</code>",
+    "<code>Sites.Read.All</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Copilot connectors surface Microsoft Graph <b>external items</b>, so when the agent uses manual authentication its scopes must include <code>ExternalItem.Read.All</code>. <code>Sites.Read.All</code> and <code>Files.Read.All</code> are the scopes for SharePoint content, and <code>User.Read.All</code> reads directory profiles; none of them covers external items.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-copilot-connectors"
+  },
+  {
+   "id": "q050",
+   "type": "single",
+   "domain": 1,
+   "skill": 17,
+   "section": "d1-configure-topics",
+   "stem": "A Contoso prompt tool has a <b>Text</b> input named <code>Date Format</code> (for example <code>dd MMM yyyy</code>). The prompt author adds a <b>Power Fx</b> input that must return today's date formatted with that text input. Which formula is valid?",
+   "options": [
+    "<code>Text(Now(), Topic.'Date Format')</code>",
+    "<code>Text(Now(), Input.'Date Format')</code>",
+    "<code>Text(Now(), System.'Date Format')</code>",
+    "<code>Text(Now(), Global.'Date Format')</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "In a prompt, a Power Fx input reads the prompt's other inputs through the <code>Input</code> prefix, and a name that contains a space goes in single quotes: <code>Input.'Date Format'</code>. The <code>Topic.</code>, <code>Global.</code> and <code>System.</code> prefixes address variables of the agent's topics, not inputs of the prompt. Any Power Fx function that isn't connector-related, such as <code>Now()</code> and <code>Text()</code>, is allowed.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-inputs-prompt"
+  },
+  {
+   "id": "q051",
+   "type": "single",
+   "domain": 1,
+   "skill": 1,
+   "section": "d1-plan-agent-solution",
+   "stem": "Contoso Telecom wants its support agent to answer questions from about 60,000 ServiceNow knowledge articles. Answers must include citations, and the same indexed content must also ground answers in Microsoft 365 Copilot. Which approach should the architect plan?",
+   "options": [
+    "Add a Copilot connector for ServiceNow so the articles are indexed into Microsoft Graph, then add it as a knowledge source.",
+    "Build a custom connector over the ServiceNow REST API and expose its search operation to the agent as a shared tool.",
+    "Add the ServiceNow Power Platform connector as real-time knowledge so every question is answered by calling ServiceNow live.",
+    "Add an HTTP request node to a topic that calls the ServiceNow Table API and summarizes the response for each question."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Copilot connectors</b> (formerly Microsoft Graph connectors) <b>index</b> external content such as ServiceNow knowledge articles into Microsoft Graph, honour the source ACLs and give semantic search, citations and reuse across Microsoft 365 Copilot. Power Platform connectors (including custom connectors) and HTTP nodes call the API at run time and index nothing into Graph, so they suit live status and transactions rather than cited, indexed answers shared with Microsoft 365 Copilot; real-time knowledge is also still Preview.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-graph-vs-power-platform-connectors"
+  },
+  {
+   "id": "q052",
+   "type": "single",
+   "domain": 3,
+   "skill": 41,
+   "section": "d3-implement-application-lifecycl",
+   "stem": "Fabrikam created a custom solution named <code>FabrikamAgents</code>, but the agents its makers create keep appearing in the Default Solution, so they can't be exported together. What should the makers do?",
+   "options": [
+    "Change the solution's <b>Name</b> so that it matches the publisher prefix of the agents.",
+    "Convert <code>FabrikamAgents</code> to a managed solution so that the agents move out of the Default Solution.",
+    "Set <code>FabrikamAgents</code> as the preferred solution so that new agents and edits are created in it.",
+    "Increase the solution's <b>Version</b> number so that it takes precedence over the Default Solution."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Without a <b>preferred solution</b>, new agents and edits land in the Default Solution, which isn't a container you can deploy. Setting the custom solution as preferred (or creating agents in the solution context) puts new work there. The solution <b>Name</b> can't be changed after it's saved, the <b>Version</b> only matters when you export (it appears in the file name), and managed solutions are for deployment, not for building.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-solutions-overview"
+  },
+  {
+   "id": "q053",
+   "type": "single",
+   "domain": 2,
+   "skill": 34,
+   "section": "d2-configure-multi-agent",
+   "stem": "A partner's A2A agent receives this request from a Copilot Studio agent and must read the earlier turns of the conversation to resolve the phrase \"that one\":\n<pre>{ \"method\": \"message/send\",\n  \"params\": { \"message\": {\n    \"contextId\": \"ee1e68ee-75fc-42bb-83d7-25fd26e559c3\",\n    \"metadata\": {\n      \"copilotstudio.microsoft.com/a2a/chathistory\": [\n        { \"From\": \"user\", \"Locale\": \"en-US\", \"Text\": \"Which plant needs more sunlight?\" },\n        { \"From\": \"agent\", \"Locale\": \"en-US\", \"Text\": \"The fern needs the most.\" } ] } } } }</pre>\nWhere does the partner agent find the earlier turns?",
+   "options": [
+    "In the <code>contextId</code> value, which encodes the whole conversation.",
+    "In the agent card, which Copilot Studio updates after every user message.",
+    "In a callback URL that the partner agent calls to download the transcript.",
+    "In the <code>copilotstudio.microsoft.com/a2a/chathistory</code> metadata entry of the message."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Copilot Studio sends the <b>full chat history</b>, not just the latest utterance, in the message <code>metadata</code> under <code>copilotstudio.microsoft.com/a2a/chathistory</code>, together with a <code>contextId</code> that identifies the conversation, message IDs and the locale. The <code>contextId</code> is only an identifier, there is no transcript callback, and the agent card describes the agent rather than the conversation.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-agent-agent-to-agent"
+  },
+  {
+   "id": "q054",
+   "type": "single",
+   "domain": 2,
+   "skill": 27,
+   "section": "d2-add-tools-agents",
+   "stem": "Proseware's MCP server uses OAuth 2.0. It supports dynamic client registration (DCR) but doesn't publish a discovery endpoint. In the MCP onboarding wizard in Copilot Studio, which authentication setting should the maker choose?",
+   "options": [
+    "OAuth 2.0 with <b>Manual</b>",
+    "API key with the <b>Header</b> type",
+    "OAuth 2.0 with <b>Dynamic discovery</b>",
+    "OAuth 2.0 with <b>Dynamic</b>"
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Dynamic discovery</b> needs both DCR and a discovery endpoint, so it fails here. <b>Dynamic</b> uses DCR but lets the maker type the authorization URL and the token URL template, which suits a server without discovery. <b>Manual</b> is for a pre-registered app where you enter the client ID and secret yourself, and an API key isn't OAuth at all.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent"
+  },
+  {
+   "id": "q055",
+   "type": "multi",
+   "domain": 1,
+   "skill": 3,
+   "section": "d1-plan-agent-solution",
+   "stem": "Woodgrove Bank promotes a Copilot Studio agent from a development environment to production by exporting and importing a managed solution. Which <b>THREE</b> items are not solution-aware and must be configured again in the production environment?",
+   "options": [
+    "Manual authentication settings",
+    "Direct Line / web channel security settings",
+    "Azure Application Insights settings",
+    "Environment variable definitions",
+    "Topics that the agent contains",
+    "Agent flows that the agent calls as tools"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "select": 3,
+   "explanation": "The ALM guidance lists five Copilot Studio items that <b>aren't solution-aware</b> and need post-deployment steps in the downstream environment: Application Insights settings, manual authentication settings, Direct Line / web channel security settings, deployed channels, and sharing. Topics, environment variables and agent flows travel in the solution (use environment variables and connection references for environment-specific values), so they don't have to be recreated.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/alm"
+  },
+  {
+   "id": "q056",
+   "type": "single",
+   "domain": 1,
+   "skill": 2,
+   "section": "d1-plan-agent-solution",
+   "caseStudy": "margies-travel",
+   "stem": "Based on requirement 1 and the agent table, how should the team configure authentication for Assist?",
+   "options": [
+    "Authenticate manually, choose the Generic OAuth 2 provider, and send the <code>User.AccessToken</code> variable to the booking API.",
+    "Authenticate manually with Microsoft Entra ID V2 with federated credentials, and send the <code>User.AccessToken</code> variable to the booking API.",
+    "Authenticate with Microsoft, and send the <code>User.AccessToken</code> variable to the booking API.",
+    "Use No authentication, and send the customer ID from the website to the booking API."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Requirement 1 keeps customer accounts in a non-Entra OAuth 2.0 provider and has Assist send each customer's own access token to the booking API. Only <b>Authenticate manually</b> exposes the <code>User.AccessToken</code> variable, and its <b>Generic OAuth 2</b> provider accepts any OAuth 2.0-compliant identity provider. <b>Authenticate with Microsoft</b> signs in Microsoft Entra ID accounts and exposes neither <code>User.AccessToken</code> nor authentication in topics. The Microsoft Entra ID V2 provider also signs in Entra ID accounts, which these customers don't have. With <b>No authentication</b> anyone with the link can chat, and a customer ID sent from the website doesn't prove who the customer is.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-end-user-authentication"
+  },
+  {
+   "id": "q057",
+   "type": "single",
+   "domain": 1,
+   "skill": 9,
+   "section": "d1-create-monitor-agent",
+   "caseStudy": "margies-travel",
+   "stem": "Based on requirement 2, how should the team build the agent flow that Assist calls to create refund cases?",
+   "options": [
+    "Run the approval before Respond to the agent and set the approval to wait up to two business days.",
+    "Return the case reference with Respond to the agent first, then run the supervisor's approval after it.",
+    "Add a Run an agent action before Respond to the agent and turn on Request human assistance when unsure.",
+    "Replace the supervisor's approval with an AI stage in a multistage approval so that the flow finishes quickly."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Requirement 2 pairs a reply within seconds with an approval that can take two business days. A flow called as a tool must respond to the agent within its action time limit (100 seconds in the documented tool requirements), but actions placed <b>after Respond to the agent</b> keep running up to the 30-day flow run limit. So return the case reference first and put the approval after it. An approval placed before the response exceeds the limit while the customer waits. An AI stage removes the supervisor that the requirement names (and multistage approvals are a preview feature). Request human assistance when unsure emails the connection owner when the agent can't proceed; it isn't a supervisor's approval.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-flow-create"
+  },
+  {
+   "id": "q058",
+   "type": "multi",
+   "domain": 2,
+   "skill": 26,
+   "section": "d2-add-tools-agents",
+   "caseStudy": "margies-travel",
+   "stem": "Based on requirement 3 and the Production settings table, which <b>TWO</b> changes should an administrator make on the Production environment's Features page in the Power Platform admin center?",
+   "options": [
+    "Change Computer use logs verbosity to Minimal.",
+    "Increase Log retention time to at least 12 months.",
+    "Turn on Send audit logs to Microsoft Purview and leave the log settings unchanged.",
+    "Turn off Store logs in Dataverse.",
+    "Change Computer use logs verbosity to All data."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "Requirement 3 needs session replay with screenshots for 12 months, but Production uses <b>Data without screenshots</b> and the default <b>7-day</b> retention. Set <b>Computer use logs verbosity</b> to <b>All data</b> and raise <b>Log retention time</b> to cover 12 months. Minimal currently behaves like Data without screenshots, so it still drops the screenshots. Send audit logs to Microsoft Purview is an independent setting: it makes run logs available as <code>CUAOperation</code> audit activity, so with the log settings unchanged the Dataverse logs would still lack screenshots and be kept only 7 days. Turning off Store logs in Dataverse leaves only the default activity logs.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/monitor-computer-use"
+  },
+  {
+   "id": "q059",
+   "type": "single",
+   "domain": 2,
+   "skill": 32,
+   "section": "d2-configure-multi-agent",
+   "caseStudy": "margies-travel",
+   "stem": "Based on requirement 4, how should Consultant Desk be connected to the Rewards agent?",
+   "options": [
+    "Add Rewards as a child agent of Consultant Desk and limit what it sees by using instructions.",
+    "Move the Rewards topics into a component collection that Consultant Desk uses.",
+    "Add Rewards as a connected agent and clear Pass conversation history to this agent.",
+    "Add Rewards through the A2A agent option so that it stays separate from Consultant Desk."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The Loyalty team already runs and publishes Rewards separately in the same environment, so Consultant Desk should use it as a <b>connected agent</b> (Agents &rarr; Add an agent &rarr; Connect to an external agent &rarr; Copilot Studio). Requirement 4 also keeps the earlier conversation away from Rewards: a connected agent has the <b>Pass conversation history to this agent</b> setting, on by default, and clearing it passes only the task. A child agent runs inside the parent, is published only as part of it and always receives the parent's conversation context, with no setting to turn that off. A2A is for agents that already implement the protocol outside Copilot Studio, and a component collection shares topics and tools without calling the separately published Rewards agent.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-orchestration-subagents"
+  },
+  {
+   "id": "q060",
+   "type": "single",
+   "domain": 3,
+   "skill": 44,
+   "section": "d3-implement-application-lifecycl",
+   "caseStudy": "margies-travel",
+   "stem": "Based on requirement 5 and the current deployment method, what should the platform team do?",
+   "options": [
+    "Keep the personal pipeline and add an approval flow that runs before the Production stage starts.",
+    "Export the solution as unmanaged and have the Head of Digital import it into Production after approving it by email.",
+    "Turn on Pre-export Step Required for the Production stage and approve each request in that step.",
+    "Use a custom host and turn on Is delegated deployment for the Production stage, with an approval flow."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Requirement 5 needs an approval before every Production deployment, the same managed artifact that passed Test, and no Production access for the requesting makers. <b>Personal pipelines created in Power Apps can't be extended</b>, so the team needs a pipeline on a custom host. <b>Is delegated deployment</b> on the Production stage deploys as a service principal or the stage owner instead of the maker, and the deployment stays pending until a flow triggered by <code>OnApprovalStarted</code> approves it. Pre-export Step Required is meant only for the first stage and gates the export, not the Production deployment. A manual unmanaged import bypasses the pipeline, so Production would not get the managed artifact that passed Test.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/alm/extend-pipelines"
+  }
+ ]
+}

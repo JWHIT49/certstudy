@@ -44,6 +44,27 @@
       "path": "ab-410/pack.json"
     },
     {
+      "id": "ab-620",
+      "order": 30,
+      "code": "AB-620",
+      "title": "Designing and Building Integrated AI Solutions in Copilot Studio",
+      "short": "Copilot Studio AI agent builder",
+      "vendor": "Microsoft",
+      "family": "AI and agents",
+      "version": "2026.10.20",
+      "updated": "2026-10-20",
+      "accent": "#0e7c86",
+      "description": "Study guide, 44-skill tracker and a 60-question practice exam for the AB-620 exam.",
+      "counts": {
+        "guides": 1,
+        "sections": 29,
+        "skills": 44,
+        "exams": 1,
+        "questions": 60
+      },
+      "path": "ab-620/pack.json"
+    },
+    {
       "id": "ab-210",
       "order": 50,
       "code": "AB-210",

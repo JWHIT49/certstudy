@@ -1,0 +1,429 @@
+{
+ "schema": 1,
+ "groups": [
+  {
+   "id": "g1",
+   "domain": 1,
+   "title": "Plan an agent solution",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 1,
+     "text": "Plan integration with enterprise systems",
+     "refs": [
+      "d1-plan-agent-solution"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 2,
+     "text": "Plan identity strategy",
+     "refs": [
+      "d1-plan-agent-solution"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 3,
+     "text": "Plan channels and deployment",
+     "refs": [
+      "d1-plan-agent-solution"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 4,
+     "text": "Plan responsible AI strategy",
+     "refs": [
+      "d1-plan-agent-solution"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 5,
+     "text": "Evaluate security and governance considerations",
+     "refs": [
+      "d1-plan-agent-solution"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 6,
+     "text": "Plan reuseable agent components",
+     "refs": [
+      "d1-plan-agent-solution"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 7,
+     "text": "Design agents for internal or external audiences",
+     "refs": [
+      "d1-plan-agent-solution"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g2",
+   "domain": 1,
+   "title": "Create and monitor agent flows in Copilot Studio",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 8,
+     "text": "Create an agent flow",
+     "refs": [
+      "d1-create-monitor-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 9,
+     "text": "Create a human-in-the-loop agent flow",
+     "refs": [
+      "d1-create-monitor-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 10,
+     "text": "Configure actions and connectors",
+     "refs": [
+      "d1-create-monitor-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 11,
+     "text": "Monitor agent flows",
+     "refs": [
+      "d1-create-monitor-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 12,
+     "text": "Add input and output parameters",
+     "refs": [
+      "d1-create-monitor-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 13,
+     "text": "Implement error handling in agent flows",
+     "refs": [
+      "d1-create-monitor-agent"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g3",
+   "domain": 1,
+   "title": "Configure topics",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 14,
+     "text": "Add agent flows to a topic",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 15,
+     "text": "Configure agent response formatting",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 16,
+     "text": "Add tools to a topic",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 17,
+     "text": "Configure advanced agent responses with custom prompts",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 18,
+     "text": "Configure advanced agent responses with custom knowledge sources",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 19,
+     "text": "Configure advanced agent responses with API and Send HTTP requests",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 20,
+     "text": "Configure generative answers node",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 21,
+     "text": "Configure adaptive cards",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 22,
+     "text": "Manage variables",
+     "refs": [
+      "d1-configure-topics"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g4",
+   "domain": 2,
+   "title": "Connect to enterprise knowledge sources",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 23,
+     "text": "Connect to Copilot connectors",
+     "refs": [
+      "d2-connect-enterprise-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 24,
+     "text": "Connect to Microsoft Power Platform connectors",
+     "refs": [
+      "d2-connect-enterprise-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 25,
+     "text": "Connect to Azure AI Search",
+     "refs": [
+      "d2-connect-enterprise-knowledge"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g5",
+   "domain": 2,
+   "title": "Add tools to agents",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 26,
+     "text": "Configure and monitor computer use for an agent",
+     "refs": [
+      "d2-add-tools-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 27,
+     "text": "Configure MCP tools",
+     "refs": [
+      "d2-add-tools-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 28,
+     "text": "Add a tool by using an existing custom connector",
+     "refs": [
+      "d2-add-tools-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 29,
+     "text": "Add REST APIs to an agent",
+     "refs": [
+      "d2-add-tools-agents"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g6",
+   "domain": 2,
+   "title": "Configure multi-agent collaboration from Copilot Studio",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 30,
+     "text": "Design multi-agent solutions in Copilot Studio",
+     "refs": [
+      "d2-configure-multi-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 31,
+     "text": "Integrate a Foundry agent",
+     "refs": [
+      "d2-configure-multi-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 32,
+     "text": "Integrate an existing agent in Copilot Studio",
+     "refs": [
+      "d2-configure-multi-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 33,
+     "text": "Integrate a Fabric data agent",
+     "refs": [
+      "d2-configure-multi-agent"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 34,
+     "text": "Create a multi-agent solution by using A2A protocol",
+     "refs": [
+      "d2-configure-multi-agent"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g7",
+   "domain": 2,
+   "title": "Integrate agents with Azure",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 35,
+     "text": "Configure generative answers by using Azure AI Search with Foundry",
+     "refs": [
+      "d2-integrate-agents-azure"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 36,
+     "text": "Configure custom prompts to use the Foundry model catalog",
+     "refs": [
+      "d2-integrate-agents-azure"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 37,
+     "text": "Monitor agents by using Application Insights",
+     "refs": [
+      "d2-integrate-agents-azure"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g8",
+   "domain": 3,
+   "title": "Evaluate agent performance",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 38,
+     "text": "Create a test set",
+     "refs": [
+      "d3-evaluate-agent-performance"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 39,
+     "text": "Choose an evaluation method",
+     "refs": [
+      "d3-evaluate-agent-performance"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 40,
+     "text": "Review test results",
+     "refs": [
+      "d3-evaluate-agent-performance"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g9",
+   "domain": 3,
+   "title": "Implement application lifecycle management (ALM) for agents in Copilot Studio",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 41,
+     "text": "Create a solution",
+     "refs": [
+      "d3-implement-application-lifecycl"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 42,
+     "text": "Add existing agents to a solution",
+     "refs": [
+      "d3-implement-application-lifecycl"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 43,
+     "text": "Create and use environment variables",
+     "refs": [
+      "d3-implement-application-lifecycl"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 44,
+     "text": "Implement and extend Microsoft Power Platform Pipelines",
+     "refs": [
+      "d3-implement-application-lifecycl"
+     ],
+     "isNew": false
+    }
+   ]
+  }
+ ]
+}
