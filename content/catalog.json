@@ -65,6 +65,27 @@
       "path": "ab-620/pack.json"
     },
     {
+      "id": "ai-103",
+      "order": 40,
+      "code": "AI-103",
+      "title": "Developing AI Apps and Agents on Azure",
+      "short": "Azure AI apps and agents developer",
+      "vendor": "Microsoft",
+      "family": "AI and agents",
+      "version": "2026.10.20",
+      "updated": "2026-10-20",
+      "accent": "#2f5fb3",
+      "description": "Study guide, 64-skill tracker and a 60-question practice exam for the AI-103 exam, the successor to AI-102.",
+      "counts": {
+        "guides": 1,
+        "sections": 46,
+        "skills": 64,
+        "exams": 1,
+        "questions": 60
+      },
+      "path": "ai-103/pack.json"
+    },
+    {
       "id": "ab-210",
       "order": 50,
       "code": "AB-210",

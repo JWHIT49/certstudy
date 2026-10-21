@@ -1,0 +1,127 @@
+{
+ "schema": 1,
+ "id": "ai-103",
+ "code": "AI-103",
+ "order": 40,
+ "family": "AI and agents",
+ "title": "Developing AI Apps and Agents on Azure",
+ "short": "Azure AI apps and agents developer",
+ "vendor": "Microsoft",
+ "version": "2026.10.20",
+ "updated": "2026-10-20",
+ "accent": "#2f5fb3",
+ "description": "Study guide, 64-skill tracker and a 60-question practice exam for the AI-103 exam, the successor to AI-102.",
+ "disclaimer": "Original study material and practice questions based on public Microsoft documentation. Not Microsoft exam content; the real exam may differ.",
+ "domains": [
+  {
+   "id": 1,
+   "name": "Plan and manage an Azure AI solution",
+   "short": "Plan & manage",
+   "weight": "25-30%"
+  },
+  {
+   "id": 2,
+   "name": "Implement generative AI and agentic solutions",
+   "short": "GenAI & agents",
+   "weight": "30-35%"
+  },
+  {
+   "id": 3,
+   "name": "Implement computer vision solutions",
+   "short": "Computer vision",
+   "weight": "10-15%"
+  },
+  {
+   "id": 4,
+   "name": "Implement text analysis solutions",
+   "short": "Text analysis",
+   "weight": "10-15%"
+  },
+  {
+   "id": 5,
+   "name": "Implement information extraction solutions",
+   "short": "Info extraction",
+   "weight": "10-15%"
+  }
+ ],
+ "examInfo": [
+  {
+   "label": "Passing score",
+   "value": "700 on a scale of 1 to 1,000 (a scaled score, not a percentage)"
+  },
+  {
+   "label": "Questions",
+   "value": "Not published for this exam; Microsoft says most exams have 40-60"
+  },
+  {
+   "label": "Time",
+   "value": "120 minutes of exam time (seat time is longer)"
+  },
+  {
+   "label": "Languages",
+   "value": "English, Chinese (Simplified), Chinese (Traditional), French, German, Japanese, Korean, Italian, Portuguese (Brazil), Spanish"
+  },
+  {
+   "label": "Delivery",
+   "value": "Pearson VUE: online proctored or test center"
+  },
+  {
+   "label": "Retakes",
+   "value": "24 hours after the first fail, then 14 days; at most 5 attempts in 12 months"
+  },
+  {
+   "label": "Renewal",
+   "value": "Free, open-book assessment on Microsoft Learn; the window opens 6 months before expiry"
+  },
+  {
+   "label": "Microsoft Learn",
+   "value": "Opens in a split screen on associate and expert exams (per Microsoft policy); no extra time"
+  }
+ ],
+ "links": [
+  {
+   "title": "Official AI-103 study guide",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ai-103"
+  },
+  {
+   "title": "AI-103 exam page",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/"
+  },
+  {
+   "title": "Certification page",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-apps-and-agents-developer-associate/"
+  },
+  {
+   "title": "Course AI-103T00-A: Develop AI apps and agents on Azure",
+   "url": "https://learn.microsoft.com/en-us/training/courses/ai-103t00"
+  },
+  {
+   "title": "Official practice assessment",
+   "url": "https://aiskillsnavigator.microsoft.com/credentials/cert-3fb198f57997226a824aa5f52a1a22af9a4597941b2288ed39371c7a9e6bd7c9"
+  },
+  {
+   "title": "Exam sandbox",
+   "url": "https://aka.ms/examdemo"
+  }
+ ],
+ "guides": [
+  {
+   "id": "study-guide",
+   "title": "Study Guide",
+   "file": "guide.json"
+  }
+ ],
+ "skills": {
+  "file": "skills.json"
+ },
+ "exams": [
+  {
+   "id": "practice-1",
+   "title": "Practice Exam 1",
+   "file": "exams/practice-1.json",
+   "minutes": 120,
+   "questions": 60,
+   "description": "60 original questions weighted to the AI-103 skills measured, including a case study."
+  }
+ ]
+}

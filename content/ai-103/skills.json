@@ -1,0 +1,629 @@
+{
+ "schema": 1,
+ "groups": [
+  {
+   "id": "g1",
+   "domain": 1,
+   "title": "Choose the appropriate Foundry services for generative AI and agents",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 1,
+     "text": "Choose an appropriate model for each task, including large language models (LLMs), small language models, multimodal models, and Foundry Tools",
+     "refs": [
+      "d1-choose-appropriate-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 2,
+     "text": "Choose the appropriate Foundry services for generative tasks, grounding, vector search, agent workflows, or multimodal processing",
+     "refs": [
+      "d1-choose-appropriate-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 3,
+     "text": "Choose an appropriate method for retrieval and indexing",
+     "refs": [
+      "d1-choose-appropriate-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 4,
+     "text": "Choose appropriate memory, tool, and knowledge integration services for agent solutions",
+     "refs": [
+      "d1-choose-appropriate-foundry"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g2",
+   "domain": 1,
+   "title": "Set up AI solutions in Foundry",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 5,
+     "text": "Design Azure infrastructure for AI apps and agent-based solutions",
+     "refs": [
+      "d1-set-up-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 6,
+     "text": "Choose appropriate deployment options",
+     "refs": [
+      "d1-set-up-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 7,
+     "text": "Configure model and agent deployments",
+     "refs": [
+      "d1-set-up-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 8,
+     "text": "Integrate Foundry projects with continuous integration and continuous deployment (CI/CD) pipelines",
+     "refs": [
+      "d1-set-up-ai"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g3",
+   "domain": 1,
+   "title": "Manage, monitor, and secure AI systems",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 9,
+     "text": "Manage quotas, scaling, rate limits, and cost footprints for model and agent workloads",
+     "refs": [
+      "d1-manage-monitor-secure"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 10,
+     "text": "Monitor model performance, drift, safety events, and grounding quality",
+     "refs": [
+      "d1-manage-monitor-secure"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 11,
+     "text": "Monitor data ingestion quality, search index health, and relevance performance",
+     "refs": [
+      "d1-manage-monitor-secure"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 12,
+     "text": "Configure security, including managed identity, private networking, keyless credentials, and role policies",
+     "refs": [
+      "d1-manage-monitor-secure"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g4",
+   "domain": 1,
+   "title": "Implement responsible AI across generative AI and agentic systems",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 13,
+     "text": "Configure safety filters, guardrails, risk detection, and content moderation",
+     "refs": [
+      "d1-implement-responsible-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 14,
+     "text": "Apply responsible AI instrumentation, including evaluators, safety evaluations, and explanation tooling",
+     "refs": [
+      "d1-implement-responsible-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 15,
+     "text": "Implement auditing through trace logging, provenance metadata, and approval workflows",
+     "refs": [
+      "d1-implement-responsible-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 16,
+     "text": "Govern agent behavior with oversight modes, constraints, and tool-access controls",
+     "refs": [
+      "d1-implement-responsible-ai"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g5",
+   "domain": 2,
+   "title": "Build generative applications by using Foundry",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 17,
+     "text": "Deploy and consume LLMs, small models, code models, and multimodal models",
+     "refs": [
+      "d2-build-generative-applications"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 18,
+     "text": "Implement retrieval-augmented generation (RAG) in an application",
+     "refs": [
+      "d2-build-generative-applications"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 19,
+     "text": "Design workflows, tool-augmented flows, and multistep reasoning pipelines",
+     "refs": [
+      "d2-build-generative-applications"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 20,
+     "text": "Evaluate models and apps, including detecting fabrications, relevance, quality, and safety",
+     "refs": [
+      "d2-build-generative-applications"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 21,
+     "text": "Integrate generative workflows into applications by using Foundry SDKs and connectors",
+     "refs": [
+      "d2-build-generative-applications"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 22,
+     "text": "Configure an application to connect to a Foundry project",
+     "refs": [
+      "d2-build-generative-applications"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g6",
+   "domain": 2,
+   "title": "Build agents by using Foundry",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 23,
+     "text": "Define agent roles, goals, conversation-tracking approach, and tool schemas",
+     "refs": [
+      "d2-build-agents-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 24,
+     "text": "Build agents that integrate retrieval, function-calling, and conversation memory",
+     "refs": [
+      "d2-build-agents-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 25,
+     "text": "Integrate agent tools, including APIs, knowledge stores, search, content understanding, and custom functions",
+     "refs": [
+      "d2-build-agents-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 26,
+     "text": "Implement orchestrated multi-agent solutions",
+     "refs": [
+      "d2-build-agents-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 27,
+     "text": "Build autonomous or semiautonomous workflows with safeguards and approval flow controls",
+     "refs": [
+      "d2-build-agents-foundry"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 28,
+     "text": "Integrate monitoring into deployed agents, evaluate agent behavior, and perform error analysis",
+     "refs": [
+      "d2-build-agents-foundry"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g7",
+   "domain": 2,
+   "title": "Optimize and operationalize generative AI systems",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 29,
+     "text": "Tune generation behavior, such as prompt engineering and adjusting model parameters",
+     "refs": [
+      "d2-optimize-operationalize-genera"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 30,
+     "text": "Implement model reflection, chain-of-thought evaluations, and self-critique loops",
+     "refs": [
+      "d2-optimize-operationalize-genera"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 31,
+     "text": "Set up observability by implementing tracing, token analytics, safety signals, and latency breakdowns",
+     "refs": [
+      "d2-optimize-operationalize-genera"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 32,
+     "text": "Orchestrate multiple models, flows, or hybrid LLM and rules engines",
+     "refs": [
+      "d2-optimize-operationalize-genera"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g8",
+   "domain": 3,
+   "title": "Design and implement image- and video-generation solutions",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 33,
+     "text": "Implement a solution that generates images from text prompts and reference media",
+     "refs": [
+      "d3-design-implement-image"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 34,
+     "text": "Implement a solution that generates videos from text prompts and reference media",
+     "refs": [
+      "d3-design-implement-image"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 35,
+     "text": "Configure image-editing workflows, including inpainting, mask‑based edits, and prompt‑driven modifications",
+     "refs": [
+      "d3-design-implement-image"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 36,
+     "text": "Implement workflows to edit generated videos",
+     "refs": [
+      "d3-design-implement-image"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 37,
+     "text": "Select and apply appropriate generation and editing controls provided by the platform",
+     "refs": [
+      "d3-design-implement-image"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g9",
+   "domain": 3,
+   "title": "Design and implement multimodal understanding workflows",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 38,
+     "text": "Build a solution that analyzes visual context by using multimodal models",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 39,
+     "text": "Configure apps to produce concise or detailed captions for single or multiple images",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 40,
+     "text": "Implement a solution that enables question‑answering grounded in visual evidence",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 41,
+     "text": "Configure generation of alt‑text and extended image descriptions aligned to accessibility guidelines",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 42,
+     "text": "Implement visual understanding by configuring Azure Content Understanding in Foundry Tools to extract visual characteristics",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 43,
+     "text": "Implement video analysis workflows to process and interpret video segments",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 44,
+     "text": "Configure single‑task and pro‑mode Content Understanding pipelines",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 45,
+     "text": "Implement solutions that identify objects, components, or regions within images or video",
+     "refs": [
+      "d3-design-implement-multimodal"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g10",
+   "domain": 3,
+   "title": "Implement responsible AI for multimodal content",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 46,
+     "text": "Implement filters to classify unsafe or disallowed visual content",
+     "refs": [
+      "d3-implement-responsible-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 47,
+     "text": "Detect and mitigate indirect prompt injection by using embedded text in images",
+     "refs": [
+      "d3-implement-responsible-ai"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 48,
+     "text": "Enforce visual policy rules, such as applying watermarks, flagging prohibited symbols, upholding brand usage requirements, and detecting potentially inappropriate content",
+     "refs": [
+      "d3-implement-responsible-ai"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g11",
+   "domain": 4,
+   "title": "Apply language model text analysis",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 49,
+     "text": "Implement solutions to extract entities, topics, summaries, and structured JSON outputs by using generative prompting and Foundry Tools",
+     "refs": [
+      "d4-apply-language-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 50,
+     "text": "Configure detection of sentiment, tone, safety issues, and sensitive content",
+     "refs": [
+      "d4-apply-language-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 51,
+     "text": "Build solutions that translate text by using Azure Translator in Foundry Tools or LLM‑powered translation flows",
+     "refs": [
+      "d4-apply-language-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 52,
+     "text": "Customize language model outputs for domain tasks, such as compliance summarization and domain extraction",
+     "refs": [
+      "d4-apply-language-model"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g12",
+   "domain": 4,
+   "title": "Implement speech solutions",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 53,
+     "text": "Implement workflows to convert speech to text and text to speech for agentic interactions",
+     "refs": [
+      "d4-implement-speech-solutions"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 54,
+     "text": "Integrate speech as an agent modality, including custom speech models",
+     "refs": [
+      "d4-implement-speech-solutions"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 55,
+     "text": "Enable multimodal reasoning from audio inputs",
+     "refs": [
+      "d4-implement-speech-solutions"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 56,
+     "text": "Translate speech into other languages by using language models and Foundry Tools",
+     "refs": [
+      "d4-implement-speech-solutions"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g13",
+   "domain": 5,
+   "title": "Build retrieval and grounding pipelines",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 57,
+     "text": "Ingest and index content, such as documents, images, audio, and video",
+     "refs": [
+      "d5-build-retrieval-grounding"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 58,
+     "text": "Configure semantic search, hybrid search, and vector search for grounding",
+     "refs": [
+      "d5-build-retrieval-grounding"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 59,
+     "text": "Implement enrichment by using custom or built-in skills for text, images, and layout",
+     "refs": [
+      "d5-build-retrieval-grounding"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 60,
+     "text": "Configure RAG ingestion flow, including documents and using optical character recognition (OCR)",
+     "refs": [
+      "d5-build-retrieval-grounding"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 61,
+     "text": "Connect retrieval pipelines directly to workflows and agent tools",
+     "refs": [
+      "d5-build-retrieval-grounding"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g14",
+   "domain": 5,
+   "title": "Extract content from documents",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 62,
+     "text": "Extract information by using multimodal pipelines that combine OCR, layout analysis, and field extraction",
+     "refs": [
+      "d5-extract-content-documents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 63,
+     "text": "Produce clean, grounded representations to use with agents and RAG by using Content Understanding",
+     "refs": [
+      "d5-extract-content-documents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 64,
+     "text": "Implement analyzers for generating structured or markdown outputs for downstream reasoning by using Content Understanding",
+     "refs": [
+      "d5-extract-content-documents"
+     ],
+     "isNew": false
+    }
+   ]
+  }
+ ]
+}
