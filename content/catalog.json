@@ -84,6 +84,27 @@
         "questions": 60
       },
       "path": "ab-210/pack.json"
+    },
+    {
+      "id": "mb-230",
+      "order": 70,
+      "code": "MB-230",
+      "title": "Microsoft Dynamics 365 Customer Service Functional Consultant",
+      "short": "Customer Service functional consultant",
+      "vendor": "Microsoft",
+      "family": "Dynamics 365: customer experience",
+      "version": "2026.10.20",
+      "updated": "2026-10-20",
+      "accent": "#c4561a",
+      "description": "Study guide, 50-skill tracker and a 60-question practice exam for the MB-230 exam, the successor to MB-230.",
+      "counts": {
+        "guides": 1,
+        "sections": 38,
+        "skills": 50,
+        "exams": 1,
+        "questions": 60
+      },
+      "path": "mb-230/pack.json"
     }
   ]
 }

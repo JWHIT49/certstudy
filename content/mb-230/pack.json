@@ -1,0 +1,115 @@
+{
+ "schema": 1,
+ "id": "mb-230",
+ "code": "MB-230",
+ "order": 70,
+ "family": "Dynamics 365: customer experience",
+ "title": "Microsoft Dynamics 365 Customer Service Functional Consultant",
+ "short": "Customer Service functional consultant",
+ "vendor": "Microsoft",
+ "version": "2026.10.20",
+ "updated": "2026-10-20",
+ "accent": "#c4561a",
+ "description": "Study guide, 50-skill tracker and a 60-question practice exam for the MB-230 exam, the successor to MB-230.",
+ "disclaimer": "Original study material and practice questions based on public Microsoft documentation. Not Microsoft exam content; the real exam may differ.",
+ "domains": [
+  {
+   "id": 1,
+   "name": "Manage cases in Customer Service",
+   "short": "Manage cases",
+   "weight": "51-55%"
+  },
+  {
+   "id": 2,
+   "name": "Configure representative experience and routing",
+   "short": "Rep UX & routing",
+   "weight": "25-30%"
+  },
+  {
+   "id": 3,
+   "name": "Extend Customer Service",
+   "short": "Extend service",
+   "weight": "15-20%"
+  }
+ ],
+ "examInfo": [
+  {
+   "label": "Passing score",
+   "value": "700 on a scale of 1 to 1,000 (a scaled score, not a percentage)"
+  },
+  {
+   "label": "Questions",
+   "value": "Not published for this exam; Microsoft says most exams have 40-60"
+  },
+  {
+   "label": "Time",
+   "value": "100 minutes of exam time (seat time is longer)"
+  },
+  {
+   "label": "Languages",
+   "value": "English, German, French, Spanish, Portuguese (Brazil), Italian, Japanese, Chinese (Simplified) per the exam page"
+  },
+  {
+   "label": "Delivery",
+   "value": "Pearson VUE: online proctored or test center"
+  },
+  {
+   "label": "Retakes",
+   "value": "24 hours after the first fail, then 14 days; at most 5 attempts in 12 months"
+  },
+  {
+   "label": "Renewal",
+   "value": "Free, open-book assessment on Microsoft Learn; the window opens 6 months before expiry"
+  },
+  {
+   "label": "Microsoft Learn",
+   "value": "Opens in a split screen on associate and expert exams (per Microsoft policy); no extra time"
+  }
+ ],
+ "links": [
+  {
+   "title": "Official MB-230 study guide",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/mb-230"
+  },
+  {
+   "title": "MB-230 exam page",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/mb-230/"
+  },
+  {
+   "title": "Certification page",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/d365-functional-consultant-customer-service-v3/"
+  },
+  {
+   "title": "Course MB-230T01-A: Implement customer service solutions using Microsoft Dynamics 365 Customer Service",
+   "url": "https://learn.microsoft.com/en-us/training/courses/mb-230t01"
+  },
+  {
+   "title": "Official practice assessment",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/exams/mb-230/practice/assessment?assessment-type=practice&assessmentId=72"
+  },
+  {
+   "title": "Exam sandbox",
+   "url": "https://aka.ms/examdemo"
+  }
+ ],
+ "guides": [
+  {
+   "id": "study-guide",
+   "title": "Study Guide",
+   "file": "guide.json"
+  }
+ ],
+ "skills": {
+  "file": "skills.json"
+ },
+ "exams": [
+  {
+   "id": "practice-1",
+   "title": "Practice Exam 1",
+   "file": "exams/practice-1.json",
+   "minutes": 100,
+   "questions": 60,
+   "description": "60 original questions weighted to the MB-230 skills measured, including a case study."
+  }
+ ]
+}

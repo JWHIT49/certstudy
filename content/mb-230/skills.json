@@ -1,0 +1,485 @@
+{
+ "schema": 1,
+ "groups": [
+  {
+   "id": "g1",
+   "domain": 1,
+   "title": "Define and configure foundational Customer Service components",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 1,
+     "text": "Implement and monitor record creation and update rules",
+     "refs": [
+      "d1-define-configure-foundational"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 2,
+     "text": "Configure and modify the case resolution experience",
+     "refs": [
+      "d1-define-configure-foundational"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 3,
+     "text": "Configure and manage security roles",
+     "refs": [
+      "d1-define-configure-foundational"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 4,
+     "text": "Configure the timeline control, including records, card forms, and highlights",
+     "refs": [
+      "d1-define-configure-foundational"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g2",
+   "domain": 1,
+   "title": "Create and administer knowledge management",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 5,
+     "text": "Configure internal knowledge search capabilities",
+     "refs": [
+      "d1-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 6,
+     "text": "Configure tables for knowledge management",
+     "refs": [
+      "d1-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 7,
+     "text": "Manage translated knowledge articles",
+     "refs": [
+      "d1-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 8,
+     "text": "Integrate and search external knowledge sources",
+     "refs": [
+      "d1-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 9,
+     "text": "Configure AI suggestions and Copilot-led knowledge article creation",
+     "refs": [
+      "d1-create-administer-knowledge"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g3",
+   "domain": 1,
+   "title": "Manage collaboration",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 10,
+     "text": "Configure Microsoft Teams chat",
+     "refs": [
+      "d1-manage-collaboration"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 11,
+     "text": "Configure Join a Teams call for specific users",
+     "refs": [
+      "d1-manage-collaboration"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 12,
+     "text": "Configure suggested contacts in Microsoft Teams, including by using AI and rules-based suggestions",
+     "refs": [
+      "d1-manage-collaboration"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 13,
+     "text": "Configure Teams collaboration experience",
+     "refs": [
+      "d1-manage-collaboration"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g4",
+   "domain": 1,
+   "title": "Manage agents and Copilot in Service features",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 14,
+     "text": "Configure Ask a Question, including filtering content",
+     "refs": [
+      "d1-manage-agents-copilot"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 15,
+     "text": "Configure case, timeline, and conversation summaries",
+     "refs": [
+      "d1-manage-agents-copilot"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 16,
+     "text": "Configure Draft a Response",
+     "refs": [
+      "d1-manage-agents-copilot"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 17,
+     "text": "Configure the Case Management Agent",
+     "refs": [
+      "d1-manage-agents-copilot"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 18,
+     "text": "Integrate agents with Customer Service, including plug-ins and knowledge sources",
+     "refs": [
+      "d1-manage-agents-copilot"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g5",
+   "domain": 1,
+   "title": "Create and manage SLAs for cases",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 19,
+     "text": "Configure SLA settings",
+     "refs": [
+      "d1-create-manage-slas"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 20,
+     "text": "Implement actions by using Power Automate",
+     "refs": [
+      "d1-create-manage-slas"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 21,
+     "text": "Apply SLAs",
+     "refs": [
+      "d1-create-manage-slas"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 22,
+     "text": "Create and manage SLA items including key performance indicators (KPIs), warning actions, success actions, and applicability",
+     "refs": [
+      "d1-create-manage-slas"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 23,
+     "text": "Configure a timer control on a form",
+     "refs": [
+      "d1-create-manage-slas"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 24,
+     "text": "Create SLA KPIs",
+     "refs": [
+      "d1-create-manage-slas"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g6",
+   "domain": 2,
+   "title": "Configure routing",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 25,
+     "text": "Configure workstreams",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 26,
+     "text": "Configure user settings",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 27,
+     "text": "Manage capacity profiles",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 28,
+     "text": "Configure work classification and assignments, including rules",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 29,
+     "text": "Configure basic routing rulesets",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 30,
+     "text": "Configure skills-based routing and skill finder models",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 31,
+     "text": "Configure queues",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 32,
+     "text": "Configure routing for records",
+     "refs": [
+      "d2-configure-routing"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g7",
+   "domain": 2,
+   "title": "Configure productivity tools",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 33,
+     "text": "Configure scripts, including slugs",
+     "refs": [
+      "d2-configure-productivity-tools"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 34,
+     "text": "Create macros",
+     "refs": [
+      "d2-configure-productivity-tools"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g8",
+   "domain": 2,
+   "title": "Configure the Copilot Service workspace",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 35,
+     "text": "Configure session templates",
+     "refs": [
+      "d2-configure-copilot-service"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 36,
+     "text": "Create experience profiles",
+     "refs": [
+      "d2-configure-copilot-service"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 37,
+     "text": "Configure the Inbox, including creating custom views",
+     "refs": [
+      "d2-configure-copilot-service"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 38,
+     "text": "Configure application tab templates",
+     "refs": [
+      "d2-configure-copilot-service"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g9",
+   "domain": 3,
+   "title": "Configure the data model and UI components",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 39,
+     "text": "Create and configure forms",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 40,
+     "text": "Create and configure views",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 41,
+     "text": "Configure model-driven app components",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 42,
+     "text": "Create and configure columns",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 43,
+     "text": "Configure alerts and in-app notifications",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 44,
+     "text": "Create or modify a table",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 45,
+     "text": "Configure relationships",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 46,
+     "text": "Configure Dataverse search",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 47,
+     "text": "Create and manage email templates",
+     "refs": [
+      "d3-configure-data-model"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g10",
+   "domain": 3,
+   "title": "Capture customer feedback by using Customer Voice",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 48,
+     "text": "Trigger distribution of a survey",
+     "refs": [
+      "d3-capture-customer-feedback"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 49,
+     "text": "Personalize a survey",
+     "refs": [
+      "d3-capture-customer-feedback"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 50,
+     "text": "Populate survey results against cases and conversations",
+     "refs": [
+      "d3-capture-customer-feedback"
+     ],
+     "isNew": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1321 @@
+{
+ "schema": 1,
+ "id": "practice-1",
+ "title": "Practice Exam 1",
+ "description": "60 original questions weighted to the current MB-230 skills measured (study guide updated 2026-02-09), including a case study.",
+ "minutes": 100,
+ "scoring": "Each question is worth 1 point; multi-part questions are all-or-nothing.",
+ "bands": [
+  {
+   "min": 0.8,
+   "label": "Strong",
+   "text": "You know the material and the traps. Review every miss, re-take in a few days, then book the exam."
+  },
+  {
+   "min": 0.7,
+   "label": "Close",
+   "text": "Gaps in specific areas. Re-read the sections listed below and redo the matching hands-on tasks."
+  },
+  {
+   "min": 0,
+   "label": "Not ready yet",
+   "text": "Follow the study plan and focus on your lowest domain scores first."
+  }
+ ],
+ "caseStudies": [
+  {
+   "id": "wide-world-importers-service-desk",
+   "title": "Wide World Importers: espresso equipment service desk",
+   "html": "<h3>Overview</h3>\n<p>Wide World Importers (WWI) imports professional espresso machines and grinders and services them for cafes, hotels and office caterers in six European countries. About 120 customer service representatives in three service centers handle roughly 9,000 cases a month. WWI is replacing a shared mailbox with Dynamics 365 Customer Service and the Copilot Service workspace.</p>\n\n<h3>Current environment</h3>\n<ul>\n<li>Each customer account has a Premium Care or Standard Care support contract. The country of the account decides its market: EU, UK or Switzerland.</li>\n<li>Two Unified Interface SLAs exist, Premium Care and Standard Care. Both use the KPIs First Response By and Resolve By, and all four SLA items were created with Allow Pause and Resume turned on. No pause conditions are set at the table, KPI or item level.</li>\n<li>The Resolve case dialog is set to Customizable dialog.</li>\n<li>Copilot is enabled. Ask a question uses the organization's knowledge base, and every knowledge article has a custom choice column named Market (EU, UK or Switzerland).</li>\n<li>Unified routing is on, with one record workstream for cases and one case queue that uses the Highest capacity assignment method. Skills use a rating model from 1 to 10.</li>\n<li>Dynamics 365 Customer Voice and Customer Service are in the same tenant.</li>\n</ul>\n\n<h3>Exhibit: Grinder repair skill in the case queue (test data)</h3>\n<table>\n<thead><tr><th>Representative</th><th>Grinder repair rating</th><th>Status</th></tr></thead>\n<tbody>\n<tr><td>Anna</td><td>8</td><td>At capacity</td></tr>\n<tr><td>Bruno</td><td>6</td><td>At capacity</td></tr>\n<tr><td>Chloe</td><td>4</td><td>Available</td></tr>\n</tbody>\n</table>\n\n<h3>Requirements</h3>\n<ol>\n<li>While a Premium Care case has the status reason Waiting for Details, its resolution timer must pause. <b>Only the Premium Care Resolve By timer may pause</b>; every other timer must keep running.</li>\n<li>Technicians must be able to select a new resolution type, Replaced under warranty, <b>in the Resolve case dialog</b>.</li>\n<li>In the Copilot help pane, Ask a question must use only articles for the market of the open case's customer. The filter must be <b>applied automatically, visible to representatives and changeable by them</b>.</li>\n<li>A Grinder repair case needs a representative rated 6 or higher. If no qualified representative has capacity, the case must <b>wait in the queue</b> rather than go to a less proficient representative.</li>\n<li>When a case is resolved, its contact must receive a satisfaction survey <b>automatically</b>, and the response must appear on the case timeline.</li>\n</ol>\n\n<h3>Constraints</h3>\n<p>WWI has no developers. Every requirement must be met by configuration with generally available features.</p>"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 14,
+   "section": "d1-manage-agents-copilot",
+   "stem": "For each statement about configuring the Customer Support agent and knowledge filters for Ask a question, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "The instructions field accepts up to 5,000 characters.",
+     "answer": true
+    },
+    {
+     "text": "Each filter category can contain up to five filters.",
+     "answer": true
+    },
+    {
+     "text": "The instructions are applied when Copilot answers from a Copilot Studio knowledge source.",
+     "answer": false
+    },
+    {
+     "text": "Trusted webpages can be used as a knowledge source for Ask a question.",
+     "answer": false
+    },
+    {
+     "text": "A Lookup column can be chosen as the knowledge field for a filter.",
+     "answer": false
+    }
+   ],
+   "explanation": "Instructions allow <b>5,000 characters</b> and are applied <b>only when the organization's Dynamics 365 knowledge base is the selected source</b>, not for Copilot Studio sources. A category holds <b>up to five filters</b>, and filter fields must be String, Whole Number, Option Set or Two Options, so Lookup is not supported. Trusted webpages (external web resources) are used for drafting emails and chat replies; for Ask a question only the knowledge base and Copilot Studio sources apply.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/copilot-enable-help-pane"
+  },
+  {
+   "id": "q002",
+   "type": "multi",
+   "domain": 1,
+   "skill": 13,
+   "section": "d1-manage-collaboration",
+   "stem": "An administrator at Litware sets <b>Turn on Enhanced Microsoft Teams Integration</b> to Yes on the Collaboration page. Which <b>TWO</b> capabilities do representatives gain?",
+   "options": [
+    "Invite customers to a Teams call even if the customers have no Teams license.",
+    "See suggested representatives who worked on similar cases.",
+    "Show record details in a side panel while a Teams meeting is running.",
+    "Join connected chats that they were not originally invited to.",
+    "Pin Dynamics 365 records and views to a Teams channel from the app.",
+    "Create private Teams messages and add sensitivity or confidentiality labels."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "The configuration article says this optional setting lets representatives pin records and views to a Teams channel directly from Dynamics 365 and also suggests representatives who worked on similar cases. Private messages with sensitivity labels come from the separate Enable Confidential Labels toggle, joining chats comes from the per-record-type Join chat setting, the meeting side panel is the Preview Meeting integration, and inviting customers is Join a Teams call.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-teams-collaboration"
+  },
+  {
+   "id": "q003",
+   "type": "single",
+   "domain": 3,
+   "skill": 43,
+   "section": "d3-configure-data-model",
+   "stem": "Litware's service app already has In-app notifications turned on. When a case is escalated, the solution must show an in-app notification (toast and notification center) to each of the 12 members of the Escalations team. Which design meets the requirement?",
+   "options": [
+    "Send a push notification to the 12 members by using the Power Apps Notification connector.",
+    "Call SendAppNotification once with Priority set to High so that all 12 members receive it.",
+    "Call SendAppNotification once for each team member, with that user as the Recipient.",
+    "Call SendAppNotification once and set the Recipient to the Escalations team."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "In-app notifications are <b>user-specific</b>: each notification has a single user as its recipient and sending to a team isn't supported, so one notification must be created for every member. The Power Apps Notification connector sends <b>push</b> notifications to the Power Apps, Field Service or Sales mobile app, which is a separate feature from in-app notifications. <b>Priority</b> only determines the order in which notifications are displayed in the notification center; it doesn't add recipients.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/send-in-app-notifications"
+  },
+  {
+   "id": "q004",
+   "type": "single",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-create-administer-knowledge",
+   "stem": "Proseware hosts its public help articles on a website that publishes a site map. Reps in Copilot Service workspace must find these articles with the same search and filters as internal articles, and the content must refresh on a schedule. Which feature should the administrator configure?",
+   "options": [
+    "An external search provider of type SharePoint that points to the website's address.",
+    "An integrated search provider that ingests the site's articles into Dataverse.",
+    "An origins allow list entry for the website's domain, so its pages can load inside articles.",
+    "An external search provider of type Cross-Organizational Search that uses the website's domain."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Integrated search providers are built for third-party sources such as websites that follow the site map protocol: the articles are ingested into Dataverse and refreshed on the schedule you set, so they can be searched and filtered like internal articles. External providers (Cross-Organizational Search, SharePoint, Microsoft Graph connector) are federated and show links per provider, SharePoint must be in the same Microsoft organization, and an origins allow list only controls which origins can render inside article content.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-search-provider"
+  },
+  {
+   "id": "q005",
+   "type": "single",
+   "domain": 2,
+   "skill": 35,
+   "section": "d2-configure-copilot-service",
+   "stem": "Adventure Works handles WhatsApp conversations in Copilot Service workspace. The administrator creates a new <b>custom</b> session template so that the Active Conversation page opens as the <b>anchor tab</b> when a rep accepts a conversation. On the New Session Template form the administrator set Type to Entity and sees an Entity field but no field for choosing the anchor tab. What should the administrator do?",
+   "options": [
+    "Keep Type as Entity and add Active Conversation under Additional Tab instead.",
+    "Open the out-of-the-box WhatsApp session - default template and change its anchor tab.",
+    "Set Communication panel mode to Docked so that the Anchor tab field is displayed.",
+    "Change Type to Generic, then select Active Conversation in the Anchor tab field."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The <b>Anchor tab</b> field is displayed only when <b>Type</b> is <b>Generic</b>; an Entity template shows an Entity field instead because it is record-based, for example for cases. Additional tabs come from existing application tab templates and are not the anchor tab. Out-of-the-box session templates can't be customized, so a custom template is the only route, and the communication panel mode only sets the panel's default state.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/session-templates"
+  },
+  {
+   "id": "q006",
+   "type": "single",
+   "domain": 2,
+   "skill": 29,
+   "section": "d2-configure-routing",
+   "stem": "Wide World Importers routes cases with a basic routing rule set (unified routing is not enabled). Rule item 1 sends cases from Premium customers to the Premium queue and is listed above rule item 2, which sends High priority cases to the Escalations team. High-priority cases from premium customers must go to the Escalations team. What should the administrator do?",
+   "options": [
+    "Deactivate the rule set, move the High priority rule item above the Premium rule item, then activate it again.",
+    "Create a separate rule set for escalations and activate it while keeping the first one active.",
+    "Leave the order as it is, because a case that matches both rule items is routed to both destinations.",
+    "Add a work classification rule to a workstream that sets the case priority before the case is routed."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Rule items are evaluated <b>top to bottom, and the first true rule item routes the case</b> and skips the rest, so the more specific High priority item must be listed first. An active rule set must be deactivated before you edit it. Without unified routing only <b>one rule set can be active at a time</b>, so activating a second one deactivates the first. Work classification rules belong to unified routing workstreams, not to basic routing rule sets.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-rules-automatically-route-cases"
+  },
+  {
+   "id": "q007",
+   "type": "dropdown",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-create-administer-knowledge",
+   "stem": "Complete the JSON schema for an integrated search provider so that articles are ingested into the Knowledge Article table by using the values that the documentation requires.",
+   "format": "code",
+   "language": "json",
+   "template": "{\n  \"Name\": \"Contoso help site\",\n  \"UniqueTargetFieldName\": \"{1}\",\n  \"ContentTargetFieldName\": \"{2}\",\n  \"ApiPathLeafName\": \"{3}\",\n  \"FieldDefinitions\": []\n}",
+   "blanks": [
+    {
+     "options": [
+      "msdyn_isingestedarticle",
+      "msdyn_ingestedarticleurl",
+      "msdyn_externalreferenceid",
+      "msdyn_integratedsearchproviderid"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "content",
+      "description",
+      "keywords",
+      "title"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "languagelocales",
+      "knowledgebaserecords",
+      "knowledgearticles",
+      "knowledgearticleviews"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "<code>UniqueTargetFieldName</code> identifies the article on the provider side and is set to the out-of-the-box <code>msdyn_externalreferenceid</code> column (or a custom column defined as an alternate key). <code>ContentTargetFieldName</code> must be <code>content</code> and <code>ApiPathLeafName</code> must be <code>knowledgearticles</code>; the documentation says not to change those two values. The schema method cannot be changed after the provider is saved.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/develop/int-search-metadata-schema"
+  },
+  {
+   "id": "q008",
+   "type": "single",
+   "domain": 1,
+   "skill": 14,
+   "section": "d1-manage-agents-copilot",
+   "stem": "Litware Support wants Copilot in the help pane to use only knowledge articles that match the <b>Region</b> of the case the representative has open. Representatives must still be able to see the filter and change it for the occasional cross-region case. What should the administrator configure?",
+   "options": [
+    "A preset filter on the region field of the knowledge article, applied silently to every conversation.",
+    "An instruction in the Customer Support agent that tells Copilot to prefer articles for the case region.",
+    "A representative filter on the region field, with <b>Filter status</b> turned on and no rules defined.",
+    "An automated filter on the region field, with <b>Allow representatives to view or change this filter</b> turned on."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "An <b>automated filter</b> is applied automatically from the record the representative has open, and the option <b>Allow representatives to view or change this filter</b> shows it to them so they can override it. A preset filter runs in the background and reps can't see or change it. A representative filter must be chosen by the rep and is not applied from the case. Instructions are free-text guidance (up to 5,000 characters) and can't restrict which articles are retrieved.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/copilot-enable-help-pane"
+  },
+  {
+   "id": "q009",
+   "type": "single",
+   "domain": 1,
+   "skill": 6,
+   "section": "d1-create-administer-knowledge",
+   "stem": "Reps at Northwind Traders work in Copilot Service workspace and want to search and link knowledge articles from a custom Warranty Claim table. Knowledge management is already set up for cases. What should the administrator do?",
+   "options": [
+    "Create an external search provider of type SharePoint that points to the library holding warranty claim documents.",
+    "In Power Apps, add only the Knowledge Base Search control to the Warranty Claim main form, publish the form and test it.",
+    "In the Copilot Service admin center, open Knowledge &gt; Record types, select <b>Add</b> and choose Warranty Claim.",
+    "In the Power Platform admin center, enable Dataverse search for the Warranty Claim table and run a full index."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Knowledge management is turned on per record type: Knowledge &gt; Record types &gt; Manage &gt; Add, then Edit to set automatic search, actions and the email recipient. Case and Conversation are on by default; every other table must be added. The form control is documented for single-session apps (Copilot Service workspace uses the side pane control) and needs the table enabled for knowledge first, and an external search provider only federates search results from a source such as SharePoint; it does not turn on knowledge management for the Warranty Claim table.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-knowledge-search-control-productivity-pane"
+  },
+  {
+   "id": "q010",
+   "type": "single",
+   "domain": 3,
+   "skill": 47,
+   "section": "d3-configure-data-model",
+   "stem": "At Fabrikam Outdoor, an administrator builds a follow-up email template for case agents. In the Designer tab she places the dynamic text for the case number inside the URL of a \"Track your case\" hyperlink. Emails created from the template do not include the case number in that link. What should she do?",
+   "options": [
+    "Keep the dynamic text out of the hyperlink and show it as plain text next to the link.",
+    "Reopen the template in the enhanced email template editor and insert the placeholder there.",
+    "Append the /@name suffix to the placeholder so that the value resolves inside the link.",
+    "Change the template's permission level from Individual to Organization."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Dynamic text in a hyperlink or an anchor tag isn't supported</b>, so the value has to sit in the visible text instead. Permission level (Organization or Individual) only decides who can use the template, and the <code>/@name</code> suffix applies to lookup, choice and multi-select columns, not to a text value such as a case number. The enhanced email template editor is no longer available; it was removed on May 23, 2025.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/user/email-dynamic-text"
+  },
+  {
+   "id": "q011",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 36,
+   "section": "d2-configure-copilot-service",
+   "stem": "Contoso Insurance is configuring experience profiles in Copilot Service admin center. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "After a custom profile is set as the default, security roles can still be mapped to that profile.",
+     "answer": false
+    },
+    {
+     "text": "The out-of-the-box Customer Service workspace - default profile can be set as the default profile.",
+     "answer": false
+    },
+    {
+     "text": "A user whose two security roles are mapped to different custom profiles gets the profile with the higher rank.",
+     "answer": true
+    },
+    {
+     "text": "A user who creates experience profiles needs the App Profile Manager Administrator role and the Basic User role.",
+     "answer": true
+    },
+    {
+     "text": "A custom profile can be assigned to users based on the team they belong to.",
+     "answer": false
+    }
+   ],
+   "explanation": "Creating profiles requires <b>App Profile Manager Administrator</b> plus <b>Basic User</b>. Out-of-the-box profiles can't be deleted, modified or set as default, and they can't receive roles or a rank. Role mapping works only through security roles; assignment based on team membership isn't allowed. With several mapped roles the higher-ranked profile wins (rank 1 outranks rank 2). Setting a custom profile as the default removes its roles and blocks mapping new ones.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-profile-default"
+  },
+  {
+   "id": "q012",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 49,
+   "section": "d3-capture-customer-feedback",
+   "stem": "A Customer Voice survey author at Litware is adding variables to personalize the questions and the invitation email of a customer satisfaction survey. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "A variable name can include punctuation, such as an underscore.",
+     "answer": false
+    },
+    {
+     "text": "A single survey can define up to 15 variables.",
+     "answer": true
+    },
+    {
+     "text": "After a variable is created, it can be renamed in the Personalization panel.",
+     "answer": false
+    },
+    {
+     "text": "With Anonymous responses turned on, variable values are saved in the response record by default.",
+     "answer": false
+    },
+    {
+     "text": "Variables can be used in branching rules as well as in survey invitation emails.",
+     "answer": true
+    }
+   ],
+   "explanation": "A survey allows a maximum of <b>15 variables</b>. A variable name can have at most <b>30 characters</b>, consisting of only <b>English letters and numbers</b>, so punctuation isn't allowed, and a variable <b>can't be renamed</b> after it is created. Variables can also be used in <b>branching rules</b>, in invitations sent through email, and in embedded surveys. When <b>Anonymous responses</b> is on, a <b>Save value</b> toggle appears for each variable and is <b>off by default</b>, so the value isn't stored in the response record until you turn it on.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-voice/personalize-survey"
+  },
+  {
+   "id": "q013",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 25,
+   "section": "d2-configure-routing",
+   "stem": "Fabrikam Outdoors is creating workstreams in the Copilot Service admin center for its first unified routing deployment. For each statement about workstreams, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "A workstream's fallback queue receives the work items that match none of the workstream's route-to-queue rules.",
+     "answer": true
+    },
+    {
+     "text": "After a workstream has been created, an administrator can switch its work distribution mode from Push to Pick on the workstream page.",
+     "answer": false
+    },
+    {
+     "text": "A workstream for the voice channel can use only the Push work distribution mode.",
+     "answer": true
+    },
+    {
+     "text": "The <b>Block capacity for wrap up</b> setting is set to Always block by default.",
+     "answer": true
+    },
+    {
+     "text": "The <b>Keep same representative for entire conversation</b> setting (representative affinity) can be used on a workstream that uses the Pick mode.",
+     "answer": false
+    }
+   ],
+   "explanation": "<b>Voice supports Push only</b>, and the Push or Pick choice <b>can't be edited after creation</b>, so a different mode means a new workstream. The fallback queue is where items go when no queue is identified by the route-to-queue rules. Representative affinity applies to <b>push</b> work distribution only, and <b>Block capacity for wrap up</b> defaults to <b>Always block</b> (the other choices are Don't block and Custom time of 30 seconds to 60 minutes).",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-workstreams"
+  },
+  {
+   "id": "q014",
+   "type": "single",
+   "domain": 1,
+   "skill": 18,
+   "section": "d1-manage-agents-copilot",
+   "stem": "Northwind Traders has an existing plug-in that Copilot calls from Ask a question, and <b>Extend agent with Copilot Studio</b> is turned on. The plug-in's connection must change to a different service account. Where should the administrator make the change?",
+   "options": [
+    "On the <b>Extend agent</b> tab of the Customer Support agent in Copilot Service admin center, by editing the plug-in entry.",
+    "In <b>Copilot Studio</b>, by editing the plug-in's tool in the Customer Service Copilot Bot agent.",
+    "On the <b>Prompts</b> tab of the Customer Support agent, by editing the prompt that calls the plug-in.",
+    "In <b>maker mode</b> of the Service agent in Microsoft 365 Copilot, by editing the plug-in's connection."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Existing plug-ins keep working and are managed as <b>tools in the Customer Service Copilot Bot agent in Copilot Studio</b>, so a connection change is made by editing that tool there. The Extend agent tab turns extensibility on and holds custom context but doesn't edit tools. The Prompts tab holds organization prompts. Service Agent maker mode extends a different agent, in Microsoft 365 Copilot.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/extend-copilot-with-copilot-studio"
+  },
+  {
+   "id": "q015",
+   "type": "single",
+   "domain": 1,
+   "skill": 17,
+   "section": "d1-manage-agents-copilot",
+   "stem": "Fabrikam's Case Management Agent update rule predicts the Product lookup on cases. Products are organized under a parent category, but the agent never uses the parent category when it predicts the product. What should the administrator change?",
+   "options": [
+    "Add the parent category column to the Case form that representatives use.",
+    "Add the parent category lookup column to the <b>Quick Find Active</b> view of the Product table.",
+    "Add the parent category lookup column to the main form of the Product table.",
+    "Add the parent category lookup column to a custom public view of the Product table."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Hierarchical lookups work <b>only when the parent lookup column is in the Quick Find Active view of the child table</b>, here the Product table. A form on the child table or a custom view is not used for this, and changing the Case form has no effect on how the agent predicts the product.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-autonomous-case-agents"
+  },
+  {
+   "id": "q016",
+   "type": "single",
+   "domain": 3,
+   "skill": 46,
+   "section": "d3-configure-data-model",
+   "stem": "The custom Warranty claim table is in the Customer Service app and is selected for Dataverse search. Agents search for a serial number that is stored in the single-line text column Serial number, but global search returns no claims. What should the consultant do?",
+   "options": [
+    "Select Searchable in the Serial number column properties and save the table.",
+    "Add Serial number as a column of the default public view of the Warranty claim table.",
+    "Add Serial number to the Find columns of the table's Quick Find view and publish it.",
+    "Add Serial number as a column of the Advanced Find view of the Warranty claim table."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Dataverse search indexes the <b>Find columns</b> of the table's <b>Quick Find view</b> (single-line text, multiline text, lookup and choice columns count; other types are ignored), so the column has to be added there and the view published; changes can take up to about 15 minutes to reach the search service. The column's <b>Searchable</b> property only makes it available in Advanced Find and when customizing views. The Advanced Find view and public views don't drive the Dataverse search index.",
+   "ref": "https://learn.microsoft.com/en-us/power-platform/admin/configure-relevance-search-organization"
+  },
+  {
+   "id": "q017",
+   "type": "order",
+   "domain": 1,
+   "skill": 1,
+   "section": "d1-define-configure-foundational",
+   "stem": "Woodgrove Bank wants every email that reaches its support queue to become a case. Arrange the steps to create and turn on the automatic record creation rule in the Copilot Service admin center.",
+   "items": [
+    "On the Basic tab, enter the rule name, queue scope, queue to monitor and Email as the activity type, then select Save.",
+    "In Step two, select New to open the Condition builder and add at least one condition.",
+    "Confirm that Record to create is Case, then select Save and open in Power Automate.",
+    "Select Save &amp; Close to close the Condition builder.",
+    "In Step three, set Automatically reply to email and choose an email template.",
+    "Activate the rule, because it stays in Draft until you do."
+   ],
+   "explanation": "The documented sequence is: Step one on the Basic tab and Save (which enables Step two), a new condition (at least one is required), Record to create = Case with Save and open in Power Automate, Save &amp; Close, Step three for the automatic reply, and finally activation. An email rule also needs a queue to monitor before it can be activated.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/automatically-create-update-records"
+  },
+  {
+   "id": "q018",
+   "type": "single",
+   "domain": 1,
+   "skill": 22,
+   "section": "d1-create-manage-slas",
+   "stem": "At Proseware, a default SLA has an item whose <b>Applicable When</b> condition is Status = Active and whose <b>Success Conditions</b> are Status = Resolved. When a representative resolves a case, its SLA KPI instance becomes Canceled instead of Succeeded. What is the cause?",
+   "options": [
+    "Status is used in both conditions, so resolving the case ends Applicable When and cancels the instance.",
+    "The SLA monitoring flow is turned off, so instances can never move to the Succeeded state.",
+    "The warning duration is null, so instances skip Nearing noncompliance and are canceled instead.",
+    "The SLA has more items than the recommended 15, so extra instances are canceled when a case closes."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "When Applicable When and the success condition use the <b>same attribute</b>, the case status change makes Applicable When no longer true, and an instance whose Applicable When is no longer met is <b>canceled</b>. Learn recommends not defining both on the same attribute. A null warning duration only skips the Nearing noncompliance stage, and the monitoring flow affects warnings and failure, not this outcome.",
+   "ref": "https://learn.microsoft.com/en-us/troubleshoot/dynamics-365/customer-service/service-level-agreements/sla-kpi-instance-shows-canceled"
+  },
+  {
+   "id": "q019",
+   "type": "multi",
+   "domain": 1,
+   "skill": 15,
+   "section": "d1-manage-agents-copilot",
+   "stem": "Fabrikam wants conversation summaries to be generated automatically, with no action by the representative, so that a representative added to a conversation is caught up and a wrap-up is ready when the conversation closes. Which <b>TWO</b> options on the Summaries page should the administrator select?",
+   "options": [
+    "When a representative joins a conversation",
+    "When a conversation ends",
+    "Allow customer service representatives to create case with a button in the summary",
+    "Make case summaries available to representatives",
+    "On demand"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "select": 2,
+   "explanation": "Conversation summaries have three triggers: <b>when a representative joins</b> (including a collaborator who joins or a transfer), <b>when a conversation ends</b>, and <b>on demand</b>. Only the first two are automatic; on demand waits for the rep to select Summarize conversation. The create case button is an optional add-on to the end-of-conversation summary, not a trigger, and the case summaries option controls a different kind of summary.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/copilot-enable-summary"
+  },
+  {
+   "id": "q020",
+   "type": "single",
+   "domain": 3,
+   "skill": 39,
+   "section": "d3-configure-data-model",
+   "stem": "Contoso Insurance keeps two Case main forms: a trimmed form for Tier 1 agents and the full form for everyone else. Tier 1 agents must work only in the trimmed form, and users with no role-specific form (for example, auditors) must still be able to open a Case form. What should the consultant configure?",
+   "options": [
+    "Build the trimmed layout as a quick create form and assign that form to the Tier 1 security role in Form settings.",
+    "Move the trimmed form to the top of the form order and leave Everyone selected on both main forms, so Tier 1 agents get it first.",
+    "Select Hide on the extra columns of the full main form so that they are hidden for the Tier 1 role.",
+    "Assign the trimmed main form to the Tier 1 security role in Form settings and keep the full main form enabled as a fallback form."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Security roles are assigned per <b>main</b> form in Form settings, and a <b>fallback</b> form is what users get when their roles have no form assigned, so Tier 1 agents get the trimmed form while auditors still open the full one. <b>Form order</b> only ranks forms a user can already open, so it restricts nobody. Quick create, quick view and card forms <b>can't</b> be assigned to security roles. <b>Hide</b> is a property of the form column, not of a role, and it is a UI setting rather than security.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/control-access-forms"
+  },
+  {
+   "id": "q021",
+   "type": "single",
+   "domain": 2,
+   "skill": 27,
+   "section": "d2-configure-routing",
+   "stem": "Northwind Traders' chat representatives use a capacity profile whose <b>Reset frequency</b> is Immediate. Management now wants each rep's capacity to reset when the shift ends, even if some conversations are still open. What should the administrator do?",
+   "options": [
+    "Set <b>Block capacity for wrap up</b> on the workstream to a custom time that matches the shift length.",
+    "Create a new profile with <b>Reset frequency</b> set to End of day and assign it to the reps.",
+    "Open the existing profile and change <b>Reset frequency</b> to End of day.",
+    "Turn on <b>Assignment blocking</b> in the existing profile so reps stop receiving work at the limit."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<b>Reset frequency</b> is the one capacity profile setting that can't be edited after the profile is created, so the profile has to be recreated with End of day. Assignment blocking only stops automatic assignment (and sets Busy-DND) once the work item limit is reached. Block capacity for wrap up controls only how long capacity stays consumed after a conversation moves to Wrap-up (30 seconds to 60 minutes), not the daily reset.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/capacity-profiles"
+  },
+  {
+   "id": "q022",
+   "type": "single",
+   "domain": 1,
+   "skill": 11,
+   "section": "d1-manage-collaboration",
+   "stem": "At Fabrikam, Join a Teams call works for reps on the default experience profile, but reps on a custom profile do not get it. All other collaboration settings are correct. What should the administrator do?",
+   "options": [
+    "Configure outbound email for each representative, because the feature stays unavailable until their mailbox can send.",
+    "License every customer for Teams, because customers must be licensed before a representative can invite them.",
+    "Turn on <b>Show Dynamics 365 data in Teams meetings (preview)</b> under Meeting integration using Teams for the profile.",
+    "On the Join a Teams call page, use <b>Manage</b> next to <b>Turn on for specific multisession users</b> for the custom profile."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Join a Teams call is on by default only for agent profiles that have Dynamics 365 Contact Center enabled; custom agent profiles must be enabled with <b>Manage</b> next to <b>Turn on for specific multisession users</b> on the Join a Teams call page. Outbound email is needed only when reps email the invitation, Meeting integration using Teams is a separate Preview feature, and customers don't need a Teams license or Teams experience.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-join-a-teams-call"
+  },
+  {
+   "id": "q023",
+   "type": "single",
+   "domain": 1,
+   "skill": 12,
+   "section": "d1-manage-collaboration",
+   "stem": "Woodgrove Bank needs a rules-based suggested-contacts rule that picks the on-call engineer from a custom roster by using its own logic. The rule type is Custom and the administrator is building the custom action. Which argument set matches what the rule expects?",
+   "options": [
+    "Required String inputs EntityLogicalName and Recordid; required String output CustomActionSuggestedUsers; optional String input CustomActionInputs.",
+    "Required String input Recordid and required String output CustomActionSuggestedUsers; the table name is inferred from the rule's record type.",
+    "Required String inputs EntityLogicalName, Recordid and CustomActionSuggestedUsers; optional String output CustomActionInputs that echoes the call.",
+    "Required inputs EntityLogicalName (String) and Recordid (Guid); required output SuggestedUsers (EntityCollection) that returns the engineer's user record."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The custom action must define EntityLogicalName and Recordid as required String inputs, CustomActionSuggestedUsers as a required String output, and may add the optional String input CustomActionInputs. The output is a list of objects with AADUserId, systemUserId and description. The other sets use wrong names or types, put CustomActionSuggestedUsers on the input side, or leave out EntityLogicalName.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-rules-based-suggested-contacts"
+  },
+  {
+   "id": "q024",
+   "type": "single",
+   "domain": 1,
+   "skill": 17,
+   "section": "d1-manage-agents-copilot",
+   "stem": "Woodgrove Bank wants the Case Management Agent to email customers a resolution and resolve cases for its Billing line of business with no representative review. Which configuration meets the requirement?",
+   "options": [
+    "Set the Billing level of automation to <b>Shadow mode</b>, so the agent sends its resolution emails and resolves cases while it is evaluated.",
+    "Set the Billing level of automation to <b>Require agent confirmation</b>, so the agent drafts the email and a representative approves it.",
+    "Set the Billing level of automation to <b>Full</b>, and set an application user with the Customer Service Representative role and a shared mailbox.",
+    "Set the Billing level of automation to <b>Full</b> and rely on the default settings; no application user or shared mailbox is needed."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Full</b> is the level at which the agent emails the customer and resolves the case without review, and fully autonomous resolution requires an <b>application user</b> (assigned the Customer Service Representative role) that has a <b>shared mailbox</b> associated with it; the application user is then selected in the Case resolution settings. Require agent confirmation only drafts the email for a representative to review and send. Shadow mode evaluates predicted actions on live cases without sending emails or updating records. Full without the application user and shared mailbox is not a complete configuration, because they are what let the agent send customer emails.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-case-resolution-agent"
+  },
+  {
+   "id": "q025",
+   "type": "single",
+   "domain": 3,
+   "skill": 50,
+   "section": "d3-capture-customer-feedback",
+   "stem": "Woodgrove Bank built a Power Automate flow from a blank flow. When a case is resolved, the Dynamics 365 Customer Voice Send a survey action emails the case's contact. Responses arrive, but neither the invitation nor the response appears on the case timeline. Which input of the action should the flow author set to attach them to the case?",
+   "options": [
+    "Regarding, with the Case table entered by its logical name, incident.",
+    "Email template, set to the template that the Support project uses.",
+    "Project, set to the project that contains the satisfaction survey.",
+    "Recipient details, set to the contact record that is linked to the case."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The <b>Regarding</b> input holds the record that associates the invitation and response, and the table must be entered by its logical name, <code>incident</code> for Case; only tables marked for collaboration in activities are supported, and Task isn't. <b>Recipient details</b> accepts only a Contact record, so it ties the invitation and response to the contact, not to the case. The <b>Email template</b> input picks the invitation template, and <b>Project</b> with Survey picks which survey is sent.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-voice/send-survey-flow"
+  },
+  {
+   "id": "q026",
+   "type": "single",
+   "domain": 2,
+   "skill": 31,
+   "section": "d2-configure-routing",
+   "stem": "Proseware's live chat queue sometimes receives bursts of chats. When 20 chats are already waiting in the queue, new chats must be sent to a different messaging queue instead of joining the busy one. Which overflow condition should the administrator configure on the queue?",
+   "options": [
+    "Out of operating hours, with the action Transfer to a different queue.",
+    "Average wait time, set to 20 minutes, with the action Transfer to a different queue.",
+    "Work item limit exceeds, set to 20, with the action Transfer to a different queue.",
+    "Waiting time in queue exceeds, set to 20 minutes, with the action Transfer to a different queue."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Work item limit exceeds</b> (a value from 1 to 100 on voice and messaging queues) is checked <b>before</b> a new item enters the queue and fires when the queue already holds that many open items. Average wait time is available for <b>voice queues only</b>. Waiting time in queue exceeds is evaluated <b>after</b> an item has waited, so the chats would still join the busy queue first, and Out of operating hours depends on the queue's operation hours rather than its length.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/manage-overflow"
+  },
+  {
+   "id": "q027",
+   "type": "single",
+   "domain": 1,
+   "skill": 21,
+   "section": "d1-create-manage-slas",
+   "stem": "Wide World Importers has a different SLA for each customer country. The SLA must be applied to new cases automatically without any representative action, and the company doesn't use entitlements. What should the consultant implement?",
+   "options": [
+    "Set one SLA as the default SLA for the Case table and let it cover every country.",
+    "Turn on <b>Apply SLA after manual override</b> in the Service Configuration Settings.",
+    "Add the SLA field to the case form so representatives select the SLA for their country.",
+    "A Power Automate flow that sets the SLA on each case based on the customer's country."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "SLAs can be applied <b>automatically</b> by a workflow, a Power Automate flow or a custom plug-in that sets the SLA on the record, so the SLA can be chosen by country with no rep action. A default SLA is a single fallback for cases without an entitlement SLA. Apply SLA after manual override only governs what happens after an SLA was applied manually. Selecting the SLA in the form field is the manual method.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/apply-slas"
+  },
+  {
+   "id": "q028",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 1,
+   "section": "d1-define-configure-foundational",
+   "stem": "Fabrikam administrators review the activity monitor for their email-to-case rule. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "To reprocess queue items that did not succeed, select them under All Activities and use Add To Queue.",
+     "answer": true
+    },
+    {
+     "text": "The Monitored activity type column is shown by default on the Activity monitor events for last 7 days page.",
+     "answer": false
+    },
+    {
+     "text": "A Current state of Skipped means the rule hit an error and must be repaired before any case can be created.",
+     "answer": false
+    },
+    {
+     "text": "The activity monitor tracks a rule only until it is evaluated in Customer Service, which is before the rule runs in Power Automate.",
+     "answer": true
+    }
+   ],
+   "explanation": "The monitor works in online environments only and stops at the hand-off to Power Automate, so flow problems show up in the flow run history instead. <b>Skipped</b> means the system skipped the activity by design (for example an unknown sender while Allow email from unknown senders is No); <b>Failed</b> is the error state. The Monitored activity type column is hidden in the 7-day view until you add it with Edit columns.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/manage-activity-arc"
+  },
+  {
+   "id": "q029",
+   "type": "order",
+   "domain": 2,
+   "skill": 26,
+   "section": "d2-configure-routing",
+   "stem": "Adventure Works is moving 400 representatives into unified routing and will script the user setup with Dataverse API calls. Arrange the steps in the order that Microsoft recommends so that the user data stays consistent.",
+   "items": [
+    "Create or import the users.",
+    "Add the users to queues.",
+    "Create the bookable resources.",
+    "Add skills to the users.",
+    "Assign the capacity profiles.",
+    "Assign the required security roles."
+   ],
+   "explanation": "The unified routing best-practices guidance gives this sequence for bulk setup with Dataverse API calls: users, queues, bookable resources, skills, capacity profiles, then roles. If the order is not followed, user information can be inconsistent, for example users without their skills or capacity profiles. The same guidance recommends about 500 change requests per 15 minutes to avoid throttling.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/unified-routing-best-practices"
+  },
+  {
+   "id": "q030",
+   "type": "single",
+   "domain": 2,
+   "skill": 38,
+   "section": "d2-configure-copilot-service",
+   "stem": "Woodgrove Bank's case sessions include an application tab template of page type Entity record with these parameters:<pre>entityName = account\nentityId   = {anchor._customerid_value}</pre>For some cases the value doesn't match an existing account, and reps then see a blank new-account form in the tab. The tab must load a form only when the account record exists. What should the administrator do?",
+   "options": [
+    "Set the <code>formId</code> parameter to the GUID of the account main form.",
+    "Add a template parameter named <code>validateRecord</code> and set its value to <code>True</code>.",
+    "Change the page type to Entity list and set the <code>viewId</code> parameter.",
+    "Add a <code>data</code> parameter with the JSON <code>{\"validate\": true}</code>."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "When <code>entityId</code> doesn't match an existing Dataverse record, an Entity record tab opens the form in create mode. Setting <code>validateRecord</code> to <code>True</code> loads the form only if the record exists; if the parameter isn't listed, add it with New Template Parameter (unique name <code>new_tabtemplateparam_validateRecord</code>). <code>formId</code> only chooses which form to show, <code>data</code> prepopulates a create form and validates nothing, and Entity list shows a view of records rather than one form.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/application-tab-templates"
+  },
+  {
+   "id": "q031",
+   "type": "single",
+   "domain": 1,
+   "skill": 24,
+   "section": "d1-create-manage-slas",
+   "stem": "Contoso Telecom wants a new KPI named <b>Escalated By</b> for Unified Interface SLAs on the Case table. What must the consultant create before creating the SLA KPI record?",
+   "options": [
+    "A Two Options column on the Case table that flags escalated cases.",
+    "A lookup column on the Case table that targets <b>SLA KPI Instance</b>.",
+    "An SLA item on the existing Case SLA that refers to the new Escalated By KPI.",
+    "A DateTime column on the Case table, which the SLA KPI uses as its Related Case Field."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The <b>KPI Field</b> of an SLA KPI is a lookup column on the table that targets <b>SLA KPI Instance</b> (for example <code>EscalatedByKPI</code>), so that lookup must exist before the KPI is created. A DateTime Related Case Field is the approach of classic standard SLAs, an item can only refer to a KPI that already exists, and a Two Options column can't hold KPI instances.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/define-service-level-agreements"
+  },
+  {
+   "id": "q032",
+   "type": "order",
+   "domain": 1,
+   "skill": 22,
+   "section": "d1-create-manage-slas",
+   "stem": "Arrange the steps to create a Unified Interface SLA and put it into use, from first to last.",
+   "items": [
+    "Create the SLA KPI with its Name, Owner, Entity Name, KPI Field and Applicable From.",
+    "Create the SLA with its Name and Primary Entity, and save it.",
+    "Create the SLA item with its KPI, Applicable When, Success Conditions and warn and fail durations.",
+    "Configure the item's actions in Power Automate.",
+    "Activate the SLA.",
+    "Apply the SLA, for example by setting it as the default SLA."
+   ],
+   "explanation": "The documented sequence is: create the <b>SLA KPI</b> first because an item refers to a KPI; create and save the <b>SLA</b> (saving makes the SLA Items section appear); add the <b>SLA item</b>; use <b>Configure Actions</b> to build the Power Automate flow; <b>activate</b> the SLA; and finally <b>apply</b> it, for example with Set As Default, an entitlement or an automatic flow.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/define-service-level-agreements"
+  },
+  {
+   "id": "q033",
+   "type": "single",
+   "domain": 2,
+   "skill": 28,
+   "section": "d2-configure-routing",
+   "stem": "At Litware Insurance, cases from premium customers must be offered to representatives before standard cases that are waiting in the same record queue, and cases of the same tier must be offered oldest first. Which configuration meets the requirement?",
+   "options": [
+    "Add a work classification rule that sets a premium attribute on each case when it is routed.",
+    "Choose the <b>Highest capacity</b> assignment method so reps with the most free capacity get premium cases.",
+    "Give the queue a smaller <b>Queue priority</b> number than the organization's other queues.",
+    "Add a prioritization ruleset to the queue's custom assignment method with a rule for premium cases."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "A <b>prioritization ruleset</b>, which belongs to the Create new (custom) assignment method, puts matching items into ordered priority buckets inside one queue and sorts each bucket by an <b>Order by</b> attribute such as first in, first out. <b>Queue priority</b> ranks queues against each other for reps who belong to several, not items inside a queue. Highest capacity chooses the rep, not the order of items. A classification rule only enriches the item; it doesn't change the order by itself.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/assignment-methods"
+  },
+  {
+   "id": "q034",
+   "type": "single",
+   "domain": 1,
+   "skill": 7,
+   "section": "d1-create-administer-knowledge",
+   "stem": "Tailwind Traders approved an English knowledge article together with its French and German translations. A knowledge manager wants all three to go live at the same time when the English article is published. What should the manager select in the Publish dialog?",
+   "options": [
+    "Set <b>Publish On</b> to a future date so the related translations are scheduled with it.",
+    "Set <b>Expiration Status</b> to Published so the translations follow the article.",
+    "Set <b>Publish Approved related translations with Article</b> to Yes in the Publish dialog.",
+    "Leave <b>Published Status</b> as Published, which also publishes the related translations."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The Publish dialog has an explicit field, <b>Publish Approved related translations with Article</b>; Yes publishes the approved translations together with the source article. <b>Published Status</b> only sets the status the article takes after publishing, <b>Publish On</b> schedules the article itself, and <b>Expiration Status</b> defines what the article becomes after it expires.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/use/publish-ka"
+  },
+  {
+   "id": "q035",
+   "type": "single",
+   "domain": 2,
+   "skill": 38,
+   "section": "d2-configure-copilot-service",
+   "stem": "Tailwind Traders reps work cases in Copilot Service workspace. The administrator must add a tab that opens the company's iframe-compatible knowledge portal, whose search address is <code>https://kb.tailwindtraders.com/search?q=</code>, and searches it for the ticket number of the case that started the session. Which application tab template configuration meets the requirement?",
+   "options": [
+    "Page type <b>Third-party website</b> with <code>url</code> = <code>https://kb.tailwindtraders.com/search?q=</code> and <code>data</code> = <code>{anchor.ticketnumber}</code>.",
+    "Page type <b>Entity record</b> with <code>entityName</code> = <code>incident</code> and <code>data</code> = <code>https://kb.tailwindtraders.com/search?q={anchor.ticketnumber}</code>.",
+    "Page type <b>Search</b> with <code>searchType</code> = <code>1</code> and <code>searchText</code> = <code>{anchor.ticketnumber}</code>.",
+    "Page type <b>Web resource</b> with <code>webresourceName</code> = <code>https://kb.tailwindtraders.com/search?q=</code> and <code>data</code> = <code>{anchor.ticketnumber}</code>."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Third-party website</b> is the page type for external sites: <code>url</code> (required, <code>https://</code>) is combined with <code>data</code>, which accepts slugs such as <code>{anchor.ticketnumber}</code> or OData, and the site must allow iframe hosting. A Web resource tab opens a file deployed in Dataverse by name (for example <code>new_myresource.html</code>), not a URL. Search is the built-in entity search (<code>searchType</code> 0 = Relevance, 1 = Categorized). In Entity record, <code>data</code> is JSON that prepopulates a create form.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/application-tab-templates"
+  },
+  {
+   "id": "q036",
+   "type": "single",
+   "domain": 2,
+   "skill": 33,
+   "section": "d2-configure-productivity-tools",
+   "stem": "Contoso Health has a Billing script and a General script, both added to its chat session template. Billing-related chats should open with the Billing script by default and every other chat with the General script, while reps can still switch scripts manually. What should the administrator configure?",
+   "options": [
+    "Give the steps of the Billing script lower <b>Order</b> values than the steps of the General script.",
+    "Add a <b>Script</b>-type step at the top of the General script that loads the Billing script.",
+    "Turn on <b>Agent scripts</b> in the Productivity pane of the experience profile that billing reps use.",
+    "Set <b>Enable build expression</b> to Yes on the session template's Scripts tab, then <b>Set default script</b> for If true and If false."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The default script is chosen on the session template: on the Scripts tab set <b>Enable build expression</b> to Yes, open <b>Build Expression</b>, add a Condition and use <b>Set default script</b> in the If true and If false branches. <b>Order</b> only sequences the steps inside one script, the <b>Agent scripts</b> toggle just makes scripts available in the profile, and a Script-type step loads another script only when the rep selects View.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/agent-scripts"
+  },
+  {
+   "id": "q037",
+   "type": "single",
+   "domain": 1,
+   "skill": 9,
+   "section": "d1-create-administer-knowledge",
+   "stem": "Contoso Telecom has 60,000 resolved cases and a thin knowledge base. The knowledge team wants new articles drafted from this history without reps doing anything, compared with existing articles to avoid duplicates, and compliant ones published automatically. Which feature meets the requirements?",
+   "options": [
+    "Advanced similarity rules in Case settings, activated for the Case table in the admin center.",
+    "The Customer Knowledge Management Agent, with historical creation and auto publishing turned on.",
+    "AI suggestions of similar cases and knowledge articles in smart assist for Copilot Service workspace.",
+    "The Copilot knowledge drafts setting under Knowledge creation, with both case-based checkboxes selected."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The Customer Knowledge Management Agent can process historical cases (up to 100,000 items per run) and new ones in real time, compares them with the existing knowledge base before creating an article, and can auto publish articles that meet the configured compliance status. Rep-driven drafts from cases are a Preview feature that works one case at a time, smart-assist AI suggestions are deprecated, and advanced similarity rules only relate similar cases.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/admin-km-agent"
+  },
+  {
+   "id": "q038",
+   "type": "multi",
+   "domain": 3,
+   "skill": 48,
+   "section": "d3-capture-customer-feedback",
+   "stem": "Contoso's customer service representatives have no Customer Voice access, and the surveys they need are already shared with them. The representatives must send a survey from a Case record by using the Send Survey command. Which <b>THREE</b> items must be completed?",
+   "options": [
+    "Each representative is assigned at least the Survey Sender role in Dynamics 365.",
+    "The Post-conversation survey toggle is turned on in a workstream's Behaviors tab.",
+    "Anonymous responses is turned on in the distribution settings of every survey that reps will send.",
+    "An administrator installs the Send Customer Voice survey from Dynamics 365 app in the environment.",
+    "Each representative is given a Dynamics 365 Marketing subscription to send the invitations.",
+    "An administrator connects and turns on the Send survey on create of custom entity record flow."
+   ],
+   "answer": [
+    0,
+    3,
+    5
+   ],
+   "select": 3,
+   "explanation": "Sending from a record needs three things: the administrator installs the <b>Send Customer Voice survey from Dynamics 365</b> app, the administrator sets the connection references and turns on its <b>Send survey on create of custom entity record</b> flow, and each user has at least the <b>Survey Sender</b> role. A Dynamics 365 Marketing subscription is not among the prerequisites for sending a survey from a record. Anonymous responses is a distribution setting that only controls whether respondent names and emails are saved, and the Post-conversation survey toggle belongs to the Behaviors tab of messaging workstreams, not to the Send Survey command.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-voice/send-survey-from-dynamics-365"
+  },
+  {
+   "id": "q039",
+   "type": "single",
+   "domain": 1,
+   "skill": 19,
+   "section": "d1-create-manage-slas",
+   "stem": "Fabrikam's table-level <b>Select SLA Pause Status</b> for cases is On Hold. The First Response KPI has <b>Override Criteria</b> that pause on On Hold or Waiting for Details. One SLA item that uses this KPI has its own Override Criteria that pause only on Awaiting Parts. A case that matches this item is set to On Hold. What happens to the item's SLA KPI instance?",
+   "options": [
+    "It keeps running, because the item's Override Criteria replace the KPI and table-level pause conditions.",
+    "It pauses, because the KPI's Override Criteria take precedence over the item's.",
+    "It pauses, because the table-level pause status applies to every SLA of the table.",
+    "It pauses, because the table, KPI and item conditions are combined and any one of them is enough."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Pause conditions can be set at three levels, and the most specific one overrides the others: <b>SLA item over SLA KPI over table</b>. Because the item has Override Criteria set to Yes, only its own condition (Awaiting Parts) pauses the instance, and On Hold from the KPI or the table does not apply. Precedence is not reversed and the levels are not combined.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-pause-conditions-sla"
+  },
+  {
+   "id": "q040",
+   "type": "single",
+   "domain": 1,
+   "skill": 5,
+   "section": "d1-create-administer-knowledge",
+   "stem": "Reps at Wide World Importers search the knowledge base for \"Contoso Coffee\" and get articles that contain only one of the two words. Dataverse search is enabled. The administrator wants results to contain every keyword. What should they change?",
+   "options": [
+    "In Power Apps, lower the <b>Results shown on page</b> value of the Knowledge Search control on the Case form.",
+    "In the Power Platform admin center, turn off Dataverse search so that knowledge search uses full-text search.",
+    "In Knowledge &gt; General settings, set <b>Set search mode as all</b> to Yes in the Knowledge search experience section.",
+    "In Knowledge &gt; General settings, set <b>Enable suggest as you type</b> to Yes in the Knowledge search experience section."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "By default knowledge search uses <code>searchMode=any</code>, which returns articles that contain any keyword. With Dataverse search enabled, <b>Set search mode as all</b> makes every keyword mandatory. Suggest-as-you-type only matches article titles while typing, the results count limits how many articles are shown, and turning off Dataverse search makes search fall back to full-text search rather than adding all-keyword matching.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-knowledge-management-embedded-knowledge-search"
+  },
+  {
+   "id": "q041",
+   "type": "single",
+   "domain": 3,
+   "skill": 45,
+   "section": "d3-configure-data-model",
+   "stem": "Adventure Works adds a custom Warranty claim table that has a lookup to Account. When an account is deleted, its warranty claims must be deleted too. When an account is reassigned to a new owner, only the claims owned by the account's previous owner must move with it. Which behavior should the consultant set on the relationship?",
+   "options": [
+    "Referential, Restrict Delete, so an account cannot be deleted while it still has claims.",
+    "Parental, so every action on the account is also applied to all of its warranty claims.",
+    "Referential, Remove Link, so deleting an account only clears the lookup on its claims.",
+    "Custom, with Delete set to Cascade All and Assign set to Cascade User-owned for the claims."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "A <b>Custom</b> behavior lets you choose an option for each action: Delete = Cascade All removes the claims with the account, and Assign = Cascade User-owned reassigns only the child rows owned by the same user as the parent row. <b>Parental</b> cascades every action to all child rows, so claims owned by other users would be reassigned too. <b>Referential, Remove Link</b> keeps the claims and only clears the lookup, and <b>Restrict Delete</b> blocks the account from being deleted.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-edit-entity-relationships"
+  },
+  {
+   "id": "q042",
+   "type": "single",
+   "domain": 2,
+   "skill": 34,
+   "section": "d2-configure-productivity-tools",
+   "stem": "A Fabrikam macro begins with Start macro execution and then runs Resolve a case with Incident ID <code>${anchor.incidentid}</code>. The case is resolved in Dataverse, but the rep's case tab still looks active until it is reloaded. What should the designer add after Resolve a case?",
+   "options": [
+    "<b>Refresh the session context</b>, then <b>Save the record</b>.",
+    "<b>Get the current tab</b>, then <b>Focus on the tab</b> with the returned Tab ID.",
+    "<b>Get the current tab</b>, then <b>Refresh the tab</b> with the returned Tab ID.",
+    "<b>Save the record</b>, then <b>Open application tab</b> for the case."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Resolve a case does not refresh the tab, so the documented pattern adds <b>Get the current tab</b> (it returns the Tab ID) and then <b>Refresh the tab</b> with that ID. <b>Focus on the tab</b> only moves focus, <b>Refresh the session context</b> reloads cached slug values (for example after a case title changes) without redrawing the form, and <b>Save the record</b> or <b>Open application tab</b> do not refresh the existing tab.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/macros-session-action"
+  },
+  {
+   "id": "q043",
+   "type": "multi",
+   "domain": 2,
+   "skill": 30,
+   "section": "d2-configure-routing",
+   "stem": "Tailwind Traders' support reps already have skills with proficiency ratings assigned. A chat workstream feeds a queue that uses the <b>Highest capacity</b> assignment method. Chats about the Barista Pro product must go only to reps whose rating is at or above the required level, and must wait in the queue when no such rep is available. Which <b>TWO</b> configurations should the administrator complete?",
+   "options": [
+    "Add a work classification rule that attaches the required skill and proficiency to the chats.",
+    "Set the workstream's <b>Default skill matching algorithm</b> to Closest Match.",
+    "Set the <b>Reset frequency</b> of the reps' capacity profile to End of day.",
+    "Turn on <b>Enable update skill control</b> so reps can adjust skills during chats.",
+    "Change the queue's assignment method to <b>No auto assignment</b>.",
+    "Set the workstream's <b>Default skill matching algorithm</b> to Exact Match."
+   ],
+   "answer": [
+    0,
+    5
+   ],
+   "select": 2,
+   "explanation": "Exact match needs two things here: the workstream's <b>Default skill matching algorithm</b> set to Exact Match (it applies to out-of-the-box methods such as Highest capacity), and <b>skill attachment rules</b> so the chats carry the required skills and proficiency. With no qualified rep, the chat then stays unassigned in the queue. Closest Match can assign a chat to a rep who has none of the required skills. Update skill control only lets reps edit skills at run time, No auto assignment skips matching because reps pick items themselves, and reset frequency affects capacity, not skills.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-skill-based-routing"
+  },
+  {
+   "id": "q044",
+   "type": "dropdown",
+   "domain": 2,
+   "skill": 32,
+   "section": "d2-configure-routing",
+   "stem": "Contoso wants every new inbound email row to be routed by unified routing automatically. The administrator builds a Power Automate flow that starts with the Dataverse trigger <b>When a row is added, modified or deleted</b> on the Email Messages table and then adds a <b>Perform an unbound action</b> step. Complete the settings of that step; the trigger supplies the new email's ID as <code>emailid</code>.",
+   "format": "code",
+   "language": "text",
+   "template": "Action Name: {1}\nTarget:      {2}",
+   "blanks": [
+    {
+     "options": [
+      "AddToQueue",
+      "msdyn_ApplyRoutingRuleEntityRecord",
+      "RouteTo"
+     ],
+     "answer": 1
+    },
+    {
+     "options": [
+      "Email Messages(emailid)",
+      "emails(emailid)",
+      "email(emailid)",
+      "queueitems(emailid)"
+     ],
+     "answer": 1
+    }
+   ],
+   "explanation": "The flow calls the unbound action <code>msdyn_ApplyRoutingRuleEntityRecord</code>, and its <b>Target</b> is the table's <b>entity collection name</b> (the <code>LogicalCollectionName</code> value, here <code>emails</code>) followed by the record ID in parentheses. The documented Target does not use the singular logical name or the table's display name, and <code>queueitems</code> would address a queue item rather than the email. <code>AddToQueue</code> and <code>RouteTo</code> change the queue of an item; they are not the documented action for starting unified routing.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/routing-trigger-automatic"
+  },
+  {
+   "id": "q045",
+   "type": "single",
+   "domain": 3,
+   "skill": 40,
+   "section": "d3-configure-data-model",
+   "stem": "Fabrikam Energy wants a \"Critical open cases\" list that every agent can choose from the view selector of the support app. The same list must be usable as the view in a subgrid on the Account form and be set as the default view of the Case table. Which view should the consultant create?",
+   "options": [
+    "Create a personal view on the Case table and share it with the Agents team.",
+    "Create a public view on the Case table that filters on priority and status.",
+    "Edit the Quick Find system view of the Case table to filter on priority and status.",
+    "Edit the Lookup system view of the Case table to filter on priority and status."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "A <b>public</b> view appears in the view selector for app users, can be used in subgrids and dashboard lists, and can be set as the table's default view. A personal view belongs to the user who created it and reaches others only when it is shared, so it isn't a public view. <b>System</b> views such as Quick Find and Lookup aren't shown in the view selector and can't be used in subgrids or dashboard lists; Quick Find only controls what Quick Find searches, and Lookup controls the record picker.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/create-edit-views"
+  },
+  {
+   "id": "q046",
+   "type": "single",
+   "domain": 1,
+   "skill": 10,
+   "section": "d1-manage-collaboration",
+   "stem": "Reps at Contoso Utilities use a custom model-driven app named Field Desk. Embedded Teams chat appears in Copilot Service workspace but not in Field Desk, and the administrator wants chat in Field Desk for every rep. What should they do?",
+   "options": [
+    "Under Embedded chat using Teams, choose <b>Turn on for selected Dynamics 365 apps</b> and select Field Desk.",
+    "On the Case record type, turn on <b>AI-based suggested contacts</b> so that colleagues are offered to reps in Field Desk.",
+    "On the same page, turn on <b>Sync Teams chats with records (Preview)</b> so that chats appear on the timeline of each record.",
+    "On the Case record type of the same page, turn on <b>Join chat</b> so that reps can see and join connected chats."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Teams chat is on by default only for Copilot Service workspace and Customer Service Hub; any other app has to be selected under <b>Turn on for selected Dynamics 365 apps</b> (or you choose all apps) on the Embedded chat using Teams page. Join chat only lets users with write access join existing connected chats, chat sync is a Preview feature for global administrators, and suggested contacts only propose colleagues when a chat is started.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-teams-chat"
+  },
+  {
+   "id": "q047",
+   "type": "single",
+   "domain": 2,
+   "skill": 33,
+   "section": "d2-configure-productivity-tools",
+   "stem": "Woodgrove Bank representatives work case sessions in Copilot Service workspace, where the case is the anchor tab. An administrator adds a Text instruction step to a script that tells the rep to confirm the case number with the customer. Which text displays the case number of the record in the anchor tab?",
+   "options": [
+    "Please confirm case number <code>${anchor.incidentid}</code> with the customer.",
+    "Please confirm case number <code>${anchor.ticketnumber}</code> with the customer.",
+    "Please confirm case number <code>${ticketnumber}</code> with the customer.",
+    "Please confirm case number <code>${caseId}</code> with the customer."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "In macros and scripts, columns of the record in the anchor tab are read with <code>${anchor.&lt;column&gt;}</code>, and <code>ticketnumber</code> holds the case number (for example CAS-47732-V4V6K6). <code>${anchor.incidentid}</code> returns the record GUID, <code>${caseId}</code> is also an ID and resolves only when a case is linked to a conversation, and <code>${ticketnumber}</code> is not a defined slug because case columns need the <code>anchor.</code> prefix.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/macros"
+  },
+  {
+   "id": "q048",
+   "type": "single",
+   "domain": 1,
+   "skill": 3,
+   "section": "d1-define-configure-foundational",
+   "stem": "Adventure Works copied the Omnichannel agent role into a custom role named Chat Specialist and mapped it to the Agent persona in Role persona mapping. The specialists receive the role only because they belong to a Microsoft Entra security-group team that holds it, and persona-based features are not applied to them. What should the administrator do?",
+   "options": [
+    "Assign the Chat Specialist role to each specialist directly instead of relying only on the team.",
+    "Add the Omnichannel API access role to the specialists so that the Agent persona is recognized.",
+    "Recreate the role as a copy of Customer Service Representative, because a custom role cannot be mapped to a persona.",
+    "Remove the prvAgent privilege from the role so that the default persona mapping applies to the team."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Role persona mapping requires that the mapped roles are assigned to users <b>directly and not through team memberships</b>. Custom roles are supported when they are copied from a predefined role and keep the persona privilege (prvAgent, prvSupervisor or prvAdmin), so removing prvAgent or switching the source role does not help, and the Omnichannel API access role must not be given to representatives.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/role-persona-mapping"
+  },
+  {
+   "id": "q049",
+   "type": "single",
+   "domain": 3,
+   "skill": 42,
+   "section": "d3-configure-data-model",
+   "stem": "The Account form at Northwind Traders must show how many of the account's cases are still active. The platform may refresh the number on a schedule, and the solution must not use plug-ins or flows. Which column should the consultant add to the Account table?",
+   "options": [
+    "A whole-number column with Rollup behavior that applies SUM to the Status column of the related Case rows.",
+    "A text column with Autonumber format that increases each time a related case is created.",
+    "A whole-number column with Rollup behavior that applies COUNT to the related Case rows that are active.",
+    "A whole-number column with Calculated behavior that counts the related Case rows."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "A <b>rollup</b> column aggregates related child rows with SUM, COUNT, MIN, MAX or AVG, accepts a filter such as active cases, and is recalculated by asynchronous system jobs (the incremental job's default minimum recurrence is one hour), which fits a scheduled refresh. A <b>calculated</b> column can use only columns from the current table or related parent tables, so it can't count child rows. SUM adds numeric values and does not count rows, and an autonumber column only generates a text value when its own row is created.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/define-rollup-fields"
+  },
+  {
+   "id": "q050",
+   "type": "single",
+   "domain": 1,
+   "skill": 23,
+   "section": "d1-create-manage-slas",
+   "stem": "Northwind Traders added the SLA Timer to the Case form. When a case passes its failure time, representatives can't see how long past the failure time the case is. What should the administrator change in the SLA Timer properties?",
+   "options": [
+    "Set the Failure Time Field and Success Condition, which the SLA Timer requires.",
+    "Set the update frequency to the shortest interval that the SLA Timer allows.",
+    "Bind a customized label to the Resolution column in the Customized Labels section.",
+    "Set <b>Turn on negative countdown</b> to Yes in the timer's properties."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Overdue time is shown only when <b>Turn on negative countdown</b> is set to Yes in the SLA Timer properties. The update frequency (30 minutes by default) only controls how often the timer refreshes, customized labels change the text shown, and Failure Time Field and Success Condition are required by the legacy Timer control, not by the SLA Timer subgrid component.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-timer-control-case-form-track-time-against-sla"
+  },
+  {
+   "id": "q051",
+   "type": "dropdown",
+   "domain": 1,
+   "skill": 20,
+   "section": "d1-create-manage-slas",
+   "stem": "An SLA item must email the case owner when the SLA KPI instance reaches its warning time. Complete the configuration in the Power Automate flow that opens from Configure Actions.",
+   "format": "text",
+   "template": "Add the email action to the {1} branch of the Switch control. For the email, choose {2} and enter the action name <code>msdyn_SendEmailFromTemplate</code>.",
+   "blanks": [
+    {
+     "options": [
+      "Is Succeeded",
+      "Is Non-compliant",
+      "Is Nearing Non-Compliance"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "Perform a bound action",
+      "Get a row by ID",
+      "Perform an unbound action",
+      "Send an email (V2)"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "The warning time maps to the <b>Is Nearing Non-Compliance</b> branch; Is Succeeded runs when the success condition is met and Is Non-compliant after the failure time passes. The documented email route is <b>Perform an unbound action</b> with the action name <code>msdyn_SendEmailFromTemplate</code> and the From, To Item, Cc Item, Regarding and Template inputs, not a bound action, a row lookup or a separate email connector action.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/define-service-level-agreements"
+  },
+  {
+   "id": "q052",
+   "type": "single",
+   "domain": 1,
+   "skill": 2,
+   "section": "d1-define-configure-foundational",
+   "stem": "Contoso Insurance runs two model-driven apps, Claims and Policy Service, in one environment. When a rep resolves a case that still has open activities, the link in the warning should open the Activities tab, but only in the Claims app. What should the administrator configure?",
+   "options": [
+    "Add the redirect setting definition and paste the tab <b>Name</b> into the <b>Setting environment value</b> for both apps, then publish all customizations.",
+    "Set <b>Resolve case dialog</b> to Customizable dialog, then add the Activities tab to the <b>Case Resolution</b> form that the Claims app uses.",
+    "Add the redirect setting definition and paste the tab <b>Name</b> into a <b>New app value</b> for the Claims app, then publish all customizations.",
+    "Add the <b>Enable minimal case resolution dialog</b> setting definition and set a <b>New app value</b> of No for the Claims app, then publish it."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The tab is controlled by the setting definition <b>Redirect user to the specified tab to close open activities</b>. Paste the tab's <b>Name</b> (copied from Display options, not the label); a <b>New app value</b> overrides the environment value for that app only, so Policy Service is unaffected. An environment value changes every app, the Case Resolution form only edits dialog fields, and Enable minimal case resolution dialog = No just restores the legacy dialog.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-enhanced-case-management"
+  },
+  {
+   "id": "q053",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 12,
+   "section": "d1-manage-collaboration",
+   "stem": "Contoso Health is planning suggested contacts for Teams chats. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "For the Case record type, an administrator can configure both AI-based and rules-based suggested contacts.",
+     "answer": true
+    },
+    {
+     "text": "Rules-based suggestions are shown to users in alphabetical order of the rule name.",
+     "answer": false
+    },
+    {
+     "text": "A single record type supports a maximum of 10 suggestion rules.",
+     "answer": true
+    },
+    {
+     "text": "Rules-based suggested contacts can be turned on only for the Case record type.",
+     "answer": false
+    }
+   ],
+   "explanation": "Case supports two kinds of suggestions (AI-based and rules-based), while most other record types that are enabled for connected chats offer rules-based suggestions only. Each record type supports a maximum of 10 rules, and users see the suggestions in the order that the administrator sets under Update rules for suggesting contacts, not alphabetically.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-rules-based-suggested-contacts"
+  },
+  {
+   "id": "q054",
+   "type": "multi",
+   "domain": 1,
+   "skill": 4,
+   "section": "d1-define-configure-foundational",
+   "stem": "Litware is designing an email card form for the timeline. The Header section contains Subject, Modified On and Owner, in that order. The Details section contains To, CC, Description and Priority, in that order. Which <b>TWO</b> columns will <b>NOT</b> be displayed on the timeline record?",
+   "options": [
+    "Subject",
+    "Description",
+    "Owner",
+    "To",
+    "Priority",
+    "Modified On"
+   ],
+   "answer": [
+    2,
+    4
+   ],
+   "select": 2,
+   "explanation": "A card form Header can hold up to six columns but only the first <b>two</b> are displayed (Subject, Modified On), and Details can hold up to four but only the first <b>three</b> are displayed (To, CC, Description). Owner is the third Header column and Priority the fourth Details column, so neither appears. The Footer and ColorStrip sections are never displayed.",
+   "ref": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/set-up-timeline-control"
+  },
+  {
+   "id": "q055",
+   "type": "multi",
+   "domain": 2,
+   "skill": 37,
+   "section": "d2-configure-copilot-service",
+   "stem": "Litware created a custom experience profile named Tier 1 Reps, and the inbox is turned off for it. Reps must see their assigned cases and the emails in their queues together in one inbox list. Which <b>TWO</b> actions should the administrator take?",
+   "options": [
+    "Create two views, one per record type, because a view can contain only one record type.",
+    "In the new view, select the Case and Email record types and choose a Simple preset for each.",
+    "Set Representative visibility to Hide so that the view appears in the reps' inbox.",
+    "Edit the out-of-the-box Customer Service workspace - default profile and add the view there.",
+    "On the profile's Inbox card select Edit, turn Enable Inbox on, and select + Add to create a view."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "Inbox settings are configured only for custom experiences: on the Inbox card select Edit, turn Enable Inbox on, select + Add, then name the view and choose its record types. A view can combine several record types, and each type uses Simple presets (Case and Email both offer assigned to me and in my queue(s)) or the Advanced condition builder. Out-of-the-box profiles can't be modified, and <b>Hide</b> keeps a view away from reps.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-inbox"
+  },
+  {
+   "id": "q056",
+   "type": "single",
+   "domain": 1,
+   "skill": 22,
+   "section": "d1-create-manage-slas",
+   "caseStudy": "wide-world-importers-service-desk",
+   "stem": "Based on the requirement for the Premium Care resolution timer, where should you configure the pause condition for the status reason Waiting for Details?",
+   "options": [
+    "On the Premium Care Resolve By SLA item, add a condition to Applicable When so that the item stops applying while the status reason is Waiting for Details.",
+    "In Service Configuration Settings, select Waiting for Details as a pause status for the Case table.",
+    "On the Resolve By SLA KPI, set Override Criteria to Yes under Pause Conditions and add a condition for the status reason Waiting for Details.",
+    "On the Premium Care Resolve By SLA item, set Override Criteria to Yes under Pause Configurations and add a condition for Waiting for Details."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "<b>Requirement 1 limits the pause to the Premium Care Resolve By timer.</b> Pause conditions work at three levels (table, SLA KPI and SLA item) and the most specific level wins. A table-level pause status applies to every SLA on the Case table, and a KPI-level condition applies to the Resolve By KPI that both Premium Care and Standard Care use, so each would also pause timers that must keep running. An <b>item-level</b> override (Override Criteria under Pause Configurations) affects only that item, and the section is available because Allow Pause and Resume is already on. A condition in Applicable When doesn't pause anything: when Applicable When is no longer met, the SLA KPI instance is canceled.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-pause-conditions-sla"
+  },
+  {
+   "id": "q057",
+   "type": "multi",
+   "domain": 1,
+   "skill": 2,
+   "section": "d1-define-configure-foundational",
+   "caseStudy": "wide-world-importers-service-desk",
+   "stem": "Based on the requirement for warranty resolutions and the current configuration, which <b>TWO</b> changes should you make?",
+   "options": [
+    "Add a Replaced under warranty choice to the Case Type column in the Case table so that it appears when the case is resolved.",
+    "Add a Replaced under warranty choice to the Resolution Type column in the Case Resolution table and paste the copied value.",
+    "Set the Enable minimal case resolution dialog setting definition to No so that the dialog offers new resolution types.",
+    "Add a Replaced under warranty choice under the Resolved status of the Status Reason column in the Case table and copy its value.",
+    "Add a Replaced under warranty choice to the Resolution Type column in the Case Resolution table and keep the value that Dataverse generates.",
+    "In the Copilot Service admin center, change the Resolve case dialog setting in Case Settings to Customizable dialog."
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "select": 2,
+   "explanation": "<b>Requirement 2 and the current configuration leave two changes.</b> The Resolve case dialog is already set to Customizable dialog, so that setting needs no change; the new resolution type is added in two places: the choice under the <b>Resolved</b> status of <b>Status Reason</b> on the Case table, then the same label with the <b>same value</b> in <b>Resolution Type</b> on the Case Resolution table. If the values don't match, an error can occur or the value isn't displayed, so keeping a generated value fails. Case Type classifies the case and is not a resolution column, and Enable minimal case resolution dialog = No only brings back the legacy dialog (it works only when Resolve case dialog is Standard dialog), so it adds no resolution types.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/modify-case-resolution-dialog"
+  },
+  {
+   "id": "q058",
+   "type": "single",
+   "domain": 1,
+   "skill": 14,
+   "section": "d1-manage-agents-copilot",
+   "caseStudy": "wide-world-importers-service-desk",
+   "stem": "Based on the requirement for Ask a question, which type of filter should you configure on the Market column?",
+   "options": [
+    "A preset filter on the Market column that applies the market of the customer.",
+    "An automated filter on the Market column with Allow representatives to view or change this filter turned on.",
+    "An automated filter on the Market column with Allow representatives to view or change this filter turned off.",
+    "A representative filter on the Market column with Filter status turned on."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<b>Requirement 3 needs a filter that is applied automatically from the open case and that representatives can still see and change.</b> An <b>automated</b> filter is applied from the record the representative has open, and turning on <b>Allow representatives to view or change this filter</b> shows a visual cue and lets them change the filtering. A preset filter runs in the background and representatives can't view it. A representative filter lets representatives choose values themselves, so it is not applied automatically from the case. An automated filter with that toggle off is applied automatically but stays hidden, so representatives can't see or change it.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/copilot-enable-help-pane"
+  },
+  {
+   "id": "q059",
+   "type": "single",
+   "domain": 2,
+   "skill": 30,
+   "section": "d2-configure-routing",
+   "caseStudy": "wide-world-importers-service-desk",
+   "stem": "Based on the requirement for Grinder repair cases and the exhibit, which configuration should you use?",
+   "options": [
+    "Set the workstream's Default skill matching algorithm to Exact Match.",
+    "Set the workstream's Default skill matching algorithm to Closest Match.",
+    "Route Grinder repair cases with a basic routing rule set that sends them to a team of the most experienced representatives.",
+    "Replace the queue's assignment method with a custom assignment ruleset that orders representatives by Nearest Proficient."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Requirement 4 says a case must wait rather than go to a less proficient representative.</b> With <b>Exact Match</b> only representatives whose rating is greater than or equal to the required value qualify (Anna 8 and Bruno 6, but not Chloe 4), and when none is available the work item stays unassigned in the queue. It also needs a classification rule that attaches Grinder repair at proficiency 6. Closest Match ranks every representative by closeness, so it can still assign the case to Chloe. A custom assignment ruleset that orders by Nearest Proficient is also a closest-match approach and bypasses the workstream's algorithm. A basic routing rule set only sends cases to a queue, user or team based on case conditions, so it does not match on proficiency or capacity.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-skill-based-routing"
+  },
+  {
+   "id": "q060",
+   "type": "single",
+   "domain": 3,
+   "skill": 48,
+   "section": "d3-capture-customer-feedback",
+   "caseStudy": "wide-world-importers-service-desk",
+   "stem": "Based on the requirement for satisfaction surveys, how should WWI distribute the survey?",
+   "options": [
+    "Give representatives the Survey Sender role and have them select Send Survey on the case form after they resolve each case.",
+    "Create a Customer Voice project from the Support template and use the Send tab Automation that sends a survey when a case is resolved.",
+    "On the Send tab, create a generic survey link and add it to the email template that representatives send to customers when they resolve a case.",
+    "On the Send tab, send the survey by email to the contacts that are imported from a CSV file listing the cases resolved each day."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<b>Requirement 5 needs an automatic trigger on case resolution and a response attached to the case.</b> The Support template's automation (Send a survey when a case is resolved in Dynamics 365) sends the survey to the contact linked to the case and populates the <b>Regarding</b> and <b>Recipient details</b> fields, so the invitation and response appear on the case timeline. A CSV email import is a manual batch send that nothing triggers on resolution. A generic link is non-personalized and can't record the respondent's name. Send Survey is started by a representative, and from a case it leaves Regarding empty (it is populated only for Account, Contact and Lead), so the response would not appear on the case timeline.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-voice/integrate-cv-cs"
+  }
+ ]
+}
