@@ -1,0 +1,1077 @@
+{
+ "schema": 1,
+ "groups": [
+  {
+   "id": "g1",
+   "domain": 1,
+   "title": "Implement Dynamics 365 Contact Center",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 1,
+     "text": "Configure the Copilot Service workspace",
+     "refs": [
+      "d1-implement-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 2,
+     "text": "Configure and extend connectors for Dynamics 365 Contact Center",
+     "refs": [
+      "d1-implement-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 3,
+     "text": "Configure embedded Dynamics 365 Contact Center mode",
+     "refs": [
+      "d1-implement-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 4,
+     "text": "Configure Copilot for third-party CCaaS solutions",
+     "refs": [
+      "d1-implement-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 5,
+     "text": "Enable agent simulation to evaluate journeys",
+     "refs": [
+      "d1-implement-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 6,
+     "text": "Enable the Health Agent to proactively investigate issues",
+     "refs": [
+      "d1-implement-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 7,
+     "text": "Enable agents to perform transformation, environment migration, and configuration",
+     "refs": [
+      "d1-implement-dynamics-365"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g2",
+   "domain": 1,
+   "title": "Deploy Dynamics 365 Contact Center",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 8,
+     "text": "Manage and roll out agents by using the Agent hub",
+     "refs": [
+      "d1-deploy-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 9,
+     "text": "Create solutions for Dynamics 365 Contact Center deployments",
+     "refs": [
+      "d1-deploy-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 10,
+     "text": "Configure application lifecycle management (ALM) for Dynamics 365 Contact Center deployments",
+     "refs": [
+      "d1-deploy-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 11,
+     "text": "Manage an omnichannel environment",
+     "refs": [
+      "d1-deploy-dynamics-365"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g3",
+   "domain": 1,
+   "title": "Manage users",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 12,
+     "text": "Configure user settings",
+     "refs": [
+      "d1-manage-users"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 13,
+     "text": "Create user accounts",
+     "refs": [
+      "d1-manage-users"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 14,
+     "text": "Manage security roles, including custom security roles and personas",
+     "refs": [
+      "d1-manage-users"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 15,
+     "text": "Manage capacity profiles",
+     "refs": [
+      "d1-manage-users"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g4",
+   "domain": 2,
+   "title": "Configure chat and digital channels",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 16,
+     "text": "Configure the chat channel",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 17,
+     "text": "Configure the record-based channel",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 18,
+     "text": "Configure digital channels",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 19,
+     "text": "Configure and embed a chat widget",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 20,
+     "text": "Configure proactive chat",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 21,
+     "text": "Configure pre-chat surveys",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 22,
+     "text": "Manage quick replies",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 23,
+     "text": "Extend the chat experience using the live chat SDK",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 24,
+     "text": "Configure authentication settings for chat",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 25,
+     "text": "Manage chat in native mobile apps by using the Messaging SDK for Dynamics 365 Contact Center",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 26,
+     "text": "Configure a custom messaging channel by using messaging APIs",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 27,
+     "text": "Enable real-time translation of conversations",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 28,
+     "text": "Configure customer settings, including location and self-service settings",
+     "refs": [
+      "d2-configure-chat-digital"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g5",
+   "domain": 2,
+   "title": "Provision and manage the voice channel",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 29,
+     "text": "Configure the voice channel",
+     "refs": [
+      "d2-provision-manage-voice"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 30,
+     "text": "Integrate a non-Microsoft interactive voice response (IVR) system with voice channel",
+     "refs": [
+      "d2-provision-manage-voice"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 31,
+     "text": "Manage phone numbers",
+     "refs": [
+      "d2-provision-manage-voice"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 32,
+     "text": "Configure inbound and outbound calling profiles",
+     "refs": [
+      "d2-provision-manage-voice"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 33,
+     "text": "Configure call recording, transcription, and real-time translation",
+     "refs": [
+      "d2-provision-manage-voice"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 34,
+     "text": "Configure agent feedback",
+     "refs": [
+      "d2-provision-manage-voice"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 35,
+     "text": "Manage voice calls via the CCaaS SDK API",
+     "refs": [
+      "d2-provision-manage-voice"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g6",
+   "domain": 2,
+   "title": "Configure channel features",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 36,
+     "text": "Manage context variables",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 37,
+     "text": "Configure automatic customer identification",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 38,
+     "text": "Close conversations automatically",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 39,
+     "text": "Enable consult with representatives and transfer of conversations",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 40,
+     "text": "Configure sensitive data masking",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 41,
+     "text": "Configure custom presences",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 42,
+     "text": "Configure messages, including templates, formatting, automated messages, and outbound messages",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 43,
+     "text": "Manage active conversation settings",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 44,
+     "text": "Configure the timeline",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 45,
+     "text": "Use custom connectors with the timeline control",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 46,
+     "text": "Configure the channel integration framework",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 47,
+     "text": "Manage conversations",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 48,
+     "text": "Configure feedback by using Copilot Studio",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 49,
+     "text": "Manage file attachments",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 50,
+     "text": "Manage proactive outbound engagement",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 51,
+     "text": "Configure proactive outbound campaigns, including workstreams and triggers",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 52,
+     "text": "Configure dialing methods for proactive outbound campaigns",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 53,
+     "text": "Set up the proactive outbound dashboard",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 54,
+     "text": "Configure Workforce management (WFM)",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 55,
+     "text": "Configure shift management and scheduling",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 56,
+     "text": "Configure forecasting",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 57,
+     "text": "Integrate third-party WFM solutions",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 58,
+     "text": "Design the Dynamics 365 Contact Center setup",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 59,
+     "text": "Use best practices when setting up voice",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 60,
+     "text": "Use best practices for developing AI capabilities",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 61,
+     "text": "Evaluate the total cost of ownership for a Dynamics 365 Contact Center implementation",
+     "refs": [
+      "d2-configure-channel-features"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g7",
+   "domain": 3,
+   "title": "Configure agent assist capabilities in Dynamics 365 Contact Center",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 62,
+     "text": "Configure Copilot summaries",
+     "refs": [
+      "d3-configure-agent-assist"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 63,
+     "text": "Configure the Ask a question feature",
+     "refs": [
+      "d3-configure-agent-assist"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 64,
+     "text": "Configure knowledge sources for Copilot in Dynamics 365 Customer Service",
+     "refs": [
+      "d3-configure-agent-assist"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 65,
+     "text": "Extend Copilot capabilities with prompt plugins and tools",
+     "refs": [
+      "d3-configure-agent-assist"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 66,
+     "text": "Interpret the Copilot analytics report",
+     "refs": [
+      "d3-configure-agent-assist"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 67,
+     "text": "Create a smart assist bot",
+     "refs": [
+      "d3-configure-agent-assist"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g8",
+   "domain": 3,
+   "title": "Configure voice agents",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 68,
+     "text": "Configure IVR with voice agents by using generative AI or classic orchestration",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 69,
+     "text": "Manage variables in Copilot Studio",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 70,
+     "text": "Secure the Dynamics 365 Contact Center voice channel",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 71,
+     "text": "Configure compliant call recording in Copilot Studio",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 72,
+     "text": "Configure SIP header transfers",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 73,
+     "text": "Configure the Real-time Speech agent",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 74,
+     "text": "Configure dual-tone multi-frequency (DTMF), natural language understanding (NLU), and speech-based IVR",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 75,
+     "text": "Configure Copilot Studio voice triggers",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 76,
+     "text": "Implement best practices for configuring voice agents",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 77,
+     "text": "Configure multilingual voice agents",
+     "refs": [
+      "d3-configure-voice-agents"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g9",
+   "domain": 4,
+   "title": "Configure queues",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 78,
+     "text": "Create and manage queues",
+     "refs": [
+      "d4-configure-queues"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 79,
+     "text": "Configure queue prioritization",
+     "refs": [
+      "d4-configure-queues"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 80,
+     "text": "Configure overflow and fallback",
+     "refs": [
+      "d4-configure-queues"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 81,
+     "text": "Configure work assignment methods",
+     "refs": [
+      "d4-configure-queues"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 82,
+     "text": "Set up operating hours",
+     "refs": [
+      "d4-configure-queues"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g10",
+   "domain": 4,
+   "title": "Configure basic and unified routing",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 83,
+     "text": "Configure workstreams, including configuring context variables and associating agents in Copilot Studio",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 84,
+     "text": "Configure work classification rules",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 85,
+     "text": "Configure the engagement agent",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 86,
+     "text": "Configure skills-based routing",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 87,
+     "text": "Configure AI-enabled skills-based routing",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 88,
+     "text": "Configure intent-based routing",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 89,
+     "text": "Configure preferred representative routing",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 90,
+     "text": "Configure routing for records",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 91,
+     "text": "Configure basic routing rule sets",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 92,
+     "text": "Diagnose unified routing by using conversation diagnostics",
+     "refs": [
+      "d4-configure-basic-unified"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g11",
+   "domain": 5,
+   "title": "Configure experience profiles",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 93,
+     "text": "Create experience profiles",
+     "refs": [
+      "d5-configure-experience-profiles"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 94,
+     "text": "Configure application tab templates",
+     "refs": [
+      "d5-configure-experience-profiles"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 95,
+     "text": "Configure the agent inbox, including creating custom views",
+     "refs": [
+      "d5-configure-experience-profiles"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 96,
+     "text": "Configure session templates",
+     "refs": [
+      "d5-configure-experience-profiles"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 97,
+     "text": "Configure notification template",
+     "refs": [
+      "d5-configure-experience-profiles"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g12",
+   "domain": 5,
+   "title": "Configure productivity tools",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 98,
+     "text": "Enable custom productivity panels",
+     "refs": [
+      "d5-configure-productivity-tools"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 99,
+     "text": "Configure scripts, including slugs",
+     "refs": [
+      "d5-configure-productivity-tools"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 100,
+     "text": "Create macros",
+     "refs": [
+      "d5-configure-productivity-tools"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 101,
+     "text": "Enable Teams collaboration",
+     "refs": [
+      "d5-configure-productivity-tools"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 102,
+     "text": "Extend the productivity panel by using the app profile manager JavaScript API reference",
+     "refs": [
+      "d5-configure-productivity-tools"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 103,
+     "text": "Extend the customer service representative experience by using the Omnichannel JavaScript API",
+     "refs": [
+      "d5-configure-productivity-tools"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g13",
+   "domain": 5,
+   "title": "Create and administer knowledge management",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 104,
+     "text": "Configure internal knowledge search capabilities",
+     "refs": [
+      "d5-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 105,
+     "text": "Integrate and search external knowledge sources",
+     "refs": [
+      "d5-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 106,
+     "text": "Configure tables for knowledge management",
+     "refs": [
+      "d5-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 107,
+     "text": "Configure the Customer Knowledge Management agent",
+     "refs": [
+      "d5-create-administer-knowledge"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 108,
+     "text": "Integrate knowledge into portals",
+     "refs": [
+      "d5-create-administer-knowledge"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g14",
+   "domain": 6,
+   "title": "Configure the Dynamics 365 Contact Center supervisor experience",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 109,
+     "text": "Configure supervisor settings",
+     "refs": [
+      "d6-configure-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 110,
+     "text": "Configure the Quality Evaluation agent",
+     "refs": [
+      "d6-configure-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 111,
+     "text": "Configure access to analytics and dashboards",
+     "refs": [
+      "d6-configure-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 112,
+     "text": "Perform supervisor actions for conversations",
+     "refs": [
+      "d6-configure-dynamics-365"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 113,
+     "text": "Configure the supervisor app",
+     "refs": [
+      "d6-configure-dynamics-365"
+     ],
+     "isNew": false
+    }
+   ]
+  },
+  {
+   "id": "g15",
+   "domain": 6,
+   "title": "Customize analytics and reporting",
+   "isNew": false,
+   "skills": [
+    {
+     "n": 114,
+     "text": "Customize the key performance indicators (KPIs) in the analytics reports by using the embedded Power BI editor",
+     "refs": [
+      "d6-customize-analytics-reporting"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 115,
+     "text": "Embed out-of-the-box reports in the Copilot Service workspace app",
+     "refs": [
+      "d6-customize-analytics-reporting"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 116,
+     "text": "Customize historical and real-time analytics reports by using Power BI",
+     "refs": [
+      "d6-customize-analytics-reporting"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 117,
+     "text": "Extend historical and real-time analytics reports by using Power BI Desktop",
+     "refs": [
+      "d6-customize-analytics-reporting"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 118,
+     "text": "Configure conversation diagnostics in Application Insights",
+     "refs": [
+      "d6-customize-analytics-reporting"
+     ],
+     "isNew": false
+    },
+    {
+     "n": 119,
+     "text": "Configure and embed telemetry and analytics from Application Insights",
+     "refs": [
+      "d6-customize-analytics-reporting"
+     ],
+     "isNew": false
+    }
+   ]
+  }
+ ]
+}

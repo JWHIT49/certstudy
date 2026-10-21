@@ -1,0 +1,129 @@
+{
+ "schema": 1,
+ "id": "ab-250",
+ "code": "AB-250",
+ "order": 60,
+ "family": "Dynamics 365: customer experience",
+ "title": "Transforming Contact Center Experiences with AI in Dynamics 365",
+ "short": "Contact Center AI Engineer",
+ "vendor": "Microsoft",
+ "version": "2026.10.20",
+ "updated": "2026-10-20",
+ "accent": "#c4561a",
+ "description": "Study guide, 119-skill tracker and a 60-question practice exam for the AB-250 exam, listed beside the retired MB-240.",
+ "disclaimer": "Original study material and practice questions based on public Microsoft documentation. Not Microsoft exam content; the real exam may differ.",
+ "domains": [
+  {
+   "id": 1,
+   "name": "Deploy Dynamics 365 Contact Center",
+   "short": "Deploy",
+   "weight": "15-20%"
+  },
+  {
+   "id": 2,
+   "name": "Implement channels",
+   "short": "Channels",
+   "weight": "30-35%"
+  },
+  {
+   "id": 3,
+   "name": "Configure agents and AI capabilities",
+   "short": "Agents and AI",
+   "weight": "10-15%"
+  },
+  {
+   "id": 4,
+   "name": "Configure work distribution",
+   "short": "Work distribution",
+   "weight": "10-15%"
+  },
+  {
+   "id": 5,
+   "name": "Configure the Dynamics 365 Contact Center representative experience",
+   "short": "Rep experience",
+   "weight": "15-20%"
+  },
+  {
+   "id": 6,
+   "name": "Manage analytics for the Dynamics 365 Contact Center",
+   "short": "Analytics",
+   "weight": "10-15%"
+  }
+ ],
+ "examInfo": [
+  {
+   "label": "Passing score",
+   "value": "700 on a scale of 1 to 1,000 (a scaled score, not a percentage)"
+  },
+  {
+   "label": "Questions",
+   "value": "Not published for this exam; Microsoft says most exams have 40-60"
+  },
+  {
+   "label": "Time",
+   "value": "120 minutes of exam time (seat time is longer)"
+  },
+  {
+   "label": "Languages",
+   "value": "English, Chinese (Simplified), Japanese, French, German, Portuguese (Brazil), Spanish"
+  },
+  {
+   "label": "Delivery",
+   "value": "Pearson VUE: online proctored or test center"
+  },
+  {
+   "label": "Retakes",
+   "value": "24 hours after the first fail, then 14 days; at most 5 attempts in 12 months"
+  },
+  {
+   "label": "Renewal",
+   "value": "Free, open-book assessment on Microsoft Learn; the window opens 6 months before expiry"
+  },
+  {
+   "label": "Microsoft Learn",
+   "value": "Opens in a split screen on associate and expert exams (per Microsoft policy); no extra time"
+  }
+ ],
+ "links": [
+  {
+   "title": "Official AB-250 study guide",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/ab-250"
+  },
+  {
+   "title": "Certification page",
+   "url": "https://learn.microsoft.com/en-us/credentials/certifications/d365-contact-center-ai-engineer-associate/"
+  },
+  {
+   "title": "Course AB-250T00-A: Transform contact center experiences with AI in Dynamics 365",
+   "url": "https://learn.microsoft.com/en-us/training/courses/ab-250t00"
+  },
+  {
+   "title": "Official practice assessment",
+   "url": "https://aiskillsnavigator.microsoft.com/credentials/cert-58f18fddea3dd8122cc00b70ecfc61de1fdeb977c9d871e564a4bb6b3c9e3caf"
+  },
+  {
+   "title": "Exam sandbox",
+   "url": "https://aka.ms/examdemo"
+  }
+ ],
+ "guides": [
+  {
+   "id": "study-guide",
+   "title": "Study Guide",
+   "file": "guide.json"
+  }
+ ],
+ "skills": {
+  "file": "skills.json"
+ },
+ "exams": [
+  {
+   "id": "practice-1",
+   "title": "Practice Exam 1",
+   "file": "exams/practice-1.json",
+   "minutes": 120,
+   "questions": 60,
+   "description": "60 original questions weighted to the AB-250 skills measured, including a case study."
+  }
+ ]
+}

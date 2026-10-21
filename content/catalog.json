@@ -107,6 +107,27 @@
       "path": "ab-210/pack.json"
     },
     {
+      "id": "ab-250",
+      "order": 60,
+      "code": "AB-250",
+      "title": "Transforming Contact Center Experiences with AI in Dynamics 365",
+      "short": "Contact Center AI Engineer",
+      "vendor": "Microsoft",
+      "family": "Dynamics 365: customer experience",
+      "version": "2026.10.20",
+      "updated": "2026-10-20",
+      "accent": "#c4561a",
+      "description": "Study guide, 119-skill tracker and a 60-question practice exam for the AB-250 exam, listed beside the retired MB-240.",
+      "counts": {
+        "guides": 1,
+        "sections": 49,
+        "skills": 119,
+        "exams": 1,
+        "questions": 60
+      },
+      "path": "ab-250/pack.json"
+    },
+    {
       "id": "mb-230",
       "order": 70,
       "code": "MB-230",

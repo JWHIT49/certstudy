@@ -1,0 +1,1323 @@
+{
+ "schema": 1,
+ "id": "practice-1",
+ "title": "Practice Exam 1",
+ "description": "60 original questions weighted to the current AB-250 skills measured (study guide updated 2026-10-19), including a case study.",
+ "minutes": 120,
+ "scoring": "Each question is worth 1 point; multi-part questions are all-or-nothing.",
+ "bands": [
+  {
+   "min": 0.8,
+   "label": "Strong",
+   "text": "You know the material and the traps. Review every miss, re-take in a few days, then book the exam."
+  },
+  {
+   "min": 0.7,
+   "label": "Close",
+   "text": "Gaps in specific areas. Re-read the sections listed below and redo the matching hands-on tasks."
+  },
+  {
+   "min": 0,
+   "label": "Not ready yet",
+   "text": "Follow the study plan and focus on your lowest domain scores first."
+  }
+ ],
+ "caseStudies": [
+  {
+   "id": "woodgrove-premier-contact-center",
+   "title": "Woodgrove Bank: Premier contact center rollout",
+   "html": "<h3>Overview</h3>\n<p>Woodgrove Bank is replacing its legacy call center with Dynamics 365 Contact Center (standalone) and Copilot Service workspace. About 150 representatives serve retail and Premier customers by phone, website chat and WhatsApp, and supervisors monitor the queues in real time. A Copilot Studio voice agent answers every inbound call before a representative joins.</p>\n\n<h3>Current environment</h3>\n<ul>\n<li>Unified routing handles all three channels. Representatives get access through Microsoft Entra security group teams, and every representative holds the Omnichannel agent role.</li>\n<li>Twelve Premier bankers belong to the group team WB-Premier.</li>\n<li>Web chat uses two widgets: one on the public site and one on the Online banking site, which is a custom website and not a Power Pages portal.</li>\n</ul>\n\n<h4>Queues</h4>\n<table class=\"tight\">\n<thead><tr><th>Queue</th><th>Type</th><th>Operating hours</th></tr></thead>\n<tbody>\n<tr><td>Retail Voice</td><td>Voice</td><td>Retail hours</td></tr>\n<tr><td>Web Chat</td><td>Messaging</td><td>Retail hours</td></tr>\n<tr><td>Card Disputes</td><td>Record</td><td>Retail hours</td></tr>\n</tbody>\n</table>\n\n<h4>Current configuration</h4>\n<table class=\"tight\">\n<thead><tr><th>Item</th><th>Setting</th></tr></thead>\n<tbody>\n<tr><td>WhatsApp workstream</td><td>Profile-based capacity with profile WhatsApp-8: work item limit 8, reset frequency Immediate, assignment blocking No</td></tr>\n<tr><td>Online banking chat widget</td><td>Authentication settings: none selected</td></tr>\n<tr><td>Retail Voice workstream</td><td>Voice agent attached; transcription and recording on; Request for User Consent On; the agent has no consent topic</td></tr>\n<tr><td>Experience profiles</td><td>No custom profile; all representatives use an out-of-the-box profile</td></tr>\n</tbody>\n</table>\n\n<h3>Requirements</h3>\n<ol>\n<li>WhatsApp conversations can stay open for days. Each representative must be assigned <b>no more than 8 WhatsApp conversations per day</b>, and conversations still open when a shift ends must not count against the next shift.</li>\n<li>Chats from the Online banking widget must be <b>verified with a signed token from the bank's identity provider</b> rather than by details the customer types. The web team can issue a token for each signed-in session and publish its verification key at an HTTPS address.</li>\n<li>The voice agent must <b>ask every caller for permission to record and transcribe the call</b>. If a caller declines, the call must not be recorded or transcribed; if a caller agrees, the call must be recorded for quality review.</li>\n<li><b>Outside operating hours</b>, callers must be able to leave a voicemail, and web chat conversations must end automatically with an automated message.</li>\n<li>Only the Premier bankers must see <b>one inbox list that shows chat conversations and voicemails together</b>. All other representatives keep the standard workspace.</li>\n</ol>"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q001",
+   "type": "multi",
+   "domain": 5,
+   "skill": 95,
+   "section": "d5-configure-experience-profiles",
+   "stem": "Contoso's service desk wants one inbox view that shows each representative's cases, chats and emails together. Which <b>TWO</b> actions should the administrator take?",
+   "options": [
+    "Set <b>Incoming work items</b> to <b>Add to inbox</b> so that all types share one view.",
+    "Turn on the inbox for a <b>custom</b> experience profile.",
+    "Turn on the inbox in the out-of-the-box <b>Customer Service workspace - default profile</b>.",
+    "Add one view whose <b>Record type</b> includes Case, Chat and Email.",
+    "Create three single-type views and set <b>Representative visibility</b> to <b>Hide</b>."
+   ],
+   "answer": [
+    1,
+    3
+   ],
+   "select": 2,
+   "explanation": "The inbox can be configured for <b>custom experience profiles only</b>; the out-of-the-box profiles can't be modified. A <b>multi-entity</b> view is one view with several <b>Record type</b> values (Simple or Advanced settings per type), created with <b>+ Add</b> on the profile's Inbox page. Three single-type views stay separate, and <b>Hide</b> removes a view from representatives. The <b>Incoming work items</b> option only decides whether new conversations open in the inbox or in a new session tab.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-inbox"
+  },
+  {
+   "id": "q002",
+   "type": "single",
+   "domain": 4,
+   "skill": 81,
+   "section": "d4-configure-queues",
+   "stem": "Northwind Traders routes chats to a messaging queue that uses the Advanced round robin assignment method. Reps work different shift patterns that are stored in their bookable resource calendars, but chats are still offered to reps who are off shift. What should the administrator do?",
+   "options": [
+    "Change the queue's assignment method to Least active, because it skips reps who are not currently on shift.",
+    "Change the workstream's work distribution mode to Pick, so that reps are not pushed work while they are off shift.",
+    "Create a custom assignment method with an assignment rule that uses the Calendar schedule attribute and the Is working operator.",
+    "Add an operating hour record to the queue, because auto assignment only offers chats to reps while the queue is open."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The out-of-box methods (Highest capacity, Advanced round robin, Least active) <b>don't consider rep working hours</b>; you must write a custom assignment method and add a condition on the <b>Calendar schedule</b> attribute with <b>Is working</b>, so that only reps who are working according to their schedule are matched. A queue's operating hours apply to the whole queue (they drive the <i>Out of operation hours</i> overflow condition), not to each rep's shift, and Least active only balances work between reps (by current load and by when capacity was last released). The work distribution mode can't be edited after the workstream is created, and a custom method also needs its own presence, capacity and skill-matching rules because the workstream defaults are not used.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/assignment-methods"
+  },
+  {
+   "id": "q003",
+   "type": "single",
+   "domain": 5,
+   "skill": 93,
+   "section": "d5-configure-experience-profiles",
+   "stem": "Northwind Traders has two custom experience profiles. <b>Claims Desk</b> is mapped to the Customer Service Representative role with rank 1, and <b>Chat Specialist</b> is mapped to the Omnichannel agent role with rank 2. Neither profile is the default. An employee holds both security roles. Which profile does the employee get?",
+   "options": [
+    "The two profiles combined, with their productivity pane toggles merged.",
+    "Claims Desk, because the profile with rank 1 has the higher rank.",
+    "An out-of-the-box default profile, because the two roles conflict.",
+    "Chat Specialist, because rank 2 is the larger rank value."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "When a user has several security roles, the application links the profile with the <b>higher rank</b> to that user; in the documented example the profile with rank 1 wins over the one with rank 2. Profiles aren't merged, and the out-of-the-box defaults serve only users who have no custom profile. Rank and roles are set with <b>Set rank and roles</b> on a custom profile, and the admin center doesn't allow two profiles with the same rank.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-profile-default"
+  },
+  {
+   "id": "q004",
+   "type": "single",
+   "domain": 6,
+   "skill": 119,
+   "section": "d6-customize-analytics-reporting",
+   "stem": "Wide World Importers has configured Application Insights, the conversation diagnostics connection, the environment variable, a registered app with a federated identity credential, the Monitoring Reader role and the managed identity record. Supervisors with the Omnichannel supervisor role open Omnichannel Realtime analytics, but the Debug tab of the Diagnose dashboard isn't available. What should the administrator do?",
+   "options": [
+    "In Power Apps, set the <b>Enable Application Insights Dashboard</b> setting to Yes in Default value and Setting environment value.",
+    "In Copilot Service admin center, turn on <b>Embedded Power BI extensibility - Real-time data model customization</b> for the organization.",
+    "Create a second Customer Service data export to Application Insights in the Power Platform admin center for the Debug tab.",
+    "Assign the <b>Analytics Report Author</b> role to the supervisors so that the Diagnose command and Debug tab appear for them."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The Debug tab of the Diagnose dashboard is turned on by the <b>Enable Application Insights Dashboard</b> app setting: in Power Apps open the solution, go to <b>Objects &gt; Setting &gt; Setting definition</b>, select <b>Yes</b> in <b>Default value</b> and <b>Setting environment value</b>, and save. Data model customization changes Power BI reports, the Analytics Report Author role edits visuals, and Customer Service allows only one data export configuration to Application Insights per environment, so a second export isn't possible.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/enable-diagnose-dashboard"
+  },
+  {
+   "id": "q005",
+   "type": "single",
+   "domain": 4,
+   "skill": 90,
+   "section": "d4-configure-basic-unified",
+   "stem": "Adventure Works enabled unified routing in its Customer Service environment. Until then, an active basic routing rule set sent cases to queues by priority, but now new cases are no longer routed. The team wants to keep using that rule set. What should the administrator configure?",
+   "options": [
+    "The <b>Can be added to a queue</b> option, cleared and selected again on the Case table.",
+    "A second basic routing rule set that is activated to replace the first one.",
+    "A route-to-queue rule that hands each case to the basic routing rule set.",
+    "An intake rule that maps cases to the active basic routing rule set."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "After unified routing is enabled, the active basic routing rule <b>doesn't route records until intake rules are configured</b>, and an intake rule can be mapped either to a workstream or to an <b>active basic routing rule</b>. Mapping cases to the existing rule set therefore restores routing without rebuilding rules. Route-to-queue rules only choose a queue inside a workstream, activating another rule set doesn't create the missing mapping, and <b>Can be added to a queue</b> can't be cleared once it has been selected.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-record-routing"
+  },
+  {
+   "id": "q006",
+   "type": "multi",
+   "domain": 5,
+   "skill": 104,
+   "section": "d5-create-administer-knowledge",
+   "stem": "Representatives at Northwind Traders search the knowledge base from Copilot Service workspace, and Dataverse search is enabled in the environment. A search for <b>espresso grinder</b> returns many articles that contain only one of the two words, and representatives also want matching article titles to appear in a flyout while they type. Which <b>TWO</b> settings should the administrator turn on?",
+   "options": [
+    "<b>Enable suggest as you type</b> in Knowledge &gt; General settings",
+    "<b>Set search mode as all</b> in Knowledge &gt; General settings",
+    "<b>Enable Kb preview mode from global search option</b> in Knowledge &gt; General settings",
+    "<b>Show recently viewed knowledge articles</b> in Knowledge &gt; General settings",
+    "<b>Enable search filters</b> on the Knowledge &gt; Filters page"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "select": 2,
+   "explanation": "The default search logic is <code>searchMode=any</code>, so <b>Set search mode as all</b> (it needs Dataverse search) is what makes every keyword mandatory. <b>Enable suggest as you type</b> matches the typed phrase against article titles and shows highlighted matches in a flyout. Recently viewed articles (1 to 8) are listed without any search, search filters narrow results by field values and are already Yes by default, and the global search toggle only controls article previews from global search.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-knowledge-management-embedded-knowledge-search"
+  },
+  {
+   "id": "q007",
+   "type": "single",
+   "domain": 5,
+   "skill": 105,
+   "section": "d5-create-administer-knowledge",
+   "stem": "Fabrikam Outdoors publishes how-to content on a public, statically rendered website whose site map lists every article with a <code>lastmod</code> tag. Service representatives must find those pages in the same knowledge search as internal articles, and the knowledge manager wants a filter that limits results to this website. What should the administrator configure in Copilot Service admin center?",
+   "options": [
+    "An <b>integrated search provider</b> with the site's root URL and site map URL, filtered by <b>Integrated Search Dataprovider Id</b>",
+    "An <b>external search provider</b> of type <b>Microsoft Graph connector</b> configured with the website's address",
+    "An <b>external search provider</b> of type <b>SharePoint</b> configured with the website's address",
+    "An <b>external search provider</b> of type <b>Cross-Organizational Search</b> configured with the website's address"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<b>Integrated search providers</b> are meant for third-party sources such as enterprise websites that follow the site map protocol: the articles are ingested into Dataverse on a refresh schedule (static sites only, each article needs <code>lastmod</code>), and the <b>Integrated Search Dataprovider Id</b> filter limits results to one provider when Dataverse search is on. External providers only federate the search to SharePoint in the same Microsoft organization, to another organization, or through a Graph connector that is identified by its connection ID, and they show links per provider instead of ingested articles.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-search-provider"
+  },
+  {
+   "id": "q008",
+   "type": "single",
+   "domain": 5,
+   "skill": 99,
+   "section": "d5-configure-productivity-tools",
+   "stem": "Adventure Works routes chats to a Billing queue and a General queue. Representatives who accept a Billing chat must automatically see the Billing script, everyone else must see the General script, and representatives must still be able to pick another script by hand. Both scripts already exist. Where should the administrator configure the default?",
+   "options": [
+    "Workstream work classification: add a rule for each queue whose output is the script to display.",
+    "Scripts tab of the chat session template: turn on <b>Enable build expression</b> and set the default script in a condition.",
+    "General script: add a step with the <b>Script</b> action type that targets the Billing script for Billing chats.",
+    "Experience profile: open <b>Productivity pane</b> and choose a different default script for each queue."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The default script is chosen on the <b>session template</b>: open <b>Session templates</b>, go to the <b>Scripts</b> tab, set <b>Enable build expression</b> to Yes and select <b>Build Expression</b>. Add a <b>Condition</b> (for example on the <code>${queueId}</code> slug) and, under <b>If true</b> and <b>If false</b>, add the <b>Set default script</b> action from the <b>Customer Service</b> tab. Work classification rules set values such as priority, skills and capacity, the experience profile only switches pane tools on, and a Script-type step merely chains scripts for every representative.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/agent-scripts"
+  },
+  {
+   "id": "q009",
+   "type": "single",
+   "domain": 2,
+   "skill": 19,
+   "section": "d2-configure-chat-digital",
+   "stem": "Woodgrove Bank's website loads the Classic chat widget through the general script tag copied from Copilot Service admin center. The team wants to test the Modern widget on a staging page, then make the live site serve it without changing the website code, and keep the option to go back to Classic. What should the administrator do?",
+   "options": [
+    "Create a web engagement orchestration ruleset for the Modern channel and deploy its single script tag on the live site instead.",
+    "Create a new chat channel with <b>Add chat channel</b> &gt; <b>Modern</b>, then replace the live site's Classic snippet with the new channel's snippet.",
+    "Copy the Modern version's testing script and paste it into the live site in place of the general script tag that is deployed today.",
+    "On the chat workstream, select <b>Add Modern UI</b>, test with <b>Copy testing script</b>, and when ready select <b>Set as active</b> on the Modern version."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Each chat channel keeps a Classic and a Modern version. <b>Add Modern UI</b> (on the workstream whose channel is Chat) adds the Modern version while preserving the workstream configuration, <b>Copy testing script</b> loads one specific version for testing (unlike the general script tag), and <b>Set as active</b> makes the general script tag that is already deployed serve that version, with a roll back to Classic possible. A new channel, a pasted testing script or an orchestration ruleset each put a different snippet on the live site, so they break the no-code-change requirement and give no one-step rollback.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-chat-widget"
+  },
+  {
+   "id": "q010",
+   "type": "single",
+   "domain": 3,
+   "skill": 62,
+   "section": "d3-configure-agent-assist",
+   "stem": "Woodgrove Bank uses Dynamics 365 Customer Service. Copilot case summaries keep quoting the automatic \"your case was updated\" emails that a workflow sends from <code>support-noreply@woodgrovebank.example</code>, which hides the customer's real problem. An administrator in Copilot Service admin center must stop Copilot from using those emails. What should they configure?",
+   "options": [
+    "Lower the summary verbosity to <b>Small</b> in the default case summary wizard.",
+    "Clear the <b>Email Content</b> row on the Specify data pane of the default case summary.",
+    "Add the sender address under <b>Specify information to exclude</b> on the Summaries page.",
+    "Create an active data masking rule that matches the notification wording."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "<b>Specify information to exclude</b> (Support experience &gt; Productivity &gt; Summaries &gt; Manage) takes up to 10 email addresses and 3 disclaimers, headers or footers, and the doc's own example is the sender address of automatic notification emails. The <b>Email Content</b> value cannot be modified in Manage data. Verbosity only changes how long the summary is, and data masking rules hide sensitive text in chat and asynchronous messages rather than change the inputs to a case summary.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/copilot-enable-summary"
+  },
+  {
+   "id": "q011",
+   "type": "single",
+   "domain": 5,
+   "skill": 101,
+   "section": "d5-configure-productivity-tools",
+   "stem": "Woodgrove Bank's Tier 2 representatives use a custom experience profile that was copied from the default profile. The <b>Turn on Microsoft Teams chats inside Dynamics 365</b> toggle is already Yes, and the administrator must make Teams chat available to these representatives. What should the administrator do?",
+   "options": [
+    "Create a pane tool configuration of <b>Type</b> Control under <b>Productivity tools</b> for Teams chat, then enable that tool in the Tier 2 profile.",
+    "In the Power Platform admin center, turn on <b>End users can join Teams meetings from appointments</b> under Settings &gt; Product &gt; Collaboration.",
+    "Under <b>Embedded chat using Teams</b>, use <b>Turn on for specific multisession users</b> &gt; <b>Manage</b>, open the profile and enable its productivity pane features.",
+    "Assign the <b>Productivity tools administrator</b> role to every Tier 2 representative so that the Teams chat tab appears in the pane."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Teams chat works with the default profile, but a <b>custom profile</b> must be enabled explicitly. With the main toggle set to Yes, go to <b>Support experience &gt; Collaboration &gt; Embedded chat using Teams &gt; Manage</b>, choose <b>Turn on for specific multisession users &gt; Manage</b>, open the profile and enable the productivity pane features. A pane tool configuration is for custom pages and PCF controls, the Power Platform admin center setting is a prerequisite of <b>Join a Teams call</b>, and representatives need only permissions equal to the Productivity tools user role, not the administrator role.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-teams-chat"
+  },
+  {
+   "id": "q012",
+   "type": "single",
+   "domain": 3,
+   "skill": 70,
+   "section": "d3-configure-voice-agents",
+   "stem": "Adventure Works' voice agent asks callers to say a 16-digit account number in a Question node. Compliance requires that the number never appears in the call recording or the transcript, while the rest of the call is still recorded and transcribed. What should the maker configure?",
+   "options": [
+    "Create a regular-expression rule under <b>Productivity &gt; Data masking</b> and set it to Active.",
+    "Turn on <b>Log sensitive activity properties</b> in the Application Insights connection of the agent.",
+    "Turn off <b>Turn on audio recording</b> under Quality Management &gt; Enable screen and call recording.",
+    "Set <b>Sensitive data</b> to On in Variable properties for the variable that stores the answer."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "A variable flagged <b>Sensitive data</b> pauses recording, transcription and data logging while the answer is collected (silence is inserted in the audio and the transcript shows an entered-confidential-section message), so the rest of the call is still captured. Data masking rules apply to chat and asynchronous channels, not voice. The tenant audio switch would stop all recording in the organisation, and <b>Log sensitive activity properties</b> would copy sensitive variables into telemetry, which the doc says to keep off. See also <a href=\"https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/data-masking-settings\">Create and manage data masking rules</a>.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/agent-sensitive-data-masking"
+  },
+  {
+   "id": "q013",
+   "type": "single",
+   "domain": 2,
+   "skill": 38,
+   "section": "d2-configure-channel-features",
+   "stem": "Proseware sends the request below to shorten the auto-close time of live chat conversations in Wrap-up. The live chat workstream has <b>Block capacity for wrap-up</b> set to 20 minutes. When does a conversation in Wrap-up become eligible for automatic closure?<pre>PATCH [org]/api/data/v9.1/msdyn_occhannelstateconfigurations(&lt;id of the live chat Wrap-up record&gt;)\n{ \"msdyn_autocloseliveworkitemafter\": 8 }</pre>",
+   "options": [
+    "After 20 minutes, because the larger Block capacity for wrap-up value overrides the attribute.",
+    "After 8 minutes, because the PATCH value replaces the 15-minute default.",
+    "After 28 minutes, because the two values are added together.",
+    "After 8 hours, because the attribute value is read as hours."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "For live chat Wrap-up, the workstream's <b>Block capacity for wrap-up</b> overrides <code>msdyn_autocloseliveworkitemafter</code> when it is larger, so the conversation holds capacity for 20 minutes and is eligible for closure only then (the documented example: 15 minutes of blocking with an attribute of 10 gives 15). The values are not added, and the attribute is in <b>minutes</b> (1 day is 1,440). The decision is made when the scheduler runs, every 5 minutes, not when the PATCH is sent.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/develop/auto-close-conversation"
+  },
+  {
+   "id": "q014",
+   "type": "single",
+   "domain": 1,
+   "skill": 2,
+   "section": "d1-implement-dynamics-365",
+   "stem": "Litware is using the Salesforce connector wizard in Copilot Service admin center to copy Contacts and Accounts into Dataverse. The wizard is now on the <b>Teams permissions</b> page. Which selection lets the synchronization write the data?",
+   "options": [
+    "A Microsoft Teams team whose channel receives the synchronization notifications.",
+    "A Dataverse team that has read and write permissions on the selected tables.",
+    "A Salesforce permission set that grants change data capture on Contacts and Accounts.",
+    "A Dataverse team that has read-only access, because Salesforce remains the source of truth."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The page asks for a <b>Dataverse team</b>: its ID is used to write the synchronized data into Dataverse, so the team needs read <b>and write</b> permissions on the selected tables or the synchronization fails. It has nothing to do with Microsoft Teams. The Salesforce side (change data capture license and the permissions listed on the Enable salesforce permissions page) is handled in other steps, and a read-only team can't receive the rows even though Salesforce stays the system of record.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/configure-salesforce-connector"
+  },
+  {
+   "id": "q015",
+   "type": "single",
+   "domain": 2,
+   "skill": 46,
+   "section": "d2-configure-channel-features",
+   "stem": "Northwind Traders runs Copilot Service workspace. Its two call centers use different cloud softphones, each delivered by a non-Microsoft telephony vendor as a web widget. Both widgets must stay in use and be available to representatives in the same app. What should the administrator do?",
+   "options": [
+    "Provision the native voice channel for each call center and connect each vendor's trunk through Direct Routing.",
+    "Create two custom messaging channels with bring-your-own-channel and Direct Line, one for each vendor.",
+    "Register both vendors under Workspaces &gt; Third party voice channel provider by using Channel Integration Framework 2.0.",
+    "Install Channel Integration Framework 1.0 and register both vendors there, because it supports several providers at once."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "CIF 2.0 is built for multisession apps such as Copilot Service workspace and supports multiple telephony channel providers; each one is added under Workspaces &gt; Manage Third party voice channel provider &gt; Active Channel Providers &gt; New, and <b>Channel Order</b> sets precedence. CIF 1.0 targets single-session apps and supports one provider at a time, bring-your-own-channel integrates custom messaging providers, and the native voice channel would replace the vendors' widgets, which the scenario rules out.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/channel-integration-framework/choose-between-versions"
+  },
+  {
+   "id": "q016",
+   "type": "yesno",
+   "domain": 6,
+   "skill": 112,
+   "section": "d6-configure-dynamics-365",
+   "stem": "A supervisor at Adventure Works uses the Ongoing conversation report in Copilot Service workspace, and the administrator has already set Supervisor Monitor, Supervisor Assign, Supervisor Transfer and Force Close to Yes. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "A supervisor can monitor a digital messaging conversation that is in the Wrap-up state.",
+     "answer": true
+    },
+    {
+     "text": "After a supervisor uses Force close on a conversation, its status is set to Closed.",
+     "answer": true
+    },
+    {
+     "text": "To assign a conversation manually, it must be in the Open state and not yet assigned to a representative.",
+     "answer": true
+    },
+    {
+     "text": "A supervisor can transfer an active chat from one representative to an AI agent.",
+     "answer": false
+    },
+    {
+     "text": "A supervisor can monitor a voice call that is in the Wrap-up state.",
+     "answer": false
+    }
+   ],
+   "explanation": "Digital conversations can be monitored while <b>Active</b> or in <b>Wrap-up</b>, but voice calls only while <b>Active</b>. Assign needs an <b>Open</b> conversation that no representative owns, and the supervisor may override presence and capacity. Transfer works only between representatives, never to or from AI agents, and only for Active or Waiting messaging conversations; force closing sets the status to <b>Closed</b>.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/use/monitor-conversations"
+  },
+  {
+   "id": "q017",
+   "type": "order",
+   "domain": 4,
+   "skill": 87,
+   "section": "d4-configure-basic-unified",
+   "stem": "Fabrikam has two years of resolved cases in Dataverse and wants new work items to receive predicted skills automatically. Arrange the steps in the order the administrator performs them.",
+   "items": [
+    "In <b>Operations &gt; Insights &gt; Intelligent skill finder</b>, select <b>New</b>, enter a name and choose the attributes in Data criteria.",
+    "Save the model and select <b>Load training data</b>.",
+    "Select the training records and <b>Approve</b> at least 50 of them.",
+    "Select <b>Train model</b> and confirm.",
+    "When training has completed, select the rows and choose <b>Publish model</b>.",
+    "In the workstream, create a work classification ruleset of type <b>Machine learning model</b> and select the published model."
+   ],
+   "explanation": "The documented sequence is: create the model with its data criteria, <b>Load training data</b>, <b>Approve</b> (at least 50 approved records are needed before training), <b>Train model</b>, and <b>Publish model</b> once the status shows training completed. The <b>Machine learning model</b> classification ruleset then sends the work item's attributes to the published model and attaches the returned tags as skills, so it comes last.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-isf-model"
+  },
+  {
+   "id": "q018",
+   "type": "single",
+   "domain": 1,
+   "skill": 3,
+   "section": "d1-implement-dynamics-365",
+   "stem": "Woodgrove Bank wants Salesforce Service Console users to take Dynamics 365 Contact Center calls without leaving Salesforce. The administrator downloaded <code>Dynamics365CallCenter.xml</code> from Microsoft's GitHub repository. What must be done with the file before it is imported under Salesforce Setup &gt; Call Center?",
+   "options": [
+    "Replace the CTI Adapter URL with the widget URL from the Conversation widget tab.",
+    "Install the OpenFrame plugin in Salesforce so that the file can register the widget.",
+    "Set the softphone width to 400 and the height to 700 in the file before importing it.",
+    "Replace the CTI Adapter URL with the Dataverse organization URL of the Contact Center environment."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The call-center definition file carries a CTI Adapter URL that must point to the Contact Center conversation widget. Copy that URL from the Copilot Service admin center welcome page (<b>Open</b> under Your default contact center &gt; <b>Conversation widget</b> tab &gt; Integration into third-party systems), save the file, then import it. The softphone size is set later on the Open CTI Softphone utility item (width 400, height 600). OpenFrame and a 400 x 700 panel belong to ServiceNow, and the Dataverse organization URL is not the widget URL.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/set-up-embedded-experience"
+  },
+  {
+   "id": "q019",
+   "type": "single",
+   "domain": 2,
+   "skill": 52,
+   "section": "d2-configure-channel-features",
+   "stem": "Wide World Importers runs a representative-led <b>predictive</b> engagement to confirm parcel deliveries. For most of the day only six representatives in the queue are available. How does the engagement place calls during those periods?",
+   "options": [
+    "It keeps predictive pacing and starts calls before each of the six representatives is forecast to become free.",
+    "It places one call for each newly available representative, as progressive mode does, while fewer than 10 are available.",
+    "It pauses the engagement until at least 10 representatives are available again.",
+    "It switches to Copilot mode and lets the AI agent on the workstream place all calls."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Predictive dialing requires at least 10 available service representatives. Below that number the system operates as progressive, placing only one call per newly available representative, and it switches back to predictive automatically when the count goes back above 10. It neither pauses nor changes to Copilot mode, which is the AI-led IVR mode for mass notifications with escalation to representatives.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/proactive-engagement-dial-modes"
+  },
+  {
+   "id": "q020",
+   "type": "single",
+   "domain": 1,
+   "skill": 10,
+   "section": "d1-deploy-dynamics-365",
+   "stem": "A Contoso administrator imports a new version of a managed Contact Center solution into production and the import succeeds. A notification template that changed in the source environment still shows its old values in production. A production administrator had adjusted that same template directly a few months earlier. What is the most likely cause?",
+   "options": [
+    "The installed solution versions differ between the source and the target, so the changed record is skipped.",
+    "The managed solution was exported from an unmanaged source solution, so its records are read-only in the target.",
+    "Notification templates can't travel in solutions and must be migrated with the Configuration Migration tool.",
+    "Editing the managed record in production created an active layer, which always takes precedence over the managed layer."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Editing a managed configuration record in the target creates an active (unmanaged) customization. The active layer always takes precedence over the managed layer, so later imports succeed but don't change what users see, and the layer can also make deleting the managed solution fail. Session and notification templates are ordinary solution components, exporting unmanaged configuration <i>as managed</i> is the recommended practice, and version parity is a separate best practice that doesn't explain one stale record after a successful import.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/alm-best-practices"
+  },
+  {
+   "id": "q021",
+   "type": "single",
+   "domain": 3,
+   "skill": 71,
+   "section": "d3-configure-voice-agents",
+   "stem": "Fabrikam turned on <b>Request for User Consent</b> in the Transcription and recording settings of its inbound voice workstream, with recording and transcription starting automatically. The maker published the voice-enabled agent but never added the User Consent topic to the Conversation Start topic. What do callers experience?",
+   "options": [
+    "Callers hear the workstream's default consent prompt, and recording starts only if they agree.",
+    "No call is recorded or transcribed until the consent topic is added to Conversation Start.",
+    "Callers are asked for consent only after the agent escalates them to a representative.",
+    "Callers are never asked for consent, and every call is recorded and transcribed."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Turning on <b>Request for User Consent</b> does not create a prompt: the agent must call the consent topic from Conversation Start. With the workstream setting On and the topic missing (Off), every caller is treated as having opted in and recording and transcription proceed. The consent prompt is never played by the workstream setting itself, and if the setting were Off the agent would not ask for consent whatever the topic does.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-consent-based-record"
+  },
+  {
+   "id": "q022",
+   "type": "single",
+   "domain": 6,
+   "skill": 114,
+   "section": "d6-customize-analytics-reporting",
+   "stem": "A supervisor at Litware has the Analytics Report Author role. In Copilot Service workspace the supervisor opens Omnichannel real-time analytics, selects <b>Edit report</b>, changes the Incoming conversations over time visual to a table and selects <b>Save</b>. Other supervisors still see the original bar chart. What must the supervisor do next?",
+   "options": [
+    "Select <b>Publish</b>; the customization then becomes visible to all users in the organization.",
+    "Ask each supervisor to import the saved report, because embedded editor changes are stored per user.",
+    "Select <b>Checkout default report</b> and then <b>Reset</b> so that the saved version becomes the default.",
+    "Assign Power BI Pro licenses to the other supervisors so that the edited report appears for them."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Changes made in the embedded Power BI editor take effect only after <b>Save</b> and then <b>Publish</b>, and a published customization is visible to <b>all users</b> in the organization rather than per user. No Power BI license is needed to customize the embedded reports, and <b>Reset</b> (Edit report &gt; Checkout default report) does the opposite of what is wanted because it permanently removes your customizations. Export and import move published customizations between organizations; they are not a per-user publishing step.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/use/customize-reports"
+  },
+  {
+   "id": "q023",
+   "type": "single",
+   "domain": 4,
+   "skill": 80,
+   "section": "d4-configure-queues",
+   "stem": "Woodgrove Bank's \"Card services\" voice queue has an operating hour record. Calls that arrive outside business hours are placed in the queue and wait until reps sign in. The administrator wants these callers to be offered voicemail instead. What should the administrator configure?",
+   "options": [
+    "On the workstream's fallback queue, set Voicemail as the overflow action for calls that arrive after hours.",
+    "In the queue's overflow handling, change the action of the default Out of operation hours condition to Voicemail.",
+    "Add a Waiting time in queue exceeds condition with the Voicemail action to the queue, using the shortest wait time allowed.",
+    "In the voice workstream, set channel-specific operating hours so that the channel starts overflow handling after hours."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Adding an operating hour record to a queue creates the default overflow condition <b>Out of operation hours</b> with the action <b>Assign to queue anyway</b>; the condition cannot be edited but its action can be changed, and <b>Voicemail</b> is available on voice queues. Hours set on the channel in the workstream do not affect overflow settings, overflow is ignored for the fallback queue (which only receives work after errors or when no route-to-queue rule matches), and <i>Waiting time in queue exceeds</i> applies only after the call is queued (at least 1 minute for voice).",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/manage-overflow"
+  },
+  {
+   "id": "q024",
+   "type": "single",
+   "domain": 4,
+   "skill": 83,
+   "section": "d4-configure-basic-unified",
+   "stem": "Woodgrove Bank created a Messaging workstream for its website chat widget with the <b>Pick</b> work distribution mode. An administrator then added a Copilot Studio agent to it by selecting <b>Add bot</b> in the <b>Bot</b> area. Chats reach the workstream, but the agent never answers any of them. What should the administrator do?",
+   "options": [
+    "Add a second agent to the same workstream so that one of the two agents takes the chats.",
+    "Switch the existing workstream's <b>Work distribution mode</b> to <b>Push</b> in its Work distribution settings.",
+    "Create a new workstream in <b>Push</b> mode, configure the chat widget in it and add the agent there.",
+    "Set <b>Keep same representative for entire conversation</b> to <b>Yes</b> in the Work distribution settings."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Agents can receive conversations only in <b>push-based</b> workstreams, and the <b>Work distribution mode</b> is chosen when a workstream is created and <b>can't be edited later</b>, so the fix is a new push workstream that holds the channel and the agent. A workstream accepts only <b>one agent</b>, so a second agent isn't possible. <b>Keep same representative for entire conversation</b> is representative affinity (also push only) and has no effect on whether an agent is offered the chats.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-workstreams"
+  },
+  {
+   "id": "q025",
+   "type": "single",
+   "domain": 2,
+   "skill": 30,
+   "section": "d2-provision-manage-voice",
+   "stem": "Fabrikam Insurance keeps its non-Microsoft IVR. When a caller chooses to speak to a representative, the IVR must transfer the call to the Dynamics 365 Contact Center voice channel together with the caller's policy number so that routing rules and the representative can use it. The IVR's session border controller is already connected to the Azure Communication Services resource through Azure direct routing, and the IVR number is registered through Bring your own carrier. What should be done next?",
+   "options": [
+    "Have the IVR call <code>POST /conversation/create</code> of the Messaging API with <code>policy</code> in <code>conversationcontext</code> before it transfers the call.",
+    "Have the IVR send a SIP INVITE with <code>User-to-User: policy=88231</code> and create a context variable named <code>PolicyNumber</code> on the voice workstream.",
+    "Have the IVR send a SIP INVITE with a custom header <code>X-Policy: 88231</code> and map that header in the voice workstream's routing rules.",
+    "Have the IVR send a SIP INVITE with <code>User-to-User: policy=88231</code> and create a context variable named <code>policy</code> on the voice workstream."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "The documented integration uses Azure direct routing: the IVR issues a SIP INVITE and carries the context in the <b>SIP UUI (User-to-User) header</b> as <code>param=value</code> pairs (plain text, or hex with <code>;encoding=hex</code> or <code>;pd=4</code>). The administrator then creates workstream context variables whose names match the UUI parameter names <b>exactly</b>, so <code>policy</code> works and <code>PolicyNumber</code> does not. A custom SIP header is not the documented carrier, and the Messaging API starts chat-style conversations rather than enriching a voice call.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/voice-channel-contextual-transfer-external-ivr"
+  },
+  {
+   "id": "q026",
+   "type": "single",
+   "domain": 2,
+   "skill": 25,
+   "section": "d2-configure-chat-digital",
+   "stem": "Northwind Traders is building native iOS and Android shopping apps. Customers must be able to chat with representatives from inside the app, receive push notifications and return to earlier conversations, and the team wants to follow Microsoft's recommended approach. Which approach should they use?",
+   "options": [
+    "Call the Messaging APIs directly from the apps to start conversations and receive the representatives' replies.",
+    "Build a custom chat UI in each app with the Omnichannel Chat SDK npm package and the Live Chat Widget UI Components library.",
+    "Integrate the Dynamics 365 Contact Center Messaging SDK for iOS and Android with authenticated persistent chat, and use Azure Notification Hub for push.",
+    "Render the web chat widget inside a WebView in each app by using the <code>data-render-mobile=\"true\"</code> data tag."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "For native apps Microsoft strongly recommends the native Messaging SDKs for iOS and Android: they offer better feature support and performance, a configurable out-of-the-box interface (styled in app code, not in the admin center), lifecycle functions for a custom UI and push through Azure Notification Hub, and the guidance is to use authenticated, persistent chat so customers can return to earlier conversations. A WebView is only a fallback with reduced performance and no voice or video escalation or transcript download. The Messaging APIs are for back-end service-to-service integrations and are not recommended for calls made directly from a user's device, and the Omnichannel Chat SDK and Live Chat Widget UI Components library are JavaScript and React libraries for building your own widget (the Chat SDK also supports React Native, but not Swift or Kotlin apps), not the SDKs Microsoft recommends for native iOS and Android apps.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/develop/render-live-chat-widget-mobile"
+  },
+  {
+   "id": "q027",
+   "type": "multi",
+   "domain": 2,
+   "skill": 20,
+   "section": "d2-configure-chat-digital",
+   "stem": "Tailwind Traders uses Dynamics 365 Contact Center (standalone). The live chat widget is already embedded on its returns page. The team wants a chat invitation that the visitor can accept or dismiss to appear after the visitor has spent 20 seconds on that page. Which <b>TWO</b> actions should the team take?",
+   "options": [
+    "Add a pre-conversation survey question that asks how long the visitor has been on the page.",
+    "Call <code>setContextProvider</code> with a time-on-page value so that the widget opens by itself.",
+    "Turn on <b>Reconnect to previous chat</b> and set its time limit to 20 seconds.",
+    "Add page script that calls <code>Microsoft.Omnichannel.LiveChatWidget.SDK.startProactiveChat</code> after the <code>lcw:ready</code> event, for example from a 20-second timer.",
+    "In the chat widget settings, switch the <b>Proactive chat</b> toggle on the <b>Chat widget</b> tab to On.",
+    "Create a quick reply that contains the invitation text and assign it to the chat workstream."
+   ],
+   "answer": [
+    3,
+    4
+   ],
+   "select": 2,
+   "explanation": "Proactive chat has two parts: the <b>Proactive chat</b> toggle on the widget's Chat widget tab, and page script that decides when to invite by calling <code>startProactiveChat</code> once <code>lcw:ready</code> has fired. The visitor can accept or close the invitation, and it closes by itself after one minute (that timer cannot be configured). Reconnect to previous chat only restores a dropped conversation, a pre-conversation survey appears after the visitor opens the widget, <code>setContextProvider</code> only passes context to a chat that starts, and quick replies are messages that representatives send.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/proactive-chat"
+  },
+  {
+   "id": "q028",
+   "type": "single",
+   "domain": 2,
+   "skill": 32,
+   "section": "d2-provision-manage-voice",
+   "stem": "Litware's billing representatives place outbound calls, and customers must see the company's main billing line as the caller ID although the representatives' outbound profile is built on a separate shared number. No audio and no transcript of these calls may be kept. Which configuration meets the requirements?",
+   "options": [
+    "On the outbound profile, set <b>Caller ID number</b> to the main billing line, make sure that number has its own outbound profile, and set <b>Transcription and recording</b> to <b>None</b>.",
+    "Create an inbound profile on the main billing line, and set <b>Transcription and recording</b> to <b>None</b> in the inbound behaviors.",
+    "On the outbound profile, set <b>Caller ID number</b> to the main billing line, and set <b>Transcription and recording</b> to <b>Transcription only</b> to avoid audio.",
+    "On the outbound profile, set <b>Number label</b> to the main billing line, and set <b>Transcription and recording</b> to <b>None</b> so that nothing is kept."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "The <b>Caller ID number</b> on an outbound profile is what customers see, and when it differs from the profile number that number must also have an outbound profile so that representative settings exist. The <b>Number label</b> is only a dialer label and is not a CNAM, which is not supported. <b>Transcription and recording</b> offers None, Transcription only or Transcription and recording, and only None keeps neither audio nor transcript. Inbound profiles are for direct inward dialing to a representative's own geographic personal number, not for outbound calls.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-outbound-inbound-profiles"
+  },
+  {
+   "id": "q029",
+   "type": "single",
+   "domain": 2,
+   "skill": 39,
+   "section": "d2-configure-channel-features",
+   "stem": "Adventure Works runs a tiered support organization. When a Tier 1 representative transfers a conversation to a queue, the list shows every queue. The administrator must show only the Tier 2 queues that a custom mapping table links to the representative's current queue. What should the administrator configure in Copilot Service admin center?",
+   "options": [
+    "Turn on <b>Consult to queue</b> and set a short countdown so that the system picks the most eligible representative from a Tier 2 queue.",
+    "Turn on <b>Transfer to queue filtering</b> under Channels &gt; Consult and transfer and save a validated FetchXML query that uses <code>{queue.queueid}</code>.",
+    "Add the Tier 2 queues under Customer settings &gt; Manage pins so that they are listed first in the transfer dialog.",
+    "Turn on the <b>Reroute</b> (preview) toggle in Transfer settings so that the routing rules pick the Tier 2 queue after the transfer."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The four filtering toggles under <b>Channels &gt; Consult and transfer</b> (consult to queue, transfer to queue, consult with representative, transfer to representative) are all off by default. Each takes a validated FetchXML query; for queues the primary entity is <code>queue</code>, and <code>{queue.queueid}</code> is replaced at run time by the current conversation's queue. Pins only sort items to the top and never hide the rest, consult to queue lets the system choose a representative, and reroute (preview) re-runs classification and routing rules instead of limiting the list.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/enable-transfer-consult"
+  },
+  {
+   "id": "q030",
+   "type": "multi",
+   "domain": 3,
+   "skill": 63,
+   "section": "d3-configure-agent-assist",
+   "stem": "Contoso Retail tags its knowledge articles with a custom <b>Region</b> option set column. When a representative works on a case in Copilot Service workspace, <b>Ask a question</b> must automatically be limited to the articles for that case's region, and the representative must see that the filter is applied and be able to change it. Which <b>TWO</b> configurations achieve this?",
+   "options": [
+    "Type the region names into the <b>Instructions</b> field of the Customer Support agent.",
+    "Create an automated filter on the Region field and turn on <b>Allow representatives to view or change this filter</b>.",
+    "Turn on <b>Deterministic response</b> on the Overview tab of the Customer Support agent.",
+    "Turn on <b>Use untagged content if the field value is null</b> and change nothing else.",
+    "Create a representative filter on the Region field and turn on its <b>Filter status</b>.",
+    "Create a preset filter on the Region field."
+   ],
+   "answer": [
+    1,
+    4
+   ],
+   "select": 2,
+   "explanation": "An <b>automated filter</b> is applied from the record the representative is working on, and when its view/change toggle is on, Copilot prompts you to create a matching <b>representative filter</b>, which representatives see only while its Filter status is on. A preset filter runs in the background and cannot be seen. Deterministic response only makes output repeatable, Instructions (up to 5,000 characters) guide tone and format rather than filter articles, and the untagged-content toggle only controls what happens when the field is empty. Filter fields must be String, Whole Number, Option Set or Two Options, so an option set column qualifies.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/copilot-enable-help-pane"
+  },
+  {
+   "id": "q031",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 40,
+   "section": "d2-configure-channel-features",
+   "stem": "For each statement about data masking in Dynamics 365 Contact Center, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "With <b>Mask private customer data from the agent</b>, a customer's message on an asynchronous channel is masked in both the customer's and the representative's view.",
+     "answer": false
+    },
+    {
+     "text": "An administrator can modify or delete the out-of-the-box Credit Card, Email and SSN masking rules.",
+     "answer": true
+    },
+    {
+     "text": "An environment can hold at most 10 data masking rules, and the out-of-the-box rules count toward that limit.",
+     "answer": true
+    },
+    {
+     "text": "When a representative masks a message in a voice transcript manually, the text is also removed from any retained audio recording.",
+     "answer": false
+    }
+   ],
+   "explanation": "Contact Center allows a maximum of 10 masking rules, out-of-the-box ones included, and administrators can modify or delete the Credit Card, Email and SSN rules. With <b>Mask private customer data from the agent</b>, live chat masks the text for both parties, but on asynchronous channels only the representative's interface is masked. Manual masking removes masked text from voice transcripts but not from any retained audio recordings.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/data-masking-settings"
+  },
+  {
+   "id": "q032",
+   "type": "single",
+   "domain": 2,
+   "skill": 51,
+   "section": "d2-configure-channel-features",
+   "stem": "Tailwind Traders exports about 15,000 customers from its ERP every night. A scheduled Azure job that calls Dataverse directly must submit all of them to a proactive voice engagement in a single request. Which API should the job call?",
+   "options": [
+    "<code>CCaaS_CreateProactiveVoiceDelivery</code>",
+    "<code>CCaaS_CreateProactiveBulkDelivery</code>",
+    "<code>CCaaS_CreateProactiveDelivery</code>",
+    "<code>CCaaS_CreateSimpleProactiveDelivery</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "<code>CCaaS_CreateProactiveBulkDelivery</code> sends multiple records (approximately 15,000) in a single request, but it does not support account calling. <code>CCaaS_CreateProactiveDelivery</code> is the most versatile API and the default for most scenarios, yet voice requests take up to five contacts for chaining, not thousands of records. <code>CCaaS_CreateSimpleProactiveDelivery</code> avoids complex JSON nesting for surfaces like Power Automate, and <code>CCaaS_CreateProactiveVoiceDelivery</code> is a first-generation API without the newer features that you should migrate away from.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/extend/api/ccaas_createproactivedelivery"
+  },
+  {
+   "id": "q033",
+   "type": "multi",
+   "domain": 2,
+   "skill": 55,
+   "section": "d2-configure-channel-features",
+   "stem": "Contoso has installed Workforce Management, published shift bookings, and uses unified routing with advanced queues and a custom assignment method on its Tier 1 queue. Which <b>TWO</b> actions make routing assign conversations only to representatives who are currently on a working shift?",
+   "options": [
+    "Add a rule with the <b>Calendar schedule</b> condition (Is working) to the queue's custom assignment method.",
+    "Turn on <b>Enable shift swap</b> and set the shift swap expiry in days.",
+    "Turn on <b>Allow agents to accept schedule</b> and set a schedule acceptance deadline.",
+    "Turn on <b>Enable my schedule for customer service representatives</b> in the Representative calendar settings.",
+    "Turn on <b>Enable routing based on shift bookings</b> on the Shift-based routing page."
+   ],
+   "answer": [
+    0,
+    4
+   ],
+   "select": 2,
+   "explanation": "Shift-based routing needs the <b>Enable routing based on shift bookings</b> toggle (Operations &gt; Workforce management &gt; Shift &amp; Schedule Management &gt; Shift-based routing) and an assignment rule with the <b>Calendar schedule</b> condition (value Is working) in the queue's custom assignment method. Schedule acceptance, the representative's own calendar view and shift swapping are separate features and none of them affects how work is assigned. Routing then considers only committed, assignable shift bookings.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-routing-on-agent-calendar"
+  },
+  {
+   "id": "q034",
+   "type": "yesno",
+   "domain": 2,
+   "skill": 21,
+   "section": "d2-configure-chat-digital",
+   "stem": "Contoso Telecom is adding a pre-conversation survey to its chat widget in Copilot Service admin center. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "Validation can be applied to optional (not required) survey questions.",
+     "answer": false
+    },
+    {
+     "text": "After survey questions are added, matching context variables are created under <b>Advanced settings &gt; Context variables</b> of the workstream.",
+     "answer": true
+    },
+    {
+     "text": "A question that uses the <b>User consent</b> answer type must have <b>Required</b> set to Yes.",
+     "answer": true
+    },
+    {
+     "text": "For an <b>Option set</b> question, the options are entered separated by commas.",
+     "answer": false
+    },
+    {
+     "text": "The survey can contain up to 10 questions.",
+     "answer": true
+    }
+   ],
+   "explanation": "A preconversation survey allows <b>up to 10 questions</b>, each with question text of at most 512 characters. <b>Option set</b> values must be separated by a <b>semicolon</b>, not a comma. <b>User consent</b> questions need Required set to Yes. Adding questions creates corresponding context variables in the workstream's Advanced settings, and validation is supported for mandatory fields only, so optional questions cannot carry it.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-pre-chat-survey"
+  },
+  {
+   "id": "q035",
+   "type": "single",
+   "domain": 1,
+   "skill": 14,
+   "section": "d1-manage-users",
+   "stem": "Fabrikam Outdoor Gear onboards 400 seasonal reps through a team of type Microsoft Entra ID Security Group that carries the Basic User, Customer Service Representative and Omnichannel agent roles. The administrator copied Omnichannel agent into a custom role named \"Seasonal service rep\", added that role to the team and selected it for the Agent persona in <b>Role persona mapping</b>, but the mapping does not apply to the reps. What should the administrator do?",
+   "options": [
+    "Add the Omnichannel API access role to the team so that the Agent persona can resolve the custom role for its members.",
+    "Run a Power Automate flow with the <code>SyncGroupMembersToTeam</code> action so that the persona mapping re-evaluates the roles held by the team.",
+    "Assign the Seasonal service rep role to each rep directly by using <b>Manage security roles</b> under Advanced Settings.",
+    "Give the team the System Administrator role so that Role persona mapping can read roles that arrive through team membership."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Roles that you map to personas must be assigned to users <b>directly, not through team memberships</b>, so the custom role has to be added to each rep (Settings &gt; Advanced Settings &gt; Security &gt; Users &gt; Manage security roles). <code>SyncGroupMembersToTeam</code> only syncs group members into the team sooner, System Administrator is a prerequisite for the admin who manages personas rather than something a team of reps needs, and the Omnichannel API access role must <b>not</b> be given to representatives.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/role-persona-mapping"
+  },
+  {
+   "id": "q036",
+   "type": "yesno",
+   "domain": 1,
+   "skill": 7,
+   "section": "d1-implement-dynamics-365",
+   "stem": "Fabrikam's administrator is planning to use Service Operations Agent in Dynamics 365 Contact Center. For each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "The agent can create overflow rules for a queue.",
+     "answer": false
+    },
+    {
+     "text": "An administrator needs the Omnichannel administrator role to access the agent.",
+     "answer": true
+    },
+    {
+     "text": "The agent can add conditions to the rules in a route-to-queue ruleset.",
+     "answer": false
+    },
+    {
+     "text": "The agent runs on the Power Platform pay-as-you-go plan, which charges an Azure subscription when the agent runs.",
+     "answer": true
+    },
+    {
+     "text": "The agent can create a queue and give it one of the out-of-the-box assignment methods.",
+     "answer": true
+    }
+   ],
+   "explanation": "Access needs the <b>Omnichannel administrator</b> role (System Administrator is needed only to manage the Power Apps and Model Context Protocol connections), and the agent bills through the pay-as-you-go plan. Its tools create queues with out-of-the-box assignment methods and route-to-queue rules <b>without conditions only</b>. Classification rulesets, assignment rules, overflow rules, multi-queue distribution and rule conditions aren't supported through the tools and must be configured manually in Copilot Service admin center.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/use-service-operations-agent"
+  },
+  {
+   "id": "q037",
+   "type": "dropdown",
+   "domain": 2,
+   "skill": 36,
+   "section": "d2-configure-channel-features",
+   "stem": "Contoso Retail's public website already knows each visitor's loyalty tier, and chats from Gold visitors must reach a VIP queue. The visitors are not signed in (unauthenticated chat), and a <code>LoyaltyTier</code> context variable exists on the chat workstream. Complete the live chat SDK code so that the tier is sent before the chat starts.",
+   "format": "code",
+   "language": "javascript",
+   "template": "function contextProvider() {\n  return { LoyaltyTier: \"Gold\", OrderValue: 129.5, IsVip: true };\n}\n\nwindow.addEventListener(\"{1}\", function () {\n  Microsoft.Omnichannel.LiveChatWidget.SDK.{2}(contextProvider);\n  Microsoft.Omnichannel.LiveChatWidget.SDK.startChat();\n});",
+   "blanks": [
+    {
+     "options": [
+      "DOMContentLoaded",
+      "lcw:error",
+      "lcw:ready",
+      "load"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "removeContextProvider",
+      "getContextProvider",
+      "setContextProvider"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "Live chat SDK methods are ready only after the <code>lcw:ready</code> event is raised, so the provider is registered inside that handler and <code>startChat()</code> follows. <code>setContextProvider(fn)</code> registers the function whose key-value pairs become custom context: keys must match the context variables on the workstream (a key with no match is created at run time as String), and a chat session accepts at most 100. <code>getContextProvider</code> only returns the current provider, <code>removeContextProvider</code> removes it, <code>lcw:error</code> is the error event, and <code>DOMContentLoaded</code> or <code>load</code> can fire before the widget is ready.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/develop/send-context-starting-chat"
+  },
+  {
+   "id": "q038",
+   "type": "order",
+   "domain": 5,
+   "skill": 107,
+   "section": "d5-create-administer-knowledge",
+   "stem": "Contoso Retail has configured knowledge management, allowed Copilot to use the internal knowledge base and set up pay-as-you-go billing. Arrange the steps the administrator performs to finish the prerequisites for the Customer Knowledge Management Agent.",
+   "items": [
+    "In Copilot Service admin center, go to <b>Support experience &gt; Knowledge</b> and select <b>Manage</b> for Customer Knowledge Management Agent.",
+    "In <b>Step 1: Connection References</b>, select <b>Setup connections</b>.",
+    "In the <b>Configure Connections</b> dialog, select <b>Update connection references to use your connector</b>.",
+    "In <b>Step 2: Power Automate Flows</b>, select <b>Enable</b>.",
+    "When every tile shows <b>Ready</b>, select <b>Publish</b> in <b>Step 3: Copilot Studio Agent</b>."
+   ],
+   "explanation": "The Prerequisites section at the top of the agent page is worked through in order: connection references link the flows to Dataverse and Copilot Studio, the flows are enabled next, and only when every tile reads <b>Ready</b> does <b>Publish</b> for the Copilot Studio agent complete the setup. The real-time and historical creation options come afterwards. If the page-based setup fails, the references <b>Microsoft Dataverse CustomerServiceKnowledgeHarvest</b> and <b>Microsoft Copilot Studio CustomerServiceKnowledgeHarvest</b> can be set manually in the Default Solution.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/admin-km-agent"
+  },
+  {
+   "id": "q039",
+   "type": "yesno",
+   "domain": 3,
+   "skill": 72,
+   "section": "d3-configure-voice-agents",
+   "stem": "A maker configures inbound SIP X-headers for a voice-enabled agent. A <b>Parse value</b> node reads <code>Conversation.SipXHeader</code> by using this sample schema and saves the result in a global variable. The external IVR sends the headers <code>X-CallID</code> and <code>x-AAI-Incoming</code>.\n<pre>{\n  \"X-CallID\": \"\",\n  \"x-AAI-Incoming\": \"\"\n}</pre>\nFor each statement, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "An outgoing X-header on a Transfer conversation node can take its value from a variable.",
+     "answer": true
+    },
+    {
+     "text": "The parsed variable holds the value sent in <code>X-CallID</code>.",
+     "answer": false
+    },
+    {
+     "text": "A SIP UUI header on a Transfer conversation node can include a variable such as <code>Global.CaseId</code>.",
+     "answer": false
+    },
+    {
+     "text": "Renaming the schema key to <code>x-CallID</code> lets the parsed variable receive that value.",
+     "answer": true
+    }
+   ],
+   "explanation": "Incoming X-header names must be defined with a lowercase <code>x-</code> prefix in the schema because the platform normalises them, so the <code>X-CallID</code> key finds nothing and renaming it to <code>x-CallID</code> fixes it. Outgoing X-header values can be static or a variable, and outgoing names may start with <code>X-</code> or <code>x-</code>. A SIP UUI header accepts only <code>key=value</code> text made of letters, numbers, <code>=</code> and <code>;</code>, and variables are not supported (see <a href=\"https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-configuration\">Configure basic voice agents</a>).",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-sip-x-header"
+  },
+  {
+   "id": "q040",
+   "type": "single",
+   "domain": 5,
+   "skill": 103,
+   "section": "d5-configure-productivity-tools",
+   "stem": "A custom page in Fabrikam's productivity pane verifies a caller's identity and then calls <code>Microsoft.Omnichannel.linkToConversation</code> to attach the matching contact to the active chat. The call resolves successfully, but the conversation form still shows no customer. What should the engineer add to the page's success handler?",
+   "options": [
+    "A call to <code>Microsoft.Apm.refreshTab</code> with the ID of the open tab.",
+    "A call to <code>Microsoft.Apm.focusTab</code> with the ID of the open tab.",
+    "A call to <code>Microsoft.Omnichannel.getConversationId</code> to confirm the link.",
+    "A call to <code>Microsoft.Apm.updateContext</code> with the contact's name."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "<code>linkToConversation</code> only writes the link to the database; the caller is responsible for refreshing the UI, and the documented example calls <code>Microsoft.Apm.refreshTab(tabId)</code> in the success handler. <code>updateContext</code> only sets slug values that macros use later, <code>getConversationId</code> just returns the GUID of the current conversation, and <code>focusTab</code> only moves focus. Remember the limits too: one customer (account or contact) and one case per conversation, and only active conversations can be linked.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/develop/reference/methods/linktoconversation"
+  },
+  {
+   "id": "q041",
+   "type": "single",
+   "domain": 6,
+   "skill": 115,
+   "section": "d6-customize-analytics-reporting",
+   "stem": "Fabrikam customized its Copilot Service workspace app in the app designer. Supervisors can't open Omnichannel historical analytics from the site map of the customized app, although the report is enabled in Copilot Service admin center. What should the administrator add to the app?",
+   "options": [
+    "A <b>URL</b> page that points to <code>MscrmControls.Analytics.ModernReportingControl</code> with the title Customized Reports.",
+    "A second copy of the report in the Microsoft Fabric workspace, embedded by using <b>Add report</b> in Step 4.",
+    "The <b>Analytics Report Author</b> role for every supervisor, so that the report appears in the site map.",
+    "A <b>Dataverse Table</b> page for the <b>Omnichannel historical analytics</b> table, with <b>Show in navigation</b> selected."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "In a customized app the out-of-the-box reports aren't added for you: open the app in the app designer, select <b>New</b> &gt; <b>Dataverse Table</b> &gt; <b>Select existing table</b> &gt; <b>Omnichannel historical analytics</b>, select <b>Show in navigation</b> &gt; <b>Add</b>, set the title, web-resource icon and ID (<code>OCReportsSubArea</code>), then <b>Save</b> and <b>Publish</b>. The <b>URL</b> page with <code>ModernReportingControl</code> is only for customized Power BI model reports, the Analytics Report Author role edits visuals but doesn't change navigation, and Step 4 of data model customization embeds your own reports, not the out-of-the-box one.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/use/omnichannel-analytics-insights"
+  },
+  {
+   "id": "q042",
+   "type": "dropdown",
+   "domain": 6,
+   "skill": 111,
+   "section": "d6-configure-dynamics-365",
+   "stem": "Woodgrove Bank wants a team lead to open the Omnichannel real-time analytics dashboards and save report bookmarks without receiving the supervisor role. Complete the configuration that the administrator performs in the Power Platform admin center.",
+   "format": "text",
+   "template": "Open the environment's <b>Settings &gt; Users + permissions &gt; {1}</b> and create a new role. In that role, grant <b>Read</b> on the {2} table, and grant {3} on the <b>Report Bookmark</b> custom table.",
+   "blanks": [
+    {
+     "options": [
+      "Business units",
+      "Security roles",
+      "Teams",
+      "Field security profiles"
+     ],
+     "answer": 1
+    },
+    {
+     "options": [
+      "msdyn_dataanalyticsreport_ksinsights",
+      "msdyn_dataanalyticsreport_oc_rt",
+      "msdyn_dataanalyticsreport_oc",
+      "msdyn_dataanalyticsreport_csrmanager"
+     ],
+     "answer": 1
+    },
+    {
+     "options": [
+      "Read, Write and Assign",
+      "Read and Delete only",
+      "Read and Append",
+      "Create, Read, Write and Delete"
+     ],
+     "answer": 3
+    }
+   ],
+   "explanation": "Custom roles are created under <b>Users + permissions &gt; Security roles</b>. The Omnichannel real-time dashboards read <code>msdyn_dataanalyticsreport_oc_rt</code>; <code>msdyn_dataanalyticsreport_oc</code> serves Omnichannel historical analytics, <code>msdyn_dataanalyticsreport_csrmanager</code> Customer Service historical analytics and <code>msdyn_dataanalyticsreport_ksinsights</code> knowledge analytics. Bookmarks need <b>Create, Read, Write and Delete</b> on the Report Bookmark custom table, while editing reports would need the Analytics Report Author role.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-customer-service-analytics-insights-csh"
+  },
+  {
+   "id": "q043",
+   "type": "single",
+   "domain": 2,
+   "skill": 33,
+   "section": "d2-provision-manage-voice",
+   "stem": "Proseware's voice workstream has <b>Transcription and recording</b> set to <b>Transcription and recording</b> with <b>Start setting</b> on Automatic. The audio and mpeg MIME types are allowed in Power Platform admin center, and Event Grid subscriptions exist for incoming calls, recording file status and SMS, but test calls produce no audio recordings. Which setting should the administrator check?",
+   "options": [
+    "The voice workstream's <b>Channel operating hours</b> toggle, which must be turned off.",
+    "The <b>Use bridged transfers</b> checkbox on the voice workstream, which must be selected.",
+    "The tenant-level audio recording setting on the <b>Screen and audio recording</b> page under Quality Management, which must be turned on.",
+    "The <b>Allow automatic pause and resume when agent hold and un-hold the customer</b> toggle, which must be set to Yes."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "Audio recording needs the tenant-level recording control in addition to the workstream settings: disabling audio recording at tenant level prevents recording regardless of the workstream configuration, and the other prerequisites (MIME types, Event Grid subscriptions) are already met in the scenario. The automatic pause and resume toggle only pauses recording while the customer is on hold, bridged transfers keep an existing recording running during a transfer, and Channel operating hours must be off for voicemail, not for call recording.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/voice-channel-configure-transcripts"
+  },
+  {
+   "id": "q044",
+   "type": "single",
+   "domain": 3,
+   "skill": 64,
+   "section": "d3-configure-agent-assist",
+   "stem": "Litware keeps its product manuals in a SharePoint library and does not want to copy them into Dynamics 365 knowledge articles. Representatives use <b>Ask a question</b> in Copilot Service workspace and must receive answers drawn from that library. What should the administrator configure?",
+   "options": [
+    "Add the library address under <b>Trusted webpages</b> on the Email settings tab of the Customer Support agent.",
+    "Select <b>Use your organization's knowledge base as knowledge source</b> on the Overview tab of the Customer Support agent.",
+    "Paste the SharePoint library link into the <b>Instructions</b> field on the Overview tab of the Customer Support agent.",
+    "Turn on <b>Extend agent with Copilot Studio</b>, then add the library as knowledge in the Customer Service Copilot Bot."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Copilot Studio knowledge is the source type that <b>Ask a question</b> can use for SharePoint or public-website content (the Extend agent tab opens the Customer Service Copilot Bot, which is documented as a preview capability). Trusted webpages are external web sources used for email and chat drafts only, and Ask a question does not use them. The knowledge base option reads only published Dynamics 365 articles, and Instructions shape tone and format but cannot add a source.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/copilot-enable-help-pane"
+  },
+  {
+   "id": "q045",
+   "type": "dropdown",
+   "domain": 5,
+   "skill": 97,
+   "section": "d5-configure-experience-profiles",
+   "stem": "Fabrikam wants incoming chat notifications to show the customer's name and to stay on screen for three minutes. Complete the configuration.",
+   "format": "text",
+   "template": "The administrator creates a custom notification template in Copilot Service admin center under {1}, sets <b>Countdown (seconds)</b> to {2}, and adds a notification field whose <b>Value</b> is {3}.",
+   "blanks": [
+    {
+     "options": [
+      "Support experience > Workspaces > Notifications",
+      "Customer support > Workstreams > Advanced settings",
+      "Customer support > Channels > Notifications",
+      "Operations > Insights > Notifications"
+     ],
+     "answer": 0
+    },
+    {
+     "options": [
+      "120",
+      "1800",
+      "180",
+      "3"
+     ],
+     "answer": 2
+    },
+    {
+     "options": [
+      "{customerRecordId}",
+      "${customerName}",
+      "{customerName}",
+      "{caseTitle}"
+     ],
+     "answer": 2
+    }
+   ],
+   "explanation": "Notification templates are created under <b>Support experience &gt; Workspaces &gt; Notifications &gt; Manage</b>; a workstream only selects an existing template for each notification type under Advanced settings. <b>Countdown (seconds)</b> is measured in seconds (default 120), so three minutes is 180. A notification field's <b>Value</b> is a slug in curly braces such as <code>{customerName}</code>; <code>${customerName}</code> is the macro and script syntax, <code>{customerRecordId}</code> returns the contact or account GUID, and <code>{caseTitle}</code> returns the case title.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/notification-templates"
+  },
+  {
+   "id": "q046",
+   "type": "multi",
+   "domain": 1,
+   "skill": 11,
+   "section": "d1-deploy-dynamics-365",
+   "stem": "Tailwind Traders used a full copy to copy its production environment, which has a voice channel that uses Azure Communication Services (ACS) and a live chat channel, to a UAT sandbox. Which <b>TWO</b> actions must the administrator take in the UAT environment?",
+   "options": [
+    "Copy the record routing configuration with the standard copy feature so that routing matches production.",
+    "Disconnect the copied ACS resource and connect the UAT environment to its own ACS resource.",
+    "Replace the production chat widget snippet on the UAT website with the snippet generated in UAT.",
+    "Re-create every workstream and queue in UAT, because a full copy doesn't include them.",
+    "Turn the voice and chat channels off and back on in UAT so that they are provisioned for the new environment."
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "select": 2,
+   "explanation": "A full copy brings over channels, workstreams, queues, security roles and capacity settings, but resources that are specific to an environment must be redone. The ACS resource is copied as well, yet <b>one ACS resource can be used in only one environment</b>, so it must be disconnected in the target and replaced with the target's own resource. Chat generates a <b>new widget configuration</b>, so its snippet must replace the production one. Workstreams and queues are copied (review them), copying record routing configuration isn't supported, and turning channels off and on again is the step for a <i>minimal</i> copy, because a full copy already provisions the channels that were enabled in the source.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/implement/copy-environment-with-omnichannel"
+  },
+  {
+   "id": "q047",
+   "type": "single",
+   "domain": 2,
+   "skill": 24,
+   "section": "d2-configure-chat-digital",
+   "stem": "Fabrikam Outdoors runs a custom customer portal (not Power Pages) and wants signed-in customers to start authenticated chat. A developer is building the service that creates the JSON Web Token (JWT) that the chat widget passes to Dynamics 365 Contact Center. Which claims must the JWT payload include at a minimum?",
+   "options": [
+    "<code>iss</code>, <code>iat</code>, <code>exp</code> and <code>lwicontexts</code>",
+    "<code>iss</code>, <code>iat</code>, <code>exp</code> and <code>sub</code>",
+    "<code>sub</code>, <code>kid</code>, <code>alg</code> and <code>typ</code>",
+    "<code>iss</code>, <code>aud</code>, <code>exp</code> and <code>nbf</code>"
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "The documented minimum claims are <code>iss</code> (issuer), <code>iat</code> (issued at), <code>exp</code> (expiry) and <code>sub</code>, which should hold the GUID of the contact or account so the record can be linked. <code>lwicontexts</code> is optional and carries context variables for routing or display, <code>kid</code>, <code>alg</code> and <code>typ</code> belong to the JWT header rather than the payload, and <code>aud</code> is not listed (<code>nbf</code> only appears in the sample payload). The token is signed with the private key and the portal's function must return it within 10 seconds.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-chat-auth-settings"
+  },
+  {
+   "id": "q048",
+   "type": "order",
+   "domain": 2,
+   "skill": 42,
+   "section": "d2-configure-channel-features",
+   "stem": "Fabrikam wants an automated Power Automate flow that sends an SMS whenever a support case is created. Arrange the steps of the documented outbound messaging setup in the correct order.",
+   "items": [
+    "Create the SMS message template in Productivity &gt; Message templates.",
+    "Create an outbound configuration under Customer settings &gt; Outbound and save it to generate the Configuration ID.",
+    "In the flow, initialize the <code>OutboundConfigurationId</code>, <code>ActivityRelationship</code> and <code>ContactList</code> variables.",
+    "Append each recipient to <code>ContactList</code> with the required <code>tocontactid</code> and <code>optin</code> values.",
+    "Add <b>Perform an unbound action</b> and call <code>msdyn_InvokeOutboundAPI</code> with the outbound configuration ID."
+   ],
+   "explanation": "The template comes first because the outbound configuration points to it, and saving the configuration generates the Configuration ID that the flow needs. In the flow you initialize the three variables, fill <code>ContactList</code> (<code>tocontactid</code> and <code>optin</code> are required) and finish with the unbound action <code>msdyn_InvokeOutboundAPI</code>. Keep each request to 100 contacts or fewer; the limit is 30,000 requests per organization per hour.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/outbound-messaging"
+  },
+  {
+   "id": "q049",
+   "type": "single",
+   "domain": 6,
+   "skill": 116,
+   "section": "d6-customize-analytics-reporting",
+   "stem": "Wide World Importers used data model customization to copy its Omnichannel historical reports to a Microsoft Fabric workspace. Report authors will edit the copies in Power BI, analysts will only read them in Fabric, and supervisors must open the published reports embedded in Copilot Service workspace. Which access does the documentation require supervisors to have on the Fabric workspace?",
+   "options": [
+    "<b>Member</b> access",
+    "<b>Admin</b> access",
+    "<b>Viewer</b> access",
+    "<b>Contributor</b> access"
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "Step 3 grants <b>Contributor</b> access to report authors and <b>Viewer</b> access to users who only view the reports in the workspace, but when the reports are embedded back into Copilot Service workspace (Step 4), supervisors need <b>Member</b> access to see them. Contributor is the authors' level, Viewer isn't enough for the embedded view, and Admin isn't required: only the person who grants access must be a Workspace Administrator on the managed and customer workspaces.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/model-customize-reports"
+  },
+  {
+   "id": "q050",
+   "type": "single",
+   "domain": 1,
+   "skill": 8,
+   "section": "d1-deploy-dynamics-365",
+   "stem": "Adventure Works enabled the Customer Intent Agent and ran a pilot through a rollout plan in the Agent hub. When the pilot ends, the administrator deactivates the rollout plan, yet representatives still receive suggested responses based on customer intent. What should the administrator do?",
+   "options": [
+    "Disable Agent insights under Operations &gt; Insights, because that setting controls whether the agent runs.",
+    "Delete the rules that the plan created, because the suggestions continue to run from those rules.",
+    "Switch the agent off on the Customer Intent Agent settings page, because deactivating a plan doesn't do it.",
+    "Delete the rollout plan as well, because deleting a plan switches off the agent that it manages."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "The rollout manager reuses the agent's existing settings. For the Customer Intent Agent (and the Customer Knowledge Management Agent), deactivating <i>or deleting</i> a rollout plan does <b>not</b> deactivate or delete the agent setting, so the agent stays on until it is switched off on its own administrator settings page. Only for the Case Management Agent are the plan's rules deactivated or deleted with the plan. Agent insights just reports on agents; it doesn't switch them on or off.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/administer/create-rollout-plans"
+  },
+  {
+   "id": "q051",
+   "type": "single",
+   "domain": 1,
+   "skill": 15,
+   "section": "d1-manage-users",
+   "stem": "Adventure Works Cycles routes cases through one workstream. Each representative may receive at most 2 high-priority and 4 normal-priority cases per day, but never more than 5 cases per day in total, and all counters reset when the shift ends. What should the administrator configure?",
+   "options": [
+    "Create End of day profiles for 2 and 4 cases per day, and give each rep 5 capacity units on the Omnichannel tab so that the units cap the daily total across both profiles.",
+    "Create End of day profiles for 2, 4 and 5 cases per day; make the 5-case profile the workstream default, have classification append the 2- or 4-case profile, and give each rep all three.",
+    "Create End of day profiles for 2 and 4 cases per day and turn on <b>Assignment blocking</b> in both, so a rep stops receiving cases as soon as either of the two limits is reached.",
+    "Create one End of day profile for 5 cases per day and set a <b>Custom limit</b> of 2 or 4 on each rep, depending on the case priority that rep usually handles in the workstream."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "This is the documented multi-profile pattern: the Total profile (5 per day) is the workstream default, a classification ruleset appends the High-priority (2) or Normal-priority (4) profile, and every rep holds all three, so assignment needs capacity in <b>both</b> labelled profiles and consumes it from both. <b>Assignment blocking</b> does not create a combined cap: when one profile is full it stops <b>all</b> automatic assignment to that rep even if other profiles still have room, so a rep who has taken 2 high-priority cases would get no normal-priority cases, and the 5-case total would still not be a limit of its own. A custom limit changes one rep's limit on one profile instead of splitting by priority, and the docs recommend capacity profiles <b>or</b> capacity units, not both. Reset frequency cannot be edited later, so choose End of day when you create each profile.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/capacity-profiles"
+  },
+  {
+   "id": "q052",
+   "type": "single",
+   "domain": 1,
+   "skill": 1,
+   "section": "d1-implement-dynamics-365",
+   "stem": "Contoso has 30 chat representatives who need the inbox and Smart Assist in the productivity pane, and 12 back-office representatives who must keep the out-of-the-box experience. All representatives must keep multisession navigation in Copilot Service workspace. What should the administrator do in Copilot Service admin center?",
+   "options": [
+    "Create a custom experience profile with the inbox and Smart Assist and add the chat reps to it.",
+    "Copy the Copilot Service workspace app and change the site map of the copy for the chat reps.",
+    "Create a custom experience profile with those features and select <b>Set as default</b> to apply it.",
+    "Edit the out-of-the-box default experience profile and turn on the inbox and Smart Assist."
+   ],
+   "answer": [
+    0
+   ],
+   "explanation": "A custom experience profile is the supported way to tailor Copilot Service workspace for one team, and users without a specific profile keep the out-of-the-box default. The out-of-box profiles can't be modified or deleted. <b>Set as default</b> would give the profile to every user who has no specific profile, including the back-office reps. The Copilot Service workspace overview states that multisession navigation is supported in the Copilot Service workspace app only, so a copy of the app loses it.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-agent-experience-profile"
+  },
+  {
+   "id": "q053",
+   "type": "single",
+   "domain": 2,
+   "skill": 59,
+   "section": "d2-configure-channel-features",
+   "stem": "A Copilot Studio voice agent at Litware Bank greets callers and then looks up the caller's account, which sometimes takes several seconds, and callers hear silence until the lookup returns. Which feature should the agent author configure so that callers hear a message during the lookup, even if the lookup finishes before the message ends?",
+   "options": [
+    "An automated message for the Average wait time trigger.",
+    "A system greeting message on the voice workstream.",
+    "A delay activity between messages (default 500 ms).",
+    "A latency message with the minimum playback time setting (default 5000 ms)."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "A <b>latency message</b> with the <b>minimum playback time</b> (default 5000 ms) covers long-running lookups and keeps playing for the minimum time even if the lookup ends early. A delay activity (default 500 ms) only adds a pause between messages, a system greeting message is a static, uninterruptible message played once before the agent engages, and the average wait time message reports queue wait to callers. Also greet first and look up data afterwards, using Dataverse connectors or HTTP requests, because Power Automate flows pause the agent until the flow completes.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-bot-best-practices"
+  },
+  {
+   "id": "q054",
+   "type": "yesno",
+   "domain": 4,
+   "skill": 86,
+   "section": "d4-configure-basic-unified",
+   "stem": "Contoso Coffee routes chats by skill. Skill attachment rules add skills to each conversation, and the queue uses an out-of-the-box assignment method unless a statement says otherwise. For each statement about the workstream's <b>Default skill matching algorithm</b>, select <b>Yes</b> if it is true.",
+   "statements": [
+    {
+     "text": "With <b>Closest Match</b>, a chat might go to a representative who has none of the required skills when no available representative has any of them.",
+     "answer": true
+    },
+    {
+     "text": "Selecting <b>Exact Match</b> on the workstream is enough; no skill attachment rules are needed.",
+     "answer": false
+    },
+    {
+     "text": "With <b>Exact Match</b>, a chat stays unassigned in the queue when no available representative has all the required skills at the required proficiency.",
+     "answer": true
+    },
+    {
+     "text": "The workstream's <b>Exact Match</b> setting still applies when the queue uses a custom assignment method.",
+     "answer": false
+    }
+   ],
+   "explanation": "Exact Match keeps only representatives whose rating meets or exceeds the requirement, so unqualified work waits in the queue, while Closest Match orders everyone by closeness and can therefore pick someone without any required skill. The workstream default is supported <b>only with out-of-the-box assignment methods</b>; a custom assignment method overrides it and needs its own skill conditions. Either algorithm also needs <b>skill attachment rules</b> (or an intelligent skill finder model) to put skills on the work item first.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/set-up-skill-based-routing"
+  },
+  {
+   "id": "q055",
+   "type": "single",
+   "domain": 6,
+   "skill": 110,
+   "section": "d6-configure-dynamics-365",
+   "stem": "A quality manager at Fabrikam created custom evaluation criteria with ten questions, but only four have <b>AI response enabled</b>. She then built an evaluation plan that uses the <b>AI agent</b> evaluation method, and the evaluations fail. The business wants every evaluation scored automatically, with no evaluator editing the answers. What should she do?",
+   "options": [
+    "Select <b>Enable bulk evaluations</b> for the Case record type in Copilot Service admin center.",
+    "Switch the plan to <b>AI assisted</b>, which needs only one AI-enabled question and assigns the evaluation to a team or user.",
+    "Turn on <b>AI response enabled</b> for all ten questions and keep the <b>AI agent</b> method.",
+    "Raise the <b>threshold value out of 100</b> in the Quality evaluation settings in Copilot Service admin center."
+   ],
+   "answer": [
+    2
+   ],
+   "explanation": "In <b>AI agent</b> mode every question in the criteria must be AI-enabled and manual editing isn't allowed; evaluation creation fails when the criteria lack AI-enabled questions for the selected mode, which is why four of ten breaks the plan. <b>AI assisted</b> needs at least one AI-enabled question, but it assigns the evaluation to a team or user who can correct the AI's answers, so it misses the no-editing requirement. The threshold only defines good and poor quality scores, and bulk evaluations apply to cases.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/contact-center/use/evaluation-criteria"
+  },
+  {
+   "id": "q056",
+   "type": "single",
+   "domain": 1,
+   "skill": 15,
+   "section": "d1-manage-users",
+   "caseStudy": "woodgrove-premier-contact-center",
+   "stem": "Based on requirement 1 and the WhatsApp-8 profile in the exhibit, what should you do for the WhatsApp workstream?",
+   "options": [
+    "Edit the WhatsApp-8 profile and change its <b>Reset frequency</b> to End of day, keeping the same representatives and the same workstream configuration.",
+    "Give each representative a custom limit of 8 on the WhatsApp-8 profile by using Enhanced user management.",
+    "Turn on <b>Assignment blocking</b> in the WhatsApp-8 profile so that representatives receive no more work after they have been assigned eight conversations.",
+    "Create a new capacity profile with a limit of 8 and <b>Reset frequency</b> End of day, add the representatives and select it in the workstream."
+   ],
+   "answer": [
+    3
+   ],
+   "explanation": "Requirement 1 is a <b>daily cap that resets when the shift ends</b> even if conversations are still open, which is the <b>End of day</b> reset frequency; WhatsApp-8 uses Immediate. <b>Reset frequency is the one capacity profile setting that can't be edited</b>, so you must create a new profile with a limit of 8, add the representatives and select it on the workstream. Assignment blocking only decides what happens when the limit is met, and a custom limit changes the number of work items for selected representatives (for new assignments only); neither changes when consumption resets.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/capacity-profiles"
+  },
+  {
+   "id": "q057",
+   "type": "single",
+   "domain": 2,
+   "skill": 24,
+   "section": "d2-configure-chat-digital",
+   "caseStudy": "woodgrove-premier-contact-center",
+   "stem": "Based on requirement 2, which configuration should you use for the Online banking chat widget?",
+   "options": [
+    "Add required pre-conversation survey questions named <code>Email</code> and <code>Phone</code> to the Online banking workstream so that the contact record is found and linked.",
+    "Create an authentication settings record with the web team's public key URL and JavaScript client function, and select it on the widget's <b>Behaviors</b> tab.",
+    "Create an authentication settings record with the web team's values and leave the widget unchanged, because the record applies to every chat widget automatically.",
+    "Create an authentication settings record that uses the Power Apps portals values, <code>/_services/auth/publickey</code> and <code>auth.getAuthenticationToken</code>, and select it on the widget."
+   ],
+   "answer": [
+    1
+   ],
+   "explanation": "Requirement 2 asks for <b>authentication</b>: the site passes a signed JWT and the system validates it with the public key URL in an authentication settings record, which works only after you select the record on the chat widget's <b>Behaviors</b> tab. Pre-conversation survey questions are customer <b>identification</b>: they match a contact from what the customer types and never authenticate. The <code>/_services/auth/publickey</code> and <code>auth.getAuthenticationToken</code> values belong to Power Apps portals, but the Online banking site is a custom website, so the web team supplies the URL and function. A record that isn't added to a channel instance in a workstream has no effect.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-chat-auth-settings"
+  },
+  {
+   "id": "q058",
+   "type": "single",
+   "domain": 3,
+   "skill": 71,
+   "section": "d3-configure-voice-agents",
+   "caseStudy": "woodgrove-premier-contact-center",
+   "stem": "Based on requirement 3 and the Retail Voice workstream settings in the exhibit, what should you do?",
+   "options": [
+    "Turn off <b>Request for User Consent</b> on the workstream and add a greeting to the voice agent that tells callers the call is recorded.",
+    "Turn off audio recording in the tenant-level <b>Quality Management</b> settings so that no caller is recorded unless the caller has agreed.",
+    "Change <b>Transcription and recording</b> on the workstream to Transcription only so that the voice agent no longer records calls.",
+    "Turn on <b>Request for User Consent</b> on the Retail Voice workstream and save the workstream.",
+    "In Copilot Studio, add the User Consent topic to the voice agent, call it from the Conversation Start system topic and publish the agent."
+   ],
+   "answer": [
+    4
+   ],
+   "explanation": "The exhibit shows <b>Request for User Consent</b> already On but no consent topic in the agent. With the workstream setting On and the topic missing, every caller counts as opted in and is recorded and transcribed, because the setting alone doesn't create the prompt. Requirement 3 needs the User Consent topic called from <b>Conversation Start</b> so that the agent asks and a refusal stops recording. Turning the setting on again changes nothing because the exhibit already shows it On, and turning it off means consent is never offered. The tenant-level audio switch overrides every workstream and would also stop recording callers who agree, and Transcription only follows the same consent model without adding a prompt.",
+   "ref": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/voice-consent-based-record"
+  },
+  {
+   "id": "q059",
+   "type": "multi",
+   "domain": 4,
+   "skill": 80,
+   "section": "d4-configure-queues",
+   "caseStudy": "woodgrove-premier-contact-center",
+   "stem": "To meet requirement 4, which <b>TWO</b> changes should you make to the queue overflow settings?",
+   "options": [
+    "On the Web Chat queue, set the action of the <b>Out of operation hours</b> condition to Voicemail.",
+    "On the Web Chat queue, set the action of the <b>Out of operation hours</b> condition to Transfer to a different queue and select Card Disputes.",
+    "On the Web Chat queue, set the action of the <b>Out of operation hours</b> condition to End conversation.",
+    "On the Retail Voice queue, set the action of the <b>Out of operation hours</b> condition to Voicemail.",
+    "On the Retail Voice queue, add a <b>Waiting time in queue exceeds</b> condition with the action Voicemail."
+   ],
+   "answer": [
+    2,
+    3
+   ],
+   "select": 2,
+   "explanation": "Adding the Retail hours record to a queue creates the <b>Out of operation hours</b> overflow condition with the action Assign to queue anyway; you can't edit the condition, but you can change its action. <b>Voicemail</b> is offered only on voice queues and <b>End conversation</b> only on messaging queues, so those two changes meet requirement 4 for Retail Voice and Web Chat. Voicemail isn't available on the messaging queue. Transferring chats to Card Disputes fails because it is a record queue (a chat can be transferred only to a messaging queue) and the conversation wouldn't end. <b>Waiting time in queue exceeds</b> acts after queueing and isn't tied to operating hours.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/manage-overflow"
+  },
+  {
+   "id": "q060",
+   "type": "single",
+   "domain": 5,
+   "skill": 95,
+   "section": "d5-configure-experience-profiles",
+   "caseStudy": "woodgrove-premier-contact-center",
+   "stem": "Based on requirement 5 and the current environment, which approach should you use to configure the inbox?",
+   "options": [
+    "Create a custom profile with one inbox view that has the Chat and Voicemail record types and set it as the default profile.",
+    "Open the out-of-the-box profile that the representatives use, turn on its inbox and add one view that has the Chat and Voicemail record types.",
+    "Create a custom profile with one inbox view that has the Chat and Voicemail record types and assign the profile to the WB-Premier group team.",
+    "Create a custom profile with one inbox view that has the Chat and Voicemail record types and map the Omnichannel agent role to it with rank 1.",
+    "Create a custom profile, turn on its inbox, add one view that has the Chat and Voicemail record types, and add the Premier bankers directly.",
+    "Create a custom profile with separate Chat and Voicemail inbox views, both visible to representatives, and add the Premier bankers directly."
+   ],
+   "answer": [
+    4
+   ],
+   "explanation": "Requirement 5 needs a <b>multi-entity inbox view</b> (several record types in one view) for only the Premier bankers. Inbox settings can be configured for custom experience profiles only, so an out-of-the-box profile can't be used. A profile can't be assigned through team membership, and mapping the Omnichannel agent role would give it to all representatives, so the 12 bankers must be added directly. Setting the custom profile as the default would apply it to every user who has no specific custom profile, so the other representatives would lose the standard workspace. Two separate views would show two lists instead of one combined list.",
+   "ref": "https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-inbox"
+  }
+ ]
+}
