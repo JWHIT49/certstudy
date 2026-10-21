@@ -84,6 +84,22 @@ test('cloud.json: loading never throws and ignores unusable files', async () => 
   assert.equal(requested, 'https://example.test/certstudy/cloud.json');
 });
 
+// ---------------------------------------------------------------- the app only loads sign-in code when cloud sync is switched on
+test('with cloud sync switched off no sign-in code is loaded: the controller imports its backends only when they are needed', async () => {
+  const source = await readFile(new URL('../js/cloud.js', import.meta.url), 'utf8');
+  const imported = [...source.matchAll(/^import .* from '(.+)';\s*$/gm)].map((m) => m[1]).sort();
+  assert.deepEqual(imported, ['./cloud-config.js', './store.js', './sync.js']);
+  // and the two backends are still reachable, but only through dynamic imports
+  assert.match(source, /import\('\.\/cloud-mock\.js'\)/);
+  assert.match(source, /import\('\.\/cloud-supabase\.js'\)/);
+  // the shared constants live in the config module, and the backends re-export them for their own users
+  const config = await import('../js/cloud-config.js');
+  const supabase = await import('../js/cloud-supabase.js');
+  const mock = await import('../js/cloud-mock.js');
+  assert.equal(supabase.AUTH_STORAGE_KEY, config.AUTH_STORAGE_KEY);
+  assert.equal(mock.isMockAllowed, config.isMockAllowed);
+});
+
 // ---------------------------------------------------------------- the development mock must never be reachable on the live site
 test('the mock cloud only activates on localhost with ?cloud=mock', () => {
   assert.equal(isMockAllowed({ hostname: 'localhost', search: '?cloud=mock' }), true);

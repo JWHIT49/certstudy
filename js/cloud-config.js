@@ -4,6 +4,12 @@
 
 export const PROVIDERS = { microsoft: 'azure', google: 'google', github: 'github' };
 export const ALL_METHODS = ['microsoft', 'google', 'github', 'email'];
+/** Where the browser keeps the sign-in session (shared by the controller and the Supabase backend). */
+export const AUTH_STORAGE_KEY = 'certstudy-auth';
+/** The simulated cloud is for development only: it exists on localhost with ?cloud=mock and never on the published site. */
+export const isMockAllowed = (loc = globalThis.location) => (
+  ['localhost', '127.0.0.1'].includes(loc.hostname) && new URLSearchParams(loc.search).get('cloud') === 'mock'
+);
 // cloud.json is published exactly as it is, so it may hold nothing but these settings.
 const ALLOWED_KEYS = new Set(['_comment', 'enabled', 'url', 'publishableKey', 'methods']);
 

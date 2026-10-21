@@ -1,7 +1,9 @@
 // Supabase backend: sign-in through @supabase/auth-js (a vendored build, loaded only when needed) and plain fetch calls to the
 // cs_* functions defined in supabase/migrations. Every request carries the signed-in user's token, and the database's row level
 // security restricts each person to their own rows.
-import { PROVIDERS } from './cloud-config.js';
+import { PROVIDERS, AUTH_STORAGE_KEY } from './cloud-config.js';
+
+export { AUTH_STORAGE_KEY };
 
 export class CloudError extends Error {
   constructor(message, code) {
@@ -12,7 +14,6 @@ export class CloudError extends Error {
 }
 
 const TIMEOUT_MS = 20000;
-export const AUTH_STORAGE_KEY = 'certstudy-auth';
 
 const toUser = (session) => {
   const u = session?.user;

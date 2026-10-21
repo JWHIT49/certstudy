@@ -1,10 +1,9 @@
 // Cloud controller: the one place that owns the optional backend and the sync engine, and the small API the UI uses.
-// With cloud.json switched off (the default) nothing here does anything: no sign-in code is loaded and nothing leaves the device.
+// With cloud.json switched off (the default) nothing here does anything: no sign-in code is loaded and nothing leaves the device. The
+// backends are imported only when they are needed, so this file must not import them statically (a test guards that).
 import * as store from './store.js';
 import { createSyncEngine, STATE_KEY } from './sync.js';
-import { loadCloudConfig } from './cloud-config.js';
-import { AUTH_STORAGE_KEY } from './cloud-supabase.js';
-import { isMockAllowed } from './cloud-mock.js';
+import { loadCloudConfig, isMockAllowed, AUTH_STORAGE_KEY } from './cloud-config.js';
 
 const MOCK_USER_KEY = 'certstudy-mock-user';
 const RETURN_TO_KEY = 'ui.afterSignIn';

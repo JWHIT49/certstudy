@@ -1,12 +1,11 @@
 // Development-only backend. It talks to the in-memory mock cloud inside tools/serve.mjs, so the whole sign-in and sync flow can be
 // exercised without a real Supabase project. It only activates on localhost with ?cloud=mock and is never reachable on the live site.
 import { CloudError } from './cloud-supabase.js';
+import { isMockAllowed } from './cloud-config.js';
+
+export { isMockAllowed };
 
 const KEY = 'certstudy-mock-user';
-
-export const isMockAllowed = (loc = globalThis.location) => (
-  ['localhost', '127.0.0.1'].includes(loc.hostname) && new URLSearchParams(loc.search).get('cloud') === 'mock'
-);
 
 export async function createMockBackend() {
   const listeners = new Set();
