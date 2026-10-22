@@ -1,7 +1,7 @@
 {
-  "_comment": "Optional cloud sign-in and sync (see docs/CLOUD_SYNC.md). url and publishableKey come from the Supabase project (Project Settings > API) and are PUBLIC by design. Never put a secret key or service_role key here: the build refuses it. methods lists the sign-in buttons to show; add google and microsoft once they are switched on in Supabase.",
+  "_comment": "Optional cloud sign-in and sync (see docs/CLOUD_SYNC.md). url and publishableKey come from the Supabase project (Project Settings > API) and are PUBLIC by design. Never put a secret key or service_role key here: the build refuses it. methods lists the sign-in buttons to show; only list providers that are switched on in Supabase (microsoft and github here; add google once it is set up).",
   "enabled": true,
   "url": "https://syelstjaugobkhawvidq.supabase.co",
   "publishableKey": "sb_publishable_fhIuoRzpZ-6Kmyhs_WladQ_FeH2gA0M",
-  "methods": ["github"]
+  "methods": ["microsoft", "github"]
 }
