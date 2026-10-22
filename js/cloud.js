@@ -232,6 +232,31 @@ export const syncNow = () => engine?.syncNow();
 /** How many documents on this device hold changes that are not in the cloud yet. */
 export const unsyncedCount = () => engine?.unsyncedCount() ?? 0;
 
+/**
+ * The progress documents the account already holds, read without changing anything on this device, so the learner can see what is
+ * there before deciding. Resolves to a list of [key, value] pairs, or null when they cannot be read right now.
+ */
+export async function previewAccount() {
+  if (!backend || !user) return null;
+  const uid = user.id;
+  try {
+    const entries = [];
+    let since = null;
+    let afterKey = null;
+    for (let page = 0; page < 5; page += 1) { // far more than one person's progress; the sync itself always reads everything
+      const batch = await backend.listDocs({ since, afterKey, limit: 200, uid });
+      for (const doc of batch.docs) if (!doc.deleted) entries.push([doc.key, doc.value]);
+      if (!batch.hasMore || !batch.docs.length) break;
+      const last = batch.docs[batch.docs.length - 1];
+      since = last.updatedAt;
+      afterKey = last.key;
+    }
+    return entries;
+  } catch {
+    return null;
+  }
+}
+
 /** First sign-in on a device that already has progress: `replaceLocal` keeps only what the account holds. */
 export function approveFirstSync({ replaceLocal = false } = {}) {
   return run(async () => { await engine.approve({ replaceLocal }); });

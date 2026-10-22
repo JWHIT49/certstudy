@@ -2,6 +2,9 @@
 import { h, icon, append, fmtDateTime, plural } from '../dom.js';
 import * as cloud from '../cloud.js';
 import * as data from '../data.js';
+import * as store from '../store.js';
+import { isSyncedKey } from '../merge.js';
+import { summarize, describeSummary, isEmpty } from '../summary.js';
 import { applyAppearance } from '../appearance.js';
 import { row, switchRow, confirmSheet, toast } from '../ui.js';
 
@@ -29,6 +32,9 @@ export function accountCard() {
   let emailValue = '';
   let codeValue = '';
   let codeSent = false;
+  let preview = 'idle'; // idle | loading | done: looking at what the account already holds, while the learner decides
+  let previewToken = 0;
+  let accountSummary = null;
 
   const privacy = h('p', { class: 'muted small' },
     'What is stored: your practice results, question statistics, skill ratings, reading progress and settings. Only you can read them, and nothing is shared with other people. Your name and email come from the account you sign in with.');
@@ -75,12 +81,47 @@ export function accountCard() {
     if (ok && await cloud.deleteAccount()) toast('Account deleted.');
   }
 
+  const deviceProgress = () => summarize(store.keys().filter((k) => /^(qstats|skills|guide)\./.test(k) && isSyncedKey(k)).map((k) => [k, store.get(k)]));
+
   async function askUseAccountOnly() {
+    const mine = deviceProgress();
+    const what = isEmpty(mine) ? 'the progress on this device' : `the progress on this device (${describeSummary(mine)})`;
     const ok = await confirmSheet({
       title: 'Replace the progress on this device?', danger: true, confirmLabel: 'Replace',
-      message: 'The progress on this device is removed and replaced by what your account holds. This cannot be undone.',
+      message: `This removes ${what} and replaces it with what your account holds. This cannot be undone.`,
     });
     if (ok && await cloud.approveFirstSync({ replaceLocal: true })) toast('This device now matches your account.');
+  }
+
+  // While the learner decides, look (read-only) at what the account already holds, so both sides can be compared.
+  function wantPreview(needed) {
+    if (!needed) { preview = 'idle'; accountSummary = null; previewToken += 1; return; }
+    if (preview !== 'idle') return;
+    preview = 'loading';
+    const token = (previewToken += 1);
+    cloud.previewAccount().then((entries) => {
+      if (token !== previewToken) return; // signed out, or another account, in the meantime
+      accountSummary = entries ? summarize(entries) : null;
+      preview = 'done';
+      render();
+    });
+  }
+
+  function approvalPanel() {
+    const mine = deviceProgress();
+    const accountEmpty = preview === 'done' && accountSummary !== null && isEmpty(accountSummary);
+    const theirs = preview === 'loading' ? 'checking\u2026' : accountSummary ? describeSummary(accountSummary) : 'could not be checked right now';
+    return h('div', { class: 'notice warn', role: 'region', 'aria-label': 'Progress on this device' },
+      h('strong', null, 'This device already has study progress.'),
+      h('p', null, accountEmpty
+        ? 'Your account has no progress yet. Add what is on this device to it.'
+        : 'Your account and this device each keep their own progress. Choose what happens to the progress on this device.'),
+      h('p', { class: 'small' }, h('strong', null, 'On this device: '), describeSummary(mine)),
+      h('p', { class: 'small' }, h('strong', null, 'In your account: '), theirs),
+      h('button', { type: 'button', class: 'btn primary block', disabled: state.busy, onclick: () => cloud.approveFirstSync() }, accountEmpty ? 'Add to my account' : 'Keep both'),
+      accountEmpty ? null : h('p', { class: 'muted small' }, 'Combines the two. Nothing is deleted, and question counts from both are added together.'),
+      accountEmpty ? null : h('button', { type: 'button', class: 'btn block', disabled: state.busy, onclick: askUseAccountOnly }, 'Use my account\u2019s progress'),
+      accountEmpty ? null : h('p', { class: 'muted small' }, 'Replaces the progress on this device with your account\u2019s. Choose this if this device only has a copy of the same progress, or if someone else has used it.'));
   }
 
   async function syncNow() {
@@ -158,13 +199,7 @@ export function accountCard() {
         h('span', { class: 'row-lead' }, icon(status.icon, 22)),
         h('span', { class: 'row-main' }, h('span', { class: 'row-title' }, status.title), status.sub ? h('span', { class: 'row-sub' }, status.sub) : null)),
       ...noticeEl(),
-      approval ? h('div', { class: 'notice warn', role: 'region', 'aria-label': 'Combine progress' },
-        h('strong', null, 'This device already has progress.'),
-        h('p', null, 'Add it to your account? The two are combined and nothing is deleted: attempts made on this device and attempts already in your account are added together.'),
-        h('p', { class: 'muted small' }, 'If this device only holds a copy of what your account already has (for example a restored backup), or if someone else has used this device, choose \u201cUse my account\u2019s progress instead\u201d.'),
-        h('div', { class: 'btn-row wrap' },
-          h('button', { type: 'button', class: 'btn primary', disabled: state.busy, onclick: () => cloud.approveFirstSync() }, 'Add to my account'),
-          h('button', { type: 'button', class: 'btn', disabled: state.busy, onclick: askUseAccountOnly }, 'Use my account\u2019s progress instead'))) : null,
+      approval ? approvalPanel() : null,
       state.sync.needsSignIn ? providerButtons(true) : null,
       approval ? null : h('div', { class: 'btn-row sync-actions' },
         h('button', { type: 'button', class: 'btn grow', disabled: state.busy || state.sync.state === 'syncing', onclick: syncNow }, icon('refresh', 20), 'Sync now')),
@@ -179,6 +214,7 @@ export function accountCard() {
     state = cloud.getState();
     el.hidden = !state.configured;
     if (!state.configured) { el.replaceChildren(); return; }
+    wantPreview(Boolean(state.user) && state.sync.state === 'needs-approval');
     const focused = el.contains(document.activeElement) ? document.activeElement.dataset?.field : null;
     el.replaceChildren();
     append(el, [h('h3', null, icon('cloud', 20), 'Account & sync'), state.user ? signedInBody() : signedOutBody()]);

@@ -105,9 +105,9 @@ Free Supabase projects are paused after about a week without activity. [.github/
 
 ## Using it
 
-- **First sign-in on a phone that already has progress.** Because the app is local-first, you may already have progress on the device. The app asks before it uploads anything:
-  - **Add to my account** combines the two. Nothing is deleted, and attempts made on this device and attempts already in the account are *added together*. Choose this when the progress on this device is separate from the account's (for example you studied here before signing in).
-  - **Use my account's progress instead** replaces the device's progress with the account's. Choose this when the device only holds a *copy* of what the account already has (for example a restored backup, or after deleting your cloud data and signing in again), so the same attempts are not counted twice, and on a shared device that someone else has used.
+- **Signing in on a device that already has study progress.** The app is local-first, so a phone or laptop you have already studied on holds progress that your account has never seen. The app asks before it uploads anything, and shows what is on each side (for example "10 questions answered · 2 skills rated · 2 sections read" on the device and "5 questions answered · 3 skills rated · 1 section read" in the account):
+  - **Keep both** (shown as **Add to my account** when the account is still empty) combines the two. Nothing is deleted: practice history and reading marks from both are kept, question counts from both devices are *added together*, and if the same skill was rated differently, this device's rating is kept. Choose this when the progress on this device is separate from the account's (for example you studied here before signing in). It is the safe choice when in doubt.
+  - **Use my account's progress** replaces this device's progress with the account's (the confirmation says exactly what will be removed). Choose it when the device only holds a *copy* of what the account already has (for example a restored backup, or after deleting your cloud data and signing in again), so the same attempts are not counted twice, and on a shared device that someone else has used. It is not offered when the account is empty, because there would be nothing to replace it with.
 - **A new phone.** Install the app, sign in, and your progress downloads.
 - **Offline.** Everything works. Changes are kept and sync when you are back online. Settings > Account & sync shows the current state.
 - **Sign out.** Signs this device out. The progress stays on the device unless you also choose *Also remove progress from this device* (use that on a shared phone or computer). Before removing anything the app first tries to upload, and if something could not be uploaded it tells you and asks again, so a signed-out device never silently loses progress that was not saved.
@@ -169,7 +169,7 @@ You (the project owner) can see accounts and rows in the Supabase dashboard, as 
 | "The cloud database is not set up yet (missing function)" | Run the SQL in step 2. |
 | "Could not reach the cloud" for a long time | No connection, or the free project was paused. Open the Supabase dashboard and restore it. |
 | "Your sign-in expired" | Tap *Sign in again*. Your progress on the device is untouched. |
-| Signed in, but nothing syncs | The first sign-in on a device with progress waits for your choice; look for the *This device already has progress* box in Settings. |
+| Signed in, but nothing syncs | The first sign-in on a device with progress waits for your choice; look for the *This device already has study progress* box in Settings. |
 | "One item could not be saved to the cloud (...)" | The cloud refused that item, for example because it is too large or a limit was reached. It stays on the device and is retried every few minutes. The rest of your progress is synced normally. |
 | Works in Safari but not from the Home Screen | See [iPhone Home Screen and sign-in](#iphone-home-screen-and-sign-in). |
 
