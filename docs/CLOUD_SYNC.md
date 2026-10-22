@@ -66,18 +66,22 @@ For each provider, **Authentication > Sign In / Providers** has a switch plus a 
 3. Create the app, then **Generate a new client secret**. Paste the Client ID and the secret into Supabase and enable the provider.
 
 **Google**
-1. Google Cloud Console > create or choose a project > **Google Auth Platform** (OAuth consent screen). User type **External**; fill in the app name and your email.
-2. Create an **OAuth client ID** of type **Web application**. Under **Authorized redirect URIs** add the Supabase callback URL.
-3. Paste the Client ID and secret into Supabase and enable the provider.
-4. While the consent screen is in **Testing**, only the test users you list can sign in. To let anyone you share the app with sign in, switch the publishing status to **In production**. The app asks only for the basic profile and email, which does not need Google's app verification.
+1. Google Cloud Console (<https://console.cloud.google.com>): create or choose a project. It is free and needs no billing for sign-in.
+2. Open the **Google Auth Platform** (<https://console.cloud.google.com/auth/overview>) and choose **Get started**: app name `CertStudy`, your email as the support email, audience **External**, your email as the contact.
+3. **Data Access**: add the scopes `openid` (it has to be added by hand), `.../auth/userinfo.email` and `.../auth/userinfo.profile`, then save. These are Google's basic scopes.
+4. **Clients > Create client**: type **Web application**. **Authorized JavaScript origins**: `https://jwhit49.github.io` (the address without the `/certstudy/` part). **Authorized redirect URIs**: the Supabase callback URL. Create it, then copy the Client ID and the client secret straight away (Google shows the secret only when it is created).
+5. Paste both into Supabase (Google provider), enable it and save.
+6. **Audience**: while the app is in **Testing**, only the test users you list can sign in, so add your own Google account there. To let anyone you share the app with sign in, choose **Publish app** (status **In production**). The app asks only for the basic profile and email, which does not need Google's app verification. The consent screen shows your Supabase project address unless you set up branding or a custom domain.
 
-**Microsoft**
-1. Microsoft Entra admin center (or Azure portal > Microsoft Entra ID) > **App registrations** > **New registration**.
-2. **Supported account types**: *Accounts in any organizational directory and personal Microsoft accounts* (so work, school and personal accounts all work).
+**Microsoft** (covers Outlook.com, Hotmail and Live addresses as well as work and school accounts)
+1. Microsoft Entra admin center (<https://entra.microsoft.com>, or Azure portal > Microsoft Entra ID) > **App registrations** > **New registration**. A work tenant may stop you from registering apps that allow personal accounts; if so, sign in with a personal Microsoft account instead. This is free and needs no Azure subscription.
+2. **Supported account types**: *Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)*. This is what lets Outlook.com accounts and work or school accounts all sign in.
 3. **Redirect URI**: platform **Web**, value the Supabase callback URL. Register.
 4. Copy the **Application (client) ID**. Under **Certificates & secrets** create a **New client secret** and copy its **Value** (not the Secret ID). Note its expiry date: sign-in with Microsoft stops when it expires, so create a new one before then.
 5. In Supabase enable **Azure** and paste the Client ID and secret. Leave the tenant URL empty (it defaults to `common`).
-6. Recommended hardening (from Supabase's guide): in the app registration open **Manifest**, back it up, and set `optionalClaims` to include `xms_edov` and `email` for the ID token (and `xms_edov` for the access token), then save. See <https://supabase.com/docs/guides/auth/social-login/auth-azure>.
+6. Recommended before you share the app with others (Supabase's hardening advice): in the app registration open **Manifest**, back it up, and set `optionalClaims` to include `xms_edov` and `email` for the ID token (and `xms_edov` for the access token), then save. See <https://supabase.com/docs/guides/auth/social-login/auth-azure>.
+
+Signing in with different providers: Supabase links sign-ins that share the same email address into one account, so the same person using GitHub and Google with the same email sees the same progress. A provider that uses a different email creates a separate account with its own, separate progress.
 
 ### 5. Switch the app on
 
