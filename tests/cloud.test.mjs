@@ -66,9 +66,14 @@ test('cloud.json: a switched-off file is still checked, because it is published 
     assert.match(r.errors.join(' '), pattern);
   }
   assert.equal(parseCloudConfig({ enabled: false, publishableKey: jwt('anon'), _comment: 'the public anon key is fine' }).ok, true);
-  // the file that ships in the repository must always pass
+  // the file that ships in the repository must always be valid, whether or not cloud sync is switched on in it
   const shipped = JSON.parse(await readFile(new URL('../cloud.json', import.meta.url), 'utf8'));
-  assert.deepEqual(parseCloudConfig(shipped), { ok: true, config: null });
+  const parsed = parseCloudConfig(shipped);
+  assert.equal(parsed.ok, true, JSON.stringify(parsed.errors));
+  if (parsed.config) {
+    assert.match(parsed.config.url, /^https:\/\/[a-z0-9]+\.supabase\.co$/);
+    assert.ok(parsed.config.publishableKey.startsWith('sb_publishable_'));
+  }
 });
 
 test('cloud.json: loading never throws and ignores unusable files', async () => {
