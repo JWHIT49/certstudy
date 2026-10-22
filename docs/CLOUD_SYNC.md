@@ -79,7 +79,7 @@ For each provider, **Authentication > Sign In / Providers** has a switch plus a 
 3. **Redirect URI**: platform **Web**, value the Supabase callback URL. Register.
 4. Copy the **Application (client) ID**. Under **Certificates & secrets** create a **New client secret** and copy its **Value** (not the Secret ID). Note its expiry date: sign-in with Microsoft stops when it expires, so create a new one before then.
 5. In Supabase enable **Azure** and paste the Client ID and secret. Leave the tenant URL empty (it defaults to `common`).
-6. Recommended before you share the app with others (Supabase's hardening advice): in the app registration open **Manifest**, back it up, and set `optionalClaims` to include `xms_edov` and `email` for the ID token (and `xms_edov` for the access token), then save. See <https://supabase.com/docs/guides/auth/social-login/auth-azure>.
+6. Optional hardening (Supabase recommends it, although a new multitenant app is not normally affected): in the app registration open **Manifest**, back it up, and set `optionalClaims` to include `xms_edov` and `email` for the ID token (and `xms_edov` for the access token), then save. This lets Supabase know for certain whether Microsoft's email address is verified. See <https://supabase.com/docs/guides/auth/social-login/auth-azure>.
 
 Signing in with different providers: Supabase links sign-ins that share the same email address into one account, so the same person using GitHub and Google with the same email sees the same progress. A provider that uses a different email creates a separate account with its own, separate progress.
 
